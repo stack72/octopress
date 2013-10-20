@@ -1,0 +1,23 @@
+---
+layout: post
+title: "Automated UI Testing - Part 1 - WatiN"
+comments: true
+---
+<p>Its been an absolute age since i last blogged so i thought my recent experience was worth talking about.</p>
+<p>A few months back I discovered a tool called <a href="http://watin.sourceforge.net/" target="_blank">WaiN</a>. This is based on WatiR and is a web application testing tool for Dot Net developers. After doing a few little test applications i started to see the benefit of using this application in my development. The best thing i could see it could do for me was making sure my pre testing cycle smoke checks were all run and passing. This would save time in fixing little UI bugs spotted by QA testers.</p>
+<p>For those who don't know what WatiN does then look at the following code:</p>
+<pre class="brush:csharp">[Test]
+public void SearchForWatiNOnGoofle()
+{
+    using(IE browser = new IE("http://www.google.com"))
+    {
+        browser.TextField(Find.ByName("q")).TypeText("WatiN");
+        browser.Button(Find.ByName("btnG")).Click();
+        Assert.IsTrue(browser.ContainsText("WatiN"));
+    }
+}
+</pre>
+<p>Within the class add a reference to WatiN.Core.dll and Nutit.framework.dll and then run this little test app. What will happen is a new instance of IE will spin up [other browsers can be run if necessary using further references]. It will search teh page for the textbox with the name 'q' and enter the text 'WatiN'. It will then find the button called 'btnG' and click it.</p>
+<p>This will then give us the results and it checks to make sure that the results include the term 'WatiN'. Pretty easy &nbsp;to follow eh?</p>
+<p>I could really see the potential of how this could be used to see how a site behaves when certain things are done e.g. logging in as a user and making sure that user has the correct options available to them etc.</p>
+<p>This was my first forage into the world of what i now know as BDD (behavioural driven development) and automated UI testing.&nbsp;</p>

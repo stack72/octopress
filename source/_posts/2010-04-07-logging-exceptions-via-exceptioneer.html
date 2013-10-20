@@ -1,0 +1,53 @@
+---
+layout: post
+title: "Logging Exceptions via Exceptioneer as well as Ent Lib 3.1"
+comments: true
+---
+<p>I currently use Enterprise Logging 3.1 and i know it can be configured to do what i want with it but it still has horrible log files that no-one likes to review.&nbsp;Over the past few months i have been looking at Exceptioneer - <a href="http://exceptioneer.com/Public/Demonstration.aspx" target="_blank">use this link to find out more</a>. I would continue to use exceptioneer in tandem with enterprise logging as it is a 3rd party service [and my boss would never let me move solely to exceptioneer :)].&nbsp;</p>
+<p>I followed the steps to integrate exceptioneer from their site - addition of the .dll file and addition of the sections inside web.config. But this didnt work with Enterprise logging as the exceptions were not unhandled - i have customer code in order to handle the exceptions</p>
+<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
+{
+	UIExceptionHandler.HandleException(Server.GetLastError(), true);
+}
+</pre>
+<p>Pretty simple i know! so i took advantage of this method were all my UI exceptions were being routed to - therefore i was able to call the Exceptioneer client straight from here. i added a reference to Exceptioneer.WebClient.dll and added in a little custom code [i have changed my APIKey and application name to a config property so they can be managed without a redeployment]</p>
+<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
+{
+         var wc = new Client
+                            {
+                              ApiKey = Config.Settings.ExceptioneerApiKey,
+                              ApplicationName = Config.Settings.ExceptioneerApplicationName,
+                              CurrentException = Server.GetLastError()
+                            };
+          wc.Submit(); 
+         UIExceptionHandler.HandleException(Server.GetLastError(), true);
+}
+</pre>
+<p>Then worried about what would happen if i couldnt connect to Exceptioneer, so i added a try catch to it and also i didnt want to log local exceptions to exceptioneer. Therefore my final method was as follows:</p>
+<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
+{
+            try
+            {
+                if (Config.Settings.EnableExceptioneerLogging)
+                {
+                    var wc = new Client
+                                 {
+                                     ApiKey = Config.Settings.ExceptioneerApiKey,
+                                     ApplicationName =               Config.Settings.ExceptioneerApplicationName,
+                                     CurrentException = Server.GetLastError()
+                                 };
+                    wc.Submit(); 
+                }
+            }
+            catch (Exception)
+            {
+                Logger.Write("Cannot connect to Exceptioneer", "Admin Exceptions");
+            }
+            finally
+            {
+                UIExceptionHandler.HandleException(Server.GetLastError(), true);
+            }
+}
+</pre>
+<p>Im seriously chuffed with this product and would recommend this to anyone! <strong><span style="text-decoration: underline;">They even give you a free version that lets you log 2000 exceptions a month via 3 applications</span></strong>. As soon as i can ill be upgrading to the next account level to get more of our work stuff in here!</p>
+<p>Thanks again Exceptioneer!</p>

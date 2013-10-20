@@ -1,0 +1,13 @@
+---
+layout: post
+title: "TeamCitySharp now builds with Mono"
+comments: true
+---
+<p>I am pleased to be able to say that <a href="http://github.com/stack72/TeamCitySharp" target="_blank">TeamCitySharp</a> is now supports <a href="http://www.mono-project.com/" target="_blank">mono</a>. In order to get the project supported I had to change a few parts of the system.</p>
+<p>Up until now, each project within the solution has a &ldquo;BeforeBuild&rdquo; event that downloaded the nuget packages needed to build the solution. This was in place to keep the github repository small enough to facilitate a fast download for people who fork it. <a href="http://www.nuget.org" target="_blank">Nuget</a> doesn&rsquo;t work with mono so there was a trade off I had to make. In this instance I chose supporting mono over the &ldquo;BeforeBuild&rdquo; event. This does mean that once the repository is cloned or forked. then it will work instantly. I hope to revisit this if / when someone manages to get nuget working with mono.</p>
+<p>The sample build monitor was a standard ASP.NET MVC 3 project. I found that this didn&rsquo;t build with mono out of the box. It was throwing errors due to the references contained. The following references were present:</p>
+<p><a href="http://paulstack.co.uk/blog/images/before.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="before" src="http://paulstack.co.uk/blog/images/before_thumb.gif" alt="before" width="189" height="317" border="0" /></a></p>
+<p>On running a reference analysis, I was able to see that the following references were not used:</p>
+<p><a href="http://paulstack.co.uk/blog/images/ToRemove.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="ToRemove" src="http://paulstack.co.uk/blog/images/ToRemove_thumb.gif" alt="ToRemove" width="240" height="227" border="0" /></a></p>
+<p>This meant that only the core references were left behind. This meant that the entire solution was able to build under mono.</p>
+<p>In order to build the project with mono, you can run the following command: <br /><strong>xbuild TeamCitySharp.sln</strong></p>

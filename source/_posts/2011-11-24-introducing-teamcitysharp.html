@@ -1,0 +1,15 @@
+---
+layout: post
+title: "TeamCitySharp"
+comments: true
+---
+<p><a href="http://github.com/stack72/TeamCitySharp">TeamCitySharp</a> (TCS) is a simple .net wrapper that will let you interact with a TeamCity server providing you have a login for that system. TeamCity has a REST API but this wrapper will help simplify the calls that that API and deserialize the response for the server into POCOs for you.</p>
+<p>In order to get a list of projects on a TeamCity server you would make the request to the following URL:</p>
+<p><a href="http://&lt;serverurl&gt;/httpAuth/app/rest/projects">http://&lt;serverurl&gt;/httpAuth/app/rest/projects</a></p>
+<p>In order to interact with this, you could use <a href="https://github.com/hhariri/EasyHttp">EasyHTTP</a> or HTTP WebRequest. You would set up a connection, specify a content type, give user credentials and then get a response back that you can use. TeamCitySharp has taken care of this for you. The corresponding code to make the same code using TeamCitySharp would be as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/2a382b5c0699444d8cf4.js"></script>
+<p>There are a number of methods available that will let you get projects, build status&rsquo;, build types, users, agents, user groups and server information. The project cannot be used to create projects or build types. This is due to the absence of the appropriate calls on the TeamCity REST API. A full list of functionality of the TeamCitySharp API calls can be found in the <a href="http://github.com/stack72/TeamCitySharp/blob/master/README.md">documentation</a>.</p>
+<p>I have created a TeamCitySharp <a href="http://nuget.org/List/Packages/TeamCitySharp">nuget package</a> and you can install that from nuget command line using the comment:</p>
+<p><strong>install-package TeamCitySharp</strong></p>
+<p>This is very much an early version of the project in order to get user feedback. If you do try it then please do let me know what you don&rsquo;t like about it and what you feel it would benefit from. Thanks really must go to <a href="http://twitter.com/hhariri">Hadi Hariri</a> for the idea after I saw&nbsp;<a href="https://github.com/JetBrains/YouTrackSharp">YouTrackSharp</a>.</p>
+<p>Please feel free to fork the project and send any requests back you feel the project would benefit from. The project is distributed under the <a href="http://stack72.mit-license.org/">MIT license</a> so please adhere to this when using it.</p>

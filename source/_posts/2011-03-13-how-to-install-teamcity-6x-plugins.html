@@ -1,0 +1,36 @@
+---
+layout: post
+title: "How to Install TeamCity 6.x Plug-in"
+comments: true
+---
+<p>When installing Teamcity plug-ins, you need to find out what version of TeamCity the plugin was designed for. This will more than likely be stated on the supporting documentation on the TeamCity confluence site. Lets use the <a href="http://confluence.jetbrains.net/display/TW/PowerShell" target="_blank">Powershell plugin</a> as an example as that is designed for Teamcity 6.x</p>
+<p>In order to install this plugin:</p>
+<ul>
+<li>Download the .zip </li>
+<li>
+<div>Open a command line and go to TeamCity bin folder</div>
+<ul>
+<li>
+<div>(C:\Program Files (x86)\JetBrains\TeamCity\bin)</div>
+</li>
+</ul>
+</li>
+<li>
+<div>Run the command: runAll.bat stop</div>
+</li>
+<li>
+<div>Go to the build server plug-ins folder</div>
+<ul>
+<li>
+<div>(C:\Program Files (x86)\JetBrains\TeamCity\buildServer\plugins)</div>
+</li>
+</ul>
+</li>
+<li>
+<div>Drop the .zip file into the folder</div>
+</li>
+<li>
+<div>Go back to the command line and restart the TeamCity build server: runAll.bat start</div>
+</li>
+</ul>
+<p>The build agent will then load the plugin. Hope it helps :)</p>

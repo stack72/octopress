@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Strange Error In Visual Studio 2010"
+comments: true
+---
+<p>Ok i have converted some of the solutions i use to run via Visual Studio 2010 RC. When trying to debug one today i came across this error</p>
+<p><img style="border: 0px initial initial;" src="/blog/images/2010/2/error.GIF" alt="" /></p>
+<p>it was rather a strange one and i couldnt really work it out. this was a fresh solution upgrade to VS2010 RC. i followed the prompt when loading the solution to create the virtual directory in IIS</p>
+<p>when i checked IIS it had set the application pool incorrectly for me</p>
+<p><img style="border: 0px initial initial;" src="/blog/images/2010/2/IIS.gif" alt="&lt;mce:script type=" /></p>
+<p>simply setting the application pool in the image above to as follows:</p>
+<p><img src="/blog/images/2010/2/apppool.GIF" alt="" /></p>
+<p>solved the problem. Hope this helps :)</p>

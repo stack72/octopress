@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Getting Started With Simple.Data"
+comments: true
+---
+<p>To continue in my evangelism of Simple.Data, I have decided to write a series of posts about how to use the product. The first part is how to get started with Simple.Data. This post will simple describe how we actually incorporate Simple.Data in an application.</p>
+<ul>
+<li>Download the source from Github - <a href="http://github.com/markrendle/Simple.Data">http://github.com/markrendle/Simple.Data</a> </li>
+<li>Open the .sln file and build it </li>
+<li>When the project is built then the required libraries are in the following location: &lt;solutiondirectory&gt;\Simple.Data\bin\&lt;configuration&gt;\ </li>
+<li>The required files are Simple.Data.dll, Simple.Data.pdb </li>
+<li>Add the files above to your lib or assemblies directory </li>
+<li>Reference Simple.Data.dll from your application </li>
+<li>Add the following to your web.config </li>
+</ul>
+<p>&lt;?xml version="1.0" encoding="utf-8" ?&gt;    <br />&lt;configuration&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;configSections&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;/configSections&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;connectionStrings&gt;     <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;add name="Simple.Data.Properties.Settings.ConnectionString"     <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; connectionString="server&rdquo;;initial catalog=&rdquo;databasename&rdquo;;integrated security=true" /&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;/connectionStrings&gt;     <br />&lt;/configuration&gt;</p>
+<p>&nbsp;</p>
+<p>That's it! We are now ready to actually start querying your database.</p>

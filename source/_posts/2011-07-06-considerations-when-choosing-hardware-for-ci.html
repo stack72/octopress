@@ -1,0 +1,23 @@
+---
+layout: post
+title: "Considerations when choosing hardware for CI"
+comments: true
+---
+<p>This post is the second post in a series on how CI will help a development team. The first post talks about the <a href="http://paulstack.co.uk/blog/post/How-to-get-started-with-CI.aspx" target="_blank">benefits that CI will bring to the team</a>. (CI = continuous integration)</p>
+<p>So you have decided to try and introduce CI into your team? Good choice! This can be a pretty tough time for you. You will need to justify any cost and infrastructure required and you <strong>may</strong> face questions about the choices you make. You should not let implementation of CI impact your day to day role or the company may question where your time is being spent. CI should be quick and easy to get running and then projects be moved to it over a period of time.</p>
+<p>Below are some of the hardware options to consider when introducing a CI environment to a team/company:</p>
+<h5>Server</h5>
+<p>If you manage to get yourself a full server setup for your first CI implementation then I am very jealous! Servers cost money to buy, setup and maintain so you have either done a great job of selling the benefits or your company have really bought into the entire concept. Or both! Good work!</p>
+<h5>Spare Development Machine</h5>
+<p>If you can&rsquo;t get a server and there is a small budget available then I would suggest getting yourself a development standard machine to start using. This only needs access to the network and source control. IF there is 0 budget available but you have an old development lying spare then use that instead. This will be plenty powerful enough to run CI tooling and is a common starting point.</p>
+<h5>Virtual Machine</h5>
+<p>If you can&rsquo;t get a server or a physical development machine then don&rsquo;t worry. The battle is not lost here. You can run a VM somewhere (testing server maybe) that will act as a CI server. Of course this will not be hugely powerful, but it is perfectly acceptable to start with this. This is actually all I was able to get by my company. It was cheap (existing infrastructure) and fast to setup (they have a standard way of deploying VMs).</p>
+<h5>Local CI server</h5>
+<p>This is my least preferred option. But if there is nothing else you have access to then it will act as a decent starting point. The trouble with running a CI server locally is that the machine may have all the dependencies installed (VS, SDKs etc.) and the process may be able to find any references that would be classed as &ldquo;missing&rdquo; on other infrastructure, from the GAC. This could result is false positives when running builds. This can then lead to bum deployments where files or references are missing that can cause hassle for your application.</p>
+<h4>So how do I choose one?</h4>
+<p>A lot of the decision will come down to what you actually want to do with it. Lets think of the scenario 30 developers checking in 5 times a day and there is a version control trigger to build on check in then of course we need something that's powerful in order to process these queued builds. The other implication here &ndash; build time &ndash; but we will talk about that later. It would not be feasible for a local machine to be doing this amount of processing as this would effectively cut your development time. But if you had 2 developers who were doing only a few check ins a day then a less powerful machine is viable.</p>
+<p>The tip here is to think about your current setup &ndash; good VCS habits mean multiple check ins and lots of developers mean higher spec machine is needed &ndash; in this case a VM or local machine may not be viable.</p>
+<p>DVCS (git or Hg) can mean less pushes to main repo by developers and less builds required. Thus the local machine or VM could be viable.</p>
+<p>Regardless of which option you take, remember the golden rule. <strong>CI servers should be as free of installed dependencies as possible in order to mimic the live environments. </strong>There will be a later post to talk about installed dependencies.</p>
+<p>This article has tried to point out some of the infrastructure choices that we have when initially introducing CI to a tam. It is not an exhaustive list but it is the options I had when I have setup my own environments. If you feel any others should be added then please leave comment and I will update the list.</p>
+<p>The next post will talk about the different options available for CI tooling and how to choose the correct tool for you.</p>

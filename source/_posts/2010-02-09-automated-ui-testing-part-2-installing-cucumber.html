@@ -1,0 +1,68 @@
+---
+layout: post
+title: "Automated UI Testing - Part 2 - Installing Cucumber"
+comments: true
+---
+<p>OK, so after my foraging into WatiN, I really wanted to push things a bit further and begin to look at other ways of automating UI testing. This is when I was pointed in the direction of <a href="http://cukes.info/">Cucumber</a>.</p>
+<p>Cucumber lets software development teams describe how software should behave in plain text. The text is written in <a href="http://www.martinfowler.com/bliki/BusinessReadableDSL.html">business-readable domain-specific language</a> and serves as documentation, automated tests and development-aid - all rolled into one format. [Thanks to cukes.info for the blurb :)]</p>
+<p>To install Cucumber i have had a nightmare following many many different guides. the way i installed it works as follows:</p>
+<ol>
+<li>Download the one click ruby installer from <a href="http://www.rubyinstaller.org/download.html">here</a> [I installed the 1.91 version]</li>
+<li>install Ruby [the path I installed to was c:/ruby19] as this does not come with the new installer</li>
+<li>Download the Ruby Development kit from <a href="http://wiki.github.com/oneclick/rubyinstaller/development-kit">here</a></li>
+<li>Extract the location of the Ruby development kit to the ruby install path [for me c:/ruby19]</li>
+<li>The last change i had to make was to update the Ruby development kit to show the path for my ruby installation</li>
+<li>C:\Ruby19\devkit\msys\1.0.11\etc\fstab</li>
+<li>This just required changing c:\ruby to c:\ruby19 in the paths</li>
+<li>Start &gt; All Programs &gt; Ruby 1.9.1-p243 &gt; Start Ruby With Console to open the command line tool</li>
+<li>We need to add gemcutter.org to our list of Ruby Gem sources                
+<ul>
+<li>Do this by typing</li>
+<li>gem sources -a http://gemcutter.org/</li>
+</ul>
+</li>
+<li>Install Cuke4Nuke gem              
+<ul>
+<li>Do this by typing</li>
+<li>gem install cuke4nuke</li>
+</ul>
+</li>
+<li>Install the Win32Console gem to get colour reports in the windows console window              
+<ul>
+<li>Do this by typing</li>
+<li>gem install win32console</li>
+</ul>
+</li>
+<li>Save a copy of WAC to work out console colour problems. Download it <a href="http://github.com/aslakhellesoy/wac/raw/master/wac.exe">here</a> 
+<ul>
+<li>I saved this to an easy path - c:/wac.exe</li>
+</ul>
+</li>
+</ol>
+<p>To check all is working, open a command line and type</p>
+<p>Cuke4Nuke</p>
+<p>If all is working well then you will see a list of help commands</p>
+<p>My product didn't install correctly at this point due to location of ruby files. So i had to make a few changes as detailed. Please note that this is my installation paths and the paths should be changed to your versions:</p>
+<ul>
+<li>My console ANSI file was not reporting the correct encoding            
+<ul>
+<li>C:\Ruby19\lib\ruby\gems\1.9.1\gems\win32console-1.2.0-x86-mingw32\lib\Win32\Console\ANSI.rb</li>
+<li>I added the following to the first line of this file           
+<ul>
+<li># encoding: ISO-8859-1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The change detailed above then reports an error in a ruby18.dll     
+<ul>
+<li>removing this files solves this error     
+<ul>
+<li>C:\Ruby19\lib\ruby\gems\1.9.1\gems\win32console-1.2.0-x86-mingw32\lib\Win32\console.so</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Hopefully when you run a command line and type Cuke4Nuke the help options will show</p>
+<p>Next post will be a sample application that can be run via Cuke4Nuke</p>

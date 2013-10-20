@@ -1,0 +1,20 @@
+---
+layout: post
+title: "Using Sql Compare from the Command Line"
+comments: true
+---
+<p>In March, I wrote a post about how to <a href="http://paulstack.co.uk/blog/post/Extracting-a-Sql-Server-Schema-from-Sql-Server-CE-File.aspx" target="_blank">generate sql schema scripts from a SQL CE4 database file</a> from the command line. After working out how to do this I wanted to be able to take the generate sql server schema (in .sql file) and compare it against an existing schema. The resulting differences would then generate a sql change script.</p>
+<p>I tried <a href="http://www.red-gate.com/products/sql-development/sql-compare/" target="_blank">Sql Compare</a>, a Redgate tool, and this seemed to prove effective for what I was able to do. After doing a bit of research I was able to find out that Sql Compare isn&rsquo;t able to compare individual .sql files. BUT you could give it a directory path and compare ALL the .sql files in a directory.</p>
+<p>Previously I generated a schema.sql file and placed this file in the following folder: c:\temp\schema</p>
+<p>I had an old sql schema file that from previously investigatations with .sdf file. I took one of those files and put it in c:\temp\oldschema</p>
+<p>I was then able to run the command as follows from the command prompt:</p>
+<p>cd "C:\Program Files\SQL Compare 8"</p>
+<p>sqlcompare.exe    <br />&nbsp;&nbsp;&nbsp; /scr1:"C:\temp\new"     <br />&nbsp;&nbsp;&nbsp; /scr2:"C:\temp\oldschema"     <br />&nbsp;&nbsp;&nbsp; /o:Default     <br />&nbsp;&nbsp;&nbsp; /ScriptFile:"C:\temp\SqlChangeScript.sql"</p>
+<p>This script effectively says to compare the old schema files (scr2) against the new schema files (scr1) . O:/default specifies that the default options for comparison and synchronisation will be used. The resulting sql change script will be saved as SqlChangeScript.sql. I could have changed the last option from /ScriptFile to /sync which would have run the synchronisation in place and not produced the change file. I wanted the change file for version control and release history.</p>
+<p>When running this through the command line I was able to see the following:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_20.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_20.png" border="0" alt="image" width="398" height="245" /></a></p>
+<p>This worked perfectly and generated a change script that has everything rolled in a transaction to make sure no errors will run. The nice touch here is that there are messages printed when an action is started.</p>
+<p>I didnt want to keep 2 schema files on my build server for comparison so I then started to look at how to compare the new schema file against the database itself. Low and behold this is also available with Sql Compare and works as follows:</p>
+<p>sqlcompare.exe    <br />&nbsp;&nbsp;&nbsp; /scr1:"C:\temp\new"     <br />&nbsp;&nbsp;&nbsp; /Server2:"&lt;server name or ip&gt;" /db2:"&lt;database name&gt;"     <br />&nbsp;&nbsp;&nbsp; /o:Default     <br />&nbsp;&nbsp;&nbsp; /ScriptFile:"C:\temp\SchemaSyncScript.sql"</p>
+<p>The only difference here is to change the /scr2 to actually be a database instead of another sql server file.Again this worked as expected and created a nice sql change script that I could then use for database deployment.</p>
+<p>If you have any aspirations of automated database deployment then I think that you should try the trial of Sql Compare. It has been very useful for me. I&rsquo;m just very glad my company already had a company of it I could use for the build server. As this process can be run from command line it can also be run from MSBuild and as part of a TeamCity build. To be continued&hellip;&hellip;&hellip;&hellip;&hellip;</p>

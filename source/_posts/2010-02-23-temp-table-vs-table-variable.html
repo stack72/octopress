@@ -1,0 +1,52 @@
+---
+layout: post
+title: "Temp Table vs Table Variable"
+comments: true
+---
+<p>Over the past month or so i have seen the difference between table variables and temporary tables. I thought id write a little post about it incase anyone finds it useful:</p>
+<h3>Temp Tables:</h3>
+<ul>
+<li>temp table is created and populated in the system database tempdb - this means it actually exists for an amount of time</li>
+<li>it has session specific idenitifiers to differentiate between other temp tables</li>
+<li>the table [and data] is only visible to the current scope</li>
+<li>table gets cleared up automatically when the procedure goes out of scope</li>
+<li>Data needs cleared manually &nbsp;when finished</li>
+</ul>
+<pre class="brush:sql">CREATE TABLE #temptablename
+(
+    Id INT,
+    Name VARCHAR(50)
+)
+
+--PROCEDURE GOES HERE
+
+DROP TABLE #temptablename
+</pre>
+<p>The use of DROP TABLE here means that resources are freed up as soon as possible rather than letting the system clean up after the session expires. Some of the problems with temp tables is that the title is limited to 116 characters because of the session specific identifiers and if you wrap the temp table in a transaction and dont commit the transaction then you could cause unnecessary locks in tempdb.</p>
+<h3>Table Variables:</h3>
+<ul>
+<li>A table variable is performed in memory and t
+<script src="http://www.paulstack.co.uk/blog/editors/tiny_mce3/themes/advanced/langs/en.js" type="text/javascript"></script>
+herefore is slightly faster in performance that temp tables.</li>
+<li>There will be less locking as well.</li>
+<li>There are concerns that I/O is still performed to tempdb but this is largely unconfirmed.</li>
+<li>Table variables are auto cleared when the procedure goes out of scope so no structure or data needs cleared. This can be a bad thing as you cant release it
+<script src="http://www.paulstack.co.uk/blog/editors/tiny_mce3/themes/advanced/langs/en.js" type="text/javascript"></script>
+early</li>
+<li>tempdb transaction log doesn't get clogged up by table variables</li>
+<li>table variables can lead to fewer stored procedure recompilations</li>
+</ul>
+<pre class="brush:sql">DECLARE @tblVariable TABLE
+(
+    Id INT,
+    Name VARCHAR(50)
+)
+
+--PROCEDURE GOES HERE
+
+</pre>
+<h3>Which is the best to use?</h3>
+<p>As table variables sound great why don't we always use them? well they are only available in SQL 2000 + with compatability level of 80 or higher. you cannot truncate a table variable. you cannot alter a table variable after declaration. you cannot add an index to a table variable but you can create a PRIMARY KEY constraint and as many UNIQUE CONSTRAINTS as needed. you cannot drop a table variable like you can with a temp table.</p>
+<p>The big drawback from table variables is that inserting into them will not take advantage of parallelism.</p>
+<p>Therefore i have decided that, with any conflicting technologies, both are good to use in their own right. The decision will come down to performance, and amount of data. As the data gets bigger #temp tables become more effective due to no indexing.</p>
+<p>Try them both and see what your preference is - as for me I'm happy on my wall :)</p>

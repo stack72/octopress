@@ -1,0 +1,40 @@
+---
+layout: post
+title: "How-to-Create-and-Fill-and-IEnumerable<string>"
+comments: true
+---
+<p>Very simple tip i found at <a href="http://www.devevening.co.uk" target="_blank">DevEvening</a> tonight from <a href="http://blog.markrendle.net/" target="_blank">Mark Rendle</a></p>
+<p>To create a new IEnumerable&lt;string&gt; and add items to that IEnumerable&lt;string&gt; then something very small along the lines of:</p>
+<pre class="brush: csharp">        private static IEnumerable GetStrings()
+        {
+            yield return "a";
+            yield return "b";
+            yield return "c";
+            yield return "d";
+            yield return "e";
+            yield return "f";
+            yield return "g";
+            yield return "h";
+            yield return "i";
+            yield return "j";
+            yield return "k";
+            yield return "l";
+            yield return "m";
+            yield return "n";
+        }
+</pre>
+<p>I'm sure most of you knew this but it was never something i knew how to do. i usually ended up doing something along the lines of</p>
+<pre class="brush: csharp">        private static IEnumerable ConvertListToIEnumberable()
+        {
+            var&gt; listStrings = new List();
+            listStrings.Add("a");
+            listStrings.Add("b");
+            listStrings.Add("c");
+            listStrings.Add("d");
+            listStrings.Add("e");
+
+            IEnumerable ienumString = listStrings;
+            return ienumString;
+        }
+</pre>
+<p>Possibly useful to you, possibly not as you may already know it :)</p>

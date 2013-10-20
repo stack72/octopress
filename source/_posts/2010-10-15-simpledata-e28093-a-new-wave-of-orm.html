@@ -1,0 +1,56 @@
+---
+layout: post
+title: "Simple.Data – a new wave of ORM?"
+comments: true
+---
+<p>A while back I seen some tweets from <a href="http://twitter.com/markrendle" target="_blank">Mark Rendle</a> on his version of Microsoft.Data, Simple.Data, as it seemed to be causing distress for developers when it was announced earlier.</p>
+<p>I offered to give Simple.Data a trial for Mark as I was doing a small personal project at the time that was far too simple to use a well known ORM or a horrible amount of ADO.NET code. So after getting the sample solution from Mark and reading through the integration and unit tests, my eyes were opened up to a new wave of ORM.</p>
+<p>Lets talk about the requirements of adding this ORM to our solution:</p>
+<ul>
+<li>.Net 4 framework </li>
+<li>Connectionstring called Simple.Data </li>
+<li>References to                  
+<ul>
+<li>Simple.Data.dll </li>
+<li>Simple.DataSetExtensions.dll </li>
+</ul>
+&nbsp;&nbsp;&nbsp; </li>
+</ul>
+<p>Yes that's it! Its that easy. I was suitably impressed straight away as I have played with a&nbsp; few ORMs that require some configuration and mappings files to be created. This was very early on for Simple.Data, so there was not much documentation. In-fact the tests <strong>were</strong> the documentation :)</p>
+<p>So I was using this to kill the need to use ADO.NET and we all know how much code we would have had to write to get that working. In fact, I'm sure I would have used Enterprise Library or something to get it going and make things easier. (Lets assume I would have used Ent. Lib for code examples.)</p>
+<p>First off was to write some code to select data from a users table. With ADO.NET the code would have looked as follows:</p>
+<pre class="brush:csharp">public User GetUserById(int userId)
+{
+    var returnedUser = new User();
+    try
+    {
+        var command = db.GetStoredProcCommand("storedprocname", userId);
+	    var reader = db.ExecuteReader(command);
+	    while (reader.Read())
+	    {
+	        returnedUser = User.GetUserDetails(reader);
+	    }
+    }
+    catch (Exception ex)
+    {
+        DataAccessExceptionHandler.HandleSqlException(ex);
+    }
+    
+    return returnedUser;
+}</pre>
+<p>How does this look with Simple.Data? Well as simple as this:</p>
+<pre class="brush:csharp">public User GetUserByUserId(int userId)
+{
+    dynamic db = Database.Open();
+    var dbUser = db.Users.FindByUserId(userId);
+
+    if (dbUser != null)
+    {
+        return dbUser;
+    }
+    else
+        return new User();
+}
+</pre>
+<p>This makes it a LOT simpler and no need for a stored procedure. Basically it uses the dynamic keyword of C# in order to get the properties of the User table for a specified user and then puts the column names and their values in the dynamic object.</p>
+<p>The same shortening and less complex methods are in place for getting lists of users and items from the database as well as inserting (using Named parameters) and also deleting rows by a specified column name. This was a basic introduction about how easy I found Simple.Data to use. Please read more about <a href="http://blog.markrendle.net/2010/08/introducing-simpledata.html" target="_blank">Simple.Data at Mark Rendle's blog</a></p>

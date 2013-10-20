@@ -1,0 +1,22 @@
+---
+layout: post
+title: "PostSharp 2.0 and TeamCity Integration"
+comments: true
+---
+<p>This post is not in any way going to tell you what PostSharp is &ndash; you will need to check their <a href="http://www.sharpcrafters.com/" target="_blank">website</a> for a full explanation of what it is and what it can do. In a nutshell, I am using PostSharp for Attribute Based Caching in ASP.NET. In order to get this working there was 2 ways to deal with PostSharp.</p>
+<p>PostSharp have a section about using the product on a build server as it needs a licence. This requires an install so that it can extend MSbuild to create the appropriate output. But I didn&rsquo;t like this approach as I like to keep my build server as clean as possible from installs.</p>
+<p>1. I could install PostSharp on the development machine <span style="text-decoration: underline;">and</span> any other machine that will require to build the application (i.e build server).</p>
+<p>2. I could try and use the PostSharp download in my solution tools folder and customise my .csproj file to hook into the MSbuild event. This is of course the path I took.</p>
+<p>So I started by signing up to PostSharp and getting a licence key and downloading the source. I took the entire source and unzipped it to my lib folder inside my solution as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_7.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_7.png" border="0" alt="image" width="244" height="192" /></a></p>
+<p>This now means I have the source that is required. In order to &lsquo;tap&rsquo; into this source I next need to change the .csproj file of the project that requires PostSharp use.&nbsp; I have changed my .csproj to include the lines as follows below the Microsoft.CSharp.targets import:</p>
+<p>&lt;Import Project="..\..\lib\PostSharp\PostSharp.targets" /&gt;</p>
+<p>This imports a .targets file that is referenced in my lib in the PostSharp folder. This .targets file actually needs to have your licence key inside it if you don&rsquo;t have an install of PostSharp locally. This means opening the .targets file in programmers notepad (or your favourite editor) and adding the following line just before the closing PropertyGroup tag:</p>
+<p>(your licence key will be emailed to you when you join PostSharp)</p>
+<p>&lt;PostSharpLicenseKey&gt;license key here&lt;/PostSharpLicenseKey&gt;</p>
+<p>When I checked my solution into source control and ran the build then my TeamCity build log showed the following information:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_8.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_8.png" border="0" alt="image" width="614" height="220" /></a></p>
+<p>This basically means that PostSharp hooked into my build event to make the following code snippet actually work.</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_9.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_9.png" border="0" alt="image" width="584" height="130" /></a></p>
+<p>&nbsp;</p>
+<p>Any developer who works with this code will not require PostSharp installed on their machine and can work freely <img class="wlEmoticon wlEmoticon-smile" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-smile_5.png" alt="Smile" /></p>

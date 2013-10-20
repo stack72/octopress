@@ -1,0 +1,23 @@
+---
+layout: post
+title: "How to get started with CI - Series"
+comments: true
+---
+<p>About a year ago (July 2010), I started working with my current company. When I started the team were lacking in process and the process they had was not as useful as it could be for developers. The first thing I done in that team was to restructure the VCS and introduce continuous integration (CI).</p>
+<p>The reason I chose these 2 practices first was that the team were not working as productively as they could be. There were no VCS regular check-ins and merging was hell. A good set of practices in VCS and a CI server to help spot merge issues up front was my idea of a step forward.</p>
+<p>CI was a tough sell to the team. They didn't like the fact that it took time to introduce, they didn't like the fact that people could see everyone's mistakes and the company wasn't sure of the cost of the products and infrastructure needed. Originally, it was not fully understood why CI would be good for us and what it would help. I examined the current state of development and concluded that due to bad VCS practices it was becoming more and more difficult to &lsquo;ship&rsquo; a version of the site. The points were how i eventually sold it:</p>
+<ul>
+<li>earlier notification of integration errors</li>
+<li>elimination of bad reference and dependency management</li>
+<li>raising the confidence of developers</li>
+</ul>
+<p>The team had a very bad management of references and dependencies in our visual studio solutions. There were GAC references and files missing everywhere. There was no standardisation of 3rd party tool storage. This led to deployment nightmares as there was a <strong>post release</strong> scramble to find missing dlls &amp; files and FTP them to the live server. I was able to point out that&nbsp; CI system meant we could find dependency issues and missing files faster (on every check in as it happens).</p>
+<p>After a few weeks in place the developer confidence got higher. They were more confident of deployments and the team went from deploying once every few months to weekly then to twice weekly and then 3 times weekly. It became more of a lean production line as something was working on &ndash; checked into VCS and then the following day (or 2 days) it went live.</p>
+<p>IF you are struggling with selling CI to your company or even if you are trying to introduce your company to CI then the following posts are a summary of the steps I had to go through to get CI integrated into our working practices. It started as a proof of concept, to demonstrate the benefits and it has grown exponentially for me. The posts are:</p>
+<ol>
+<li><a href="http://paulstack.co.uk/blog/post/considerations-when-choosing-hardware-for-ci.aspx" target="_blank">Choosing the hardware requirements</a></li>
+<li><a href="http://paulstack.co.uk/blog/post/choosing-the-correct-ci-tool.aspx">Choosing the correct tool</a></li>
+<li><a href="http://paulstack.co.uk/blog/post/implementing-your-first-project-into-a-ci-system.aspx">How to integrate CI into your first project</a></li>
+<li>Making the Build Self Testing</li>
+<li>What is the potential of CI tools</li>
+</ol>

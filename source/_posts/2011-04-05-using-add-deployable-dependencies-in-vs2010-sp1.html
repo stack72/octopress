@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Using Add Deployable Dependencies in VS2010 SP1"
+comments: true
+---
+<p>Before the dawn of VS2010 SP1, when I wanted to deploy dependency dlls, I had to go to the properties of the .dll and set CopyLocal to true</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_16.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_16.png" border="0" alt="image" width="602" height="251" /></a></p>
+<p>This was critical for me when MVC3 first came out as MVC3 was not installed on our production server and we needed to deploy the MVC3 and Razor dlls to our servers in order for the application to run.</p>
+<p>The nice people at Microsoft added a feature in VS2010 SP1 that allowed you to specify a specific set of deployable dependencies. When you right click on the web project you can now see a menu option as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_17.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_17.png" border="0" alt="image" width="215" height="329" /></a></p>
+<p>When you choose this option you get an option to choose the dependencies you want:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_18.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_18.png" border="0" alt="image" width="321" height="155" /></a></p>
+<p>If I choose ASP.NET MVC and select ok I will now have a new folder added to my solution that has the following contents:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_19.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_19.png" border="0" alt="image" width="290" height="197" /></a></p>
+<p>This folder is now taken care of using the new Microsoft.WebApplication.targets and Microsoft.Web.Publishing.targets file that comes with MSBuild and was upgraded after VS2010 SP1 install. MSBuild will take care of this folder and its contents and move those contents to the /bin of the application. This will work as part of a CI build or as part of using a publish with MSDeploy.</p>
+<p>This has made my life easier as I used to have to find what files were needed as part of the deploy and keep a copy of them in a /lib folder and then use an MSBuild copy task to copy them as part of my CI build</p>

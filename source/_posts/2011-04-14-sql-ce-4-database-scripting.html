@@ -1,0 +1,29 @@
+---
+layout: post
+title: "SQL CE 4 Database Difference Scripting with SqlCEDiffer"
+comments: true
+---
+<p>I wrote some posts on how to take two different SQL CE 4 db files (.sdf) and how to compare them to create a SQL change script. The general flow was as follows:</p>
+<ul>
+<li>Generate Sql Schema File from SDF files </li>
+<li>Compare the SDF files to generate a change script </li>
+</ul>
+<ul>
+I started using this at work and it was noticed that the sql change script that was produced wasn&rsquo;t fantastic. What it was doing was completely creating a new table, dropping the old table and then renaming that newly created table. We were worried that this would cause an issue with our database on our live server.
+</ul>
+<ul>
+After speaking with <a href="https://twitter.com/erikej">Erik Ejlskov Jensen</a>, a SQL Server Compact MVP, I was pointed in the direction of the API that he wrote in order to make his Sql Compact 4 toolbox. This API allowed me to write my own little command line tool (as simple as it gets) that takes 2 .sdf files and generates a sql diff file.&nbsp; I have called this, inspirationally, SqlCEDiffer.
+</ul>
+<ul>
+In order to use this tool you can do it from the command line or you can hook it into your MSBuild scripts as follows:
+</ul>
+<ul>
+<strong>Command Line</strong>
+</ul>
+<p>sqlcediffer.exe    <br />&nbsp;&nbsp;&nbsp; -source:{path to latest schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -target:{path to old schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -outputPath:{path to save the diff script to&gt;.sql</p>
+<p>It&rsquo;s a very simple explanation really. Source is the latest sdf file created, this has all the new changes in it. The target is the source that we wish (eventually) to update. The output path is the path we want the resulting .sql file saved to.</p>
+<p>&nbsp;</p>
+<p><strong>Running from MSBuild</strong></p>
+<p>&lt;Target Name="Build"&gt;   <br />&nbsp;&nbsp;&nbsp; &lt;Message Text="Starting Sql Differencing" /&gt;    <br />&nbsp;&nbsp;&nbsp; &lt;Exec Command="sqlcediffer.exe -source:{new sdf file} -target:{old sdf file} -outputPath:{save path}.sql" /&gt;    <br />&lt;/Target&gt;</p>
+<p>It works exactly the same as from command line <strong>but</strong> being able to use the MSBuild exec command means that we can hook this into a build script. This now opens up the opportunity for its use in automation of sql differencing and potentially continuous database deployment.</p>
+<p>The code is very simple and does exactly what it says on the tin. It has been created as a wrapper around the code that Erik already created for his tools already available on <a href="http://exportsqlce.codeplex.com/" target="_blank">codeplex</a>.</p>

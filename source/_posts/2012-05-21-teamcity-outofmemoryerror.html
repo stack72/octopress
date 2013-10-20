@@ -1,0 +1,23 @@
+---
+layout: post
+title: "TeamCity - OutOfMemoryError"
+comments: true
+---
+<p>Whilst upgrading our TeamCity server from 6.5 to 7.x, I encountered an error:</p>
+<p><em>Unexpected error occurred inside Alarm task: java.lang.OutOfMemoryError: GC overhead limit exceeded</em></p>
+<p>After a bit of looking around and sifting through some very weird articles I was able to find some good information on this. Basically, the JVM starts by default with 512mb of memory and it was struggling to process our 300+ build configurations with this. In order to fix it I had to do the following:</p>
+<ul>
+<li>Go to TeamCity webserver</li>
+<li>Open CMD</li>
+<li>cd &lt;TeamCity root dir&gt;</li>
+<li>cd bin</li>
+<li>teamcity7w.exe //ES//TeamCity
+<ul>
+<li>If you are on TeamCity 6.x then you need to run teamcity6w.exe rather than ..7w</li>
+</ul>
+</li>
+This will open the following dialog:</ul>
+<p><a href="http://paulstack.co.uk/blog/images/image_51.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_49.png" alt="image" width="244" height="233" border="0" /></a></p>
+<p>Go to the Java tab and change the maximum memory pool entry to something other than 512mb</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_52.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_50.png" alt="image" width="244" height="233" border="0" /></a></p>
+<p>Restart the service and all should be well with the application start-up.</p>

@@ -1,0 +1,17 @@
+---
+layout: post
+title: "Automated W3C Validation with TeamCity"
+comments: true
+---
+<p>This past week, I started experimenting with letting TeamCity create reports of CSS and XHTML Validation from the W3C website. In order to do this validation I was able to use their web URL and pass a URL to the web address. In order to do this I used <a href="https://github.com/hhariri/EasyHttp" target="_blank">EasyHTTP</a> as it took care of the web request in a very simple way</p>
+<script type="text/javascript" src="https://gist.github.com/8ad9b4ceaca1e1a772d6.js"></script>
+<p>When the response is caught, I was able to take the raw text part of the response and save to a html file. This code is very early proof of concept and plans are a foot to be able to pass in validation types and recursive list of files etc.</p>
+<p>In order to run this from TeamCity, there was 1 very easy build configuration</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_32.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_30.png" alt="image" width="488" height="238" border="0" /></a></p>
+<p align="center">I had pre-configured TeamCity to add new report tabs when the artifacts were available &ndash; using this <a href="http://confluence.jetbrains.net/display/TCD5/Report+Tabs" target="_blank">article</a>. I was then able to tell TeamCity to show these report tabs by outputting the correct files as build artifacts:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_33.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_31.png" alt="image" width="501" height="236" border="0" /></a></p>
+<p align="center">The reports can be found in the build results screen:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_34.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_32.png" alt="image" width="505" height="144" border="0" /></a>&nbsp;&nbsp;</p>
+<p align="center">The code will be available very soon but if you feel you want it sooner then please do let me know. There may be changes to the reports but they look similar to the following:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_35.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_33.png" alt="image" width="520" height="290" border="0" /></a></p>
+<p>&nbsp;</p>

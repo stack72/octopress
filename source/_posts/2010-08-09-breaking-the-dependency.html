@@ -1,0 +1,81 @@
+---
+layout: post
+title: "Breaking the Dependency"
+comments: true
+---
+<p>After beginning to read <a href="http://www.amazon.co.uk/Working-Effectively-Legacy-Robert-Martin/dp/0131177052" target="_blank">"Working Effectively with Legacy Code" by Michael Feathers</a>&nbsp;I learned a lot about how i should actually approach code i have never worked with before and that is classed as <strong>legacy.</strong></p>
+<p>&nbsp;</p>
+<h3><span style="text-decoration: underline;">What is Legacy Code?</span></h3>
+<p>Feathers quite simply states that code is legacy when it is ".....without tests". He said that no matter how well the code is written, according to whatever patterns you like and as readable as it can be that if it is not tested then it is bad/ legacy code.</p>
+<p>&nbsp;</p>
+<h3><span style="text-decoration: underline;">How do we Eliminate Legacy Code?</span></h3>
+<p>This book has a legacy code change algorithim.</p>
+<p><img src="/blog/images/2010/8/breakingthedependency.gif" alt="" /></p>
+<p>So what has made me change? When i started a new job recently i seen a lot of legacy code. I had to immediately try and tackle the issue as i am very passionate about good, clean, well tested code. In order to make the code changes necessary i had to break a lot of dependencies.</p>
+<p>On working with an &nbsp;API i was presented with the following public method. This was consumed by 2 webservices and it is used to track the use of the site by a user.</p>
+<p>&nbsp;</p>
+<pre class="brush:csharp">private ITrackingPixel ReplacePlaceholders(ITrackingPixel tp)
+{
+    //If there is no HTMl code then don't do the replace and return
+    if (tp == null || string.IsNullOrEmpty(tp.HTMLCode)) return tp;
+
+    string htmlCode = tp.HTMLCode;
+
+
+    string pixel_placeholders = ConfigurationManager.AppSettings["TrackingPixelPlaceHolders"];
+    if (string.IsNullOrEmpty(pixel_placeholders))
+    {
+    	//Log
+	_log.Warn("TrackingPixel's placeholders do not exist in the configuration.");
+	return tp;
+    }
+
+    string[] placeholders = pixel_placeholders.Split(new char[]{','});
+
+
+    if (TrackingPixel.UserID != null &amp;&amp; placeholders.Contains("USERID"))
+    {
+	htmlCode = htmlCode.Replace(MakePlaceholder("USERID"), TrackingPixel.UserID.ToString());
+    }
+    if (TrackingPixel.VisitID != null &amp;&amp; placeholders.Contains("VISITID"))
+    {
+	htmlCode = htmlCode.Replace(MakePlaceholder("VISITID"),        TrackingPixel.VisitID.ToString());
+     }
+
+     tp.HTMLCode = htmlCode;
+     return tp;
+}
+</pre>
+<p>Now this is what i would call pretty nasty code. I couldn't test it as it had a dependency on ConfigurationManager and getting appSettings from it. I had 2 ideas about how i could break the configuration manager dependency:</p>
+<p>&nbsp;</p>
+<ol>
+<li>Inject the required config value into the public method that called this private method.</li>
+</ol>
+<div>This wouldn't work as i would have to make sure that i changed <strong>everywhere</strong>&nbsp;this method was used. I was bound to miss one as i'm sure the documentation doesnt exist to find all references as most of the code was outsources</div>
+<div><br /></div>
+<div>2. Interface out the configuration manager</div>
+<div>I immediately thought this would be very difficult to do but then had a bit of a brain wave where we had a helper class that would have a method to get the appSetting from the web.config but that this class would be interfaced out for Mocking and thus testing</div>
+<div><br /></div>
+<pre class="brush:csharp">public class ConfigurationManager: IConfigurationManager
+{
+	public string GetAppSettingsPropertyValue(string configurationParameter)
+	{
+		return System.Configuration.ConfigurationManager.AppSettings[configurationParameter];
+	}
+}
+</pre>
+<p>this may not be the best way of doing this but its currently effective and means that the segment of code concerned is fully tested.</p>
+<pre class="brush:csharp">private IConfigurationManager _CONFIG;
+
+........
+string pixel_placeholders = _CONFIG.GetAppSettingsPropertyValue("TrackingPixelPlaceHolders");
+            if (string.IsNullOrEmpty(pixel_placeholders))
+            {
+                //Log
+                _log.Warn("TrackingPixel's placeholders do not exist in the configuration.");
+                return tp;
+            }
+</pre>
+<p>It may not be "clean" or efficient but its a first step for me in this. I am now confident of making changes to this method without breaking anything</p>
+<p>&nbsp;</p>
+<p>this was a real breakthrough moment for me &amp; has really helped me develop my unit testing skills</p>

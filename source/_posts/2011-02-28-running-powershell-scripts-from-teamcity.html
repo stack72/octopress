@@ -1,0 +1,22 @@
+---
+layout: post
+title: "Running Powershell Scripts from TeamCity"
+comments: true
+---
+<p>Over the past month I have volunteered to help out in the creation of some <a href="http://nuget.org" target="_blank">nuget</a> packages. The packages I said I&rsquo;d help with are NUnit and Simple.Data. I volunteered as I have a dedi box and wanted to try and script it from my TeamCity installation.</p>
+<p>In order to get the projects working I have created a custom MSBuild script that does things in the following order:</p>
+<ul>
+<li>Build </li>
+<li>Zip </li>
+<li>Package </li>
+<li>Nuget Creation </li>
+</ul>
+<ul>
+This was all thanks to help from <a href="http://www.jeremyskinner.co.uk" target="_blank">Jeremy Skinner</a>. Jeremy has managed to do all the steps above&nbsp; as part of his build but chooses to run the push to nuget.org from a powershell script. manually so he can make sure it never happens unexpectedly. I am very much a fan of automation. Therefore I wanted to find a way to automate this push to nuget as part of a specific build configuration. Out of the box, TeamCity has no powershell build runner. In order to try to execute the powershell script, I was wrapping the call in a .cmd file. But this was not working fantastically and was hanging and throwing errors for me. 
+</ul>
+<ul>
+I managed to find a <a href="http://teamcity.jetbrains.net/viewType.html?buildTypeId=bt268&amp;tab=buildTypeStatusDiv" target="_blank">Powershell TeamCity plugin</a> (login as a guest to see it). This allowed a build step to be added to TeamCity config that execute Powershell scripts directly and therefore helps to automate the process. 
+</ul>
+<p>When this script is installed I see the following in my TeamCity build runner menu</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_10.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_10.png" border="0" alt="image" width="330" height="198" /></a></p>
+<p>A simple call to the correct .ps1 file means the publish to nuget! Hope this helps</p>

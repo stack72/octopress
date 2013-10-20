@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Extracting a Sql Server Schema from Sql Server CE File"
+comments: true
+---
+<p>My current project at work sees me building an ASP.NET MVC3 project. When the project was being built initially, we had no idea of what the final schema of the database would look like. So we built the app using a fake dataset that we can in cache and read / wrote to that cache during the application. The decision was made that we would use Entity Framework 4 for our data access method and as we already had&nbsp; business entities in place, we thought that Code First would be a good way to go since it was in RC.</p>
+<p>We didnt get our DBAs involved as the schema wasn't completely finished. So we decided to use Sql Server CE 4. I know what you are thinking&nbsp; - MS Fan Boy, new technology freak &ndash; and you would be right. I&rsquo;m happy with what we have chosen and its worked for us. We have now managed to get a database schema that we are happy with.</p>
+<p><strong>BUT</strong> we hit a flaw when we looked at how we migrate our Sql Server CE 4 database to Sql Server. I know there are tools available but I didn&rsquo;t feel that I had a huge amount of control over these and I wanted one to be able to run from msbuild since I will (eventually) be automating the process.</p>
+<p>Step up web deploy v2! I managed to find an article a while back that was tweeted by Sayed Hashim on the new features of web deploy v2. There is build in support for this exact purpose.&nbsp;So in order to run the process I opened a command line and change directory to the Web Deploy v2 folder (C:\Program Files (x86)\IIS\Microsoft Web Deploy V2). I can then run the command as follows:</p>
+<p><strong>msdeploy      <br />-verb:sync       <br />-source:dbFullSql="Data Source=&lt;path to .sdf&gt;",ScriptData=false,sqlCe=true       <br />-dest:dbFullSql="&lt;output .sql path&gt;"</strong></p>
+<p>This is pretty self explanatory but the important parts are to include sqlCe = true as this will make msdeploy know its a sql compact edition database. ScriptData = false will mean that only the schema will be output and no data will be included. If this is omitted then the schema will be exported as well as the data.</p>
+<p>When I run this i get something similar to this screen on my console:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_14.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_14.png" border="0" alt="image" width="598" height="101" /></a>&nbsp;</p>
+<p>Of course this command can be included in a batch file and be executed from TeamCity (post coming soon on this!) or manually run when necessary.</p>
+<p>The output of the script can be opened and run against Sql Server &ndash; or if you wait for my next post &ndash; to be used to create sql change scripts that can be used from continuous database deployment.</p>

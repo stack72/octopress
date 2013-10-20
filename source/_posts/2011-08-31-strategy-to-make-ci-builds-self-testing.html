@@ -1,0 +1,27 @@
+---
+layout: post
+title: "Strategy to Make CI Builds Self Testing"
+comments: true
+---
+<p>This is post 5 in a series called &lsquo;<a href="http://paulstack.co.uk/blog/post/How-to-get-started-with-CI.aspx">How to get started with CI</a>&rsquo;. The last post talked about how to implement CI to your first CI project. This post will extend that implementation by making sure that a build is &lsquo;self testing.</p>
+<p>A &lsquo;self-testing&rsquo; build is a build that runs all of the required <em>tests</em> as part of it. It is important to stress the term <em>tests</em> here as there are different types of tests, unit, integration, regression, UI etc.). In general tests as described run in the following way:</p>
+<ul>
+<li>unit tests &ndash; run in isolation, mock any dependencies and should be fast</li>
+<li>integration / regression tests &ndash; require some sort of setup of data / environment and will be slower to run</li>
+<li>UI / acceptance tests are slower to run and will require a replica of the application to test against. These will be a lot slower.</li>
+</ul>
+<ul>
+<ul>It is important to understand that if a build that has triggered because of a VCS check in and doesn&rsquo;t break the build then we cannot assume the integration of the code has worked.</ul>
+</ul>
+<p><strong>We will not know that the integration has been successful until the code has been tested. </strong></p>
+<ul>The most efficient way of testing the code is with our test suite. If the integration fails with obvious errors, e.g. a compilation error, then that&rsquo;s a huge clue that something has gone wrong.</ul>
+<ul>My usual strategy for CI builds and their tests runs is as follows:</ul>
+<h4>&nbsp;</h4>
+<h4>1. On VCS check in run all the unit tests</h4>
+<p>This will give us fast feedback about problems at a code level and will tell us if the code still behaves as expected. For this instant feedback to happen, builds (including test runs) must be fast. IF the runs are not fast then development could potentially be impacted by developers working with code that doesn&rsquo;t build or hasn&rsquo;t been tested. Always think of the 10 minute rule for the time a build starts till completion.</p>
+<h4>2. Every 2 hours run the integration / regression tests</h4>
+<p>These tests are very important to us but are a step below the priority of unit tests. They will be slower to run since we require data to be setup and torn down for the tests. They can require network and database interaction so we cannot hang around waiting for them to complete.</p>
+<h4>3. Nightly run the UI / Acceptance tests</h4>
+<p>These are again still import but the lowest of the priority order for a <strong>standard</strong> CI build. There will always be a round of testing by QAs or whoever before a release so there is time to fix any errors arising. From my nightly strategy, errors in these tests will only take at maximum a day to appear to a team. These tests are slower again and may require a full compilation and installation of an application to run against so running them overnight means there should be no real problem with time.</p>
+<p>The steps listed about are the steps I use for a project is running a normal CI environment. These would change when an environment changes to include continuous delivery of the application. This will be discussed in a further post.</p>
+<p>This is only a suggested approach from the experiences I have had with CI. If you run your builds in a different manner then I would love to hear about it &ndash; leave a comment below.</p>

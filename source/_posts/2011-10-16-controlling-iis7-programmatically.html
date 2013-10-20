@@ -1,0 +1,25 @@
+---
+layout: post
+title: "Controlling IIS7 Programmatically"
+comments: true
+---
+<p>I am a huge advocate of automation and the automation of as much of a system as can be implemented. I like to make sure than non-developer members of staff can work effectively and try to do as much as possible to minimise the blockers in their way. IIS can be one of those blockers. When it comes to staff creating new sites and application pools, they can sometimes get it wrong. To make sure all members of my team have the <strong>exact same</strong> setup &ndash; I script the set-up.</p>
+<p>A CI tool should be able to handle the automated rollout of configuration management to systems. This is just another example of making sure all parts of the environment have the correct set-up. Automating this rollout means a smaller chance of human error. Being able to interact with IIS means a simple script could be run to create the required setup &ndash; both locally and on a build environment.</p>
+<p>I was able to create the following Powershell script.</p>
+<script type="text/javascript" src="https://gist.github.com/157876c2e6ca7518c290.js"></script>
+<p>The script basically automates a way of creating a new application pool, a new site and then assigning that application pool to that site</p>
+<p>This script was easily able to run from either powershell or via cmd line (which invokes powershell). It&rsquo;s a script that works perfectly well assuming you only need to run it once as it doesn&rsquo;t take into account the site or the application pool existing. It needed a lot of refactoring. the script that was produced can be found below. It is a lot more useful as it takes parameters for setup.</p>
+<script type="text/javascript" src="https://gist.github.com/f204abb6862bcf34f113.js"></script>
+<p>The trouble I had with this script started when running in different versions of the OS. X64 machines call the X64 powershell by default (as you would expect). When using X64 powershell the following error was encountered:</p>
+<p><a href="http://www.paulstack.co.uk/blog/images/image_36.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://www.paulstack.co.uk/blog/images/image_thumb_34.png" alt="image" width="564" height="107" border="0" /></a></p>
+<p>This of course worked perfectly in X86 version of powershell. Weirdly, a different error was encountered in X86 powershell. The line</p>
+<p>Test-Path IIS:\AppPools\</p>
+<p>command didnt like working. It threw the following error:</p>
+<p><a href="http://www.paulstack.co.uk/blog/images/image_37.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://www.paulstack.co.uk/blog/images/image_thumb_35.png" alt="image" width="529" height="227" border="0" /></a></p>
+<p>I was faced with the dilemma of fixing something I know relatively little about (powershell scripts) or continue to use the simple script and manually manipulate IIS after the initial set-up.</p>
+<p>Strangely, I chose to ditch both methods and wrote a C# console application to manipulate IIS. It took me half the time and was very easy. <a href="http://twitter.com/apwestgarth">Andrew Westgarth, IIS MVP</a>, replied to me on twitter after I said I had done this</p>
+<blockquote>
+<p align="center">I could have told you that :-) the .net APIs rock :-)</p>
+<p align="center">It was as simple as referencing Microsoft.Web.Administration and writing code against that API. As it was a console application, it created an executible that I could call easily from TeamCity or via a batch script for local machine automation. I don&rsquo;t have to worry about ExecutionPolicy either, which is a real bonus.</p>
+<p align="center">The source code for the console application is available on my github site. Feel free to take it and change pieces of it to suit you. I have also included both powershell scripts as listed above.</p>
+</blockquote>

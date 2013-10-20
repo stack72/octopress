@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Satisfyr – useful little addition to my testing"
+comments: true
+---
+<p>I use a tool called <a href="http://satisfyr.codeplex.com/" target="_blank">Satisfyr</a>. This tool helps me to keep to the 1 assert per test rule. It is a way to perform lambda-based assertions from within tests. It is written by <a href="http://twitter.com/kzu">Daniel Cazzulino</a> (developer of World of VS and Moq to name a few things).</p>
+<p>I use Satisfyr when I am testing translations between DTO and Business objects that go through an automapper layer. This allows me to turn this:</p>
+<script src="https://gist.github.com/00f39983d7dba985c3bf.js"></script>
+<p>into this:</p>
+<script src="https://gist.github.com/9b06319c46c5add9f1ee.js"></script>
+<p>Its just syntactical sugar but it helps me to assert that an object is correct - this includes its properties etc. Hope it helps.</p>

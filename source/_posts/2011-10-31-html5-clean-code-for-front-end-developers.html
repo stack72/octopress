@@ -1,0 +1,14 @@
+---
+layout: post
+title: "HTML5 – Clean Code for Front End Developers"
+comments: true
+---
+<p>I have recently started looking into the new html specification (HTML5) and have noticed that benefits of this new specification include improved semantics and cleaner mark-up.&nbsp;<span class="Apple-style-span" style="font-family: sans-serif; font-size: 13px; line-height: 19px;">Semantic HTML is a way of writing HTML that emphasizes the meaning of the encoded information over its presentation.</span>&nbsp;Consider the following code snippet:</p>
+<script type="text/javascript" src="http://gist.github.com/1328385.js"></script>
+<p>This would usually denote a small area of navigation that loosely regards a navigational class on a html page. The loose association to the navigation is because I had the sense to name the class "navigation". Had I named the class "list" then this would have meant nothing to the reader of the mark-up. The &lt;h2&gt; tag relates to the &lt;div&gt; but is actually not part of the mark-up. HTML5 gives the ability to clean this mark-up and make it more semantic. the resulting code in HTML5 could be:</p>
+<script type="text/javascript" src="http://gist.github.com/1328389.js"></script>
+<p>This code snippet actually lets the user see that the list of links are actually a small navigational element of the site. It will also relate the heading, Quick Links, to that small navigational element. There is another element, menu, that I will not talk about. It could be substituted for my use of &lt;nav&gt;</p>
+<p>When I first started reading about HTML5 and how the semantics and cleanliness of the mark-up changed, it made be beg the question:</p>
+<p><strong>Is HTML5 the excuse to get front end developers to think about Clean Code?</strong></p>
+<p>I am a huge advocate of clean code. I expect my methods / classes and variables to have good naming conventions. I also expect the code to be short, concise and descriptive. I am a developer, not a designer. Design / front end development is usually my last port of call. therefore my mark-up and it's structure usually suffer. this means that it can be poorly organised and when I test in different browsers, I sometimes have to shoehorn in fixes which results in my code being messy.</p>
+<p>Html5 may not be a finished specification, but I for one will start to embrace it in my development. If there is an easy way for the front end mark-up to be as clean as business logic then I think we should all lobby the W3C to finalise the specification and get this new standard into place.</p>

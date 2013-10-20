@@ -1,0 +1,30 @@
+---
+layout: post
+title: "Spoofing the Host Entry in a HTTPWebRequest"
+comments: true
+---
+<p>I had this idea to create a dashboard that would ping different version of a site in order to get the build number. The details are as follows:</p>
+<p><a href="http://www.mysite.com">www.mysite.com</a></p>
+<p>runs on a local site at 192.x.x.x, a QA environment at 10.x.x.x, a staging environment at 66.x.x.x, and a live environment at 88.x.x.x (these IPs are made up). In order to hit each site, I would usually manually change the host file and then make the web request. This was not a great solution as I hate dealing with host file entries. On experimenting with HTTPWebRequest, I noticed that you can use reflection in order to change the Headers of the Request. The normal code to create a HTTPWebRequest would look as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/17bf91700d77d25c2435.js"></script>
+<p>I was able to spoof the host by changing the host using reflection:</p>
+<script type="text/javascript" src="https://gist.github.com/5eb2fcb26600cd81416c.js"></script>
+<p>This allowed me to make multiple requests to different versions of the same site. Using a simple collection of my site objects to build a dashboard that had the following outline:</p>
+<table style="width: 574px;" border="1" cellspacing="0" cellpadding="2">
+<tbody>
+<tr>
+<td valign="top" width="116">&nbsp;</td>
+<td valign="top" width="118">Local</td>
+<td valign="top" width="110">QA</td>
+<td valign="top" width="113">Stage</td>
+<td valign="top" width="115">Live</td>
+</tr>
+<tr>
+<td valign="top" width="115">Build Number</td>
+<td valign="top" width="118">web_12_4_qa</td>
+<td valign="top" width="111">web_12_4_qa</td>
+<td valign="top" width="114">web_12_5_stg</td>
+<td valign="top" width="116">web_12_4_prod</td>
+</tr>
+</tbody>
+</table>

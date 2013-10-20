@@ -1,0 +1,14 @@
+---
+layout: post
+title: "Enum String Value with JQuery Mobile"
+comments: true
+---
+<p>A while back I had to use <a href="http://jquerymobile.com/" target="_blank">JQuery mobile</a> for a project. The project needed to have 2 themes on an application and the configuration would need to tell the application what theme to load. With JQuery Mobile, the theme string could only be a single letter. I like keeping to decent and meaningful naming conventions, so I created a configuration setting as follows:</p>
+<p>&lt;add key="Theme" value="Plain" /&gt;</p>
+<p>I could see easily that the theme for this build of the application is the Plain theme. How could I relate that back to a JQuery theme? Plain would not be acceptable with JQuery Mobile. Therefore I had to do something different. I was able to use an attribute on the Theme Enum:</p>
+<script type="text/javascript" src="https://gist.github.com/87a15d10b39c4ab6f26a.js"></script>
+<p>I then overrode the WebViewPage to include logic to get the Theme as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/cdd00afc29b4b4599ebb.js"></script>
+<p>As you can see, I have an extension method in place to get the string value of the enum. This then taps back into my String attribute as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/94a594f634ee0aa1e3ae.js"></script>
+<p>This then allowed me to turn a simple readable string from a web.config, into something that JQuery Mobile could understand and parse as normal</p>

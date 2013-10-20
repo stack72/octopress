@@ -1,0 +1,6 @@
+---
+layout: post
+title: "Visual Studio 2010 Bug"
+comments: true
+---
+<p align="left">This afternoon I encountered my first problem with Visual Studio 2010 –    <br /></p>  <p align="center">&#160;</p>  <p>“The &quot;Exec&quot; task needs a command to execute.”</p>  <p align="left">I had no idea what this was. I searched Google the error and found out that it was due to a bug in Visual Studio. It was because there was an empty line in a post-build event I had deleted earlier.</p>  <p align="left">The article I found was referring to Visual Studio 2005 - <a href="http://www.kenegozi.com/blog/2007/05/24/the-quotexecquot-task-needs-a-command-to-execute-the-poor-thing.aspx">http://www.kenegozi.com/blog/2007/05/24/the-quotexecquot-task-needs-a-command-to-execute-the-poor-thing.aspx</a></p>  <p align="left">I’m a bit puzzled as to why a simple bug like this can <strong>STILL</strong> exist<strong> </strong>since it was first discovered in 2005 edition – all it needs to do is to use the String.IsNullOrWhiteSpace extension method <img style="border-bottom-style: none; border-right-style: none; border-top-style: none; border-left-style: none" class="wlEmoticon wlEmoticon-smile" alt="Smile" src="http://paulstack.co.uk/blog/images/wlEmoticon-smile_2.png" /></p>

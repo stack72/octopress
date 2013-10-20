@@ -1,0 +1,27 @@
+---
+layout: post
+title: "The nightmare when I upgraded my MVC2 solution to MVC3"
+comments: true
+---
+<p>I am working on a new application at work that&rsquo;s an MVC3 app that talks to a WCF Service. I use a number of 3rd party libraries:</p>
+<ul>
+<li>Ninject </li>
+<li>Ninject WCF </li>
+<li>Ninject MVC </li>
+<li>Ninject Logging Extensions </li>
+<li>Fluent Validation </li>
+<li>MVCContrib </li>
+<li>Automapper </li>
+</ul>
+<p>So when i had to upgrade to MVC3 RTM I had to see what happened to these 3rd party systems &ndash; FYI I had a bit of a nightmare! It happened in the following order:</p>
+<p><strong>MVCContrib</strong> &ndash; I was a bit ahead of the game here and checked out latest branch and build from source &ndash; SORTED!</p>
+<p><strong>Fluent Validation</strong> &ndash; Luckily <a href="http://twitter.com/jeremyskinner" target="_blank">Jeremy Skinner</a> tweeted that Fluent Validation for MVC3 was available &ndash; SORTED!</p>
+<p><strong>Ninject</strong> &ndash; I had to download this from github, update the solution to run as .Net 4.0 and add the new MVC3 System.Web.MVC dll to it and build from source &ndash; SORTED!</p>
+<p>Now things started getting a bit weird!</p>
+<p><strong>Ninject MVC</strong> &ndash; this required the solution to be downloaded from github, upgraded to .net 4, the MVC3 System.Web.MVC dll and the previously compiled ninject dll</p>
+<p><strong>Ninject WCF</strong> - this required the solution to be downloaded from github, upgraded to .net 4 and the previously compiled ninject dll</p>
+<p><strong>Ninject Logging</strong> - this required the solution to be downloaded from github, upgraded to .net 4 and the previously compiled ninject dll</p>
+<p>This was a horrendous task! I&rsquo;m not sure I'd want to upgrade something so complex again but its all for a good cause as I can now use the Razor view engine :)</p>
+<p>&nbsp;</p>
+<p>EDIT: Those awesome codebetter guys have created these upgrades of Ninject on their build server so you don't have to -&nbsp;<a href="http://teamcity.codebetter.com/login.html">http://teamcity.codebetter.com/</a></p>
+<p>Word of warning: DON&rsquo;T TRY THIS AT HOME!</p>

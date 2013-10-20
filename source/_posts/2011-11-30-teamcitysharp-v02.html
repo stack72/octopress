@@ -1,0 +1,23 @@
+---
+layout: post
+title: "TeamCitySharp v0.2"
+comments: true
+---
+<p>Hot on the heels of the first release of <a href="http://github.com/stack72/teamcitysharp">TeamCitySharp</a>, a new update has been released for the project to <a href="http://nuget.org/List/Packages/TeamCitySharp">nuget</a>. There were 2 major additions to the project both contributed via pull requests on Github.</p>
+<h4>Introduction of Build Locator</h4>
+<p>This makes the protocol for obtaining build information easier as we use the locator in the url rather than trying to build a query string manually. Previously we built a query string as follows:</p>
+<p>http://myserver.com/httpAuth/app/rest/buildTypes/id:bt437/builds?status=SUCCESS</p>
+<p>This would get the successful builds for build config id 437. This has now been replaced by the following query string:</p>
+<p>http://myserver.com/httpAuth/app/rest/builds?locator=buildType:id:bt437,status:SUCCESS</p>
+<p>Thanks must go to <a href="http://twitter.com/#!/sibartlett">Simon Bartlett</a> for this addition to the codebase. The existing methods will work in this way as the code behind the public methods has been changed to us the build locator pattern. Therefore you can still call the method:</p>
+<script type="text/javascript" src="https://gist.github.com/90d156986380a6f43bd5.js"></script>
+<p>Behind the scenes TeamCitySharp does the following call:</p>
+<script type="text/javascript" src="https://gist.github.com/47fa6fdb8ec5f4e2159c.js"></script>
+<p>&nbsp;</p>
+<h4>New Sample Build Monitor</h4>
+<p>There is now a new project included in the source code. This project is a sample implementation of a build monitor using TeamCitySharp based on MVC3 and Knockout.js. Thanks to <a href="http://twitter.com/codingbadger">Barry Mooring</a> for contributing this sample to the project.</p>
+<p>In order to use the build monitor you just need to go to the settings file and add the TeamCity url, username and password.</p>
+<p>This gives a look and feel as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_38.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_36.png" alt="image" width="497" height="282" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>You can download the source from <a href="http://github.com/stack72/TeamCitySharp">Github</a> or via nuget (install-package TeamCitySharp). Please feel free to leave feedback about what you feel it is lacking or what you don&rsquo;t like about the project. This library will only be able to get better through help from users.</p>

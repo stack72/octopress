@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Features Nuget Would Benefit From"
+comments: true
+---
+<p>I look to <a href="http://nuget.org/">Nuget</a> as the package manager for Windows development in the same way that <a href="http://rubygems.org/">RubyGems</a> is to Ruby development. This may be immature of me but it works for my scenarios. In comparing the different systems, I feel that Nuget is lacking a few key features that sometimes I look for.</p>
+<h4>1. Install a specific version of a package</h4>
+<p>Currently from the Nuget console in Visual Studio a command like the following is run:</p>
+<p><strong>Install-package TeamCitySharp</strong></p>
+<p>This would install the <em>latest</em> package available. This is sometimes not always the best solution. If the package owner releases a package that has a bug in it then we cannot use the package at all. I would like the be able to install a version of the package that I know works:</p>
+<p><strong>Install-package TeamCitySharp &ndash;version:0.2</strong></p>
+<p>This would mean I can then update at a time when I am happy with the new package or when a fix has been added.</p>
+<h4>2. Download package direct from the Nuget gallery</h4>
+<p>I may want to download&nbsp; package without the need to open the Nuget console. A simple download link would be a welcome addition to be able to help this.</p>
+<h4>3. Global installation of a package</h4>
+<p>Currently, you would select the project from the list in the console and then call the install command. I would like to be able able install a package to a number of packages. For example, I have 20 unit test assemblies. I wouldn't want to have to type the command to install NUnit 20 times. I would like to be able to do something like:</p>
+<p>Install-package NUnit&nbsp; -include *.UnitTest.dll &ndash;exclude *.config</p>
+<p>This would utilise the full power of the PowerShell console. This is purely a timesaver and would help when working in a multi project environment.</p>

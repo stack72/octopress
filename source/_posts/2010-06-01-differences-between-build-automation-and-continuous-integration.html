@@ -1,0 +1,29 @@
+---
+layout: post
+title: "Differences Between Build Automation and Continuous Integration"
+comments: true
+---
+<p>&nbsp;</p>
+<p>There seems to be a misunderstanding between continuous integration (CI) and build automation. I was confused with this until recently when i looked deeper into the concept.</p>
+<p><strong>Build Automation:</strong> The process of automating a build process, on a nightly bases for example, as well as doing it manually when writing an application.</p>
+<p>There tools that i use commonly for this are as follows:</p>
+<ul>
+<li>NAnt </li>
+<li>MSBuild </li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Continuous Integration:</strong> This is the process of using &ldquo;triggers&rdquo; to listen to various events in order to perform some tasks. e.g. a developer checks into SVN CAUSING A TRIGGER to fire that will run a build of the solution and also will run the unit tests or automated acceptance tests.</p>
+<p>The confusion seems to occur when CI tools are used for build automation but are not configured to use triggers to perform events</p>
+<p>CI Tools:</p>
+<ul>
+<li><a href="http://www.jetbrains.com/teamcity/" target="_blank">TeamCity </a></li>
+<li><a href="http://cruisecontrol.sourceforge.net/" target="_blank">CruiseControl.NET </a></li>
+</ul>
+<p>&nbsp;</p>
+<p>TeamCity is not one i have used but it seems to be easier to configure tasks than CCNET as CCNET requires everything to be configured via huge XML files .</p>
+<p>This is apparent in my current employment setup :    <br />On a nightly basis we schedule CCNET to automate builds via NAnt scripts. These are performed via NAnt scheduling and<strong> NOT </strong>via triggers. These CCNET scripts are pretty awful as they require configuration without a UI.</p>
+<p>&nbsp;</p>
+<p>This has lead me to understand now that i currently perform build automation and <strong>NOT</strong>&nbsp; continuous integration. I guess the next step for me now is to start to use TeamCity in order to understand CI better and potentially use it on a small project at work</p>
+<p>&nbsp;</p>
+<p>Received some great feedback/ advice for this:</p>
+<p>"There is confusion, I would advise people to get to grips with nant first and when they have the build script working then try cc.net after. Trying to do both together before you understand the theory and technology can be very confusing and strange."<br /><a href="http://www.paulthor.co.uk/" target="_blank"> Paul Thorrington</a></p>
