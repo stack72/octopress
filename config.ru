@@ -1,8 +1,13 @@
 require 'bundler/setup'
 require 'sinatra/base'
+require 'rack-rewrite'
 
 # The project root directory
 $root = ::File.dirname(__FILE__)
+
+use Rack::Rewrite do
+  r301 %r{^/post/why-delay-the-vs2012-release-microsoft.aspx/?$}, '/blog/2012/08/09/why-delay-the-vs2012-release-microsoft'
+end
 
 class SinatraStaticServer < Sinatra::Base
 
