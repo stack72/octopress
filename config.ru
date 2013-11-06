@@ -6,6 +6,7 @@ require 'rack-rewrite'
 $root = ::File.dirname(__FILE__)
 
 use Rack::Rewrite do
+  r301 %r{^/blog/?$}, "/"
   r301 %r{^/post/why-delay-the-vs2012-release-microsoft.aspx/?$}, "/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/"
   r301 %r{^/post/survival-of-the-fittest-fluid-teams.aspx/?$}, "/blog/2012/06/25/survival-of-the-fittest-fluid-teams/"
   r301 %r{^/post/tfs-and-continuous-deployment.aspx/?$}, "/blog/2012/06/19/tfs-and-continuous-deployment/"
