@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>IIS Administration Application - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="One of the first things i had to do when i got to my new company was to build an application that would allow the remote restart of a web application &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2010/07/29/iis-administration-application">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">IIS Administration Application</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-29T00:00:00+01:00" pubdate data-updated="true">Jul 29<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>One of the first things i had to do when i got to my new company was to build an application that would allow the remote restart of a web application. After much searching to find the correct thing i found the use of DirectoryEntry</p>
+<p>In order to use it i had to import the name space:</p>
+<pre class="brush:csharp">using System.DirectoryServices;
+</pre>
+<p>This meant that i was able to access the correct part of AD in order to call the correct method that could tell me what the correct status of the app was and also to change the status to another state.</p>
+<p>&nbsp;</p>
+<p>The first method i used was InvokeGet - this took an application pool path and then returned an int that was the state of that application pool. the app pool path was made up as follows:</p>
+<pre class="brush:csharp">var appPoolPath = String.Format(@"IIS://{0}/W3SVC/AppPools/{1}", 
+                                 Environment.MachineName, 
+                                 ConfigurationManager.AppSettings["applicationPoolName"]);
+</pre>
+<p>using this path we could then call a method as follows:</p>
+<pre class="brush:csharp">DirectoryEntry w3svc = new DirectoryEntry(appPoolPath);
+var currentStatus = (int)w3svc.InvokeGet("AppPoolState");
+</pre>
+<p>the int returned could then be deciphered to get the current status. If the int was 2 then the app pool is &#8220;running&#8221;, if the int was &#8220;4&#8221; then the app pool was stopped. i only checked for those 2 states and made the default be state &#8220;unknown&#8221;.</p>
+<p>&nbsp;</p>
+<p>this meant that as we have the current state then we could then decide was was available to do and what not to do. By using a different method and passing in the command name and app pool name could we then change is state.</p>
+<pre class="brush:csharp">var appPoolPath = String.Format(@"IIS://{0}/W3SVC/AppPools/{1}", 
+                                 Environment.MachineName, 
+                                 ConfigurationManager.AppSettings["applicationPoolName"]);
+var command = "start";
+DirectoryEntry w3svc = new DirectoryEntry(appPoolPath);
+w3svc.Invoke(command, null);
+</pre>
+<p>We are passing in null as there are no parameters that i needed to go with this. But it can accept a [] of args if needed. We can call stop in exactly the same way.</p>
+<p>&nbsp;</p>
+<p>So whats the point of this post ihear you ask?? Well there are certain conditions that you can run this application under. The main one is that the user that the application pool needs to run under needs to be a local machine administration in order to interact with AD. this of course will not be a good thing to do on a live webserver - so what are the alternatives?</p>
+<p>&nbsp;</p>
+<p>Nada, nothing, zilch! This is needed and the only way you can stop attacks on the server is possibly to run this under basic IIS authentication within an IP range and a known user with a ridiculously difficult password. I only discovered all of this after i had actually written the little application and this idea has since been trashed!</p>
+<p>&nbsp;</p>
+<p>So back to remoting into the webserver for IIS application pool crashes! c&#8217;est la vie!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-29T00:00:00+01:00" pubdate data-updated="true">Jul 29<span>th</span>, 2010</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2010/07/29/iis-administration-application/" data-via="" data-counturl="http://paulstack.co.uk/blog/2010/07/29/iis-administration-application/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/07/27/all-change-please%21/" title="Previous Post: All Change Please!">&laquo; All Change Please!</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/08/09/breaking-the-dependency/" title="Next Post: Breaking the Dependency">Breaking the Dependency &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

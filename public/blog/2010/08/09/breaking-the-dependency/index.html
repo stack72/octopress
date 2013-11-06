@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Breaking the Dependency - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="After beginning to read &#8220;Working Effectively with Legacy Code&#8221; by Michael Feathers&nbsp;I learned a lot about how i should actually &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2010/08/09/breaking-the-dependency">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Breaking the Dependency</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-09T00:00:00+01:00" pubdate data-updated="true">Aug 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>After beginning to read <a href="http://www.amazon.co.uk/Working-Effectively-Legacy-Robert-Martin/dp/0131177052" target="_blank">&#8220;Working Effectively with Legacy Code&#8221; by Michael Feathers</a>&nbsp;I learned a lot about how i should actually approach code i have never worked with before and that is classed as <strong>legacy.</strong></p>
+<p>&nbsp;</p>
+<h3><span style="text-decoration: underline;">What is Legacy Code?</span></h3>
+<p>Feathers quite simply states that code is legacy when it is &#8220;&#8230;..without tests&#8221;. He said that no matter how well the code is written, according to whatever patterns you like and as readable as it can be that if it is not tested then it is bad/ legacy code.</p>
+<p>&nbsp;</p>
+<h3><span style="text-decoration: underline;">How do we Eliminate Legacy Code?</span></h3>
+<p>This book has a legacy code change algorithim.</p>
+<p><img src="/blog/images/2010/8/breakingthedependency.gif" alt="" /></p>
+<p>So what has made me change? When i started a new job recently i seen a lot of legacy code. I had to immediately try and tackle the issue as i am very passionate about good, clean, well tested code. In order to make the code changes necessary i had to break a lot of dependencies.</p>
+<p>On working with an &nbsp;API i was presented with the following public method. This was consumed by 2 webservices and it is used to track the use of the site by a user.</p>
+<p>&nbsp;</p>
+<pre class="brush:csharp">private ITrackingPixel ReplacePlaceholders(ITrackingPixel tp)
+{
+    //If there is no HTMl code then don't do the replace and return
+    if (tp == null || string.IsNullOrEmpty(tp.HTMLCode)) return tp;
+
+    string htmlCode = tp.HTMLCode;
+
+
+    string pixel_placeholders = ConfigurationManager.AppSettings["TrackingPixelPlaceHolders"];
+    if (string.IsNullOrEmpty(pixel_placeholders))
+    {
+    	//Log
+	_log.Warn("TrackingPixel's placeholders do not exist in the configuration.");
+	return tp;
+    }
+
+    string[] placeholders = pixel_placeholders.Split(new char[]{','});
+
+
+    if (TrackingPixel.UserID != null &amp;&amp; placeholders.Contains("USERID"))
+    {
+	htmlCode = htmlCode.Replace(MakePlaceholder("USERID"), TrackingPixel.UserID.ToString());
+    }
+    if (TrackingPixel.VisitID != null &amp;&amp; placeholders.Contains("VISITID"))
+    {
+	htmlCode = htmlCode.Replace(MakePlaceholder("VISITID"),        TrackingPixel.VisitID.ToString());
+     }
+
+     tp.HTMLCode = htmlCode;
+     return tp;
+}
+</pre>
+<p>Now this is what i would call pretty nasty code. I couldn&#8217;t test it as it had a dependency on ConfigurationManager and getting appSettings from it. I had 2 ideas about how i could break the configuration manager dependency:</p>
+<p>&nbsp;</p>
+<ol>
+<li>Inject the required config value into the public method that called this private method.</li>
+</ol>
+<div>This wouldn&#8217;t work as i would have to make sure that i changed <strong>everywhere</strong>&nbsp;this method was used. I was bound to miss one as i&#8217;m sure the documentation doesnt exist to find all references as most of the code was outsources</div>
+<div><br /></div>
+<div>2. Interface out the configuration manager</div>
+<div>I immediately thought this would be very difficult to do but then had a bit of a brain wave where we had a helper class that would have a method to get the appSetting from the web.config but that this class would be interfaced out for Mocking and thus testing</div>
+<div><br /></div>
+<pre class="brush:csharp">public class ConfigurationManager: IConfigurationManager
+{
+	public string GetAppSettingsPropertyValue(string configurationParameter)
+	{
+		return System.Configuration.ConfigurationManager.AppSettings[configurationParameter];
+	}
+}
+</pre>
+<p>this may not be the best way of doing this but its currently effective and means that the segment of code concerned is fully tested.</p>
+<pre class="brush:csharp">private IConfigurationManager _CONFIG;
+
+........
+string pixel_placeholders = _CONFIG.GetAppSettingsPropertyValue("TrackingPixelPlaceHolders");
+            if (string.IsNullOrEmpty(pixel_placeholders))
+            {
+                //Log
+                _log.Warn("TrackingPixel's placeholders do not exist in the configuration.");
+                return tp;
+            }
+</pre>
+<p>It may not be &#8220;clean&#8221; or efficient but its a first step for me in this. I am now confident of making changes to this method without breaking anything</p>
+<p>&nbsp;</p>
+<p>this was a real breakthrough moment for me &amp; has really helped me develop my unit testing skills</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-09T00:00:00+01:00" pubdate data-updated="true">Aug 9<span>th</span>, 2010</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2010/08/09/breaking-the-dependency/" data-via="" data-counturl="http://paulstack.co.uk/blog/2010/08/09/breaking-the-dependency/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/07/29/iis-administration-application/" title="Previous Post: IIS Administration Application">&laquo; IIS Administration Application</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/08/14/guathon-london-august-2010/" title="Next Post: Guathon London - August 2010">Guathon London - August 2010 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

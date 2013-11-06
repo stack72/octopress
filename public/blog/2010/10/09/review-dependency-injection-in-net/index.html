@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Review: Dependency Injection in .Net - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="After my recent review of Continuous Integration in .Net, I wanted to review another book as i enjoyed it a lot. Therefore I was offered the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2010/10/09/review-dependency-injection-in-net">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Review: Dependency Injection in .Net</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-09T00:00:00+01:00" pubdate data-updated="true">Oct 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p align="left">After my recent review of Continuous Integration in .Net, I wanted to review another book as i enjoyed it a lot. Therefore I was offered the opportunity, by Manning Books, to review Dependency Injection in .Net by Mark Seemann. For me this seemed to be a great book to review as I really wanted to get into DI. I really wasn’t disappointed.</p>  <p align="left">The book is structured as follows:</p>  <ul>   <li>     <div align="left">Part I : Introduction to DI (chapters 1 – 3) </div>   </li>    <li>     <div align="left">Part II: DI Catalogue (chapters 4 – 6) </div>   </li>    <li>     <div align="left">Part III: DIY DI (chapters 7 – 9) </div>   </li>    <li>     <div align="left">Part IV: DI Containers </div>   </li> </ul>  <p align="left">For me the book was well structured, as it stems from putting the basics of what DI is in place, then stemming through how to implement DI and then on to actual implementations of DI with specific containers. </p>  <p align="left"><em><u>Chapter 1: Tour de DI</u></em></p>  <p align="left">What problems does tightly coupled code cause? What is n-tier architecture or modular applications? How does DI solve this? </p>  <p align="left">This chapter is a basic introduction of what DI has been designed to do and what is actually involved in the principal of DI.</p>  <p align="left"><em><u></u></em></p>  <p align="left"><em><u>Chapter 2: DI Fundamentals</u></em></p>  <p align="left">As developers, we may think we know the best practices and best ways of doing things but we may not know why we do these things in this way. Ask yourself this question:</p>  <p align="center"><em>Has there ever been a time when you implemented what you thought was great only to realise it wasn’t scalable or extensible?</em></p>  <p align="left">I reckon the answer would be yes as we never produce 100% perfect code as we are <strong>always</strong> learning. The author then goes on to speak about N-tier architectures and seams. This is where my previous understanding of DI failed. There are 2 types of dependencies:</p>  <ul>   <li>     <div align="left">Volatile (e.g. database, network, file system etc.)</div>   </li>    <li>     <div align="left">Stable dependencies (references to BCL)</div>   </li> </ul>  <p align="left">DI is the technique to control these dependencies but with implementing DI we may loose control of where, when and how dependencies are created and destroyed. Great chapter to set the scene of what DI actually is.</p>  <p align="left"><em><u>Chapter 3: DI Containers</u></em></p>  <p align="left">What are DI containers? What do them do? This chapter discusses the answers to these questions. There is a great analogy to making ice-cream here that demonstrates that DI containers are facilitators, basically the “thing” that provides functionality but that can take care or other work as well. </p>  <p align="left">DI Containers, or IoC containers, take care of all the features talked about in chapter 2. They will require configuration for this to happen and this can happen in different ways:</p>  <ul>   <li>     <div align="left">Configuration files </div>   </li>    <li>     <div align="left">Directly in Code </div>   </li> </ul>  <p align="left">The author uses Castle Windsor to extend the sample application to show its use. There is also talk about how we have got to where we are with the number of DI containers and how the concept was formed. The Castle Windsor was introduced a bit early in my opinion, but I can see why it was done. Stick with the chapter as it is a required read.</p>  <p align="left"><em><u>Chapter 4: DI Patterns</u></em></p>  <p align="left">This is the proverbial meta of a DI container sandwich. This explains “How Do I Inject My Dependencies?”. The author seems to suggest there are 4 main patterns:</p>  <ul>   <li>     <div align="left">Method Injection </div>   </li>    <li>     <div align="left">Property Injection </div>   </li>    <li>     <div align="left">Ambient Content </div>   </li>    <li>     <div align="left">Constructor Injection </div>   </li> </ul>  <p align="left">The author explains each pattern in detail and then relates this back to the sample application.It seems that constructor injection is the default and is actually what I believed what DI actually was. There is a great flowchart on how to choose which pattern to use. This is a great chapter for principles and patterns lovers.</p>  <p align="left"><em><u>Chapter 5: DI Anti-patterns</u></em></p>  <p align="left">In this chapter, the author discusses the patterns for intended use of DI can go wrong and&#160; talks about these being ‘anti-patterns’. The author discusses 4 anti-patterns in specific:</p>  <ul>   <li>     <div align="left">Direct Control </div>      <ul>       <ul>         <li>           <div align="left">the use of the new keyword i.e var x = new ClassName(); </div>         </li>       </ul>     </ul>   </li>    <li>     <div align="left">Bastard Injection </div>      <ul>       <ul>         <li>           <div align="left">having different constructors for unit testing that accept injected dependencies </div>         </li>       </ul>     </ul>   </li>    <li>     <div align="left">Constrained Construction </div>      <ul>       <ul>         <li>           <div align="left">Implementing abstraction but then doing something silly like passing a connection string to the constructor </div>         </li>       </ul>     </ul>   </li>    <li>     <div align="left">Service Locator </div>      <ul>       <ul>         <li>           <div align="left">This is an area of contention where some people like this pattern but the author doesn&#8217;t </div>         </li>       </ul>     </ul>      <p align="left">This is a great chapter, it shows that sometimes everything doesn’t go exactly as expected. This almost demonstrates that we are all human and no matter how we code, we can sometimes get ourselves into a state where we introduce dependencies. </p>      <p align="left"><em><u></u></em></p>      <p align="left"><em><u>Chapter 6: DI Refactoring</u></em></p>   </li> </ul>  <p align="left">After finding all about the anti-patterns of DI, how do we stop ourselves having a pile of dependency ridden spaghetti code? The answer is through refactoring, unit testing &amp; integration testing. </p>  <p align="left">When we get dependency cycles in our code we need to break the (see post on <a href="http://paulstack.co.uk/blog/post/Breaking-the-Dependency.aspx" target="_blank">Breaking The Dependency</a>) and that we can choose a suitable injection method, constructor or property in order to inject the dependency that we require. One thing we do need to do, is to make sure that we are not injecting too many different types. If this is the case we need to revisit our design to create smaller, more focused classes via refactoring.</p>  <p align="left">We can use external tools in order to make sure dependencies are not created in our code, e.g. NDepend. But we can also use unit tests and integration tests to do a similar thing.</p>  <p align="left">This is a very important chapter as it explains the theory behind refactoring dependencies <strong>out </strong>of our code and more importantly, they <strong>stay</strong> out.</p>  <p align="left"><em><u>Chapter 7: Object Composition</u></em></p>  <p align="left">This chapter is concerned with object composition and how we can choose a suitable composition root for some examples of everyday projects, e.g. WCF applications, console applications, Powershell, Webforms and MVC. The theory of object composition was discussed a lot earlier in the book and this is actually how we can choose a composition root in reality.</p>  <p align="left">This chapter has actually taught me how and where to start implementing “proper” DI into a new ASP.NET MVC 2 site I&#8217;m working on currently. As you can image, this was most useful to me. The next 2 chapters continues to talk about how we implement the basic parts of a DI container.</p>  <p align="left"><em><u>Chapter 8: Object Lifetime</u></em></p>  <p align="left">Initially, it was discussed that a DI container took away the natural ability we have of controlling an object and its lifetime. This chapter actually proves that this initial thought is rubbish and gives examples of how objects can be controlled using different lifestyles.</p>  <p align="left">This again is a key chapter in understanding actual ‘real-world’ implementation of a DI container. Initially for me i was creating all my lifestyles as ‘Transient’ but this chapter has taught me that this may not actually be correct.</p>  <p align="left"><em><u>Chapter 9: Interception</u></em></p>  <p align="left">This chapter talks about Interception and how it can be used in conjunction with a DI container to keep code “clean”, “solid” and “DRY” – all principles that we would love to be able to adhere to. Interception is actually only available via a real DI container and <strong>NOT </strong>via “poor man DI”.</p>  <p align="left">This almost puts DI containers and DI itself on a pedestal. It shows how superior it is to implement “real” DI and not “poor man” DI. The take away for me confirms that all the initial thoughts about how DI can be dangerous as we cannot control our object creation, lifetime and destruction is absolute rubbish</p>  <p align="left"><em><u>Chapters 10 – 15 – DI Containers</u></em></p>  <p align="left">The different containers covered here were as follows:</p>  <ul>   <li>     <div align="left">Castle Windsor </div>   </li>    <li>     <div align="left">Structure Map </div>   </li>    <li>     <div align="left">Spring.NET </div>   </li>    <li>     <div align="left">AutoFac </div>   </li>    <li>     <div align="left">Unity </div>   </li>    <li>     <div align="left">Microsoft Extensibility Framework </div>   </li> </ul>  <p align="left">This was a fantastic book and I have since started to put into practice the principles I have learned and have been shown how to implement. It was tough to get going with this book as the immediate start to the book speaks about cooking and draws similarities of cooking to DI. These food similarities continued throughout the book, and to be totally honest, I was getting a bit put off by it. But then after finishing Part II of the book, things started to ‘click’. The penny dropped and I understood the similarities.</p>  <p align="left">I’d very much recommend this book to people who are interested in DI. But I must stress that you need to stick with it as it can become quite heavy in places. One thing I’m sure of is that if you are not very much up to speed with the theory, principles and practices of DI, then you certainly will be after it. It gets 3 [.5] out of 5 for me.</p>  <p align="left">Thanks to Manning books and the author (Mark Seemann) for the content.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-09T00:00:00+01:00" pubdate data-updated="true">Oct 9<span>th</span>, 2010</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2010/10/09/review-dependency-injection-in-net/" data-via="" data-counturl="http://paulstack.co.uk/blog/2010/10/09/review-dependency-injection-in-net/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/09/13/tool-of-the-week-e28093-programmers-notepad2-e28093-100910/" title="Previous Post: Tool Of The Week – Programmers Notepad2 – 10/09/10">&laquo; Tool Of The Week – Programmers Notepad2 – 10/09/10</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/15/simpledata-e28093-a-new-wave-of-orm/" title="Next Post: Simple.Data – a new wave of ORM?">Simple.Data – a new wave of ORM? &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

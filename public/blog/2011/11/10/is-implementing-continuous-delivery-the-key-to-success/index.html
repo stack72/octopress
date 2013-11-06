@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Is Implementing Continuous Delivery the key to success? - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="&ldquo;Until your pretty code is in production, making money, or doing whatever it does, you&#8217;ve just wasted your time&rdquo; - Chris Read &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/11/10/is-implementing-continuous-delivery-the-key-to-success">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Is Implementing Continuous Delivery the Key to Success?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-10T00:00:00+00:00" pubdate data-updated="true">Nov 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><blockquote>
+<p><em>&ldquo;Until your pretty code is in production, making money, or doing whatever it does, you&#8217;ve just wasted your time&rdquo; -</em><a href="http://blog.chris-read.net/"><em> Chris Read</em></a><em> whilst at London CI.</em></p>
+<p>In my opinion, this quote really sums up software development. Process and red tape are becoming an obstacle to more and more developers from doing what they are paid to do &ndash; create software.</p>
+<p>I attended a talk by<a href="http://twitter.com/kendallmiller"> Kendall Miller</a> whilst at<a href="http://developerdeveloperdeveloper.com/scotland2011"> DDDScotland</a> entitled &ldquo;<a href="http://developerdeveloperdeveloper.com/scotland2011/ViewSession.aspx?SessionID=676">Creating your own software company: A survival guide</a>&rdquo;. I am a huge supporter of continuous delivery and have attended many sessions but this session was extremely useful to me. It was really the first time that the reasoning and importance of continuous delivery for developers really hit home with me. I knew the benefits and drawbacks but hearing someone actually demonstrate their experience really helped me. The most important thing I learned in this session was that you have got to get your software out early, this is particularly important when you are starting up a software company. Shipping software early will not only give you a source of much needed income, but can provide potentially useful feedback that can help shape the project before too much investment, both in terms of development time and money, is wasted. This goes hand in hand with the opening quote of this blog post.</p>
+<p>I am a huge fan of clean, SOLID, DRY code and I cannot emphasise enough about why developers should write code in this fashion. I do understand that I may be giving a mixed message here. Is it possible to create software in a clean, SOLID and DRY way and in a fast time? Could we be sacrificing quality for delivery? In my opinion, this is simply not the case. There are some fantastic guide lines laid down by<a href="http://twitter.com/unclebobmartin"> Robert &lsquo;unclebob&rsquo; Martin</a> in his book,<a href="http://www.amazon.co.uk/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/ref=sr_1_1?ie=UTF8&amp;qid=1320920781&amp;sr=8-1"> Clean Code</a>. These guide lines do not take extra time to implement &ndash; they are baked in to how we write the code. As developers they should be second nature to us. If they aren&rsquo;t then you should address this as soon as you can.</p>
+<p>Fast delivery can, however, affect architecture. Architecture is one of those areas of development that really does demonstrate a lot of ways to do achieve a single task. For example there are many different frameworks, tools, code layout etc. and these are another area to be concerned with. You can implement a solution to a problem that is clean &amp; efficient but that may not prove to be the best architecture. You could continue to work on this solution and refactor it to the nth degree until you come up with an architecture that you like.&nbsp; You may feel that you have used your development time wisely to improve your solution, when in actual fact, what you may have done is to waste your development resources refactoring when other solutions may be available to you.</p>
+<p>I would argue that release fast, fail fast is a good way to develop. Get the code out there, let some decent A/B testing give feedback on its fit for purpose and let that shape the architecture. I understand this may be easier for start-up based systems as their customer base can initially be small. But I do not think it is only targeted towards them. Lets look at Google Chrome or Firefox as an example of this philosophy in practice. Changes to Chrome and Firefox are happening on a regular basis now. This means the companies can create a new piece of functionality, release it to users and collect feedback and know that feedback is targeted towards the last small release. This means they are letting the user feedback help drive the system. Firefox takes a lot of grief about how resource hungry it is. Releasing smaller code changes more often will help them see if they are addressing the issue.</p>
+<p>Releasing a solution early can also bring problems of it&rsquo;s own. There are some companies out there that are of the opinion &ndash; if it has shipped and it works then why should we spend any more money on code improvements. This falls into the argument about Technical Debt which I will not cover in this post.</p>
+<p>In summary, I believe software should be delivered in small, continual chunks. This helps create an efficient delivery mechanism that will give us a chance to collect useful feedback in a much more structured and continual way. We can use this feedback to deliver software that is better suited for its purpose and become better at what we are paid to do!</p>
+</blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-10T00:00:00+00:00" pubdate data-updated="true">Nov 10<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/11/10/is-implementing-continuous-delivery-the-key-to-success/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/11/10/is-implementing-continuous-delivery-the-key-to-success/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/10/31/html5-clean-code-for-front-end-developers/" title="Previous Post: HTML5 – Clean Code for Front End Developers">&laquo; HTML5 – Clean Code for Front End Developers</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/11/24/introducing-teamcitysharp/" title="Next Post: TeamCitySharp">TeamCitySharp &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

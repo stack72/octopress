@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Considerations when choosing hardware for CI - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="This post is the second post in a series on how CI will help a development team. The first post talks about the benefits that CI will bring to the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/07/06/considerations-when-choosing-hardware-for-ci">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Considerations When Choosing Hardware for CI</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-06T00:00:00+01:00" pubdate data-updated="true">Jul 6<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This post is the second post in a series on how CI will help a development team. The first post talks about the <a href="http://paulstack.co.uk/blog/post/How-to-get-started-with-CI.aspx" target="_blank">benefits that CI will bring to the team</a>. (CI = continuous integration)</p>
+<p>So you have decided to try and introduce CI into your team? Good choice! This can be a pretty tough time for you. You will need to justify any cost and infrastructure required and you <strong>may</strong> face questions about the choices you make. You should not let implementation of CI impact your day to day role or the company may question where your time is being spent. CI should be quick and easy to get running and then projects be moved to it over a period of time.</p>
+<p>Below are some of the hardware options to consider when introducing a CI environment to a team/company:</p>
+<h5>Server</h5>
+<p>If you manage to get yourself a full server setup for your first CI implementation then I am very jealous! Servers cost money to buy, setup and maintain so you have either done a great job of selling the benefits or your company have really bought into the entire concept. Or both! Good work!</p>
+<h5>Spare Development Machine</h5>
+<p>If you can&rsquo;t get a server and there is a small budget available then I would suggest getting yourself a development standard machine to start using. This only needs access to the network and source control. IF there is 0 budget available but you have an old development lying spare then use that instead. This will be plenty powerful enough to run CI tooling and is a common starting point.</p>
+<h5>Virtual Machine</h5>
+<p>If you can&rsquo;t get a server or a physical development machine then don&rsquo;t worry. The battle is not lost here. You can run a VM somewhere (testing server maybe) that will act as a CI server. Of course this will not be hugely powerful, but it is perfectly acceptable to start with this. This is actually all I was able to get by my company. It was cheap (existing infrastructure) and fast to setup (they have a standard way of deploying VMs).</p>
+<h5>Local CI server</h5>
+<p>This is my least preferred option. But if there is nothing else you have access to then it will act as a decent starting point. The trouble with running a CI server locally is that the machine may have all the dependencies installed (VS, SDKs etc.) and the process may be able to find any references that would be classed as &ldquo;missing&rdquo; on other infrastructure, from the GAC. This could result is false positives when running builds. This can then lead to bum deployments where files or references are missing that can cause hassle for your application.</p>
+<h4>So how do I choose one?</h4>
+<p>A lot of the decision will come down to what you actually want to do with it. Lets think of the scenario 30 developers checking in 5 times a day and there is a version control trigger to build on check in then of course we need something that&#8217;s powerful in order to process these queued builds. The other implication here &ndash; build time &ndash; but we will talk about that later. It would not be feasible for a local machine to be doing this amount of processing as this would effectively cut your development time. But if you had 2 developers who were doing only a few check ins a day then a less powerful machine is viable.</p>
+<p>The tip here is to think about your current setup &ndash; good VCS habits mean multiple check ins and lots of developers mean higher spec machine is needed &ndash; in this case a VM or local machine may not be viable.</p>
+<p>DVCS (git or Hg) can mean less pushes to main repo by developers and less builds required. Thus the local machine or VM could be viable.</p>
+<p>Regardless of which option you take, remember the golden rule. <strong>CI servers should be as free of installed dependencies as possible in order to mimic the live environments. </strong>There will be a later post to talk about installed dependencies.</p>
+<p>This article has tried to point out some of the infrastructure choices that we have when initially introducing CI to a tam. It is not an exhaustive list but it is the options I had when I have setup my own environments. If you feel any others should be added then please leave comment and I will update the list.</p>
+<p>The next post will talk about the different options available for CI tooling and how to choose the correct tool for you.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-06T00:00:00+01:00" pubdate data-updated="true">Jul 6<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/07/06/considerations-when-choosing-hardware-for-ci/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/07/06/considerations-when-choosing-hardware-for-ci/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/07/04/satisfyr-useful-little-addition-to-my-testing/" title="Previous Post: Satisfyr – useful little addition to my testing">&laquo; Satisfyr – useful little addition to my testing</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/07/11/iis-rewrite-tool-the-pain-of-a-simple-rule-change/" title="Next Post: IIS Rewrite Tool – the pain of a simple rule change">IIS Rewrite Tool – the pain of a simple rule change &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

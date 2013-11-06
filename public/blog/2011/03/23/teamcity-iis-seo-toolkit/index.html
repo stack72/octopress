@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>TeamCity & IIS SEO Toolkit - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="TeamCity has been proving to be one of the most useful tools I have used in recent times. It has helped me from continuous deployment of sites to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/03/23/teamcity-iis-seo-toolkit">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">TeamCity & IIS SEO Toolkit</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-23T00:00:00+00:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>TeamCity has been proving to be one of the most useful tools I have used in recent times. It has helped me from continuous deployment of sites to staging and production environments,&nbsp; allowing security penetration testing, running automated acceptance tests with SpecFlow and much more. I really hoped there would be a way that I could test the SEO capabilities of a newly deployed site. Usually when I deploy a site I will open IIS console and run a Site Analysis against the URL using the <a href="http://www.iis.net/download/seotoolkit" target="_blank">SEO Toolkit</a> but I thought there must really be a way to run this from TeamCity.</p>
+<p>Over the past week or so I have been writing some prototype code that will allow me to use the SEO toolkit dll to create a sits analysis. This worked out to be effective and since I was able to run the analysis from code I was able to run the application from TeamCity.</p>
+<p>the code for this application is in very early stages as it was written with the help of some sample code on MSDN. It will evolve over time and I&rsquo;ll make this available. The plans for the application are to support different parts of the analysis to be added to the report by config parameters. As I am sure this code could be misused I have added a small Thread.Sleep so that it can&rsquo;t be used to DoS attack a site. I accept no responsibilities for the code being misused.</p>
+<h3>Configuring TeamCity to Run the Application</h3>
+<p>Log into TeamCity as an administrator and go into the administration screen.</p>
+<p><a href="http://paulstack.co.uk/blog/images/CreateProject.jpg"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="CreateProject" src="http://paulstack.co.uk/blog/images/CreateProject_thumb.jpg" border="0" alt="CreateProject" width="328" height="58" /></a></p>
+<p>Click on &lsquo;Create Project&rsquo; and enter some project details:</p>
+<p><a href="http://paulstack.co.uk/blog/images/ProjectDetails.jpg"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="ProjectDetails" src="http://paulstack.co.uk/blog/images/ProjectDetails_thumb.jpg" border="0" alt="ProjectDetails" width="326" height="80" /></a></p>
+<p>Next we want to create a build configuration. So click on &lsquo;Create build configuration&rsquo;:</p>
+<p><a href="http://paulstack.co.uk/blog/images/CreateBuildConfiguration.jpg"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="CreateBuildConfiguration" src="http://paulstack.co.uk/blog/images/CreateBuildConfiguration_thumb.jpg" border="0" alt="CreateBuildConfiguration" width="365" height="40" /></a></p>
+<p>Add some general details &ndash; name, description and build number format. The most important thing to note here is the artifacts text area. It has SEOReport.html added to it. This is the report that the crawler application creates. We add this to the artifacts so that we can add the results to a report tab.</p>
+<p><a href="http://paulstack.co.uk/blog/images/BuildSettings.jpg"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="BuildSettings" src="http://paulstack.co.uk/blog/images/BuildSettings_thumb.jpg" border="0" alt="BuildSettings" width="325" height="173" /></a></p>
+<p>We will be asked next to enter some VCS settings. I have had to hack things slightly. Technically I don&#8217;t have to check this application out of version control. So I enter the path to the application file in the checkout path as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/VCSSettings.jpg"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border: 0px;" title="VCSSettings" src="http://paulstack.co.uk/blog/images/VCSSettings_thumb.jpg" border="0" alt="VCSSettings" width="313" height="108" /></a>&nbsp;</p>
+<p>The build step is the next thing to add. In the build steps over click on Add Build Step and choose Command Line from the runner type drop down menu. This is where we call the application now:</p>
+<p><a href="http://paulstack.co.uk/blog/images/BuildStep.jpg"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border: 0px;" title="BuildStep" src="http://paulstack.co.uk/blog/images/BuildStep_thumb.jpg" border="0" alt="BuildStep" width="309" height="137" /></a></p>
+<p>As you can see we leave the working directory empty as we have specified the directory already in the VCS stage. We can then call the .exe from the command executable. The parameters is where it gets interesting. This is were we pass in the site to scan &ndash; if a site is not specified then an application exception will be thrown and the build will fail.</p>
+<p>When you have finished the setup and passed in a site then run the build. On a successful build the build details page will show (a newly configured) SEO Crawler Report tab:</p>
+<p><a href="http://paulstack.co.uk/blog/images/ReportTab.jpg"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border: 0px;" title="ReportTab" src="http://paulstack.co.uk/blog/images/ReportTab_thumb.jpg" border="0" alt="ReportTab" width="366" height="101" /></a></p>
+<p>If you don&#8217;t know how to add a custom report tab I&rsquo;ll cover this in a separate post. But on the successful build and we click that tab we get a very simple report as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/ReportOutput.jpg"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border: 0px;" title="ReportOutput" src="http://paulstack.co.uk/blog/images/ReportOutput_thumb.jpg" border="0" alt="ReportOutput" width="295" height="321" /></a></p>
+<p>This report only has a summary of URLS, links and violations as well as site status codes and broken links. But as this application provides a full scan that the SEO toolkit can do we can make the application output more details. In coming versions of the code, I&rsquo;ll allow it to be configurable as to which sections can be added to the report.</p>
+<h3>How Can I View The Full Report?</h3>
+<p>As I mentioned, the crawler application does a full site analysis. The same analysis that IIS does. In the application root folder an IIS SEO Reports folder. This folder will contain all the scan reports. So if you <strong>really</strong> want to you can take the scan folder and drop it to a know IIS location (for me is MyDocuments/IIS SEO Reports) and IIS can display the full report as it would have done before.</p>
+<p>Another tip of the cap to TeamCity. I know as this is an executable it can be called from any build script but its just made very easy for me with the build in build runner and parameters acceptance.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-23T00:00:00+00:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/03/23/teamcity-iis-seo-toolkit/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/03/23/teamcity-iis-seo-toolkit/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/03/20/finally-a-visual-studio-extension-sync-tool/" title="Previous Post: Finally, a Visual Studio Extension Sync Tool">&laquo; Finally, a Visual Studio Extension Sync Tool</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/03/26/extracting-a-sql-server-schema-from-sql-server-ce-file/" title="Next Post: Extracting a Sql Server Schema from Sql Server CE File">Extracting a Sql Server Schema from Sql Server CE File &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

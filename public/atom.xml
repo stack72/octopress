@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Adventures of a wannabe geek!]]></title>
+  <link href="http://paulstack.co.uk/atom.xml" rel="self"/>
+  <link href="http://paulstack.co.uk/"/>
+  <updated>2013-11-06T15:35:26+00:00</updated>
+  <id>http://paulstack.co.uk/</id>
+  <author>
+    <name><![CDATA[Paul Stack (@stack72)]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Why delay the VS2012 release, Microsoft?]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/"/>
+    <updated>2012-08-09T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/08/09/why-delay-the-vs2012-release-microsoft</id>
+    <content type="html"><![CDATA[<p>The date is 1st August 2012. Developers have been wondering for weeks when the release of VS2012 and ASP.NET 4.5 will happen. Somasegar, cvp of dev div in Microsoft, has just <a href="http://blogs.msdn.com/b/somasegar/archive/2012/08/01/visual-studio-2012-and-net-4-5-complete.aspx" target="_blank">announced that the final build version of VS2012 is complete</a>.This means the product is ready for release. Dot net developers all over the world are eagerly waiting for the immortal words, &ldquo;it&rsquo;s available to download on MSDN&rdquo;. Unfortunately they haven&rsquo;t come. Instead, the download will not show up for another 14 days. This seems wasteful to me.</p>
+<p>Tell me if I am incorrect, but I believe the delay is that the product has gone to tool vendors to make sure that their tools / plugins will work with the application. This to me seems a very strange thing to do. This product has technically been in the making for 18 months (since the release of VS2010) so giving it to vendors in the final 2 weeks is crazy. What will happen if the vendors report it doesn&rsquo;t work with their tools? Would Microsoft stop a release for this considering it is so baked into the windows 8 release? I don&rsquo;t think there is any possibility of that happening at all. Therefore why the delay? I understand that 3rd party vendors are customers that Microsoft have to satisfy, but technically so are we &ndash; the users of the product.</p>
+<p>My ethos on software delivery is ship early, ship often. I hate when a feature is complete that it has to wait around for 2 weeks before release. Get the product out there, start gathering feedback and get planning to deliver more value to that customer. I understand that VS2012 is not easy to release often. Its a rather large download and there are pricing models around it. But changing the shape of the product to delivery in small chunks that are updatable more often would allow the product to get shaped by its user base. Faster feedback means delivering more customer value. It seems that other departments within Microsoft are now following this model (MVC team, EF team and Nuget team). Delivering like this is becoming more popular (and hopefully will become the standard). Its time to embrace this ethos Microsoft. Its certainly how I would be looking at things in the future if I were the product lead developer.</p>
+<p>$0.02</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Survival of the fittest – fluid teams?]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/06/25/survival-of-the-fittest-fluid-teams/"/>
+    <updated>2012-06-25T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/06/25/survival-of-the-fittest-fluid-teams</id>
+    <content type="html"><![CDATA[<p>In traditional, waterfall organisations, a development team follows the organisation hierarchy. The development team can be split into smaller sub teams and each of those teams can have their own leader, but ultimately the hierarchy still exists. Developers usually stay in that sub team for most of their time in the organisation and they know exactly who their line manger is and who is responsible for their reviews and can act accordingly. The organisational structure is rigid and embedded into the process of the team and organisation.</p>
+<p>In more agile teams, the organisational structure is less rigid meaning that developers do not need to stay in a single sub team for their time at the company. They can be organised (or organise themselves in more advanced agile cultures) into teams based on skills. New developers are hired with a view to how they can benefit the wider team and not towards the skills needed for a sub team in a waterfall environment. Even though there are less restrictions on people moving between teams, it is not always guaranteed. It can happen when required, e.g. when a new member of staff is hired and the skillsets need to be spread evenly. This can evolve further.</p>
+<h4>Can agile teams be formed around projects?</h4>
+<p>Simply, yes. This is actually how projects work at Facebook. When a developer joins the company, they can request what team they want to join when their &lsquo;boot camp&rsquo; is over. Each developer has a desk and that desk is on wheels. Their office is completely open plan. When a team&rsquo;s project is finished, the developers simply break up as a unit and wheel their desks to form the next team for the next project.</p>
+<p>I&rsquo;ve talked to a few people about this fluid team structure. All responses seem to follow the questions:</p>
+<ul>
+<li>If a developer continually moves around, who is the manager responsible for the developers review?</li>
+</ul>
+<p>At school, I was part of a form group and I had a form tutor. This was the class I was part of each morning between 0900 and 0910 and where registration would be taken. I didn&rsquo;t study all my subjects with that class or that tutor. Each teacher had their own area of expertise. I moved around when I needed to go to a class. The same can happen in the workplace. In an agile team there should not be any need to micromanage members of the team. Just because you don&rsquo;t sit beside your line manager doesn&rsquo;t mean they cannot manage you. They need to form a trusting and communicative relationship with each other &ndash; characteristics of an agile team. This will allow the manager to know exactly how the developer is progressing and any obstacles in their way.</p>
+<ul>
+<li>What happens if a project ends up with all the weakest developers in a development department?</li>
+</ul>
+<p>If you are happy to hire weak developers then I suggest a look at your hiring process may be a useful thing to do. If a developer is not hired because they have the correct attitude, skillset and cultural fit for your team or you are happy to hire the &lsquo;best of a bad bunch&rsquo;&nbsp; then you may have bigger issues than worrying about the formation of sub teams.</p>
+<p>To summarise, you don&rsquo;t need to keep developers locked to a team or a line manager. A trusting and communicative environment should always allow the team to focus on what they were hired for, the delivery of software. After all, if you are not here to care about the quality and standard of your work, then you should really think about changing career and stop wasting your employers money.</p>
+<p>$0.02</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[TFS and Continuous Deployment]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/06/19/tfs-and-continuous-deployment/"/>
+    <updated>2012-06-19T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/06/19/tfs-and-continuous-deployment</id>
+    <content type="html"><![CDATA[<p>I am a huge advocate of continuous integration and continuous delivery. I am always cautious about mentioning continuous deployment in my talks. This <strong>can</strong>, I stress the word can, be dangerous. For me there is a journey in the delivery of software.</p>  <ul>   <li>Companies, traditionally, started slow and go with manual deployments infrequently </li>    <li>Continuous Integration was introduced to the team when the team grew and needed to help test the integration of their code </li>    <li>The need to deploy more frequently may arise and as manual deployments are time consuming and (or) painful, deployments become automated </li>    <li>Continuous delivery was then said to be the better way to develop software (this meaning that code in the master repo is always in a state where it can be released to the end user) </li> </ul>  <p>This journey not only required a development teams skillset to grow to support it, but it also required a culture and attitude change as we move through the lifecycle. Developers need to start taking more care in their work and making sure that technical debt is not accrued too fast and that work is tested thoroughly. For me, when a team reaches this maturity point, they have reached the pinnacle of software delivery. The time required to release a new feature (cycle time) is determined by how fast the developer can develop and test the feature rather than worrying about release cycles. A release for this individual can be created and scheduled as appropriate to the needs of the business. The process is almost completely automated.</p>  <p>Lets take the step to continuous deployment. This is where every successful build is released to the end user. For me, things start to get a bit scary here. Continuous deployment is associated with start-ups. Companies that are releasing a new product and need to get it to market fast to get revenue and user feedback. As the codebase is young, it would has accrued less technical debt so the cycle time would potentially be faster than companies with legacy code. I believe that continuous deployment needs to be surrounded by rigorous automated testing (unit, integration, acceptance, system, performance etc..) and also supported by an immune system that helps to notify everyone if key performance or conversion metrics etc. drop below certain thresholds. This would help the confidence in the code being released to be as high as possible. In this type of environment, developers should work with the operations staff to make sure that deployments happen and follow up if there are issues with the release. I cannot stress enough that continuous deployment should not be taken lightly. It *will* come back and bit you on the ass if you are not well prepared.</p>  <p>Imagine my surprise when I read on twitter during the (azure announcement name hashtag) that the new version of TFS will support continuously deploying applications to the new azure portal [THIS NEEDS CHECKED FOR ACCURACY]. Firstly, I was surprised that this feature was added to TFS over something more useful, e.g. DVCS style version control. The lack of the good version control is a major downfall in TFS for me. Secondly, I think that this new feature will inspire a new breed of false bravery. I understand that it is very good to be brave. Nothing is braver than finishing development fast and pushing straight to production. There needs to be a process around these deployments – are they dark deployments, canary releases, have A/B testing etc.? Have you got the performance test analysis incase your feature causes an issue in production that costs the company money. Have you got monitoring around the system to spot potential issues early. There are many things I have set up around my continuous deployment sites.I don’t believe that all software developers give enough thought to what they are doing and will fix it later. Continuous deployment may not be good for these types of developer. A small issue unnoticed, e.g. a missing ‘checkout’ button on the site, can cause the company a lot of money. </p>  <p>I am by no way trying to say my setup is better than other developer setups, I am merely pointing out that a good support network around a deployment is needed. Maybe azure has this good support network but a developer should definitely know how to use it if they are to take advantage of this feature. If you are working on a personal project that doesn’t affect too much then continuously deploy until your heart is content. If wanting to take the giant leap to this in a company with legacy code then think twice. don’t f**k with your users. They potentially pay your salary. I think TFS should focus on making the tool easier to use for developers rather than worry about continuous deployment just yet</p>  <p>&lt;/TFSRant&gt;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[What is your interpretation of burnout?]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/06/07/what-is-your-interpretation-of-burnout/"/>
+    <updated>2012-06-07T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/06/07/what-is-your-interpretation-of-burnout</id>
+    <content type="html"><![CDATA[<p>I always had the idea that the term &lsquo;burnout&rsquo; had a pretty standard meaning in software development. I&rsquo;m sure each developer have their own way of phrasing it but in essence, I was always of the idea that it meant &lsquo;over working leading to exhaustion and lack of motivation&rsquo;.</p>
+<p>I wanted to see what the exact thoughts of my peers was so asked on twitter &ldquo;what does burnout meant to you?&rdquo;. I got a list of varied responses:</p>
+<p><a href="http://www.twitter.com/tomasmcguinness" target="_blank">@tomasmcguinness</a>: <em>Burnout in terms of software development? For me, it means losing the ability to concentrate and focus,combined with mental fatigue</em></p>
+<p><a href="http://www.twitter.com/mbrit" target="_blank">@mbrit</a>: <em>For me, it&#8217;s about ending up at a dead end in terms of stimulation/career progress.</em></p>
+<p><a href="http://www.twitter.com/kristofclaes" target="_blank">@kristofclaes</a>: <em>&#8220;I should have kept this as a hobby&#8230;&#8221; or something like that. Not sure how to put it into words.</em></p>
+<p><a href="http://www.twitter.com/jcmm33" target="_blank">@jcmm33</a>: <em>whatever the cause, its a lack of focus/motivation/drive/engagement within an employee when there used to be</em></p>
+<p><a href="http://www.twitter.com/nathangloyn" target="_blank">@NathanGloyn</a>: <em>burnout = not able to work any more, nervous breakdown, catastrophic event</em></p>
+<p>These are only a few of the responses, but as you can see the vary a lot. The reason I asked this question is that whilst on a trip to San Francisco recently, I was able to catch a company organised talk from <a href="http://www.facebook.com/jayp" target="_blank">Jay Parikh</a>, the VP of Infrastructure at Facebook. I don&rsquo;t need to tell you who Facebook are therefore you can imagine I was very interested to hear his thoughts on the subject. Whilst talking to us, Jay spoke about Facebook hack-a-thons. Basically their entire team (product owners, devs, IT guys etc.) get together on a night of the week in the Facebook campus and work on something they don&#8217;t normally work on.</p>
+<p>One of our developers asked the question, &ldquo;how do your devs avoid burnout when approaching hack-a-thons in the middle of a work week?&rdquo;. Jay discussed that development at Facebook wasn&rsquo;t a strict 9 &ndash; 5 culture and that developers would work the hours that they felt quite at home with. He said the developers at Facebook don&rsquo;t suffer burnout as <em>&ldquo;burnout is loosing interest in a project or piece of work&rdquo;</em> and their developers work for a maximum of 12 months in a team before moving to another.</p>
+<p>I can see Jay&rsquo;s point but I don&rsquo;t feel that working too much and losing interest on a project are mutually exclusive. I think if you work too much then you can become bogged down in feeling a bit frustrated in your work. This can create boredom and make you lose interest and (or) focus. This is where I think burnout creeps in. This is what we need to make sure we avoid when we plan work. I usually associate burnout with long waterfall projects.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[TeamCity - OutOfMemoryError]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/05/21/teamcity-outofmemoryerror/"/>
+    <updated>2012-05-21T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/05/21/teamcity-outofmemoryerror</id>
+    <content type="html"><![CDATA[<p>Whilst upgrading our TeamCity server from 6.5 to 7.x, I encountered an error:</p>
+<p><em>Unexpected error occurred inside Alarm task: java.lang.OutOfMemoryError: GC overhead limit exceeded</em></p>
+<p>After a bit of looking around and sifting through some very weird articles I was able to find some good information on this. Basically, the JVM starts by default with 512mb of memory and it was struggling to process our 300+ build configurations with this. In order to fix it I had to do the following:</p>
+<ul>
+<li>Go to TeamCity webserver</li>
+<li>Open CMD</li>
+<li>cd &lt;TeamCity root dir&gt;</li>
+<li>cd bin</li>
+<li>teamcity7w.exe //ES//TeamCity
+<ul>
+<li>If you are on TeamCity 6.x then you need to run teamcity6w.exe rather than ..7w</li>
+</ul>
+</li>
+This will open the following dialog:</ul>
+<p><a href="http://paulstack.co.uk/blog/images/image_51.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_49.png" alt="image" width="244" height="233" border="0" /></a></p>
+<p>Go to the Java tab and change the maximum memory pool entry to something other than 512mb</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_52.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_50.png" alt="image" width="244" height="233" border="0" /></a></p>
+<p>Restart the service and all should be well with the application start-up.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Introducing TeamCityMetro for WP7]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/05/17/introducing-teamcity-metro/"/>
+    <updated>2012-05-17T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/05/17/introducing-teamcity-metro</id>
+    <content type="html"><![CDATA[<p>After my foray into the work of the <a href="http://www.jetbrains.com/teamcity/" target="_blank">TeamCity</a> API, <a href="http://twitter.com/gep13" target="_blank">Gary Park</a> and I have written a WP7 app. We are pleased to announce that this app is now available in the <a href="http://stack72.me/teamcitymetrowp" target="_blank">AppStore</a> and is FREE to all. For version 1, the application will only give you the opportunity to see your projects, builds types, last 10 builds of each build type and then link to the build on your teamcity server. This is only an initial release and will be followed up with the ability to trigger builds.</p>
+<p>The application looks as follows:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/Screenshot1_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot1" src="http://paulstack.co.uk/blog/images/Screenshot1_thumb_1.png" alt="Screenshot1" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot2_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot2" src="http://paulstack.co.uk/blog/images/Screenshot2_thumb_1.png" alt="Screenshot2" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot3_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot3" src="http://paulstack.co.uk/blog/images/Screenshot3_thumb_1.png" alt="Screenshot3" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot4_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot4" src="http://paulstack.co.uk/blog/images/Screenshot4_thumb_1.png" alt="Screenshot4" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot5_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot5" src="http://paulstack.co.uk/blog/images/Screenshot5_thumb_1.png" alt="Screenshot5" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot6_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot6" src="http://paulstack.co.uk/blog/images/Screenshot6_thumb_1.png" alt="Screenshot6" width="148" height="244" border="0" /></a>&nbsp; <a href="http://paulstack.co.uk/blog/images/Screenshot7_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot7" src="http://paulstack.co.uk/blog/images/Screenshot7_thumb_1.png" alt="Screenshot7" width="148" height="244" border="0" /></a></p>
+<p>If you want to request a feature or leave us some feedback then please get in touch with us. An application website will soon appear. All feedback gratefully received. Huge thanks to all our beta testers. Without them this application would never have made it past beta.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Enum String Value with JQuery Mobile]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/05/03/enum-string-value-for-use-with-jquery-mobile/"/>
+    <updated>2012-05-03T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/05/03/enum-string-value-for-use-with-jquery-mobile</id>
+    <content type="html"><![CDATA[<p>A while back I had to use <a href="http://jquerymobile.com/" target="_blank">JQuery mobile</a> for a project. The project needed to have 2 themes on an application and the configuration would need to tell the application what theme to load. With JQuery Mobile, the theme string could only be a single letter. I like keeping to decent and meaningful naming conventions, so I created a configuration setting as follows:</p>
+<p>&lt;add key=&#8221;Theme&#8221; value=&#8221;Plain&#8221; /&gt;</p>
+<p>I could see easily that the theme for this build of the application is the Plain theme. How could I relate that back to a JQuery theme? Plain would not be acceptable with JQuery Mobile. Therefore I had to do something different. I was able to use an attribute on the Theme Enum:</p>
+<script type="text/javascript" src="https://gist.github.com/87a15d10b39c4ab6f26a.js"></script>
+<p>I then overrode the WebViewPage to include logic to get the Theme as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/cdd00afc29b4b4599ebb.js"></script>
+<p>As you can see, I have an extension method in place to get the string value of the enum. This then taps back into my String attribute as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/94a594f634ee0aa1e3ae.js"></script>
+<p>This then allowed me to turn a simple readable string from a web.config, into something that JQuery Mobile could understand and parse as normal</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[You think I'm doing it wrong, so help me do it right]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/05/01/you-think-im-doing-it-wrong-so-help-me-do-it-right/"/>
+    <updated>2012-05-01T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/05/01/you-think-im-doing-it-wrong-so-help-me-do-it-right</id>
+    <content type="html"><![CDATA[<p>I am fed up with reading more and more posts, mostly on twitter, telling me I&rsquo;m wrong if I&rsquo;m doing it this way or wrong if I&rsquo;m not using this tool. Who gives you the right to tell me I am not correct? You do not know my problem space, domain or the criteria I need to work towards.</p>
+<p>I have to say that this post is not in retaliation to anyone telling me I am doing something wrong. It is based towards all the posts titled &lsquo;You&rsquo;re doing it wrong&hellip;.&rsquo;</p>
+<p>In my opinion, we are continually learning in this industry. Something you may be good at now, may not be the hot topic in 6 months time. I am not sure there is a single person who knows <strong>*everything*</strong>. You may have your niche of expertise and you may be able to help but be constructive. If you really think I am doing it wrong, then give me reasons why so and point out the flaws in my way. It isn&rsquo;t black and white. This is not a math problem &ndash; there may be more than 1 way to do something.</p>
+<p>I do a lot of speaking to groups about continuous integration &amp; delivery. There is no way I would tell someone they are wrong. Instead, all I can do is to put the reasons out there for my way of doing something. If the person takes this on-board then that&#8217;s fantastic. If they don&#8217;t, I won&#8217;t get offended. Maybe we should focus on helping the devs who are supposedly doing it wrong rather than pointing that almighty finger at them. Who knows, you may even learn something yourself.</p>
+<p>&lt;/rant&gt;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Spoofing the Host Entry in a HTTPWebRequest]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/04/30/spoofing-the-host-entry-in-a-httpwebrequest/"/>
+    <updated>2012-04-30T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/04/30/spoofing-the-host-entry-in-a-httpwebrequest</id>
+    <content type="html"><![CDATA[<p>I had this idea to create a dashboard that would ping different version of a site in order to get the build number. The details are as follows:</p>
+<p><a href="http://www.mysite.com">www.mysite.com</a></p>
+<p>runs on a local site at 192.x.x.x, a QA environment at 10.x.x.x, a staging environment at 66.x.x.x, and a live environment at 88.x.x.x (these IPs are made up). In order to hit each site, I would usually manually change the host file and then make the web request. This was not a great solution as I hate dealing with host file entries. On experimenting with HTTPWebRequest, I noticed that you can use reflection in order to change the Headers of the Request. The normal code to create a HTTPWebRequest would look as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/17bf91700d77d25c2435.js"></script>
+<p>I was able to spoof the host by changing the host using reflection:</p>
+<script type="text/javascript" src="https://gist.github.com/5eb2fcb26600cd81416c.js"></script>
+<p>This allowed me to make multiple requests to different versions of the same site. Using a simple collection of my site objects to build a dashboard that had the following outline:</p>
+<table style="width: 574px;" border="1" cellspacing="0" cellpadding="2">
+<tbody>
+<tr>
+<td valign="top" width="116">&nbsp;</td>
+<td valign="top" width="118">Local</td>
+<td valign="top" width="110">QA</td>
+<td valign="top" width="113">Stage</td>
+<td valign="top" width="115">Live</td>
+</tr>
+<tr>
+<td valign="top" width="115">Build Number</td>
+<td valign="top" width="118">web_12_4_qa</td>
+<td valign="top" width="111">web_12_4_qa</td>
+<td valign="top" width="114">web_12_5_stg</td>
+<td valign="top" width="116">web_12_4_prod</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My approach to refactoring a monster switch statement]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/04/15/my-approach-to-refactoring-a-monster-switch-statement/"/>
+    <updated>2012-04-15T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/04/15/my-approach-to-refactoring-a-monster-switch-statement</id>
+    <content type="html"><![CDATA[<p>I had to refactor some very old code a while back. The code looked similar to this:</p>
+<script type="text/javascript" src="https://gist.github.com/02f6a05870b5b2dd277f.js"></script>
+<p>I had to refactor it so that I could add more parts to it. There was no way I could add in more case statements so it all had to go. I took a cautious approach to the refactoring as it was pretty brittle and quite important code. The first step in refactoring made the code look as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/e263574855d5dc9b19fd.js"></script>
+<p>This mean that I could make sure that the function of the code didn&rsquo;t change but that it was easier to read. This still couldn&rsquo;t be unit tested though as there was no way to mock the behaviour of the case statements &ndash; it was all still in the same class. The next refactoring step was to allow some unit tests to be written. I was able to separate the behaviours into their own class and made the code look as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/ce53ce246dcf5f9bcaaa.js"></script>
+<p>This wasn&rsquo;t enough for me. I still had this huge switch statement that was breaking the <a href="http://www.objectmentor.com/resources/articles/ocp.pdf" target="_blank">Open / Closed principle</a>. This meant that in order to add more functionality to the switch, I had to change the switch and risk breaking it. This couldn&rsquo;t happen. This made my final part of the code look as similar:</p>
+<script type="text/javascript" src="https://gist.github.com/843ed2eeaf5fab2e3c7f.js"></script>
+<p>With this code I could make sure that I could write some unit tests around the behaviour of the class. This post only talks about going this far. I have since refactored the TaskRunner class much more as it was doing a lot more than 1 thing and thus breaking <a href="http://www.objectmentor.com/resources/articles/srp.pdf" target="_blank">SRP</a>. How would you have handled the same refactoring?</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Custom blogging workflow with YouTrack]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/04/09/custom-blogging-workflow-with-youtrack/"/>
+    <updated>2012-04-09T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/04/09/custom-blogging-workflow-with-youtrack</id>
+    <content type="html"><![CDATA[<p>In the past week, I have started using <a href="http://www.jetbrains.com/youtrack" target="_blank">YouTrack</a>&nbsp;3.0 in the cloud as a think tank of blog posts that I want to write. Previously I had used Trello. there was no particular reason for moving away from <a href="http://trello.com">Trello</a> other than curiosity about what YouTrack could offer me. On setting up YouTrack I added a project to start the tracking of the blog posts. On adding the first post, I was given the following state workflow:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_41.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_39.png" alt="image" width="419" height="227" border="0" /></a></p>
+<p>As you can see, you can pretty much change the state to be any other out of the box. I wanted to use this as the opportunity to create a custom workflow for YouTrack. I was able to download the <a href="http://www.jetbrains.com/youtrack/download/" target="_blank">YouTrack Workflow Editor</a> and start the editor. <a href="http://twitter.com/hhariri" target="_blank">Hadi Hariri</a> has created a post on the basics of the workflow editor on <a href="http://hadihariri.com/2012/02/15/spicing-up-youtrack-with-workflows/" target="_blank">his blog</a> but this was only to create a stateless rule. I wanted to create a &lsquo;statemachine&rsquo; rule. Basically the flow was to be as follows:</p>
+<p>- Initially the issue created would be assigned to &lsquo;To Write&rsquo;</p>
+<p>- Issues in &lsquo;To Write&rsquo; could be changed to &lsquo;In Draft&rsquo;</p>
+<p>- Issues in &lsquo;In Draft&rsquo; could be changed to &lsquo;In Review&rsquo; when complete or &lsquo;To Write&rsquo; when paused</p>
+<p>- Issues in &lsquo;In Review- can be changed to &lsquo;Published&rsquo; when closed or &lsquo;In Draft&rsquo; when failed review</p>
+<p>I immediately got to work and created a new rule as in Hadi&rsquo;s post but this time I chose a statemachine rule. This gave me the following template:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_42.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_40.png" alt="image" width="447" height="240" border="0" /></a></p>
+<p>I had to add the first transition. That when initially opened the state would be &lsquo;To Write&rsquo;:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_43.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_41.png" alt="image" width="447" height="240" border="0" /></a></p>
+<p>I then had to implement the changes allowed to State from &lsquo;To Write&rsquo;. This says that when an issue in To Write, the only state it can move to is &lsquo;In Draft&rsquo;. As you can see, there is a stub of the state for In Draft created now by the Editor. I was then able to say that when the post is In Draft, it can move to In Review when finished writing or To Write when paused:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_44.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_42.png" alt="image" width="427" height="230" border="0" /></a></p>
+<p>I was then able to implement that when the post is In Review, it could change to Published when verified or In Draft when it didn&rsquo;t pass review. This gave us the stub for Published. As there were no state changes allowed when published, I just had to leave the Published state empty as shown:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_45.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_43.png" alt="image" width="425" height="229" border="0" /></a></p>
+<p>After uploading the workflow to the server, as per Hadi&rsquo;s instructions, I then had to attached the workflow to my project. I went to administration and chose the project type and then the workflow tab, I clicked the button &lsquo;Attach workflow&rsquo;. This game me the following:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_46.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_44.png" alt="image" width="422" height="229" border="0" /></a></p>
+<p>I just had to choose the workflow I had created (stack72-blogging-stateflow) and I could then see the transition screens were working as appropriate:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_47.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_45.png" alt="image" width="146" height="133" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/image_48.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_46.png" alt="image" width="151" height="133" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/image_49.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_47.png" alt="image" width="153" height="133" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/image_50.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_48.png" alt="image" width="148" height="133" border="0" /></a></p>
+<p>This was very easy. I must pay credit to the Youtrack team for such a simple workflow editor. IT has intellisense and was able to offer me all sorts of options on clicking control + spacebar together. Thanks also to Hadi&rsquo;s post for introducing me to the Workflow editor.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Agile teams and working from home]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/04/03/agile-teams-and-working-from-home/"/>
+    <updated>2012-04-03T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/04/03/agile-teams-and-working-from-home</id>
+    <content type="html"><![CDATA[<p>Yesterday (April 2nd 2012), I posed a question on twitter:</p>  <p><strong>Does anyone think that people working from home in an agile team is a bad idea?</strong></p>  <p>This seemed to be quite a controversial question to pose. My favourite response was “isn’t agile – as long as you get the work done, doesn’t matter home, office, card, no-cards, no??” Now, I can see what the author <a href="http://twitter.com/edonsojeva" target="_blank">(@edonsojeva)</a> is trying to say. I agree that one of the main principles of agile is getting work done. But, on the other hand, for me the best principle of agile is the ability to communicate with members of the team <strong>*and*</strong> the business. IM clients (Skype, Lync, MSN etc.) are a great way to keep in touch. But I have never found them to be fantastically efficient at being able to display the entire picture. When speaking to people I want to see them face to face (where possible). this allows us both to focus on the issue at hand.</p>  <p>when working remotely, people can get distracted. That’s just our nature. It doesn’t matter whether we get distracted by emails, twitter, other IM conversations happening at the same time or TV (yes I have seen this happen to some people), it happens. I find that that level of distraction is less in the office. Why email someone when you can get up from your desk, walk 10feet and speak to them and strike up a conversation instead? </p>  <p>I understand that it can sometimes be very important to isolate yourself just to get a few hours of no distraction. Being at home, with no one round can give you this isolation. My thoughts here are that if you do have so much to do that requires you to be isolated from the rest of the team, that you a) haven’t planned very well or b) are not agile. Team is the key word here. For me working from home takes away that sense of being part of the team. It can just make you feel a little isolated. Architecture and code can be a bit of a beast sometimes. It can therefore take other people to wind in crazy ideas. Unless you are this incredibly focused person, you can sometimes go off in a tangent or with an idea that another has already tried. It can also save time. If you run into an issue, a team member who has been in this situation before can point out a fix.</p>  <p>This leads me to the general idea that working from home is the exception rather than the rule. I wouldn’t be fantastically happy with members of the team who constantly worked from home. They would feel more like remote contractors than anything else. I understand there are incredibly focused individuals out there that can block out all these impediments and work from home efficiently. I am in no way saying that it isn’t possible. This post is merely a scratch pad to get feedback on what others have experienced.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[TeamCitySharp now builds with Mono]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/02/08/teamcitysharp-now-builds-with-mono/"/>
+    <updated>2012-02-08T00:00:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/02/08/teamcitysharp-now-builds-with-mono</id>
+    <content type="html"><![CDATA[<p>I am pleased to be able to say that <a href="http://github.com/stack72/TeamCitySharp" target="_blank">TeamCitySharp</a> is now supports <a href="http://www.mono-project.com/" target="_blank">mono</a>. In order to get the project supported I had to change a few parts of the system.</p>
+<p>Up until now, each project within the solution has a &ldquo;BeforeBuild&rdquo; event that downloaded the nuget packages needed to build the solution. This was in place to keep the github repository small enough to facilitate a fast download for people who fork it. <a href="http://www.nuget.org" target="_blank">Nuget</a> doesn&rsquo;t work with mono so there was a trade off I had to make. In this instance I chose supporting mono over the &ldquo;BeforeBuild&rdquo; event. This does mean that once the repository is cloned or forked. then it will work instantly. I hope to revisit this if / when someone manages to get nuget working with mono.</p>
+<p>The sample build monitor was a standard ASP.NET MVC 3 project. I found that this didn&rsquo;t build with mono out of the box. It was throwing errors due to the references contained. The following references were present:</p>
+<p><a href="http://paulstack.co.uk/blog/images/before.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="before" src="http://paulstack.co.uk/blog/images/before_thumb.gif" alt="before" width="189" height="317" border="0" /></a></p>
+<p>On running a reference analysis, I was able to see that the following references were not used:</p>
+<p><a href="http://paulstack.co.uk/blog/images/ToRemove.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="ToRemove" src="http://paulstack.co.uk/blog/images/ToRemove_thumb.gif" alt="ToRemove" width="240" height="227" border="0" /></a></p>
+<p>This meant that only the core references were left behind. This meant that the entire solution was able to build under mono.</p>
+<p>In order to build the project with mono, you can run the following command: <br /><strong>xbuild TeamCitySharp.sln</strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Installing Mono on Windows]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/01/31/installing-mono-on-windows/"/>
+    <updated>2012-01-31T00:00:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/01/31/installing-mono-on-windows</id>
+    <content type="html"><![CDATA[<p>I have recently been thinking about making <a href="http://github.com/stack72/TeamCitySharp">TeamCitySharp</a> supported on <a href="http://www.mono-project.com/Main_Page">mono</a>. This would require me to either run a VM (that you can download form the mono project site) or install mono on Windows. As I would continue to develop TeamCitySharp in VS2010, I thought it would be better to install mono on windows.</p>
+<p>When trying to install mono, I went to the mono project download page and was presented with 3 options for windows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_39.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_37.png" alt="image" width="368" height="288" border="0" /></a></p>
+<p>I had no idea what to install &amp; tweeted to that effect. Almost immediately, <a href="http://twitter.com/ferventcoder">Rob Reynolds</a> tweeted this back:</p>
+<p><strong>cinst mono</strong></p>
+<p>This is a reference to chocolatey which I have used before. <a href="http://chocolatey.org/">Chocolatey</a> is described as &ldquo;apt-get for windows&rdquo;. In order to install mono I had a number of steps to follow:</p>
+<p>1. Set the execution policy of PowerShell to unrestricted</p>
+<p><a href="http://paulstack.co.uk/blog/images/execution-policy.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="execution-policy" src="http://paulstack.co.uk/blog/images/execution-policy_thumb.png" alt="execution-policy" width="308" height="159" border="0" /></a></p>
+<p>2. Install chocolatey</p>
+<p><a href="http://paulstack.co.uk/blog/images/chocolatey-install.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="chocolatey-install" src="http://paulstack.co.uk/blog/images/chocolatey-install_thumb.png" alt="chocolatey-install" width="313" height="173" border="0" /></a></p>
+<p>3. cinst mono</p>
+<p><a href="http://paulstack.co.uk/blog/images/mono-install-1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="mono-install-1" src="http://paulstack.co.uk/blog/images/mono-install-1_thumb.png" alt="mono-install-1" width="313" height="173" border="0" /></a></p>
+<p>which, when downloaded triggers the install</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/mono-install-2.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="mono-install-2" src="http://paulstack.co.uk/blog/images/mono-install-2_thumb.png" alt="mono-install-2" width="283" height="220" border="0" /></a></p>
+<p>Mono is now installed and ready to be used. This was extremely easy using chocolatey. I have used it before to install <a href="http://nodejs.org/">nodejs</a> but I have to admit I didn&#8217;t really pay attention to what packages it contained. I will be doing so from now on. If you have not checked out chocolatey then please do so &ndash; it rocks!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How Nuget could improve]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/01/17/how-nuget-could-improve/"/>
+    <updated>2012-01-17T00:00:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/01/17/how-nuget-could-improve</id>
+    <content type="html"><![CDATA[<p>Late in December 2011, I stuck my oar into a conversation on twitter (as I usually do) between <a href="http://twitter.com/lazycoder">Scott Koon</a>, <a href="http://twitter.com/davidebbo">David Ebbo</a>, <a href="http://twitter.com/sumitkm">Sumit Maitra</a>&nbsp; and <a href="http://twitter.com/Ang3lFir3">Eric Ridgeway</a>. This conversation was about why <a href="http://nuget.org">Nuget.org</a> was not the best place for a <a href="http://nuget.org/packages/Northwind.Db">Northwind DB Sample</a> package. My comment was as follows:</p>
+<p align="center"><em>@lazycoder @davidebbo @sumitkm @Ang3lFir3 maybe have the ability for codeplex to have a nuget style feed of its own for sample libraries?</em></p>
+<p align="left">I thought I should clarify my thoughts further. Nuget (and <a href="http://www.openwrap.org/">OpenWrap</a>) have set the .net world into a new era for dependency management but there are not many enforced rules or moderation of the packages you can upload. For example, I <strong>maintain</strong> the NUnit package. This means I submit updates to the package when a new version is released by NUnit. I once received a comment on how I should split the package up into just a dll package and then have a full package.I really had to think hard about why I should do this. Who am I to change the way the guys who create NUnit distribute the package. All I do is to get the contents of their .zip and redistribute that &ndash; and I do struggle to think how I have the authority to do that sometimes. This led me to a very prudent question:</p>
+<p><strong><em>Is Nuget.org a site that should have strict regulations about the packages that get uploaded there?</em></strong></p>
+<p>I have heard about a few broken packages and actually sample applications. Is this the correct place for these packages to go to?Has it become a dumping ground for software. Sites like <a href="http://www.codeplex.com">codeplex</a>, <a href="http://www.github.com">github</a> and <a href="http://www.bitbucket.org">bitbucket</a> are used more frequently for source control. Are these sites the correct areas for the sample applications? I would argue yes. I feel that Nuget should contain only packages that I can download and use immediately. I don&rsquo;t want to have to download a 12mb sample application when I could view the source in github or codeplex. Maybe a way to take this further would be to set up the ability for nuget to hook into these types of systems:</p>
+<p><strong>nuget install-sample &lt;path to codeplex&gt; </strong></p>
+<p>This would keep the nuget library free of the packages not deemed useful. Who can classify a package as useful in this theory I hear you say? Well the users of the site, via a stackoverflow style voting system. A broken package gets a downvote, then any packages below &ndash;4 (for example) would get archived by the system and the package owner to get notified. There would have to be some sort of moderation of this though or people with rival packages could eliminate the competition <img class="wlEmoticon wlEmoticon-devil" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-devil.png" alt="Devil" /></p>
+<p>I do believe that uploads to the nuget library should be regulated. There are more than enough people in the .net community that would spend a few minutes a day clearing out / verifying packages. If we regulate the packages then developers will continue to use for nuget. If it continues with the following types of packages then this may not be the case:</p>
+<p><a href="http://paulstack.co.uk/blog/images/NuGet%20Gallery.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="NuGet Gallery" src="http://paulstack.co.uk/blog/images/NuGet%20Gallery_thumb.png" alt="NuGet Gallery" width="500" height="528" border="0" /></a></p>
+<p>The naming conventions of these packages contain the letters &lsquo;&ndash;ci&rsquo;. How on earth can I work out what the different between MvcContrib.MVC3-ci is? Is it a special kind of package for CI use only or was it built with a CI system? This is exactly the issue. Some kind of visual check around this would have stopped &ndash; for the record I actually installed MvcContrib before I realised it was not compatible with MVC3 &ndash; this should have been noted in the description, in my opinion.</p>
+<p>I enjoy using nuget and I really want to continue enjoying it. All we (as a community) need to do is to be respectful of other developers when we create a package. When delivering software to paying customers, do we release potentially untested applications or do we make sure that they work?</p>
+<p>$0.02</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CodeMash 2012–what an awesome event!]]></title>
+    <link href="http://paulstack.co.uk/blog/2012/01/14/codemash-2012-truly-awesome/"/>
+    <updated>2012-01-14T00:00:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2012/01/14/codemash-2012-truly-awesome</id>
+    <content type="html"><![CDATA[<p>This past weekend (January 10th &ndash; 14th 2012) <a href="http://codemash.org">CodeMash</a> was held in the Kalahari resort in Sandusky, OH. Yes I know &ndash; Ohio in January!! I had been warned that firstly its cold there and secondly there is usually a lot of snow. This time we were quite lucky and only got a little snow. I arrived on Wednesday night after a very long journey and walked into what was just a hive of activity. I have been to a lot of conferences, this one was not only huge but very interactive and social. A lot of the attendees brought their families for the week!</p>
+<p><a href="http://paulstack.co.uk/blog/images/495876401.jpg"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="495876401" src="http://paulstack.co.uk/blog/images/495876401_thumb.jpg" alt="495876401" width="244" height="139" border="0" /></a></p>
+<p>I was very lucky to have a session accepted for this conference (Introducing Continuous Delivery) and was extremely pleased to know that my session had made it from over 700 applications. I was also lucky enough to have my session early on Thursday. If you look at the <a href="http://codemash.org/CodeMashSchedule.pdf">schedule</a>, marvel at the level of speakers here and you will see why I was so pleased!</p>
+<p>The big thing for me on this conference is that there were a lot of companies there in force. <a href="http://edgecase.com/">Edgecase</a> and <a href="http://leandog.com/">Leandog</a> are the 2 that stick out for me. Edgecase as they were usually in the hot tub drinking and leandog because of those hats <img class="wlEmoticon wlEmoticon-smile" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-smile_7.png" alt="Smile" />. There was also the small matter of a party on Thursday evening after the sessions that actually moved to take over the waterpark between 10pm and 1am. A-Maze-ing! I, in fact, did &lsquo;a <a href="https://twitter.com/#!/coreyhaines">Corey Haines&rsquo;</a> and smashed my head off the bottom of the pool. At one point on the Friday, Cleveland were trying to get me to stand on the runway as a beacon for the planes to find the runway as it was so red!</p>
+<h5>a Corey Haines :</h5>
+<ul>
+<li>To injure oneself at CodeMash in the waterpark</li>
+<li><em>OMG Dude you just did a Corey Haines &ndash; are you ok? </em></li>
+</ul>
+<ul>Oh and the bacon bar &ndash; bacon with all sorts of toppings available &ndash; from butterscotch to white chocolate.</ul>
+<p><a href="http://paulstack.co.uk/blog/images/i4hea.jpg"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="i4hea" src="http://paulstack.co.uk/blog/images/i4hea_thumb.jpg" alt="i4hea" width="183" height="244" border="0" /></a></p>
+<p>Without the <a href="http://codemash.org/Sponsors">sponsors</a> this event would never have been able to happen. Please do say a thank you &ndash; tweet them even! I seen tweets as to the magnitude of the event:</p>
+<blockquote>
+<p><em><a href="http://twitter.com/#!/codemash/status/155385899197276160">Just picked up cashier&#8217;s check to Kalahari for partial conference payment: $330,000. Nice double-take from the cashier when I said amount</a></em></p>
+</blockquote>
+<p>Most importantly, I would sincerely like to thank all the organisers. These guys work on this conference while holding down jobs. Its an incredible accomplishment. It was what I would certainly class as <strong>the best</strong> conference ever. Thinking of 1300 geeks in a waterpark in Ohio in January doesn&rsquo;t do this event justice at all. It is quite literally a software conference for the entire family.</p>
+<p>I met so many cool people &ndash; I couldn&#8217;t begin to name them all or acknowledge them all! I will certainly be back next year! For now I will have to get over the bacon sweats, keep icing my head from my stupidity and start working on my submission next year!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Features Nuget Would Benefit From]]></title>
+    <link href="http://paulstack.co.uk/blog/2011/12/29/features-nuget-would-benefit-from/"/>
+    <updated>2011-12-29T00:00:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2011/12/29/features-nuget-would-benefit-from</id>
+    <content type="html"><![CDATA[<p>I look to <a href="http://nuget.org/">Nuget</a> as the package manager for Windows development in the same way that <a href="http://rubygems.org/">RubyGems</a> is to Ruby development. This may be immature of me but it works for my scenarios. In comparing the different systems, I feel that Nuget is lacking a few key features that sometimes I look for.</p>
+<h4>1. Install a specific version of a package</h4>
+<p>Currently from the Nuget console in Visual Studio a command like the following is run:</p>
+<p><strong>Install-package TeamCitySharp</strong></p>
+<p>This would install the <em>latest</em> package available. This is sometimes not always the best solution. If the package owner releases a package that has a bug in it then we cannot use the package at all. I would like the be able to install a version of the package that I know works:</p>
+<p><strong>Install-package TeamCitySharp &ndash;version:0.2</strong></p>
+<p>This would mean I can then update at a time when I am happy with the new package or when a fix has been added.</p>
+<h4>2. Download package direct from the Nuget gallery</h4>
+<p>I may want to download&nbsp; package without the need to open the Nuget console. A simple download link would be a welcome addition to be able to help this.</p>
+<h4>3. Global installation of a package</h4>
+<p>Currently, you would select the project from the list in the console and then call the install command. I would like to be able able install a package to a number of packages. For example, I have 20 unit test assemblies. I wouldn&#8217;t want to have to type the command to install NUnit 20 times. I would like to be able to do something like:</p>
+<p>Install-package NUnit&nbsp; -include *.UnitTest.dll &ndash;exclude *.config</p>
+<p>This would utilise the full power of the PowerShell console. This is purely a timesaver and would help when working in a multi project environment.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[2011 – My Year in Review]]></title>
+    <link href="http://paulstack.co.uk/blog/2011/12/29/2011-my-year-in-review/"/>
+    <updated>2011-12-29T00:00:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2011/12/29/2011-my-year-in-review</id>
+    <content type="html"><![CDATA[<p>2011 was an excellent year for me. Unfortunately I didn&rsquo;t see the point in setting myself clear personal goals for it.&nbsp; But here is my retrospective of my personal work. This post does not include anything that happened at work or in my personal life. 2011 was the year:</p>
+<p><strong>1. I started speaking at user groups / events</strong> <br />In total I spoke at 26 events. This included some bigger events (DDD) in Reading. Scotland, Bristol and Sunderland as well as a lot of user group events all around the country. Unfortunately, 2 had to be cancelled due to unforeseen circumstances but I will make it up to those groups in 2012.</p>
+<p><strong>2.&nbsp; I was made a Jetbrains Academy Member <br /></strong>I still cannot believe this happened and I am honoured at being involved with it. I hope to be part of some big things with this academy and I look forward to continuing to be part of it in 2012. You can read more about this program on the Jetbrains <a href="http://www.jetbrains.com/devnet/academy/index.html">site</a>.</p>
+<p><strong>3. I helped organise GiveCamp UK</strong> <br />Even now, almost 3 months after the event, I am still on a high about this. It was certainly something I can look back on in my career and be really proud to have been part of such a fantastic weekend. More information on GiveCamp and a chance to sign up for the 2012 event can be done on the GiveCamp UK <a href="http://www.givecamp.org.uk/">site</a>.</p>
+<p><strong>4. I was Technical Reviewing books <br /></strong>I was part of the reviewing effort of <a href="http://manning.com/palermo3/">MVC3 In Action</a> and <a href="http://manning.com/jackson/">HTML5 for the .Net Developer</a> both by Manning Books. For those who know me, I can be quite opinionated and this was a great opportunity for me to take those opinions in order to help shape a book.</p>
+<p><strong>5. I was accepted as a Friend of Redgate <br /></strong>Redgate run a program that helps bring together some well known community members and MVPs in order to help give feedback on their products. This was another great opportunity for me to use my opinions and experience in order to help evaluate the products developers use on a daily basis. You can read more about this program on the Redgate <a href="http://www.red-gate.com/our-company/about/community-relations/friends-of-rg">site</a>.</p>
+<p><strong>6. I started my first real OSS project &ndash; TeamCitySharp <br /></strong>As an avid TeamCity user, this was a project that I really enjoyed writing. IT is now approaching 100 downloads from Nuget.org, 27 watchers, 7 forks and 11 pull requests on github. I am very happy with it. You can find the project on my <a href="http://github.com/stack72/TeamCitySharp">github repository</a>.</p>
+<h3>What does 2012 hold for me?</h3>
+<p>I&rsquo;m honestly not too sure what 2012 has in store for me. 2011 was such a fantastic year that I am not sure I can top it.&nbsp; Bit it does give me the opportunity to speak at 2 international events. <a href="http://codemash.org/">Codemash</a> and <a href="http://softwarepassion.se/">Software Passion Summit</a>. Hopefully there will be more well known events that I can submit sessions and speak at but there are so many fantastic speakers that I have to be on top of my game.</p>
+<p>I hope 2012 is half as good a year for me as 2011! I look forward to it&hellip;&hellip;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Memory Management In .Net–Story Board]]></title>
+    <link href="http://paulstack.co.uk/blog/2011/12/19/memory-management-in-net-story-board/"/>
+    <updated>2011-12-19T00:00:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2011/12/19/memory-management-in-net-story-board</id>
+    <content type="html"><![CDATA[<p>During a work trip, I was prompted to get back into recalling how memory management in .net works as my company found a bit of an issue when they migrated their codebase from .net 3.5 to .net 4.</p>
+<p>Lots of searching on Google and reading of MSDN documentation helped me get back to speed on what I knew before and then I found an email from <a href="http://www.red-gate.com/">Redgate</a> in my inbox. Those awesome folk have created a simple storyboard of how it works to make it easy to understand. This has been sent to all the developers on my team as this is a great resource.</p>
+<p>I strongly suggest checking this resource out: <a title="http://stack72.me/uT8A1z" href="http://stack72.me/uT8A1z">Memory Management in .Net</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[TeamCitySharp v0.2]]></title>
+    <link href="http://paulstack.co.uk/blog/2011/11/30/teamcitysharp-v02/"/>
+    <updated>2011-11-30T00:00:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2011/11/30/teamcitysharp-v02</id>
+    <content type="html"><![CDATA[<p>Hot on the heels of the first release of <a href="http://github.com/stack72/teamcitysharp">TeamCitySharp</a>, a new update has been released for the project to <a href="http://nuget.org/List/Packages/TeamCitySharp">nuget</a>. There were 2 major additions to the project both contributed via pull requests on Github.</p>
+<h4>Introduction of Build Locator</h4>
+<p>This makes the protocol for obtaining build information easier as we use the locator in the url rather than trying to build a query string manually. Previously we built a query string as follows:</p>
+<p>http://myserver.com/httpAuth/app/rest/buildTypes/id:bt437/builds?status=SUCCESS</p>
+<p>This would get the successful builds for build config id 437. This has now been replaced by the following query string:</p>
+<p>http://myserver.com/httpAuth/app/rest/builds?locator=buildType:id:bt437,status:SUCCESS</p>
+<p>Thanks must go to <a href="http://twitter.com/#!/sibartlett">Simon Bartlett</a> for this addition to the codebase. The existing methods will work in this way as the code behind the public methods has been changed to us the build locator pattern. Therefore you can still call the method:</p>
+<script type="text/javascript" src="https://gist.github.com/90d156986380a6f43bd5.js"></script>
+<p>Behind the scenes TeamCitySharp does the following call:</p>
+<script type="text/javascript" src="https://gist.github.com/47fa6fdb8ec5f4e2159c.js"></script>
+<p>&nbsp;</p>
+<h4>New Sample Build Monitor</h4>
+<p>There is now a new project included in the source code. This project is a sample implementation of a build monitor using TeamCitySharp based on MVC3 and Knockout.js. Thanks to <a href="http://twitter.com/codingbadger">Barry Mooring</a> for contributing this sample to the project.</p>
+<p>In order to use the build monitor you just need to go to the settings file and add the TeamCity url, username and password.</p>
+<p>This gives a look and feel as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_38.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_36.png" alt="image" width="497" height="282" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>You can download the source from <a href="http://github.com/stack72/TeamCitySharp">Github</a> or via nuget (install-package TeamCitySharp). Please feel free to leave feedback about what you feel it is lacking or what you don&rsquo;t like about the project. This library will only be able to get better through help from users.</p>
+]]></content>
+  </entry>
+  
+</feed>

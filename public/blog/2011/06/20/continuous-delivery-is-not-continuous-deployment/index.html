@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Continuous delivery is not continuous deployment - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="There seems to be a lack of understanding about what continuous delivery is. I feel that continuous delivery has an ambiguous meaning to continuous &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/06/20/continuous-delivery-is-not-continuous-deployment">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Continuous Delivery Is Not Continuous Deployment</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-20T00:00:00+01:00" pubdate data-updated="true">Jun 20<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>There seems to be a lack of understanding about what continuous delivery is. I feel that continuous delivery has an ambiguous meaning to continuous deployment. This post will help to explain my understanding of both terms in relation to my experience of both.</p>
+<h4>What is continuous delivery?</h4>
+<p>Continuous delivery is the process of having a shippable product/ piece of software after each check in to source control. At work I work on an up and coming quiz site. On&nbsp; successful check in, i have a <a href="http://www.jetbrains.com/teamcity/" target="_blank">TeamCity</a> that fires and my web application is build in release mode, is packaged with the correct 3rd party dependencies and correct web.config transformations.</p>
+<p>This application is then a potentially shippable product. In theory, I could open an FTP client and push the package to the correct web server and it would work as expected.</p>
+<h4>What is continuous deployment?</h4>
+<p>This is the process of shipping your product after every check in to source control. When starting out it is a very scary thought and really should not be implemented without real thought. In order to implement this in a team, you need to be 100% confident that the work they are checking in is fully tested and works 100% as expected. Unit tests, integration tests and other types of testing will help to ensure this confidence.</p>
+<p>GiveCamp UK, a site i look after, is setup in a continuous deployment manner. I have a local git repository and I can check in freely to that repository. When i push to github, my CI server triggers a release build and then actually pushes the changes to the live site automatically.I can make 3 or 4 deliveries a day in this format. I have heard of teams who can do this up to <a href="http://timothyfitz.wordpress.com/2009/02/10/continuous-deployment-at-imvu-doing-the-impossible-fifty-times-a-day/" target="_blank">50 times a day</a>.</p>
+<p>In my opinion, continuous deployment is not a natural progression from CI. It will take time for a CI process to mature and help the development team to be more effective in their work. For example, a developer continually forgets to check in files when he checks in, release script fires, files are missing therefore site could not work correctly. Successful deployments would suffer and errors recorded on site may increase. A good CI process will help the developers to stop these types of mistakes.</p>
+<p>For me, the natural progression after CI, is continuous delivery. The potential for your application to be in a shippable state after every check in <strong>is</strong> an achievable goal. Once you deploy these &lsquo;packages&rsquo; and the confidence in the process increases could you then progress to automatically deployment as part of the process. For me, its the holy grail of dev ops work although I have read that it isn&rsquo;t for others. My argument to them would be a quote I once read:</p>
+<p><em>A bad developer will manually carry out the same tasks repeatedly, a good developer will automate the task, a great developer will make the task obsolete.&rdquo;</em></p>
+<p>I will let you draw your own conclusions as to which of the 3 types of developer in the quote related to CI, continuous delivery and continuous deployment. :)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-20T00:00:00+01:00" pubdate data-updated="true">Jun 20<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/06/20/continuous-delivery-is-not-continuous-deployment/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/06/20/continuous-delivery-is-not-continuous-deployment/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/06/15/ingredients-needed-for-an-effective-team/" title="Previous Post: Ingredients needed for an effective team">&laquo; Ingredients needed for an effective team</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/06/28/how-to-get-started-with-ci/" title="Next Post: How to get started with CI - Series">How to get started with CI - Series &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

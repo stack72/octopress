@@ -1,0 +1,840 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="After my recent review of Continuous Integration in .Net, I wanted to review another book as i enjoyed it a lot. Therefore I was offered the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/page/10">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/10/09/review-dependency-injection-in-net/">Review: Dependency Injection in .Net</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-09T00:00:00+01:00" pubdate data-updated="true">Oct 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p align="left">After my recent review of Continuous Integration in .Net, I wanted to review another book as i enjoyed it a lot. Therefore I was offered the opportunity, by Manning Books, to review Dependency Injection in .Net by Mark Seemann. For me this seemed to be a great book to review as I really wanted to get into DI. I really wasn’t disappointed.</p>  <p align="left">The book is structured as follows:</p>  <ul>   <li>     <div align="left">Part I : Introduction to DI (chapters 1 – 3) </div>   </li>    <li>     <div align="left">Part II: DI Catalogue (chapters 4 – 6) </div>   </li>    <li>     <div align="left">Part III: DIY DI (chapters 7 – 9) </div>   </li>    <li>     <div align="left">Part IV: DI Containers </div>   </li> </ul>  <p align="left">For me the book was well structured, as it stems from putting the basics of what DI is in place, then stemming through how to implement DI and then on to actual implementations of DI with specific containers. </p>  <p align="left"><em><u>Chapter 1: Tour de DI</u></em></p>  <p align="left">What problems does tightly coupled code cause? What is n-tier architecture or modular applications? How does DI solve this? </p>  <p align="left">This chapter is a basic introduction of what DI has been designed to do and what is actually involved in the principal of DI.</p>  <p align="left"><em><u></u></em></p>  <p align="left"><em><u>Chapter 2: DI Fundamentals</u></em></p>  <p align="left">As developers, we may think we know the best practices and best ways of doing things but we may not know why we do these things in this way. Ask yourself this question:</p>  <p align="center"><em>Has there ever been a time when you implemented what you thought was great only to realise it wasn’t scalable or extensible?</em></p>  <p align="left">I reckon the answer would be yes as we never produce 100% perfect code as we are <strong>always</strong> learning. The author then goes on to speak about N-tier architectures and seams. This is where my previous understanding of DI failed. There are 2 types of dependencies:</p>  <ul>   <li>     <div align="left">Volatile (e.g. database, network, file system etc.)</div>   </li>    <li>     <div align="left">Stable dependencies (references to BCL)</div>   </li> </ul>  <p align="left">DI is the technique to control these dependencies but with implementing DI we may loose control of where, when and how dependencies are created and destroyed. Great chapter to set the scene of what DI actually is.</p>  <p align="left"><em><u>Chapter 3: DI Containers</u></em></p>  <p align="left">What are DI containers? What do them do? This chapter discusses the answers to these questions. There is a great analogy to making ice-cream here that demonstrates that DI containers are facilitators, basically the “thing” that provides functionality but that can take care or other work as well. </p>  <p align="left">DI Containers, or IoC containers, take care of all the features talked about in chapter 2. They will require configuration for this to happen and this can happen in different ways:</p>  <ul>   <li>     <div align="left">Configuration files </div>   </li>    <li>     <div align="left">Directly in Code </div>   </li> </ul>  <p align="left">The author uses Castle Windsor to extend the sample application to show its use. There is also talk about how we have got to where we are with the number of DI containers and how the concept was formed. The Castle Windsor was introduced a bit early in my opinion, but I can see why it was done. Stick with the chapter as it is a required read.</p>  <p align="left"><em><u>Chapter 4: DI Patterns</u></em></p>  <p align="left">This is the proverbial meta of a DI container sandwich. This explains “How Do I Inject My Dependencies?”. The author seems to suggest there are 4 main patterns:</p>  <ul>   <li>     <div align="left">Method Injection </div>   </li>    <li>     <div align="left">Property Injection </div>   </li>    <li>     <div align="left">Ambient Content </div>   </li>    <li>     <div align="left">Constructor Injection </div>   </li> </ul>  <p align="left">The author explains each pattern in detail and then relates this back to the sample application.It seems that constructor injection is the default and is actually what I believed what DI actually was. There is a great flowchart on how to choose which pattern to use. This is a great chapter for principles and patterns lovers.</p>  <p align="left"><em><u>Chapter 5: DI Anti-patterns</u></em></p>  <p align="left">In this chapter, the author discusses the patterns for intended use of DI can go wrong and&#160; talks about these being ‘anti-patterns’. The author discusses 4 anti-patterns in specific:</p>  <ul>   <li>     <div align="left">Direct Control </div>      <ul>       <ul>         <li>           <div align="left">the use of the new keyword i.e var x = new ClassName(); </div>         </li>       </ul>     </ul>   </li>    <li>     <div align="left">Bastard Injection </div>      <ul>       <ul>         <li>           <div align="left">having different constructors for unit testing that accept injected dependencies </div>         </li>       </ul>     </ul>   </li>    <li>     <div align="left">Constrained Construction </div>      <ul>       <ul>         <li>           <div align="left">Implementing abstraction but then doing something silly like passing a connection string to the constructor </div>         </li>       </ul>     </ul>   </li>    <li>     <div align="left">Service Locator </div>      <ul>       <ul>         <li>           <div align="left">This is an area of contention where some people like this pattern but the author doesn&#8217;t </div>         </li>       </ul>     </ul>      <p align="left">This is a great chapter, it shows that sometimes everything doesn’t go exactly as expected. This almost demonstrates that we are all human and no matter how we code, we can sometimes get ourselves into a state where we introduce dependencies. </p>      <p align="left"><em><u></u></em></p>      <p align="left"><em><u>Chapter 6: DI Refactoring</u></em></p>   </li> </ul>  <p align="left">After finding all about the anti-patterns of DI, how do we stop ourselves having a pile of dependency ridden spaghetti code? The answer is through refactoring, unit testing &amp; integration testing. </p>  <p align="left">When we get dependency cycles in our code we need to break the (see post on <a href="http://paulstack.co.uk/blog/post/Breaking-the-Dependency.aspx" target="_blank">Breaking The Dependency</a>) and that we can choose a suitable injection method, constructor or property in order to inject the dependency that we require. One thing we do need to do, is to make sure that we are not injecting too many different types. If this is the case we need to revisit our design to create smaller, more focused classes via refactoring.</p>  <p align="left">We can use external tools in order to make sure dependencies are not created in our code, e.g. NDepend. But we can also use unit tests and integration tests to do a similar thing.</p>  <p align="left">This is a very important chapter as it explains the theory behind refactoring dependencies <strong>out </strong>of our code and more importantly, they <strong>stay</strong> out.</p>  <p align="left"><em><u>Chapter 7: Object Composition</u></em></p>  <p align="left">This chapter is concerned with object composition and how we can choose a suitable composition root for some examples of everyday projects, e.g. WCF applications, console applications, Powershell, Webforms and MVC. The theory of object composition was discussed a lot earlier in the book and this is actually how we can choose a composition root in reality.</p>  <p align="left">This chapter has actually taught me how and where to start implementing “proper” DI into a new ASP.NET MVC 2 site I&#8217;m working on currently. As you can image, this was most useful to me. The next 2 chapters continues to talk about how we implement the basic parts of a DI container.</p>  <p align="left"><em><u>Chapter 8: Object Lifetime</u></em></p>  <p align="left">Initially, it was discussed that a DI container took away the natural ability we have of controlling an object and its lifetime. This chapter actually proves that this initial thought is rubbish and gives examples of how objects can be controlled using different lifestyles.</p>  <p align="left">This again is a key chapter in understanding actual ‘real-world’ implementation of a DI container. Initially for me i was creating all my lifestyles as ‘Transient’ but this chapter has taught me that this may not actually be correct.</p>  <p align="left"><em><u>Chapter 9: Interception</u></em></p>  <p align="left">This chapter talks about Interception and how it can be used in conjunction with a DI container to keep code “clean”, “solid” and “DRY” – all principles that we would love to be able to adhere to. Interception is actually only available via a real DI container and <strong>NOT </strong>via “poor man DI”.</p>  <p align="left">This almost puts DI containers and DI itself on a pedestal. It shows how superior it is to implement “real” DI and not “poor man” DI. The take away for me confirms that all the initial thoughts about how DI can be dangerous as we cannot control our object creation, lifetime and destruction is absolute rubbish</p>  <p align="left"><em><u>Chapters 10 – 15 – DI Containers</u></em></p>  <p align="left">The different containers covered here were as follows:</p>  <ul>   <li>     <div align="left">Castle Windsor </div>   </li>    <li>     <div align="left">Structure Map </div>   </li>    <li>     <div align="left">Spring.NET </div>   </li>    <li>     <div align="left">AutoFac </div>   </li>    <li>     <div align="left">Unity </div>   </li>    <li>     <div align="left">Microsoft Extensibility Framework </div>   </li> </ul>  <p align="left">This was a fantastic book and I have since started to put into practice the principles I have learned and have been shown how to implement. It was tough to get going with this book as the immediate start to the book speaks about cooking and draws similarities of cooking to DI. These food similarities continued throughout the book, and to be totally honest, I was getting a bit put off by it. But then after finishing Part II of the book, things started to ‘click’. The penny dropped and I understood the similarities.</p>  <p align="left">I’d very much recommend this book to people who are interested in DI. But I must stress that you need to stick with it as it can become quite heavy in places. One thing I’m sure of is that if you are not very much up to speed with the theory, principles and practices of DI, then you certainly will be after it. It gets 3 [.5] out of 5 for me.</p>  <p align="left">Thanks to Manning books and the author (Mark Seemann) for the content.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/09/13/tool-of-the-week-e28093-programmers-notepad2-e28093-100910/">Tool of the Week – Programmers Notepad2 – 10/09/10</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-13T00:00:00+01:00" pubdate data-updated="true">Sep 13<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As I&rsquo;m a wannabe Evangelist, then I thought I&rsquo;d add a new feature to my blog.&nbsp;</p>
+<p align="center"><strong>Tool Of The Week</strong></p>
+<p align="center"><strong></strong></p>
+<p align="left"><strong></strong></p>
+<p align="left">This is of course something I like doing and nothing that anyone has asked me to do or to promote things. Last week [Week Ending 10th September], there were a few new things I tried out. Most were all around new notepad support as I have grown a little tired to Notepad++ and all the updates it tried to make me install. Therefore my tool of the week was <strong><a href="http://www.pnotepad.org/" target="_blank">Programmers Notepad 2</a>.</strong></p>
+<p align="left"><strong></strong></p>
+<p align="left"><strong></strong></p>
+<p align="left">There are a few reasons why I like this product:</p>
+<ol>
+<li>
+<div>Its free - This makes a huge difference I&rsquo;m afraid as I chop and change my mind over tools all the time about whether I use them of not. I also rebuild my home machine a lot and its less hassle to install OSS than paid for.</div>
+</li>
+<li>
+<div>When I tweeted about it the main creator took the time to actually acknowledge me.</div>
+</li>
+<li>
+<div>Heard about it from a few others about how it has grown from something basic to what it is today</div>
+</li>
+</ol>
+<p align="left">&nbsp;</p>
+<p align="left">The reason I used this was for my MSBuild work for our CI server and I found the tool to be excellent. Have a look at it, its certainly worth that</p>
+<p align="left">&nbsp;</p>
+<p align="left">Thanks to Simon Steele for all the hard work! There are still some things I wish it would do &ndash; Commenting/ uncommenting code is the main one but I&rsquo;m happy with it!</p>
+<p align="left">&nbsp;</p>
+<p align="left">I give this tool 3.5/5 and a thumbs up!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/08/31/review-continuous-integration-in-net/">Review: Continuous Integration in .Net</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-31T00:00:00+01:00" pubdate data-updated="true">Aug 31<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Seen an advert on Twitter that asked for people to volunteer to review Continuous Integration in .Net by Craig Berntson and Marcin Kawalerowicz and i jumped at the chance. I was send the eBook and started reading. I noticed that the structure of the book was well setup to &ldquo;Making It Happen&rdquo;, &ldquo;Extend It&rdquo; and &#8216;&rdquo;Smoothen and Polish It&rdquo;. This structure was able to make a smooth transition to CI and then how to extend it for more important use.</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 1: Understanding Continuous Integration</span></em></p>
+<p>This chapter talks about what exactly continuous integration [CI] is and how this actually differs from build automation as this is a common misconception. I had this misconception myself and I still meet people who do. The chapter discusses the benefits of CI and how we introduce CI to a team. No doubt it will be a rocky road introducing it, as with any new technology, but the authors discuss ways in which to overcome this resistance. The chapter then talks about the basic requirements for a CI environment [each of these gets elaborated later].</p>
+<p>&nbsp;</p>
+<p>Overall this was a very good chapter to give a user a real good grounding on CI and how important that CI is in a software development team. As someone who has been using CI tools for a while I was still able to pick up a few tips from this chapter so I was pleased with that.</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 2: Setting Up a source control System</span></em></p>
+<p>If you are already familiar with source control then potentially I&#8217;d skip this chapter as its a real basic introduction. The primary focus of the chapter is that a CI tool needs to check out code from somewhere in order to build it and a version control system [VCS] is the place that should happen from. The best part of the chapter was the discussion on the differences between centralised version control system [VCS], e.g. Subversion, and distributed version control systems [DVCS]. Users who are new to version control systems would then be shown how to setup a subversion and a Team Foundation System repository.</p>
+<p>&nbsp;</p>
+<p>Overall this was targeted to those who are completely new to version control. Infact my thoughts are those who are familiar with the concept can skip it completely and move to the next chapter.</p>
+<p>&nbsp;</p>
+<p><span style="text-decoration: underline;"><em>Chapter 3: Automating the Build Process</em></span></p>
+<p>The chapter talks about why a build should be automated and that is demonstrated by the point that if someone had to continually merge our code by hand each time a change was made then it would take an entire developers day to do and to constantly be built. There was an introduction to NUnit and MSBuild and how these tools originated which was interesting. But here the authors decided that the tool of choice for the book was MSBuild as this was distributed with the .Net Framework and this is our targeted framework.</p>
+<p>&nbsp;</p>
+<p>This chapter was a great introduction to MSBuild and demonstrated how a build using MSBuild can quickly become to deployment &amp; execution and then how to extend MSBuild using the community tasks in order to do more complex operations like communication with SVN etc. Since reading this chapter, I have really seen the power of MSBuild and am now using it daily for my work with my CI tool. The only possible drawback of using MSBuild is the fact that its XML based and, lets face it, who likes XML these days ;). This is a vital chapter for any developer or team who doesn&#8217;t currently automate their builds [whether they have a CI server or not].</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 4: Choosing the Right CI Server</span></em></p>
+<p>The chapter starts by discussing that there are 2 ways to do things at this point: choose an off the shelf CI tool or develop your own. Developing your own will put you years behind so its best to stick to tried and tested in the authors&rsquo; opinion. Where should we keep a CI server? Local machine, VM, spare machine or a dedicated server are the possible answers and considerations given to all in this chapter. But the authors main point about a CI server is that it should be as clear of dependencies as possible &ndash; it shouldn&rsquo;t have all the <span style="text-decoration: line-through;">crap</span> software installed on it like you do on your local machine. It should have as few dependencies as possible as builds can be made in isolation and regularly. If possible the CI server should really replicate the production environment as closely as possible in order to make sure things work.</p>
+<p>&nbsp;</p>
+<p>The authors then go on to talk about different types of CI tools but for the purposes of the book CCNET, TeamCity &amp; TFS would be used for example configurations. I was pleased with this as I use TeamCity :). This demonstrates the free, medium cost and higher end of tools as well. The chapter as very useful as it introduced the tools and basic configurations for some of them. Well worth reading alone for the hardware selection criteria</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 5: Continuous Feedback</span></em></p>
+<p>Simple point of the chapter &ndash; you must have a feedback mechanism to let you know how the merging/ integration of code is going when developers check their code to VCS. The feedback mechanism will also let you see the state of the &ldquo;build&rdquo;. If you use TeamCity there is a UI built in, CCNET needs a new module added on to show the feedback and TFS can be used to extend the build alerts process if necessary by sending Skype alerts, emails, SMS etc.</p>
+<p>&nbsp;</p>
+<p>In my opinion there was a lot of time dedicated to setting up the feedback mechanism. As I use TeamCity then maybe I don&rsquo;t appreciate the time that this chapter should dedicate to it but then again I hate XML so wouldn&rsquo;t choose to use CCNET unless forced to at gunpoint :)</p>
+<p>&nbsp;</p>
+<p><span style="text-decoration: underline;"><em>Chapter 6: Unit testing the continuously integrated code</em></span></p>
+<p>If we have code being integrated then how do we know if merging is effective? The answer here is that we need to have unit tests to back this up. The chapter discusses Unit Testing as a concept of &ldquo;Testing&rdquo; and that its not the only part involved. The Unit Tests should be automated after each build is successful to make sure the code works. Tests need to run in isolation and need to be fast to run &ndash; the chapter then talks about keeping unit tests free of dependencies and the use of mocking frameworks in order to do this.</p>
+<p>&nbsp;</p>
+<p>The discussion on breaking the dependency and mocking frameworks were very basic so I&rsquo;d suggest reading further on these before trying to do much work on them, but the basic concept is there. I was glad that the chapter highlighted the need for code coverage as a tool to measure how effective our unit tests are</p>
+<p>&nbsp;</p>
+<p><strong>Remember:</strong> 10000 unit tests doesn&rsquo;t mean code is well tests if 6000 of them is in 1 class :)</p>
+<p>&nbsp;</p>
+<p><span style="text-decoration: underline;"><em>Chapter 7: Performing integration, system and acceptance</em></span></p>
+<p>I very pro different types of testing, but I was horrified to see that 3 new types of tests were given 30 or so pages of a book in order to discuss them and show how to implement them as part of a CI build. I think these are huge areas of their own and therefore need a dedicated amount of care to show them in the correct light. I am very glad that the authors demonstrated that Unit Tests are not the only types of test that can &amp; should be carried out on our applications.&nbsp; There was time given to introduce the tools that could be used to carry out the different types of tests but I&rsquo;d suggest reading some work by Robert C. Martin and Goyko Adzic for help in what you should test above unit level.</p>
+<p>&nbsp;</p>
+<p>For me this was a disappointing chapter as there was not enough balance struck between describing when or why to carry out these types of test rather than how to just integrate them into our CI script. I showed this chapter to someone who has never done UI testing before and knows little about it and them came away with the idea that if they wrote lots of UI tests then their application would be fully tested. :(</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 8: Analyzing the Code</span></em></p>
+<p><strong>Code Coverage! </strong>What an awesome chapter! I have only used StyleCop or FXCop in evaluation and have never really seen the benefit, until now :) This was like a 101: StyleCop and FXCop and I took a lot away from this. Infact, I have been using TeamCity for a while now and I didn&rsquo;t know about the duplicates finder build script.</p>
+<p>&nbsp;</p>
+<p>A great discussion from the authors on why its imperative to keep you code &ldquo;clean&rdquo;.&nbsp; This was a great balance of introduction to new concepts and the tools needed to maintain them. Very simple, but effective, demos were shown on how FXCop and StyleCop can be used and extended for our own use.</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 9: Generating Documentation</span></em></p>
+<p>This chapter done exactly what it said on the tin &ndash; generate documentation and how to do that from within a CI tool. In my mind the jury is out on whether I agree with documentation having time spent on it as I&rsquo;m very pr-AGILE and that only says minimal documentation is needed so I was pleased to see there was a way to automatically generate it with Sandcastle. The problem with auto generating documentation is that methods and classes need to have correct comments written for them and personally I don&rsquo;t think any developer who inherits a codebase can ever fully rely on these comments and thus the documentation.</p>
+<p>&nbsp;</p>
+<p>The author has really made me think about it though, so this book has challenged my thoughts which was very good :)</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 10: Deployment and Delivery</span></em></p>
+<p>Ah we are now in the realms of continuous delivery! This chapter talks about how we can deploy applications using WiX. With the use of MSBuild, we can package work and then force it to a remote host in order for it to be deployed. I&rsquo;m not going to give too much away here but this is all about how we really push CI to that last level and how we can push a button and an application is deployed &ndash; <strong>THIS IS A MUST READ CHAPTER!</strong></p>
+<p><em>&nbsp;</em></p>
+<p><em><span style="text-decoration: underline;">Chapter 11: Continuous Database Integration</span></em></p>
+<p>What if I need to deploy an application that requires a change to a stored procedure or DB schema? Well that is really the last part of the puzzle in my opinion. We all have a lot of builds for bug fixes and refactoring, but what about that new feature? This chapter talks about the need for a vanilla database on the CI server so that MSBuild can interact with it in order to run SQL change scripts. This will allow our integration tests to run against that database and thus our work to be fully tested.</p>
+<p>&nbsp;</p>
+<p>I was very happy with this book as the authors took us on a tour of having nothing to making sure our site works and is always available to be put to live. I would definitely recommend purchasing this book if you have wanted to start CI but didn&#8217;t know how. It gets a 4 out of 5 for me and I have been doing CI for quite a while now</p>
+<p>&nbsp;</p>
+<p>Thanks to Manning Books and the authors [Craig Berntson and Marcin Kawalerowicz] for a great product!!!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/08/14/guathon-london-august-2010/">Guathon London - August 2010</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-14T00:00:00+01:00" pubdate data-updated="true">Aug 14<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Yesterday [13th August 2010] was the <a href="http://developerdeveloperdeveloper.com/gulon/" target="_blank">Guathon</a>&nbsp;and i was lucky to get a ticket to it as they usually get all booked out after minutes of opening registration. On the bill was the following topics:</p>
+<p>&nbsp;</p>
+<ul>
+<li>VS2010 and ASP.NET 4.0</li>
+<li>ASP.NET MVC2</li>
+<li>Windows Phone 7</li>
+<li>Web Futures</li>
+</ul>
+<p>&nbsp;</p>
+<p>All topics were covered by the &#8216;Gu&#8217; himself apart from Windows phone 7 which was taken by Mike Ormond. I guess session 1 and 2 were revists for me as i have been using VS2010 and .Net 4 since it went RC earlier this year. But there were still a fair few new shortcuts i was able to pick up to help me use visual studio more effectively (maybe i should blog my favourites??)</p>
+<p>&nbsp;</p>
+<p>The session on Windows Phone 7 was something i was very looking forward to but i have to say that having looked at it i feel a bit let down. Mike Ormond presented it very well and done it a lot of justice showing how easy it is to make apps. But this product has been &#8216;sold&#8217; to us all so far as the next generation of phones. But from this session there was something i was able to take away:</p>
+<p>&nbsp;</p>
+<ul>
+<li>The phone will actually put apps into a &#8220;tombstoned&#8221; state when its not running whilst you are doing something else</li>
+<li>The phone will not support silverlight in the browser</li>
+</ul>
+<p>&nbsp;</p>
+<p>The first statement about tombstoning made the phone feel basic - you can read more about tombstoning at this post. The iPhone 4 and the Androids can multitaks - they don&#8217;t tombstone apps so why is the latest phone to the market place going to do so? The non support of silverlight in teh browser seems absurd - i understand this is to make sure that people put their apps through the marketplace but what about sites that are silverlight based?? Am i to believe that we cannot browse sites created with silverlight?? I was so surprised with the answer that i had to check it with the person behind me [now found out to be <a href="http://designcoderelease.blogspot.com/" target="_blank">Nathan Gloyn]</a>!</p>
+<p>Overall impressions of the Win Phone 7 - lovely UI [because of the metro theme] but i think it will take another generation or 2 of it before it even pushes the marketshare of android or apple phones.</p>
+<p>&nbsp;</p>
+<p>Then i got to the session i was looking forward to most - Web Futures. The gu was going to cover the following topics:</p>
+<ul>
+<li>IIS Express</li>
+<li>SQL Server CE 4</li>
+<li>ASP.NET MVC 3 - with Razor view engine</li>
+<li>EF 4 &#8216;Code First&#8217;</li>
+</ul>
+<p>&nbsp;</p>
+<p>All i can say is WOW!. The new technologies for developers [not that webmatrix stuff ;p] looks fantastic. IS Express - a fully functional light version of IIS 7 only difference is that it doesn&#8217;t need an admin account to run it, SQL Server CE 4 is a simple db that we can deploy through the bin and app_data folder and will be able to be looked at via server explorer, EF Code First so simple to start to move towards a domain driven approach for our code without the need for a 3rd party ORM and Razor - what can we say about that! Razor looks unique - it is so simple to use, the syntax is very light and concise and with the replacement of &lt;%: model.&lt;propertyname&gt; %&gt; to @model.propertyname. Its a good area to be moving to - ill certainly be pushing MVC for my newest project.</p>
+<p>the gu is such a legend he was even able to show dependency injection and IoC to MVC 3 in 8 minutes ;p!!</p>
+<p>&nbsp;</p>
+<p>thanks to the organisers and speakers: Phil Winstanley, Dave Sussman, Scott Guthrie and Mike Ormond</p>
+<p>&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/08/09/breaking-the-dependency/">Breaking the Dependency</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-09T00:00:00+01:00" pubdate data-updated="true">Aug 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After beginning to read <a href="http://www.amazon.co.uk/Working-Effectively-Legacy-Robert-Martin/dp/0131177052" target="_blank">&#8220;Working Effectively with Legacy Code&#8221; by Michael Feathers</a>&nbsp;I learned a lot about how i should actually approach code i have never worked with before and that is classed as <strong>legacy.</strong></p>
+<p>&nbsp;</p>
+<h3><span style="text-decoration: underline;">What is Legacy Code?</span></h3>
+<p>Feathers quite simply states that code is legacy when it is &#8220;&#8230;..without tests&#8221;. He said that no matter how well the code is written, according to whatever patterns you like and as readable as it can be that if it is not tested then it is bad/ legacy code.</p>
+<p>&nbsp;</p>
+<h3><span style="text-decoration: underline;">How do we Eliminate Legacy Code?</span></h3>
+<p>This book has a legacy code change algorithim.</p>
+<p><img src="/blog/images/2010/8/breakingthedependency.gif" alt="" /></p>
+<p>So what has made me change? When i started a new job recently i seen a lot of legacy code. I had to immediately try and tackle the issue as i am very passionate about good, clean, well tested code. In order to make the code changes necessary i had to break a lot of dependencies.</p>
+<p>On working with an &nbsp;API i was presented with the following public method. This was consumed by 2 webservices and it is used to track the use of the site by a user.</p>
+<p>&nbsp;</p>
+<pre class="brush:csharp">private ITrackingPixel ReplacePlaceholders(ITrackingPixel tp)
+{
+    //If there is no HTMl code then don't do the replace and return
+    if (tp == null || string.IsNullOrEmpty(tp.HTMLCode)) return tp;
+
+    string htmlCode = tp.HTMLCode;
+
+
+    string pixel_placeholders = ConfigurationManager.AppSettings["TrackingPixelPlaceHolders"];
+    if (string.IsNullOrEmpty(pixel_placeholders))
+    {
+    	//Log
+	_log.Warn("TrackingPixel's placeholders do not exist in the configuration.");
+	return tp;
+    }
+
+    string[] placeholders = pixel_placeholders.Split(new char[]{','});
+
+
+    if (TrackingPixel.UserID != null &amp;&amp; placeholders.Contains("USERID"))
+    {
+	htmlCode = htmlCode.Replace(MakePlaceholder("USERID"), TrackingPixel.UserID.ToString());
+    }
+    if (TrackingPixel.VisitID != null &amp;&amp; placeholders.Contains("VISITID"))
+    {
+	htmlCode = htmlCode.Replace(MakePlaceholder("VISITID"),        TrackingPixel.VisitID.ToString());
+     }
+
+     tp.HTMLCode = htmlCode;
+     return tp;
+}
+</pre>
+<p>Now this is what i would call pretty nasty code. I couldn&#8217;t test it as it had a dependency on ConfigurationManager and getting appSettings from it. I had 2 ideas about how i could break the configuration manager dependency:</p>
+<p>&nbsp;</p>
+<ol>
+<li>Inject the required config value into the public method that called this private method.</li>
+</ol>
+<div>This wouldn&#8217;t work as i would have to make sure that i changed <strong>everywhere</strong>&nbsp;this method was used. I was bound to miss one as i&#8217;m sure the documentation doesnt exist to find all references as most of the code was outsources</div>
+<div><br /></div>
+<div>2. Interface out the configuration manager</div>
+<div>I immediately thought this would be very difficult to do but then had a bit of a brain wave where we had a helper class that would have a method to get the appSetting from the web.config but that this class would be interfaced out for Mocking and thus testing</div>
+<div><br /></div>
+<pre class="brush:csharp">public class ConfigurationManager: IConfigurationManager
+{
+	public string GetAppSettingsPropertyValue(string configurationParameter)
+	{
+		return System.Configuration.ConfigurationManager.AppSettings[configurationParameter];
+	}
+}
+</pre>
+<p>this may not be the best way of doing this but its currently effective and means that the segment of code concerned is fully tested.</p>
+<pre class="brush:csharp">private IConfigurationManager _CONFIG;
+
+........
+string pixel_placeholders = _CONFIG.GetAppSettingsPropertyValue("TrackingPixelPlaceHolders");
+            if (string.IsNullOrEmpty(pixel_placeholders))
+            {
+                //Log
+                _log.Warn("TrackingPixel's placeholders do not exist in the configuration.");
+                return tp;
+            }
+</pre>
+<p>It may not be &#8220;clean&#8221; or efficient but its a first step for me in this. I am now confident of making changes to this method without breaking anything</p>
+<p>&nbsp;</p>
+<p>this was a real breakthrough moment for me &amp; has really helped me develop my unit testing skills</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/07/29/iis-administration-application/">IIS Administration Application</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-29T00:00:00+01:00" pubdate data-updated="true">Jul 29<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of the first things i had to do when i got to my new company was to build an application that would allow the remote restart of a web application. After much searching to find the correct thing i found the use of DirectoryEntry</p>
+<p>In order to use it i had to import the name space:</p>
+<pre class="brush:csharp">using System.DirectoryServices;
+</pre>
+<p>This meant that i was able to access the correct part of AD in order to call the correct method that could tell me what the correct status of the app was and also to change the status to another state.</p>
+<p>&nbsp;</p>
+<p>The first method i used was InvokeGet - this took an application pool path and then returned an int that was the state of that application pool. the app pool path was made up as follows:</p>
+<pre class="brush:csharp">var appPoolPath = String.Format(@"IIS://{0}/W3SVC/AppPools/{1}", 
+                                 Environment.MachineName, 
+                                 ConfigurationManager.AppSettings["applicationPoolName"]);
+</pre>
+<p>using this path we could then call a method as follows:</p>
+<pre class="brush:csharp">DirectoryEntry w3svc = new DirectoryEntry(appPoolPath);
+var currentStatus = (int)w3svc.InvokeGet("AppPoolState");
+</pre>
+<p>the int returned could then be deciphered to get the current status. If the int was 2 then the app pool is &#8220;running&#8221;, if the int was &#8220;4&#8221; then the app pool was stopped. i only checked for those 2 states and made the default be state &#8220;unknown&#8221;.</p>
+<p>&nbsp;</p>
+<p>this meant that as we have the current state then we could then decide was was available to do and what not to do. By using a different method and passing in the command name and app pool name could we then change is state.</p>
+<pre class="brush:csharp">var appPoolPath = String.Format(@"IIS://{0}/W3SVC/AppPools/{1}", 
+                                 Environment.MachineName, 
+                                 ConfigurationManager.AppSettings["applicationPoolName"]);
+var command = "start";
+DirectoryEntry w3svc = new DirectoryEntry(appPoolPath);
+w3svc.Invoke(command, null);
+</pre>
+<p>We are passing in null as there are no parameters that i needed to go with this. But it can accept a [] of args if needed. We can call stop in exactly the same way.</p>
+<p>&nbsp;</p>
+<p>So whats the point of this post ihear you ask?? Well there are certain conditions that you can run this application under. The main one is that the user that the application pool needs to run under needs to be a local machine administration in order to interact with AD. this of course will not be a good thing to do on a live webserver - so what are the alternatives?</p>
+<p>&nbsp;</p>
+<p>Nada, nothing, zilch! This is needed and the only way you can stop attacks on the server is possibly to run this under basic IIS authentication within an IP range and a known user with a ridiculously difficult password. I only discovered all of this after i had actually written the little application and this idea has since been trashed!</p>
+<p>&nbsp;</p>
+<p>So back to remoting into the webserver for IIS application pool crashes! c&#8217;est la vie!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/07/27/all-change-please%21/">All Change Please!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-27T00:00:00+01:00" pubdate data-updated="true">Jul 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So its been a while and since my last post i have moved on from my previous job. I was sad to go as i was there for 4 years but i needed to move on to further my career.</p>
+<p>Since moving to my new place of work i have had to initially do the follow:</p>
+<p>&nbsp;</p>
+<ul>
+<li>restructure SVN</li>
+<li>setup CI server [TeamCity]</li>
+<li>move all unit tests to NUnit 2.5.5</li>
+<li>automate builds</li>
+<li>break code dependencies</li>
+</ul>
+<div>This has been a very good move for me as it has really let me get my teeth into my new work. I expect this new role to be a challenge that will set me in good standing for the further.&nbsp;</div>
+<div></div>
+<div>The only drawback of the new job is the fact i need to take the train everyday - ALL CHANGE PLEASE!!!</div>
+<div></div>
+<div></div>
+<p>&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/06/07/my-ddd-south-west-review/">My DDD South West Review</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-07T00:00:00+01:00" pubdate data-updated="true">Jun 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>On Saturday 5th June, <a href="http://www.dddsouthwest.com/" target="_blank">DDD South West</a> was held at UWE Bristol. There are not many opportunities for a DDD event so it is always very busy. There were 6 tracks and 5 sessions in each track. A wide and diverse range of talks were given by dedicated speakers.</p>
+<p>&nbsp;</p>
+<p>I started the day going to a session on the Task Parallel Library by <a href="http://blogs.imeta.co.uk/sstrong/Default.aspx" target="_blank">Steve Strong</a>. I had been looking into the TPL recently and thought this may be a good idea to go to to help me learn about it. There was an amazing amount of content that Steve tried to cover. I learned an awful lot and since then have implemented come concurrency in some of my applications. I recommend anyone to see Steve talk on this as he really does know his stuff.</p>
+<p>&nbsp;</p>
+<p>I decided to attend the Alternative track for my next session. This track was a balloon debate on ORM vs SQL vs Entity Framework 4 vs NoSQL. Basically the speakers had to argue their corner in order not to be voted off the &ldquo;balloon&rdquo; by the attendees. First up, <a href="http://geekswithblogs.net/iupdateable/Default.aspx" target="_blank">Eric Nelson</a> from Microsoft to speak on Entity Framework 4. <a href="http://geekswithblogs.net/twickers/Default.aspx" target="_blank">Liam Westley</a> on traditional SQL. <a href="http://blog.stevensanderson.com/" target="_blank">Steve Sanderson</a> gave a well researched piece on NoSQL then finally <a href="http://garyshortblog.wordpress.com/" target="_blank">Gary Short</a> gave a very good overview of the use of ORM &ndash; it actually enlightened me to how wide a range of things that ORM&rsquo;s can be used for</p>
+<p>&nbsp;</p>
+<p>It then came to a session i was looking forward to, Crap Code and the Disasters it Causes by <a href="http://weblogs.asp.net/plip/" target="_blank">Phil Winstanley</a>. I am very passionate about this subject so i was hoping that it would help me to improve the way i work. I wasn&rsquo;t disappointed &ndash; Phil pointed out some truly awful code and sorted the code samples into the types of developers who made the errors. The one thing i took away from this session &ndash; I didn&rsquo;t know you could put a GOTO inside a SWITCH statement [WTF???]</p>
+<p>&nbsp;</p>
+<p>Grok talks were given over lunchtime &ndash; the ones of interest to me Cyclomatic Complexity and DotLess Css &ndash; i think ill make some future blog posts about these. Sorry to Silverlight 4 and BlogEngine.net but next time maybe :)</p>
+<p>&nbsp;</p>
+<p>Code Contracts with Barry Carr was the next session. This was a truly heavy session to get my head around. I understood the concept of it &ndash; to make sure that the code does what it says it does and that the client will do what they says they will. But i couldn&rsquo;t understand why you would do this as in massively overinflated the code base. I&#8217;m sure there are ways to do this and i will definitely be looking into this in the future as its a real extension of testing inputs and outputs [as well as lots of other stuff]</p>
+<p>&nbsp;</p>
+<p>Last session of the day was CQRS with <a href="http://neildoesdotnet.blogspot.com/" target="_blank">Neil Robbins</a>. Bad start to the session of Neil as his laptop gave way and he had to borrow one to give the presentation. He gave an excellent talk on CQRS. It really made me see that the work im doing currently is very basic in comparison to this type of architecture. I didn&rsquo;t understand this thoroughly but i think another talk or 2 on this [hopefully <a href="http://skillsmatter.com" target="_blank">skillsmatter</a> will come through for me on this :)] and i reckon i&rsquo;d be very much taken by this</p>
+<p>&nbsp;</p>
+<p>Overall a great day. I met a lot of people and there are others i really wished i had a chance to see or meet. Next time though. I shall definitely be at the next DDD event &ndash; talks are currently for Ireland on 25th Sept :) &ndash; and id recommend this to anyone.</p>
+<p>&nbsp;</p>
+<p>Fingers crossed i get a chance to make some further posts on this :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/06/04/speed-of-for-loop-vs-for-each-loop/">Speed of for Loop vs for Each Loop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-04T00:00:00+01:00" pubdate data-updated="true">Jun 4<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Tonight i seen, <a href="http://twitter.com/blowdart/status/15337766237" target="_blank">via Twitter</a>, that it was potentially faster to iterate through a collection with a For loop rather than a For Each loop. I didn&#8217;t believe this [being my usual sceptical self]. Therefore i thought i&#8217;d write some sample code to either support the theory and prove it right or to quash it.</p>
+<p>&nbsp;</p>
+<pre class="brush:csharp">        static void GetIEnumberableResults()
+        {
+            //Small Method call in order to get an IEnumerable
+            //Then parse this IEnumerable firstly over a For Loop
+            //Then over a ForEach Loop - Each Method Returned a TimeSpan
+            var strings = GetStrings();
+            var forLoopElapsedTimespan = GetForLoopElapsed_ForStrings(strings);
+            var forEachLoopElapsedTimeSpan = GetForEachLoopElapsed_ForString(strings);
+
+            Console.WriteLine("Results For IEnumberable");
+            CreateResults(forLoopElapsedTimespan, forEachLoopElapsedTimeSpan);
+            Console.ReadLine();
+        }
+</pre>
+<p>&nbsp;</p>
+<p>I started with a simple IEnumberable&lt;string&gt; and iterated over this. I expected this to tell me that ForEach was faster than a For loop as this is what i was expecting. The results are below:</p>
+<p><img src="/blog/images/2010/6/Capture-IEnumerable.GIF" alt="" /></p>
+<p>&nbsp;</p>
+<p>I was then told that the size of the collection being iterated over was a char[] of approx 65000.&nbsp;There was a challenge if ever i needed one. I created a char[] of a huge size [6
+<script src="http://www.paulstack.co.uk/blog/editors/tiny_mce3/themes/advanced/langs/en.js" type="text/javascript"></script>
+8000+] ad ran the same iteration over the array.</p>
+<pre class="brush:csharp">        
+        static void GetCharArrayResults()
+        {
+            //Small Method call in order to get char[] of size 68000 +
+            //Then parse this char[] firstly over a For Loop
+            //Then over a ForEach Loop - Each Method Returned a TimeSpan
+            var chars = GetChars();
+            var forLoopElapsed = GetForLoopElapsed_ForCharArray(chars);
+            var forEachLoopElapsed = GetForEachLoopElapsed_ForCharArray(chars);
+
+            Console.WriteLine(string.Format("Results for char[] of size {0}", chars.Length));
+            CreateResults(forLoopElapsed, forEachLoopElapsed);
+            Console.ReadLine();
+        }
+</pre>
+<p>Again i expected the ForEach loop to be faster. The results are below:</p>
+<p><img src="/blog/images/2010/6/Capture-char.GIF" alt="" /></p>
+<p>&nbsp;</p>
+<p>i have absolutely no idea what&#8217;s causing this - so if any of you can let me know that would be fantastic. This has really brought out the proper geek in me :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/06/04/how-to-create-and-fill-and-ienumerable3cstring3e/">How-to-Create-and-Fill-and-IEnumerable<string></a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-04T00:00:00+01:00" pubdate data-updated="true">Jun 4<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Very simple tip i found at <a href="http://www.devevening.co.uk" target="_blank">DevEvening</a> tonight from <a href="http://blog.markrendle.net/" target="_blank">Mark Rendle</a></p>
+<p>To create a new IEnumerable&lt;string&gt; and add items to that IEnumerable&lt;string&gt; then something very small along the lines of:</p>
+<pre class="brush: csharp">        private static IEnumerable GetStrings()
+        {
+            yield return "a";
+            yield return "b";
+            yield return "c";
+            yield return "d";
+            yield return "e";
+            yield return "f";
+            yield return "g";
+            yield return "h";
+            yield return "i";
+            yield return "j";
+            yield return "k";
+            yield return "l";
+            yield return "m";
+            yield return "n";
+        }
+</pre>
+<p>I&#8217;m sure most of you knew this but it was never something i knew how to do. i usually ended up doing something along the lines of</p>
+<pre class="brush: csharp">        private static IEnumerable ConvertListToIEnumberable()
+        {
+            var&gt; listStrings = new List();
+            listStrings.Add("a");
+            listStrings.Add("b");
+            listStrings.Add("c");
+            listStrings.Add("d");
+            listStrings.Add("e");
+
+            IEnumerable ienumString = listStrings;
+            return ienumString;
+        }
+</pre>
+<p>Possibly useful to you, possibly not as you may already know it :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/11/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/9/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

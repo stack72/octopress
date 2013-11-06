@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="In the past week, I have started using YouTrack&nbsp;3.0 in the cloud as a think tank of blog posts that I want to write. Previously I had used &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/page/2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/09/custom-blogging-workflow-with-youtrack/">Custom Blogging Workflow With YouTrack</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-09T00:00:00+01:00" pubdate data-updated="true">Apr 9<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In the past week, I have started using <a href="http://www.jetbrains.com/youtrack" target="_blank">YouTrack</a>&nbsp;3.0 in the cloud as a think tank of blog posts that I want to write. Previously I had used Trello. there was no particular reason for moving away from <a href="http://trello.com">Trello</a> other than curiosity about what YouTrack could offer me. On setting up YouTrack I added a project to start the tracking of the blog posts. On adding the first post, I was given the following state workflow:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_41.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_39.png" alt="image" width="419" height="227" border="0" /></a></p>
+<p>As you can see, you can pretty much change the state to be any other out of the box. I wanted to use this as the opportunity to create a custom workflow for YouTrack. I was able to download the <a href="http://www.jetbrains.com/youtrack/download/" target="_blank">YouTrack Workflow Editor</a> and start the editor. <a href="http://twitter.com/hhariri" target="_blank">Hadi Hariri</a> has created a post on the basics of the workflow editor on <a href="http://hadihariri.com/2012/02/15/spicing-up-youtrack-with-workflows/" target="_blank">his blog</a> but this was only to create a stateless rule. I wanted to create a &lsquo;statemachine&rsquo; rule. Basically the flow was to be as follows:</p>
+<p>- Initially the issue created would be assigned to &lsquo;To Write&rsquo;</p>
+<p>- Issues in &lsquo;To Write&rsquo; could be changed to &lsquo;In Draft&rsquo;</p>
+<p>- Issues in &lsquo;In Draft&rsquo; could be changed to &lsquo;In Review&rsquo; when complete or &lsquo;To Write&rsquo; when paused</p>
+<p>- Issues in &lsquo;In Review- can be changed to &lsquo;Published&rsquo; when closed or &lsquo;In Draft&rsquo; when failed review</p>
+<p>I immediately got to work and created a new rule as in Hadi&rsquo;s post but this time I chose a statemachine rule. This gave me the following template:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_42.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_40.png" alt="image" width="447" height="240" border="0" /></a></p>
+<p>I had to add the first transition. That when initially opened the state would be &lsquo;To Write&rsquo;:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_43.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_41.png" alt="image" width="447" height="240" border="0" /></a></p>
+<p>I then had to implement the changes allowed to State from &lsquo;To Write&rsquo;. This says that when an issue in To Write, the only state it can move to is &lsquo;In Draft&rsquo;. As you can see, there is a stub of the state for In Draft created now by the Editor. I was then able to say that when the post is In Draft, it can move to In Review when finished writing or To Write when paused:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_44.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_42.png" alt="image" width="427" height="230" border="0" /></a></p>
+<p>I was then able to implement that when the post is In Review, it could change to Published when verified or In Draft when it didn&rsquo;t pass review. This gave us the stub for Published. As there were no state changes allowed when published, I just had to leave the Published state empty as shown:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_45.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_43.png" alt="image" width="425" height="229" border="0" /></a></p>
+<p>After uploading the workflow to the server, as per Hadi&rsquo;s instructions, I then had to attached the workflow to my project. I went to administration and chose the project type and then the workflow tab, I clicked the button &lsquo;Attach workflow&rsquo;. This game me the following:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_46.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_44.png" alt="image" width="422" height="229" border="0" /></a></p>
+<p>I just had to choose the workflow I had created (stack72-blogging-stateflow) and I could then see the transition screens were working as appropriate:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_47.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_45.png" alt="image" width="146" height="133" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/image_48.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_46.png" alt="image" width="151" height="133" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/image_49.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_47.png" alt="image" width="153" height="133" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/image_50.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_48.png" alt="image" width="148" height="133" border="0" /></a></p>
+<p>This was very easy. I must pay credit to the Youtrack team for such a simple workflow editor. IT has intellisense and was able to offer me all sorts of options on clicking control + spacebar together. Thanks also to Hadi&rsquo;s post for introducing me to the Workflow editor.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/03/agile-teams-and-working-from-home/">Agile Teams and Working From Home</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-03T00:00:00+01:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Yesterday (April 2nd 2012), I posed a question on twitter:</p>  <p><strong>Does anyone think that people working from home in an agile team is a bad idea?</strong></p>  <p>This seemed to be quite a controversial question to pose. My favourite response was “isn’t agile – as long as you get the work done, doesn’t matter home, office, card, no-cards, no??” Now, I can see what the author <a href="http://twitter.com/edonsojeva" target="_blank">(@edonsojeva)</a> is trying to say. I agree that one of the main principles of agile is getting work done. But, on the other hand, for me the best principle of agile is the ability to communicate with members of the team <strong>*and*</strong> the business. IM clients (Skype, Lync, MSN etc.) are a great way to keep in touch. But I have never found them to be fantastically efficient at being able to display the entire picture. When speaking to people I want to see them face to face (where possible). this allows us both to focus on the issue at hand.</p>  <p>when working remotely, people can get distracted. That’s just our nature. It doesn’t matter whether we get distracted by emails, twitter, other IM conversations happening at the same time or TV (yes I have seen this happen to some people), it happens. I find that that level of distraction is less in the office. Why email someone when you can get up from your desk, walk 10feet and speak to them and strike up a conversation instead? </p>  <p>I understand that it can sometimes be very important to isolate yourself just to get a few hours of no distraction. Being at home, with no one round can give you this isolation. My thoughts here are that if you do have so much to do that requires you to be isolated from the rest of the team, that you a) haven’t planned very well or b) are not agile. Team is the key word here. For me working from home takes away that sense of being part of the team. It can just make you feel a little isolated. Architecture and code can be a bit of a beast sometimes. It can therefore take other people to wind in crazy ideas. Unless you are this incredibly focused person, you can sometimes go off in a tangent or with an idea that another has already tried. It can also save time. If you run into an issue, a team member who has been in this situation before can point out a fix.</p>  <p>This leads me to the general idea that working from home is the exception rather than the rule. I wouldn’t be fantastically happy with members of the team who constantly worked from home. They would feel more like remote contractors than anything else. I understand there are incredibly focused individuals out there that can block out all these impediments and work from home efficiently. I am in no way saying that it isn’t possible. This post is merely a scratch pad to get feedback on what others have experienced.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/08/teamcitysharp-now-builds-with-mono/">TeamCitySharp Now Builds With Mono</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-08T00:00:00+00:00" pubdate data-updated="true">Feb 8<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I am pleased to be able to say that <a href="http://github.com/stack72/TeamCitySharp" target="_blank">TeamCitySharp</a> is now supports <a href="http://www.mono-project.com/" target="_blank">mono</a>. In order to get the project supported I had to change a few parts of the system.</p>
+<p>Up until now, each project within the solution has a &ldquo;BeforeBuild&rdquo; event that downloaded the nuget packages needed to build the solution. This was in place to keep the github repository small enough to facilitate a fast download for people who fork it. <a href="http://www.nuget.org" target="_blank">Nuget</a> doesn&rsquo;t work with mono so there was a trade off I had to make. In this instance I chose supporting mono over the &ldquo;BeforeBuild&rdquo; event. This does mean that once the repository is cloned or forked. then it will work instantly. I hope to revisit this if / when someone manages to get nuget working with mono.</p>
+<p>The sample build monitor was a standard ASP.NET MVC 3 project. I found that this didn&rsquo;t build with mono out of the box. It was throwing errors due to the references contained. The following references were present:</p>
+<p><a href="http://paulstack.co.uk/blog/images/before.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="before" src="http://paulstack.co.uk/blog/images/before_thumb.gif" alt="before" width="189" height="317" border="0" /></a></p>
+<p>On running a reference analysis, I was able to see that the following references were not used:</p>
+<p><a href="http://paulstack.co.uk/blog/images/ToRemove.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="ToRemove" src="http://paulstack.co.uk/blog/images/ToRemove_thumb.gif" alt="ToRemove" width="240" height="227" border="0" /></a></p>
+<p>This meant that only the core references were left behind. This meant that the entire solution was able to build under mono.</p>
+<p>In order to build the project with mono, you can run the following command: <br /><strong>xbuild TeamCitySharp.sln</strong></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/31/installing-mono-on-windows/">Installing Mono on Windows</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-31T00:00:00+00:00" pubdate data-updated="true">Jan 31<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have recently been thinking about making <a href="http://github.com/stack72/TeamCitySharp">TeamCitySharp</a> supported on <a href="http://www.mono-project.com/Main_Page">mono</a>. This would require me to either run a VM (that you can download form the mono project site) or install mono on Windows. As I would continue to develop TeamCitySharp in VS2010, I thought it would be better to install mono on windows.</p>
+<p>When trying to install mono, I went to the mono project download page and was presented with 3 options for windows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_39.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_37.png" alt="image" width="368" height="288" border="0" /></a></p>
+<p>I had no idea what to install &amp; tweeted to that effect. Almost immediately, <a href="http://twitter.com/ferventcoder">Rob Reynolds</a> tweeted this back:</p>
+<p><strong>cinst mono</strong></p>
+<p>This is a reference to chocolatey which I have used before. <a href="http://chocolatey.org/">Chocolatey</a> is described as &ldquo;apt-get for windows&rdquo;. In order to install mono I had a number of steps to follow:</p>
+<p>1. Set the execution policy of PowerShell to unrestricted</p>
+<p><a href="http://paulstack.co.uk/blog/images/execution-policy.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="execution-policy" src="http://paulstack.co.uk/blog/images/execution-policy_thumb.png" alt="execution-policy" width="308" height="159" border="0" /></a></p>
+<p>2. Install chocolatey</p>
+<p><a href="http://paulstack.co.uk/blog/images/chocolatey-install.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="chocolatey-install" src="http://paulstack.co.uk/blog/images/chocolatey-install_thumb.png" alt="chocolatey-install" width="313" height="173" border="0" /></a></p>
+<p>3. cinst mono</p>
+<p><a href="http://paulstack.co.uk/blog/images/mono-install-1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="mono-install-1" src="http://paulstack.co.uk/blog/images/mono-install-1_thumb.png" alt="mono-install-1" width="313" height="173" border="0" /></a></p>
+<p>which, when downloaded triggers the install</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/mono-install-2.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="mono-install-2" src="http://paulstack.co.uk/blog/images/mono-install-2_thumb.png" alt="mono-install-2" width="283" height="220" border="0" /></a></p>
+<p>Mono is now installed and ready to be used. This was extremely easy using chocolatey. I have used it before to install <a href="http://nodejs.org/">nodejs</a> but I have to admit I didn&#8217;t really pay attention to what packages it contained. I will be doing so from now on. If you have not checked out chocolatey then please do so &ndash; it rocks!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/17/how-nuget-could-improve/">How Nuget Could Improve</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-17T00:00:00+00:00" pubdate data-updated="true">Jan 17<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Late in December 2011, I stuck my oar into a conversation on twitter (as I usually do) between <a href="http://twitter.com/lazycoder">Scott Koon</a>, <a href="http://twitter.com/davidebbo">David Ebbo</a>, <a href="http://twitter.com/sumitkm">Sumit Maitra</a>&nbsp; and <a href="http://twitter.com/Ang3lFir3">Eric Ridgeway</a>. This conversation was about why <a href="http://nuget.org">Nuget.org</a> was not the best place for a <a href="http://nuget.org/packages/Northwind.Db">Northwind DB Sample</a> package. My comment was as follows:</p>
+<p align="center"><em>@lazycoder @davidebbo @sumitkm @Ang3lFir3 maybe have the ability for codeplex to have a nuget style feed of its own for sample libraries?</em></p>
+<p align="left">I thought I should clarify my thoughts further. Nuget (and <a href="http://www.openwrap.org/">OpenWrap</a>) have set the .net world into a new era for dependency management but there are not many enforced rules or moderation of the packages you can upload. For example, I <strong>maintain</strong> the NUnit package. This means I submit updates to the package when a new version is released by NUnit. I once received a comment on how I should split the package up into just a dll package and then have a full package.I really had to think hard about why I should do this. Who am I to change the way the guys who create NUnit distribute the package. All I do is to get the contents of their .zip and redistribute that &ndash; and I do struggle to think how I have the authority to do that sometimes. This led me to a very prudent question:</p>
+<p><strong><em>Is Nuget.org a site that should have strict regulations about the packages that get uploaded there?</em></strong></p>
+<p>I have heard about a few broken packages and actually sample applications. Is this the correct place for these packages to go to?Has it become a dumping ground for software. Sites like <a href="http://www.codeplex.com">codeplex</a>, <a href="http://www.github.com">github</a> and <a href="http://www.bitbucket.org">bitbucket</a> are used more frequently for source control. Are these sites the correct areas for the sample applications? I would argue yes. I feel that Nuget should contain only packages that I can download and use immediately. I don&rsquo;t want to have to download a 12mb sample application when I could view the source in github or codeplex. Maybe a way to take this further would be to set up the ability for nuget to hook into these types of systems:</p>
+<p><strong>nuget install-sample &lt;path to codeplex&gt; </strong></p>
+<p>This would keep the nuget library free of the packages not deemed useful. Who can classify a package as useful in this theory I hear you say? Well the users of the site, via a stackoverflow style voting system. A broken package gets a downvote, then any packages below &ndash;4 (for example) would get archived by the system and the package owner to get notified. There would have to be some sort of moderation of this though or people with rival packages could eliminate the competition <img class="wlEmoticon wlEmoticon-devil" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-devil.png" alt="Devil" /></p>
+<p>I do believe that uploads to the nuget library should be regulated. There are more than enough people in the .net community that would spend a few minutes a day clearing out / verifying packages. If we regulate the packages then developers will continue to use for nuget. If it continues with the following types of packages then this may not be the case:</p>
+<p><a href="http://paulstack.co.uk/blog/images/NuGet%20Gallery.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="NuGet Gallery" src="http://paulstack.co.uk/blog/images/NuGet%20Gallery_thumb.png" alt="NuGet Gallery" width="500" height="528" border="0" /></a></p>
+<p>The naming conventions of these packages contain the letters &lsquo;&ndash;ci&rsquo;. How on earth can I work out what the different between MvcContrib.MVC3-ci is? Is it a special kind of package for CI use only or was it built with a CI system? This is exactly the issue. Some kind of visual check around this would have stopped &ndash; for the record I actually installed MvcContrib before I realised it was not compatible with MVC3 &ndash; this should have been noted in the description, in my opinion.</p>
+<p>I enjoy using nuget and I really want to continue enjoying it. All we (as a community) need to do is to be respectful of other developers when we create a package. When delivering software to paying customers, do we release potentially untested applications or do we make sure that they work?</p>
+<p>$0.02</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/14/codemash-2012-truly-awesome/">CodeMash 2012–what an Awesome Event!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-14T00:00:00+00:00" pubdate data-updated="true">Jan 14<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This past weekend (January 10th &ndash; 14th 2012) <a href="http://codemash.org">CodeMash</a> was held in the Kalahari resort in Sandusky, OH. Yes I know &ndash; Ohio in January!! I had been warned that firstly its cold there and secondly there is usually a lot of snow. This time we were quite lucky and only got a little snow. I arrived on Wednesday night after a very long journey and walked into what was just a hive of activity. I have been to a lot of conferences, this one was not only huge but very interactive and social. A lot of the attendees brought their families for the week!</p>
+<p><a href="http://paulstack.co.uk/blog/images/495876401.jpg"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="495876401" src="http://paulstack.co.uk/blog/images/495876401_thumb.jpg" alt="495876401" width="244" height="139" border="0" /></a></p>
+<p>I was very lucky to have a session accepted for this conference (Introducing Continuous Delivery) and was extremely pleased to know that my session had made it from over 700 applications. I was also lucky enough to have my session early on Thursday. If you look at the <a href="http://codemash.org/CodeMashSchedule.pdf">schedule</a>, marvel at the level of speakers here and you will see why I was so pleased!</p>
+<p>The big thing for me on this conference is that there were a lot of companies there in force. <a href="http://edgecase.com/">Edgecase</a> and <a href="http://leandog.com/">Leandog</a> are the 2 that stick out for me. Edgecase as they were usually in the hot tub drinking and leandog because of those hats <img class="wlEmoticon wlEmoticon-smile" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-smile_7.png" alt="Smile" />. There was also the small matter of a party on Thursday evening after the sessions that actually moved to take over the waterpark between 10pm and 1am. A-Maze-ing! I, in fact, did &lsquo;a <a href="https://twitter.com/#!/coreyhaines">Corey Haines&rsquo;</a> and smashed my head off the bottom of the pool. At one point on the Friday, Cleveland were trying to get me to stand on the runway as a beacon for the planes to find the runway as it was so red!</p>
+<h5>a Corey Haines :</h5>
+<ul>
+<li>To injure oneself at CodeMash in the waterpark</li>
+<li><em>OMG Dude you just did a Corey Haines &ndash; are you ok? </em></li>
+</ul>
+<ul>Oh and the bacon bar &ndash; bacon with all sorts of toppings available &ndash; from butterscotch to white chocolate.</ul>
+<p><a href="http://paulstack.co.uk/blog/images/i4hea.jpg"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="i4hea" src="http://paulstack.co.uk/blog/images/i4hea_thumb.jpg" alt="i4hea" width="183" height="244" border="0" /></a></p>
+<p>Without the <a href="http://codemash.org/Sponsors">sponsors</a> this event would never have been able to happen. Please do say a thank you &ndash; tweet them even! I seen tweets as to the magnitude of the event:</p>
+<blockquote>
+<p><em><a href="http://twitter.com/#!/codemash/status/155385899197276160">Just picked up cashier&#8217;s check to Kalahari for partial conference payment: $330,000. Nice double-take from the cashier when I said amount</a></em></p>
+</blockquote>
+<p>Most importantly, I would sincerely like to thank all the organisers. These guys work on this conference while holding down jobs. Its an incredible accomplishment. It was what I would certainly class as <strong>the best</strong> conference ever. Thinking of 1300 geeks in a waterpark in Ohio in January doesn&rsquo;t do this event justice at all. It is quite literally a software conference for the entire family.</p>
+<p>I met so many cool people &ndash; I couldn&#8217;t begin to name them all or acknowledge them all! I will certainly be back next year! For now I will have to get over the bacon sweats, keep icing my head from my stupidity and start working on my submission next year!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/12/29/features-nuget-would-benefit-from/">Features Nuget Would Benefit From</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-29T00:00:00+00:00" pubdate data-updated="true">Dec 29<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I look to <a href="http://nuget.org/">Nuget</a> as the package manager for Windows development in the same way that <a href="http://rubygems.org/">RubyGems</a> is to Ruby development. This may be immature of me but it works for my scenarios. In comparing the different systems, I feel that Nuget is lacking a few key features that sometimes I look for.</p>
+<h4>1. Install a specific version of a package</h4>
+<p>Currently from the Nuget console in Visual Studio a command like the following is run:</p>
+<p><strong>Install-package TeamCitySharp</strong></p>
+<p>This would install the <em>latest</em> package available. This is sometimes not always the best solution. If the package owner releases a package that has a bug in it then we cannot use the package at all. I would like the be able to install a version of the package that I know works:</p>
+<p><strong>Install-package TeamCitySharp &ndash;version:0.2</strong></p>
+<p>This would mean I can then update at a time when I am happy with the new package or when a fix has been added.</p>
+<h4>2. Download package direct from the Nuget gallery</h4>
+<p>I may want to download&nbsp; package without the need to open the Nuget console. A simple download link would be a welcome addition to be able to help this.</p>
+<h4>3. Global installation of a package</h4>
+<p>Currently, you would select the project from the list in the console and then call the install command. I would like to be able able install a package to a number of packages. For example, I have 20 unit test assemblies. I wouldn&#8217;t want to have to type the command to install NUnit 20 times. I would like to be able to do something like:</p>
+<p>Install-package NUnit&nbsp; -include *.UnitTest.dll &ndash;exclude *.config</p>
+<p>This would utilise the full power of the PowerShell console. This is purely a timesaver and would help when working in a multi project environment.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/12/29/2011-my-year-in-review/">2011 – My Year in Review</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-29T00:00:00+00:00" pubdate data-updated="true">Dec 29<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>2011 was an excellent year for me. Unfortunately I didn&rsquo;t see the point in setting myself clear personal goals for it.&nbsp; But here is my retrospective of my personal work. This post does not include anything that happened at work or in my personal life. 2011 was the year:</p>
+<p><strong>1. I started speaking at user groups / events</strong> <br />In total I spoke at 26 events. This included some bigger events (DDD) in Reading. Scotland, Bristol and Sunderland as well as a lot of user group events all around the country. Unfortunately, 2 had to be cancelled due to unforeseen circumstances but I will make it up to those groups in 2012.</p>
+<p><strong>2.&nbsp; I was made a Jetbrains Academy Member <br /></strong>I still cannot believe this happened and I am honoured at being involved with it. I hope to be part of some big things with this academy and I look forward to continuing to be part of it in 2012. You can read more about this program on the Jetbrains <a href="http://www.jetbrains.com/devnet/academy/index.html">site</a>.</p>
+<p><strong>3. I helped organise GiveCamp UK</strong> <br />Even now, almost 3 months after the event, I am still on a high about this. It was certainly something I can look back on in my career and be really proud to have been part of such a fantastic weekend. More information on GiveCamp and a chance to sign up for the 2012 event can be done on the GiveCamp UK <a href="http://www.givecamp.org.uk/">site</a>.</p>
+<p><strong>4. I was Technical Reviewing books <br /></strong>I was part of the reviewing effort of <a href="http://manning.com/palermo3/">MVC3 In Action</a> and <a href="http://manning.com/jackson/">HTML5 for the .Net Developer</a> both by Manning Books. For those who know me, I can be quite opinionated and this was a great opportunity for me to take those opinions in order to help shape a book.</p>
+<p><strong>5. I was accepted as a Friend of Redgate <br /></strong>Redgate run a program that helps bring together some well known community members and MVPs in order to help give feedback on their products. This was another great opportunity for me to use my opinions and experience in order to help evaluate the products developers use on a daily basis. You can read more about this program on the Redgate <a href="http://www.red-gate.com/our-company/about/community-relations/friends-of-rg">site</a>.</p>
+<p><strong>6. I started my first real OSS project &ndash; TeamCitySharp <br /></strong>As an avid TeamCity user, this was a project that I really enjoyed writing. IT is now approaching 100 downloads from Nuget.org, 27 watchers, 7 forks and 11 pull requests on github. I am very happy with it. You can find the project on my <a href="http://github.com/stack72/TeamCitySharp">github repository</a>.</p>
+<h3>What does 2012 hold for me?</h3>
+<p>I&rsquo;m honestly not too sure what 2012 has in store for me. 2011 was such a fantastic year that I am not sure I can top it.&nbsp; Bit it does give me the opportunity to speak at 2 international events. <a href="http://codemash.org/">Codemash</a> and <a href="http://softwarepassion.se/">Software Passion Summit</a>. Hopefully there will be more well known events that I can submit sessions and speak at but there are so many fantastic speakers that I have to be on top of my game.</p>
+<p>I hope 2012 is half as good a year for me as 2011! I look forward to it&hellip;&hellip;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/12/19/memory-management-in-net-story-board/">Memory Management in .Net–Story Board</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-19T00:00:00+00:00" pubdate data-updated="true">Dec 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>During a work trip, I was prompted to get back into recalling how memory management in .net works as my company found a bit of an issue when they migrated their codebase from .net 3.5 to .net 4.</p>
+<p>Lots of searching on Google and reading of MSDN documentation helped me get back to speed on what I knew before and then I found an email from <a href="http://www.red-gate.com/">Redgate</a> in my inbox. Those awesome folk have created a simple storyboard of how it works to make it easy to understand. This has been sent to all the developers on my team as this is a great resource.</p>
+<p>I strongly suggest checking this resource out: <a title="http://stack72.me/uT8A1z" href="http://stack72.me/uT8A1z">Memory Management in .Net</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/30/teamcitysharp-v02/">TeamCitySharp v0.2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-30T00:00:00+00:00" pubdate data-updated="true">Nov 30<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Hot on the heels of the first release of <a href="http://github.com/stack72/teamcitysharp">TeamCitySharp</a>, a new update has been released for the project to <a href="http://nuget.org/List/Packages/TeamCitySharp">nuget</a>. There were 2 major additions to the project both contributed via pull requests on Github.</p>
+<h4>Introduction of Build Locator</h4>
+<p>This makes the protocol for obtaining build information easier as we use the locator in the url rather than trying to build a query string manually. Previously we built a query string as follows:</p>
+<p>http://myserver.com/httpAuth/app/rest/buildTypes/id:bt437/builds?status=SUCCESS</p>
+<p>This would get the successful builds for build config id 437. This has now been replaced by the following query string:</p>
+<p>http://myserver.com/httpAuth/app/rest/builds?locator=buildType:id:bt437,status:SUCCESS</p>
+<p>Thanks must go to <a href="http://twitter.com/#!/sibartlett">Simon Bartlett</a> for this addition to the codebase. The existing methods will work in this way as the code behind the public methods has been changed to us the build locator pattern. Therefore you can still call the method:</p>
+<script type="text/javascript" src="https://gist.github.com/90d156986380a6f43bd5.js"></script>
+<p>Behind the scenes TeamCitySharp does the following call:</p>
+<script type="text/javascript" src="https://gist.github.com/47fa6fdb8ec5f4e2159c.js"></script>
+<p>&nbsp;</p>
+<h4>New Sample Build Monitor</h4>
+<p>There is now a new project included in the source code. This project is a sample implementation of a build monitor using TeamCitySharp based on MVC3 and Knockout.js. Thanks to <a href="http://twitter.com/codingbadger">Barry Mooring</a> for contributing this sample to the project.</p>
+<p>In order to use the build monitor you just need to go to the settings file and add the TeamCity url, username and password.</p>
+<p>This gives a look and feel as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_38.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_36.png" alt="image" width="497" height="282" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>You can download the source from <a href="http://github.com/stack72/TeamCitySharp">Github</a> or via nuget (install-package TeamCitySharp). Please feel free to leave feedback about what you feel it is lacking or what you don&rsquo;t like about the project. This library will only be able to get better through help from users.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

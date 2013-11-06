@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Strategy to Make CI Builds Self Testing - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="This is post 5 in a series called &lsquo;How to get started with CI&rsquo;. The last post talked about how to implement CI to your first CI project. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/08/31/strategy-to-make-ci-builds-self-testing">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Strategy to Make CI Builds Self Testing</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-31T00:00:00+01:00" pubdate data-updated="true">Aug 31<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This is post 5 in a series called &lsquo;<a href="http://paulstack.co.uk/blog/post/How-to-get-started-with-CI.aspx">How to get started with CI</a>&rsquo;. The last post talked about how to implement CI to your first CI project. This post will extend that implementation by making sure that a build is &lsquo;self testing.</p>
+<p>A &lsquo;self-testing&rsquo; build is a build that runs all of the required <em>tests</em> as part of it. It is important to stress the term <em>tests</em> here as there are different types of tests, unit, integration, regression, UI etc.). In general tests as described run in the following way:</p>
+<ul>
+<li>unit tests &ndash; run in isolation, mock any dependencies and should be fast</li>
+<li>integration / regression tests &ndash; require some sort of setup of data / environment and will be slower to run</li>
+<li>UI / acceptance tests are slower to run and will require a replica of the application to test against. These will be a lot slower.</li>
+</ul>
+<ul>
+<ul>It is important to understand that if a build that has triggered because of a VCS check in and doesn&rsquo;t break the build then we cannot assume the integration of the code has worked.</ul>
+</ul>
+<p><strong>We will not know that the integration has been successful until the code has been tested. </strong></p>
+<ul>The most efficient way of testing the code is with our test suite. If the integration fails with obvious errors, e.g. a compilation error, then that&rsquo;s a huge clue that something has gone wrong.</ul>
+<ul>My usual strategy for CI builds and their tests runs is as follows:</ul>
+<h4>&nbsp;</h4>
+<h4>1. On VCS check in run all the unit tests</h4>
+<p>This will give us fast feedback about problems at a code level and will tell us if the code still behaves as expected. For this instant feedback to happen, builds (including test runs) must be fast. IF the runs are not fast then development could potentially be impacted by developers working with code that doesn&rsquo;t build or hasn&rsquo;t been tested. Always think of the 10 minute rule for the time a build starts till completion.</p>
+<h4>2. Every 2 hours run the integration / regression tests</h4>
+<p>These tests are very important to us but are a step below the priority of unit tests. They will be slower to run since we require data to be setup and torn down for the tests. They can require network and database interaction so we cannot hang around waiting for them to complete.</p>
+<h4>3. Nightly run the UI / Acceptance tests</h4>
+<p>These are again still import but the lowest of the priority order for a <strong>standard</strong> CI build. There will always be a round of testing by QAs or whoever before a release so there is time to fix any errors arising. From my nightly strategy, errors in these tests will only take at maximum a day to appear to a team. These tests are slower again and may require a full compilation and installation of an application to run against so running them overnight means there should be no real problem with time.</p>
+<p>The steps listed about are the steps I use for a project is running a normal CI environment. These would change when an environment changes to include continuous delivery of the application. This will be discussed in a further post.</p>
+<p>This is only a suggested approach from the experiences I have had with CI. If you run your builds in a different manner then I would love to hear about it &ndash; leave a comment below.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-31T00:00:00+01:00" pubdate data-updated="true">Aug 31<span>st</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/08/31/strategy-to-make-ci-builds-self-testing/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/08/31/strategy-to-make-ci-builds-self-testing/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/08/22/is-it-really-agile/" title="Previous Post: Is it really agile?">&laquo; Is it really agile?</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/09/10/why-you-shouldnt-feel-nervous-about-givecampuk/" title="Next Post: Why you shouldn’t feel nervous about GiveCampUk">Why you shouldn’t feel nervous about GiveCampUk &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

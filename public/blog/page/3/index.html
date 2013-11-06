@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="I have heard people talking for a while on the TeamCity pricing strategy and thought I&rsquo;d write a post to start to get some opinions on what you &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/page/3">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/29/teamcity-pricing-model-discussion/">TeamCity Pricing Model Discussion</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-29T00:00:00+00:00" pubdate data-updated="true">Nov 29<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have heard people talking for a while on the TeamCity pricing strategy and thought I&rsquo;d write a post to start to get some opinions on what you think it should be changed to.</p>
+<p>TeamCity users are very lucky that we have a free, without restriction, version of the software to use. It comes with 20 build configurations and 3 build agents. Unfortunately, people still do not find this adequate for their needs. The enterprise version has unlimited build configurations and 3 build agents and is approx. &pound;1600. So the question here is:</p>
+<h4>What do you think the pricing model of TeamCity should be?</h4>
+<p>&nbsp;</p>
+<p>If we can get good feedback, we can give this to Jetbrains in order to let them see what their customers feel they need. This post, or discussion, does not in any way guarantee that the pricing of the tool will change.</p>
+<p>I have heard the following suggestions:</p>
+<p>- Make the enterprise version come with 5 build agents <br />- Have a version between Free and Enterprise that allows like 70 build configurations <br />- Give the ability to buy package extras e.g. 20 build configurations for $500 etc.</p>
+<p>What do you think? Comments required please!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/24/introducing-teamcitysharp/">TeamCitySharp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-24T00:00:00+00:00" pubdate data-updated="true">Nov 24<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://github.com/stack72/TeamCitySharp">TeamCitySharp</a> (TCS) is a simple .net wrapper that will let you interact with a TeamCity server providing you have a login for that system. TeamCity has a REST API but this wrapper will help simplify the calls that that API and deserialize the response for the server into POCOs for you.</p>
+<p>In order to get a list of projects on a TeamCity server you would make the request to the following URL:</p>
+<p><a href="http://&lt;serverurl&gt;/httpAuth/app/rest/projects">http://&lt;serverurl&gt;/httpAuth/app/rest/projects</a></p>
+<p>In order to interact with this, you could use <a href="https://github.com/hhariri/EasyHttp">EasyHTTP</a> or HTTP WebRequest. You would set up a connection, specify a content type, give user credentials and then get a response back that you can use. TeamCitySharp has taken care of this for you. The corresponding code to make the same code using TeamCitySharp would be as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/2a382b5c0699444d8cf4.js"></script>
+<p>There are a number of methods available that will let you get projects, build status&rsquo;, build types, users, agents, user groups and server information. The project cannot be used to create projects or build types. This is due to the absence of the appropriate calls on the TeamCity REST API. A full list of functionality of the TeamCitySharp API calls can be found in the <a href="http://github.com/stack72/TeamCitySharp/blob/master/README.md">documentation</a>.</p>
+<p>I have created a TeamCitySharp <a href="http://nuget.org/List/Packages/TeamCitySharp">nuget package</a> and you can install that from nuget command line using the comment:</p>
+<p><strong>install-package TeamCitySharp</strong></p>
+<p>This is very much an early version of the project in order to get user feedback. If you do try it then please do let me know what you don&rsquo;t like about it and what you feel it would benefit from. Thanks really must go to <a href="http://twitter.com/hhariri">Hadi Hariri</a> for the idea after I saw&nbsp;<a href="https://github.com/JetBrains/YouTrackSharp">YouTrackSharp</a>.</p>
+<p>Please feel free to fork the project and send any requests back you feel the project would benefit from. The project is distributed under the <a href="http://stack72.mit-license.org/">MIT license</a> so please adhere to this when using it.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/10/is-implementing-continuous-delivery-the-key-to-success/">Is Implementing Continuous Delivery the Key to Success?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-10T00:00:00+00:00" pubdate data-updated="true">Nov 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote>
+<p><em>&ldquo;Until your pretty code is in production, making money, or doing whatever it does, you&#8217;ve just wasted your time&rdquo; -</em><a href="http://blog.chris-read.net/"><em> Chris Read</em></a><em> whilst at London CI.</em></p>
+<p>In my opinion, this quote really sums up software development. Process and red tape are becoming an obstacle to more and more developers from doing what they are paid to do &ndash; create software.</p>
+<p>I attended a talk by<a href="http://twitter.com/kendallmiller"> Kendall Miller</a> whilst at<a href="http://developerdeveloperdeveloper.com/scotland2011"> DDDScotland</a> entitled &ldquo;<a href="http://developerdeveloperdeveloper.com/scotland2011/ViewSession.aspx?SessionID=676">Creating your own software company: A survival guide</a>&rdquo;. I am a huge supporter of continuous delivery and have attended many sessions but this session was extremely useful to me. It was really the first time that the reasoning and importance of continuous delivery for developers really hit home with me. I knew the benefits and drawbacks but hearing someone actually demonstrate their experience really helped me. The most important thing I learned in this session was that you have got to get your software out early, this is particularly important when you are starting up a software company. Shipping software early will not only give you a source of much needed income, but can provide potentially useful feedback that can help shape the project before too much investment, both in terms of development time and money, is wasted. This goes hand in hand with the opening quote of this blog post.</p>
+<p>I am a huge fan of clean, SOLID, DRY code and I cannot emphasise enough about why developers should write code in this fashion. I do understand that I may be giving a mixed message here. Is it possible to create software in a clean, SOLID and DRY way and in a fast time? Could we be sacrificing quality for delivery? In my opinion, this is simply not the case. There are some fantastic guide lines laid down by<a href="http://twitter.com/unclebobmartin"> Robert &lsquo;unclebob&rsquo; Martin</a> in his book,<a href="http://www.amazon.co.uk/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/ref=sr_1_1?ie=UTF8&amp;qid=1320920781&amp;sr=8-1"> Clean Code</a>. These guide lines do not take extra time to implement &ndash; they are baked in to how we write the code. As developers they should be second nature to us. If they aren&rsquo;t then you should address this as soon as you can.</p>
+<p>Fast delivery can, however, affect architecture. Architecture is one of those areas of development that really does demonstrate a lot of ways to do achieve a single task. For example there are many different frameworks, tools, code layout etc. and these are another area to be concerned with. You can implement a solution to a problem that is clean &amp; efficient but that may not prove to be the best architecture. You could continue to work on this solution and refactor it to the nth degree until you come up with an architecture that you like.&nbsp; You may feel that you have used your development time wisely to improve your solution, when in actual fact, what you may have done is to waste your development resources refactoring when other solutions may be available to you.</p>
+<p>I would argue that release fast, fail fast is a good way to develop. Get the code out there, let some decent A/B testing give feedback on its fit for purpose and let that shape the architecture. I understand this may be easier for start-up based systems as their customer base can initially be small. But I do not think it is only targeted towards them. Lets look at Google Chrome or Firefox as an example of this philosophy in practice. Changes to Chrome and Firefox are happening on a regular basis now. This means the companies can create a new piece of functionality, release it to users and collect feedback and know that feedback is targeted towards the last small release. This means they are letting the user feedback help drive the system. Firefox takes a lot of grief about how resource hungry it is. Releasing smaller code changes more often will help them see if they are addressing the issue.</p>
+<p>Releasing a solution early can also bring problems of it&rsquo;s own. There are some companies out there that are of the opinion &ndash; if it has shipped and it works then why should we spend any more money on code improvements. This falls into the argument about Technical Debt which I will not cover in this post.</p>
+<p>In summary, I believe software should be delivered in small, continual chunks. This helps create an efficient delivery mechanism that will give us a chance to collect useful feedback in a much more structured and continual way. We can use this feedback to deliver software that is better suited for its purpose and become better at what we are paid to do!</p>
+</blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/31/html5-clean-code-for-front-end-developers/">HTML5 – Clean Code for Front End Developers</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-31T00:00:00+00:00" pubdate data-updated="true">Oct 31<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have recently started looking into the new html specification (HTML5) and have noticed that benefits of this new specification include improved semantics and cleaner mark-up.&nbsp;<span class="Apple-style-span" style="font-family: sans-serif; font-size: 13px; line-height: 19px;">Semantic HTML is a way of writing HTML that emphasizes the meaning of the encoded information over its presentation.</span>&nbsp;Consider the following code snippet:</p>
+<script type="text/javascript" src="http://gist.github.com/1328385.js"></script>
+<p>This would usually denote a small area of navigation that loosely regards a navigational class on a html page. The loose association to the navigation is because I had the sense to name the class &#8220;navigation&#8221;. Had I named the class &#8220;list&#8221; then this would have meant nothing to the reader of the mark-up. The &lt;h2&gt; tag relates to the &lt;div&gt; but is actually not part of the mark-up. HTML5 gives the ability to clean this mark-up and make it more semantic. the resulting code in HTML5 could be:</p>
+<script type="text/javascript" src="http://gist.github.com/1328389.js"></script>
+<p>This code snippet actually lets the user see that the list of links are actually a small navigational element of the site. It will also relate the heading, Quick Links, to that small navigational element. There is another element, menu, that I will not talk about. It could be substituted for my use of &lt;nav&gt;</p>
+<p>When I first started reading about HTML5 and how the semantics and cleanliness of the mark-up changed, it made be beg the question:</p>
+<p><strong>Is HTML5 the excuse to get front end developers to think about Clean Code?</strong></p>
+<p>I am a huge advocate of clean code. I expect my methods / classes and variables to have good naming conventions. I also expect the code to be short, concise and descriptive. I am a developer, not a designer. Design / front end development is usually my last port of call. therefore my mark-up and it&#8217;s structure usually suffer. this means that it can be poorly organised and when I test in different browsers, I sometimes have to shoehorn in fixes which results in my code being messy.</p>
+<p>Html5 may not be a finished specification, but I for one will start to embrace it in my development. If there is an easy way for the front end mark-up to be as clean as business logic then I think we should all lobby the W3C to finalise the specification and get this new standard into place.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/16/controlling-iis7-programmatically/">Controlling IIS7 Programmatically</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-16T00:00:00+01:00" pubdate data-updated="true">Oct 16<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I am a huge advocate of automation and the automation of as much of a system as can be implemented. I like to make sure than non-developer members of staff can work effectively and try to do as much as possible to minimise the blockers in their way. IIS can be one of those blockers. When it comes to staff creating new sites and application pools, they can sometimes get it wrong. To make sure all members of my team have the <strong>exact same</strong> setup &ndash; I script the set-up.</p>
+<p>A CI tool should be able to handle the automated rollout of configuration management to systems. This is just another example of making sure all parts of the environment have the correct set-up. Automating this rollout means a smaller chance of human error. Being able to interact with IIS means a simple script could be run to create the required setup &ndash; both locally and on a build environment.</p>
+<p>I was able to create the following Powershell script.</p>
+<script type="text/javascript" src="https://gist.github.com/157876c2e6ca7518c290.js"></script>
+<p>The script basically automates a way of creating a new application pool, a new site and then assigning that application pool to that site</p>
+<p>This script was easily able to run from either powershell or via cmd line (which invokes powershell). It&rsquo;s a script that works perfectly well assuming you only need to run it once as it doesn&rsquo;t take into account the site or the application pool existing. It needed a lot of refactoring. the script that was produced can be found below. It is a lot more useful as it takes parameters for setup.</p>
+<script type="text/javascript" src="https://gist.github.com/f204abb6862bcf34f113.js"></script>
+<p>The trouble I had with this script started when running in different versions of the OS. X64 machines call the X64 powershell by default (as you would expect). When using X64 powershell the following error was encountered:</p>
+<p><a href="http://www.paulstack.co.uk/blog/images/image_36.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://www.paulstack.co.uk/blog/images/image_thumb_34.png" alt="image" width="564" height="107" border="0" /></a></p>
+<p>This of course worked perfectly in X86 version of powershell. Weirdly, a different error was encountered in X86 powershell. The line</p>
+<p>Test-Path IIS:\AppPools\</p>
+<p>command didnt like working. It threw the following error:</p>
+<p><a href="http://www.paulstack.co.uk/blog/images/image_37.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://www.paulstack.co.uk/blog/images/image_thumb_35.png" alt="image" width="529" height="227" border="0" /></a></p>
+<p>I was faced with the dilemma of fixing something I know relatively little about (powershell scripts) or continue to use the simple script and manually manipulate IIS after the initial set-up.</p>
+<p>Strangely, I chose to ditch both methods and wrote a C# console application to manipulate IIS. It took me half the time and was very easy. <a href="http://twitter.com/apwestgarth">Andrew Westgarth, IIS MVP</a>, replied to me on twitter after I said I had done this</p>
+<blockquote>
+<p align="center">I could have told you that :-) the .net APIs rock :-)</p>
+<p align="center">It was as simple as referencing Microsoft.Web.Administration and writing code against that API. As it was a console application, it created an executible that I could call easily from TeamCity or via a batch script for local machine automation. I don&rsquo;t have to worry about ExecutionPolicy either, which is a real bonus.</p>
+<p align="center">The source code for the console application is available on my github site. Feel free to take it and change pieces of it to suit you. I have also included both powershell scripts as listed above.</p>
+</blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/11/automated-w3c-validation-with-teamcity/">Automated W3C Validation With TeamCity</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-11T00:00:00+01:00" pubdate data-updated="true">Oct 11<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This past week, I started experimenting with letting TeamCity create reports of CSS and XHTML Validation from the W3C website. In order to do this validation I was able to use their web URL and pass a URL to the web address. In order to do this I used <a href="https://github.com/hhariri/EasyHttp" target="_blank">EasyHTTP</a> as it took care of the web request in a very simple way</p>
+<script type="text/javascript" src="https://gist.github.com/8ad9b4ceaca1e1a772d6.js"></script>
+<p>When the response is caught, I was able to take the raw text part of the response and save to a html file. This code is very early proof of concept and plans are a foot to be able to pass in validation types and recursive list of files etc.</p>
+<p>In order to run this from TeamCity, there was 1 very easy build configuration</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_32.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_30.png" alt="image" width="488" height="238" border="0" /></a></p>
+<p align="center">I had pre-configured TeamCity to add new report tabs when the artifacts were available &ndash; using this <a href="http://confluence.jetbrains.net/display/TCD5/Report+Tabs" target="_blank">article</a>. I was then able to tell TeamCity to show these report tabs by outputting the correct files as build artifacts:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_33.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_31.png" alt="image" width="501" height="236" border="0" /></a></p>
+<p align="center">The reports can be found in the build results screen:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_34.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_32.png" alt="image" width="505" height="144" border="0" /></a>&nbsp;&nbsp;</p>
+<p align="center">The code will be available very soon but if you feel you want it sooner then please do let me know. There may be changes to the reports but they look similar to the following:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_35.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_33.png" alt="image" width="520" height="290" border="0" /></a></p>
+<p>&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/28/is-sql-the-barrier-to-continuous-deployment/">Is SQL the Barrier to Continuous Deployment?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-28T00:00:00+01:00" pubdate data-updated="true">Sep 28<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When it comes to the step between continuous delivery and continuous deployment (automated release of <strong>every</strong> good build), then the barrier I hear most often is <em>automated deployments work fine until we have database changes.</em></p>
+<p>Can we be confident in saying that database deployments are the only barrier to continuous deployment? Probably not the only barrier, but there are a large part of the puzzle. There will be other factors, e.g. audit regulations regarding sign off of releases etc., but I don&rsquo;t think I would be frowned upon by agreeing with this statement.</p>
+<p>I know there are many great tools out there will will help us overcome sql changes. Redgate&rsquo;s <a href="http://www.red-gate.com/products/sql-development/sql-compare/" target="_blank">Sql Compare</a> can take 2 schemas and compare them to create a change script and a rollback script. This can be controlled by a CI tool. Others do a similar job, but Sql Compare is one I use regularly. Sql Server management studio can also be manipulated very easily via msbuild. So I can assure you it is <strong>very easy</strong> to automate sql deployments. But it scares a lot of people as they are worried they will kill their database. This is not a fear that is uncalled for if I am truthful.</p>
+<p>Since there is the fear of damaging the database, some companies who are already doing continuous deployment will actively &lsquo;skip&rsquo; a deployment when sql changes are involved. This involves using VCS hooks. A typical hook would be the presence of a commit message, e.g. #Skip Deployment. This would then let source control / CI server know to handle the commit without the need for a deployment.</p>
+<p>Back in late 2010, I was introduced to the concept of NoSQL databases. This is essentially any type of store that doe not use a relational model. I have been looking at NoSQL more and more and have recently pondered &lsquo;how easy would NoSQL based systems be to include in a continuous deployment system&rsquo;?</p>
+<p>I <span style="text-decoration: underline;">thought</span> the answer was that NoSQL <strong>was</strong> indeed the missing piece of the continuous deployment puzzle. If companies were only ever deploying code then that&rsquo;s easy right? Things are never that easy though. I looked further and then thought that if data was held in a store (of any kind) in a specific structure then how could we retrieve that data if the structure changed with the next system deployment.</p>
+<p>I asked <a href="http://twitter.com/robashton" target="_blank">Rob Ashton</a>, a well know presenter of <a href="http://ravendb.net/" target="_blank">Raven DB</a>, this question. Rob said that it wouldn&rsquo;t work unless you ran some sort of data migration against the data structures or versioned them in some way. So, in essence it was a no! I&rsquo;m not disagreeing with Rob by any means but I still think NoSQL systems have got scope built in to allow us to handle automated deployments a little easier. As part of our development task, we could write the migration scripts for the data. We would have to do this anyway if we worked in a sql world. I&rsquo;m a coder, not a sql developer. Therefore I would be a lot happier writing code migrations rather than sql migrations. This means I would also be a lot happier about deployments where only code changes were involved.</p>
+<p>I have not had time to try this approach as I am not skilled by any means in using NoSQL. So in essence, this is a theory but I am confident it has some wheels. What do you think?&hellip;&hellip;&hellip;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/20/tfs-vnext-falls-short-of-the-mark/">TFS vNext – Falls Short of the Mark</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-20T00:00:00+01:00" pubdate data-updated="true">Sep 20<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After the <a href="http://www.buildwindows.com/">BUILD conference</a> (September 13 &ndash; 16), there was a lot of buzz about the next version of TFS. From the conference we heard that vNext was going to be a revelation. Since reading about it, and trialling it for myself (with Hosted TFS), I feel that the TFS team have fallen short of the mark, for me, on 1 of the major features they offer (there are more but I will stick with this one):</p>
+<blockquote>
+<p><span style="font-size: medium;"><strong>Version Control</strong></span></p>
+</blockquote>
+<p>The current frustrations with TFS seem to be around painful version control problems. They include the workspace creating read-only copies of files locally that still need to be &lsquo;checked out&rsquo; before they can be edited. If you delete a file from the file system then TFS doesn&rsquo;t (currently) see that the file has been deleted. It has also been reported that &lsquo;Get-Latest&rsquo; doesn&rsquo;t realise that some files have changed when they actually had. Offline mode didn&rsquo;t work well apparently when it came to a re-sync. The list could go on.</p>
+<p>I thought that feedback would have been taken on-board that the version control side of TFS was not fantastic. A lot of people have started to look for alternative ways to use a 3rd party VCS tool with TFS. I honestly thought that Microsoft would allow 3rd party tool integration into TFS. This hasn&rsquo;t happened.</p>
+<p>Improvements to TFS version control side of things were made. These included the idea of &lsquo;Local workspaces&rsquo;. This is a copy of the files locally that are not read-only. Changes to the files outside of the TFS environment will be picked up by TFS. Another change was to offline mode. When the system came back on-line then everything automatically re-synced.</p>
+<p>My initial thoughts when I had heard about &lsquo;Local Workspaces&rsquo; was that Microsoft had finally hit that DVCS style system. I tweeted about this and was soon told, by a <a href="http://twitter.com/#!/tfsbuck">TFS development manager</a>, that this was very much not the case. You still have to communicate with the server in order to do a &lsquo;get&rsquo;, &lsquo;commit&rsquo; etc. This becomes interesting when you work with hosted TFS.</p>
+<p>What happens if I am working whilst commuting and do not have network access? You can <em>still</em> work as you can edit files locally and TFS sees the changes, as the improvements suggest. But the idea of everything automatically syncing when back on-line worries me. Its <strong>never</strong> that easy &ndash; look at merging with VCS systems &ndash; it can be a real pain. You cannot stage local commits with TFS local workspaces. Its sounds good &ndash; a local workspace &ndash; when in reality it is only a SVN style of VCS. This can be good &ndash; but not for when working in an offline mode.</p>
+<p>What I think Microsoft should have done it to move straight towards the local workspace being a DVCS style system. This would be the most useful approach for those who would be using hosted TFS in an offline format &ndash; a lot of developers <strong>do actually</strong> travel and work whilst doing so. I could then work locally and when I have a network connection push my local changes back to the TFS server.</p>
+<p>Developer needs in a VCS have changed. The rise of DVCS style systems have made this happen. Therefore implementing a CVCS style of system feels as though TFS is going back to 2000, when SVN was first introduced. It doesn&rsquo;t feel like it is moving in a tangible way to that of developer needs. TFS takes care of a lot of the ALM cycle &ndash; it has a CI style tool,&nbsp; version control, bug tracking etc. but as long as I have Git, TeamCity and YouTrack then it is not something I feel I could move towards. It feels very old fashioned in comparison to these tools.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/10/why-you-shouldnt-feel-nervous-about-givecampuk/">Why You Shouldn’t Feel Nervous About GiveCampUk</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-10T00:00:00+01:00" pubdate data-updated="true">Sep 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have been reading more and more posts and comments about how some developers are worried about coming along to GiveCampUK (has anyone told you about GiveCampUK &ndash; more information on <a href="http://givecamp.org.uk" target="_blank">the website</a> :) ). I cannot tell you not to feel this as I cannot control your feelings but I can try and help make you see that it is unfounded.</p>
+<h4>Who knows everything about software development?</h4>
+<p>Personally, I&rsquo;d say that I do not know 1 single person who knows <em><strong>everything</strong></em> about software development. I seen Scott Guthrie once tell the audience that <a href="http://twitter.com/stevensanderson" target="_blank">Steve Sanderson</a> knew more about MVC than he did. <a href="http://twitter.com/scottgu" target="_blank">Scott Guthrie</a> is, what I would class as the infinite source of ASP.NET wisdom. For him to be able to still class himself as learning something, then I guess that gives us all hope.</p>
+<p>I know a lot of people who travel and speak about development and the different forms of it. These people all realise there will be nuggets of information that they will pick up from conferences. If they didn&rsquo;t get to speak to people and learn new things then conferences would be boring. FACT! You will be able to show others in your team a new way of doing something. There is no right or wrong answer.</p>
+<p>We are all continually learning. It will be scary to be at GiveCampUK and be put in a situation that puts us out of our comfort zone. I personally think it will make us better developers for facing the situation and overcoming it. The way we will structure the technical teams of GiveCampUK means that help is only a shout away. There will be a team of &#8220;roving&#8221; developers who will effectively troubleshooters! We have also managed to get hold of Pluralsight subscriptions for all the attendees &ndash; this will help them &ldquo;hone&rdquo; their skills.</p>
+<p>Please try to take this advice about GiveCampUK &ndash; embrace the experience and use the nerves to your advantage! This is a great opportunity to network and show that you are a good developer who is passionate about what you do! <strong>IT IS NOT A JOB INTERVIEW &ndash; </strong>we will not try to trick you :)</p>
+<p>Its in 6 weeks time &ndash; I&rsquo;m getting very excited!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/31/strategy-to-make-ci-builds-self-testing/">Strategy to Make CI Builds Self Testing</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-31T00:00:00+01:00" pubdate data-updated="true">Aug 31<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is post 5 in a series called &lsquo;<a href="http://paulstack.co.uk/blog/post/How-to-get-started-with-CI.aspx">How to get started with CI</a>&rsquo;. The last post talked about how to implement CI to your first CI project. This post will extend that implementation by making sure that a build is &lsquo;self testing.</p>
+<p>A &lsquo;self-testing&rsquo; build is a build that runs all of the required <em>tests</em> as part of it. It is important to stress the term <em>tests</em> here as there are different types of tests, unit, integration, regression, UI etc.). In general tests as described run in the following way:</p>
+<ul>
+<li>unit tests &ndash; run in isolation, mock any dependencies and should be fast</li>
+<li>integration / regression tests &ndash; require some sort of setup of data / environment and will be slower to run</li>
+<li>UI / acceptance tests are slower to run and will require a replica of the application to test against. These will be a lot slower.</li>
+</ul>
+<ul>
+<ul>It is important to understand that if a build that has triggered because of a VCS check in and doesn&rsquo;t break the build then we cannot assume the integration of the code has worked.</ul>
+</ul>
+<p><strong>We will not know that the integration has been successful until the code has been tested. </strong></p>
+<ul>The most efficient way of testing the code is with our test suite. If the integration fails with obvious errors, e.g. a compilation error, then that&rsquo;s a huge clue that something has gone wrong.</ul>
+<ul>My usual strategy for CI builds and their tests runs is as follows:</ul>
+<h4>&nbsp;</h4>
+<h4>1. On VCS check in run all the unit tests</h4>
+<p>This will give us fast feedback about problems at a code level and will tell us if the code still behaves as expected. For this instant feedback to happen, builds (including test runs) must be fast. IF the runs are not fast then development could potentially be impacted by developers working with code that doesn&rsquo;t build or hasn&rsquo;t been tested. Always think of the 10 minute rule for the time a build starts till completion.</p>
+<h4>2. Every 2 hours run the integration / regression tests</h4>
+<p>These tests are very important to us but are a step below the priority of unit tests. They will be slower to run since we require data to be setup and torn down for the tests. They can require network and database interaction so we cannot hang around waiting for them to complete.</p>
+<h4>3. Nightly run the UI / Acceptance tests</h4>
+<p>These are again still import but the lowest of the priority order for a <strong>standard</strong> CI build. There will always be a round of testing by QAs or whoever before a release so there is time to fix any errors arising. From my nightly strategy, errors in these tests will only take at maximum a day to appear to a team. These tests are slower again and may require a full compilation and installation of an application to run against so running them overnight means there should be no real problem with time.</p>
+<p>The steps listed about are the steps I use for a project is running a normal CI environment. These would change when an environment changes to include continuous delivery of the application. This will be discussed in a further post.</p>
+<p>This is only a suggested approach from the experiences I have had with CI. If you run your builds in a different manner then I would love to hear about it &ndash; leave a comment below.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/4/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

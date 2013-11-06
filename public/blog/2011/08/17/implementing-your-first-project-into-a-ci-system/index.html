@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Implementing your first project into a CI system - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="This is the 4th post in a series called &ldquo;How to get started with CI&rdquo;.
+Previously I talked about how to choose the right CI tool. This &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/08/17/implementing-your-first-project-into-a-ci-system">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Implementing Your First Project Into a CI System</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-17T00:00:00+01:00" pubdate data-updated="true">Aug 17<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This is the 4th post in a series called &ldquo;<a href="http://paulstack.co.uk/blog/post/How-to-get-started-with-CI.aspx">How to get started with CI</a>&rdquo;.</p>
+<p>Previously I talked about <a href="http://paulstack.co.uk/blog/post/choosing-the-correct-ci-tool.aspx">how to choose the right CI tool</a>. This post will assume you have chosen hardware and a CI tool and have it ready to use. It will highlight the steps required to implement a project into a CI tool. The order of the steps is only a reflection of my experience of implementation and how to communicate this with a team.</p>
+<h4>Make your build self building!</h4>
+<p>This is a very important point. This means we need to make sure that all the references of a project are not referenced from the GAC on your local system. This is important as when the CI script is running on the build server, we cannot assume that the same software is installed on that build server. We could therefore have reference problems. With package managers such as Nuget, OpenWrap, Ruby Gems etc we can configure our build script to download the packages required for our project. The other way we can take care of it is to store our 3rd party dependencies in our source control alongside the project.</p>
+<blockquote>
+<p align="center">- solution root <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - src <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - lib</p>
+<p align="center">Notice how I lay my project out. Alongside the &ldquo;src&rdquo; (or trunk or whatever you call it &ndash; this is where the .sln file lies) I have a lib folder. This is effectively my tools folder. I am honestly not sure why I don&rsquo;t call it tools &ndash; I never have though. All my project references to items that don&rsquo;t come as standard with the .Net framework are added here and my solution/ project references from here.</p>
+<p align="center">If you do not adopt this sort of approach, then the first time a developer does a clone of the central repository, then there is a chance the project will not build for them if there are dependencies that are not installed on their machine. This has happened to me and it took me a few days to take care of &ndash; trying to find out what was needed and where I could find it. Don&rsquo;t fall into this area of risk! We should be able to lone and build easily!</p>
+<h4>Automate the build &ndash; nightly</h4>
+</blockquote>
+<p>If the company is sceptical of a CI system, then the first step I take in implementing a CI system is to run a nightly build of the project. This means that when developers do a final push of the day to their source control, they will be able to come in the next morning and see if there are any issues with what they have pushed. Traditionally we do not tend to face integration with other peoples code until much later in the project lifecycle. CI helps us to integrate more frequently &ndash; in the case of a nightly build it will happen overnight and give the developers a chance to know first thing the next morning if there are any issues.</p>
+<p>This can sometimes put developers on edge when checking in as embarrassment ensues when they break the build. I actively encourage breaking the build. When the build breaks, we can see areas we need to think of. If it is because there are missing files then there is no issues, if it is because of integration problems then better to know sooner. The entire team should learn from broken builds.</p>
+<p>If the developers come in to a good build then confidence is gained. Anything that raises developers confidence in their code is a good thing.</p>
+<p><strong>If the build is in a failed state, it is important to fix that build before continuing with a current task. There is absolutely nothing gained from CI if the main repository is in a broken state. It also means fresh clones will have errors instantly.</strong></p>
+<h4>Keep the build fast</h4>
+<p>A nightly build is a great first step, but we need to try and get a bit more instantaneous feedback as to how things are going. This is, of course, the entire point of a CI system. There is absolutely no point in increasing the frequency of builds unless the build is fast. If the build takes 1 hour to run then we are not going to get fast feedback!! The suggested build time is approximately 10 minutes. If we breach this then we really need to investigate how we reduce this time. I have a current project with 78 projects in Visual Studio (approximately 1/2 million lines of code) and it takes approx 1 minute 30 seconds to build.</p>
+<p>Lets think of a developer who checks in and triggers a build. If that build takes 30 minutes to run and then shows errors with the integration, then there is a chance his work in the past 30 minutes may cause even further problems.</p>
+<h4>Increase the frequency of builds</h4>
+<p>No we have reduced the time taken for a build, we can now increase the frequency of our builds. I suggest that we trigger a build every time something has changed in source control. We can add rules to the triggers to exclude README files or trivial files like that. I suggest anything that can have an effect on the code should trigger a build. This means the developer can see within, (our 10 minute rule comes into play here) a short amount of time if their code has caused issues.</p>
+<h4>Give instant feedback on builds</h4>
+<p>If we are increasing the frequency of builds then we need an instant feedback mechanism. Email is all well and good for some things but we need something very fast to see. <a href="http://twitter.com/fatherfil">Phil Collins</a> has written a great article on <a href="http://soyouthinkyouneedtorewrite.com/build-radiators-love-them-long-time/">build radiators</a> as a form of instant feedback for the entire team. If you haven&rsquo;t already read this article then please do. It is a great form of communication with the team.</p>
+<p>You can have tray monitor applications or windows gadgets for your CI tools. This all helps in the instant feedback loop. I the past I have written a custom app that hooks into Skype.exe and send me a message with the status of the build. Anything that will make things clearer will help.</p>
+<p>The faster we know if there is a problem the better it is. Alternatively, the faster we know our code works, the faster we can get on to the next task.</p>
+<p>The steps listed above will help to take a new (or existing) project and implement it into a CI system. It is designed to be a slow introduction to a team (unless the team is fully behind it) as it will help raise the teams confidence in the process. The steps do not have to be followed in this order. I have just suggested they follow this order naturally. The steps purposely do not talk about running unit tests just yet. That will form the next post.</p>
+<p>The process itself may not go smoothly. I have recently been talking to <a href="http://twitter.com/craigber">Craig Berntson</a> about the process as he was doing something similar on a new project. It took him 2 weeks in order to make the project self building. This was a struggle and is not uncommon. Please do bear this in mind when something of this magnitude happens. I do promise you it will all be worth it in the end!</p>
+<p>Good luck with introducing your first project to CI. I would love to hear how your first CI project went &ndash; good or bad!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-17T00:00:00+01:00" pubdate data-updated="true">Aug 17<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/08/17/implementing-your-first-project-into-a-ci-system/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/08/17/implementing-your-first-project-into-a-ci-system/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/08/13/have-orms-introduced-extra-complexity-into-our-codebase/" title="Previous Post: Have ORMs introduced extra complexity into our codebase?">&laquo; Have ORMs introduced extra complexity into our codebase?</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/08/22/is-it-really-agile/" title="Next Post: Is it really agile?">Is it really agile? &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

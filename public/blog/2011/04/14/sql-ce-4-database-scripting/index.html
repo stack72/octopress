@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>SQL CE 4 Database Difference Scripting with SqlCEDiffer - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="I wrote some posts on how to take two different SQL CE 4 db files (.sdf) and how to compare them to create a SQL change script. The general flow was &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/04/14/sql-ce-4-database-scripting">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">SQL CE 4 Database Difference Scripting With SqlCEDiffer</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-14T00:00:00+01:00" pubdate data-updated="true">Apr 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I wrote some posts on how to take two different SQL CE 4 db files (.sdf) and how to compare them to create a SQL change script. The general flow was as follows:</p>
+<ul>
+<li>Generate Sql Schema File from SDF files </li>
+<li>Compare the SDF files to generate a change script </li>
+</ul>
+<ul>
+I started using this at work and it was noticed that the sql change script that was produced wasn&rsquo;t fantastic. What it was doing was completely creating a new table, dropping the old table and then renaming that newly created table. We were worried that this would cause an issue with our database on our live server.
+</ul>
+<ul>
+After speaking with <a href="https://twitter.com/erikej">Erik Ejlskov Jensen</a>, a SQL Server Compact MVP, I was pointed in the direction of the API that he wrote in order to make his Sql Compact 4 toolbox. This API allowed me to write my own little command line tool (as simple as it gets) that takes 2 .sdf files and generates a sql diff file.&nbsp; I have called this, inspirationally, SqlCEDiffer.
+</ul>
+<ul>
+In order to use this tool you can do it from the command line or you can hook it into your MSBuild scripts as follows:
+</ul>
+<ul>
+<strong>Command Line</strong>
+</ul>
+<p>sqlcediffer.exe    <br />&nbsp;&nbsp;&nbsp; -source:{path to latest schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -target:{path to old schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -outputPath:{path to save the diff script to&gt;.sql</p>
+<p>It&rsquo;s a very simple explanation really. Source is the latest sdf file created, this has all the new changes in it. The target is the source that we wish (eventually) to update. The output path is the path we want the resulting .sql file saved to.</p>
+<p>&nbsp;</p>
+<p><strong>Running from MSBuild</strong></p>
+<p>&lt;Target Name=&#8221;Build&#8221;&gt;   <br />&nbsp;&nbsp;&nbsp; &lt;Message Text=&#8221;Starting Sql Differencing&#8221; /&gt;    <br />&nbsp;&nbsp;&nbsp; &lt;Exec Command=&#8221;sqlcediffer.exe -source:{new sdf file} -target:{old sdf file} -outputPath:{save path}.sql&#8221; /&gt;    <br />&lt;/Target&gt;</p>
+<p>It works exactly the same as from command line <strong>but</strong> being able to use the MSBuild exec command means that we can hook this into a build script. This now opens up the opportunity for its use in automation of sql differencing and potentially continuous database deployment.</p>
+<p>The code is very simple and does exactly what it says on the tin. It has been created as a wrapper around the code that Erik already created for his tools already available on <a href="http://exportsqlce.codeplex.com/" target="_blank">codeplex</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-14T00:00:00+01:00" pubdate data-updated="true">Apr 14<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/04/14/sql-ce-4-database-scripting/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/04/14/sql-ce-4-database-scripting/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/04/12/ddd-southwest-get-ready-to-register/" title="Previous Post: DDD Southwest – Get Ready to Register">&laquo; DDD Southwest – Get Ready to Register</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/05/08/ddd-scotland-2011/" title="Next Post: DDD Scotland 2011">DDD Scotland 2011 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Logging Exceptions via Exceptioneer as well as Ent Lib 3.1 - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="I currently use Enterprise Logging 3.1 and i know it can be configured to do what i want with it but it still has horrible log files that no-one &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2010/04/07/logging-exceptions-via-exceptioneer">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Logging Exceptions via Exceptioneer as Well as Ent Lib 3.1</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-07T00:00:00+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I currently use Enterprise Logging 3.1 and i know it can be configured to do what i want with it but it still has horrible log files that no-one likes to review.&nbsp;Over the past few months i have been looking at Exceptioneer - <a href="http://exceptioneer.com/Public/Demonstration.aspx" target="_blank">use this link to find out more</a>. I would continue to use exceptioneer in tandem with enterprise logging as it is a 3rd party service [and my boss would never let me move solely to exceptioneer :)].&nbsp;</p>
+<p>I followed the steps to integrate exceptioneer from their site - addition of the .dll file and addition of the sections inside web.config. But this didnt work with Enterprise logging as the exceptions were not unhandled - i have customer code in order to handle the exceptions</p>
+<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
+{
+	UIExceptionHandler.HandleException(Server.GetLastError(), true);
+}
+</pre>
+<p>Pretty simple i know! so i took advantage of this method were all my UI exceptions were being routed to - therefore i was able to call the Exceptioneer client straight from here. i added a reference to Exceptioneer.WebClient.dll and added in a little custom code [i have changed my APIKey and application name to a config property so they can be managed without a redeployment]</p>
+<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
+{
+         var wc = new Client
+                            {
+                              ApiKey = Config.Settings.ExceptioneerApiKey,
+                              ApplicationName = Config.Settings.ExceptioneerApplicationName,
+                              CurrentException = Server.GetLastError()
+                            };
+          wc.Submit(); 
+         UIExceptionHandler.HandleException(Server.GetLastError(), true);
+}
+</pre>
+<p>Then worried about what would happen if i couldnt connect to Exceptioneer, so i added a try catch to it and also i didnt want to log local exceptions to exceptioneer. Therefore my final method was as follows:</p>
+<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
+{
+            try
+            {
+                if (Config.Settings.EnableExceptioneerLogging)
+                {
+                    var wc = new Client
+                                 {
+                                     ApiKey = Config.Settings.ExceptioneerApiKey,
+                                     ApplicationName =               Config.Settings.ExceptioneerApplicationName,
+                                     CurrentException = Server.GetLastError()
+                                 };
+                    wc.Submit(); 
+                }
+            }
+            catch (Exception)
+            {
+                Logger.Write("Cannot connect to Exceptioneer", "Admin Exceptions");
+            }
+            finally
+            {
+                UIExceptionHandler.HandleException(Server.GetLastError(), true);
+            }
+}
+</pre>
+<p>Im seriously chuffed with this product and would recommend this to anyone! <strong><span style="text-decoration: underline;">They even give you a free version that lets you log 2000 exceptions a month via 3 applications</span></strong>. As soon as i can ill be upgrading to the next account level to get more of our work stuff in here!</p>
+<p>Thanks again Exceptioneer!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-07T00:00:00+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2010</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2010/04/07/logging-exceptions-via-exceptioneer/" data-via="" data-counturl="http://paulstack.co.uk/blog/2010/04/07/logging-exceptions-via-exceptioneer/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/03/23/cuke4nuke-intellisense-for-cuke4vs/" title="Previous Post: Cuke4Nuke Intellisense for  [Cuke4VS]">&laquo; Cuke4Nuke Intellisense for  [Cuke4VS]</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/04/07/what-is-microsoftcshaprdll-in-vs2010-rc/" title="Next Post: What is Microsoft.cshapr.dll in VS2010 RC?">What is Microsoft.cshapr.dll in VS2010 RC? &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

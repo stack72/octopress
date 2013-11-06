@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Mocks & Stubs–a thing of the past? - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="One of my favourite new tools to come across in 2011 is NSubstitute. This a is friendly substitution framework for .net. This will allow me to use &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/06/30/mocks-stubs-a-thing-of-the-past">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Mocks & Stubs–a Thing of the Past?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-30T00:00:00+01:00" pubdate data-updated="true">Jun 30<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>One of my favourite new tools to come across in 2011 is <a href="http://nsubstitute.github.com/" target="_blank">NSubstitute</a>. This a is friendly substitution framework for .net. This will allow me to use these substitutes in place of mocks and stubs. Traditionally I use a mocking framework that requires the use of mocks and stubs. Unfortunately, this type of tool has now become a bit of a hindrance for me. The code that is written to assert behaviour has happened seems complex and is not instantly readable for junior developers. Now this isn&rsquo;t a tool bashing exercise &ndash; this post is to demonstrate that this tool (NSubstitute) has effectively made me see the complexity of my tests. It has made me think about being more expressive in my intent. Its not about the tool itself &ndash; its about the concept behind it.</p>
+<p>On the commencement of a new project, i tried to show some developers NSubstitute. They liked it &ndash; they said on first look it was easy to read test code. I suggested they try it for the new project as it was brand new and had 0 test count. I was immediately shot down due to an apparent &ldquo;learning curve&rdquo; and &ldquo;sticking with what they know&rdquo;. I understand the learning curve part &ndash; learning a new tool is potentially tough as its a real shift in what they know. The apathy of sticking with what they knew really saddens me. If I had this level of apathy, I&rsquo;d still be working with ASP.NET webforms 2.0 and still not unit testing like I was doing 7 years ago. We should all want to push ourselves a little and move outside our comfort zone in order to mature as professionals. Its effectively how we grow, learn and get better at what we do.</p>
+<p>I can understand why a developer would not what to change to a new tool when working in an established project. It would be like a rewrite of a section of the project. It would also take time and money to change. But when it is a brand new project with no current toolset what is the issue? Seems a little strange to me.</p>
+<p>From my investigations about this topic of mocks and stubs vs. fakes / substitutes, I have seen that there is a real lack of understanding of the differences between mocks and stubs. This article will not talk about the differences &ndash; <a href="http://martinfowler.com/aboutMe.html" target="_blank">Martin Fowler</a> has already done this in his article <a href="http://martinfowler.com/articles/mocksArentStubs.html" target="_blank">Mocks aren&rsquo;t stubs</a> and there is no way I could do it the justice he has. This has really led me to the question <em>do we really need to care about the differences of mocks and stubs when we have this level of complexity in our tests?.</em> As a developer who tries to push testing to a team, all I want to do is to take an object or a class and test that some logic or behaviour has happened and I get the correct result. We <span style="text-decoration: line-through;">don&rsquo;t want to</span> shouldn&rsquo;t make this difficult for ourselves by trying to decide if the object or class that we want should be a mock or a stub.</p>
+<p>I have heard of people who get this concept so mixed up that they try and verify all expectations against stubs so they get passing unit tests when this is of course not correct. This is to show sample of implementation of that test.</p>
+<script src="http://gist.github.com/a618e24f7a6967b730e2.js"></script>
+<p>This shows a test with mocking and stubbing to check that specific behaviour has happened</p>
+<script src="http://gist.github.com/192394caae6914998a12.js"></script>
+<p>The same behaviour using substitutes / fakes to demonstrate how much easier it can be without the layer of complexity (written by <a href="http://twitter.com/davetchepak">Dave Tchepak</a> from NSubstitute). Dave did point out that other tools can drive this expressive type of test and also he could write complex looking tests with NSubstitute as well.</p>
+<script src="https://gist.github.com/1056347.js"></script>
+<p>I&rsquo;m not the first developer to talk about this topic and I&rsquo;m certainly not the last. I think it&rsquo;s a topic that requires buy in/ backing from a host of developers who lead the way. When talking about this on twitter, <a href="http://hadihariri.com/" target="_blank">Hadi Hariri</a> said the following:</p>
+<p><em>&ldquo;People need to understand the difference between state and interaction testing, not stubs/mocks/fakes/dupes/blabla&rdquo;</em></p>
+<p>This is very true! Let&rsquo;s remove this barrier of complexity in our tests and learn how to write better tests. It doesn&#8217;t matter which tool we use to do it. Join me in trying to get developers to take the plunge!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-30T00:00:00+01:00" pubdate data-updated="true">Jun 30<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/06/30/mocks-stubs-a-thing-of-the-past/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/06/30/mocks-stubs-a-thing-of-the-past/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/06/28/how-to-get-started-with-ci/" title="Previous Post: How to get started with CI - Series">&laquo; How to get started with CI - Series</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/07/04/satisfyr-useful-little-addition-to-my-testing/" title="Next Post: Satisfyr – useful little addition to my testing">Satisfyr – useful little addition to my testing &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

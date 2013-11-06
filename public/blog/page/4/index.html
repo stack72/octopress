@@ -1,0 +1,663 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="In recent months, there has been a shift in methodologies to move my team from kanban to a flavour of scrum never quite seen before. This was not my &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/page/4">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/22/is-it-really-agile/">Is It Really Agile?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-22T00:00:00+01:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In recent months, there has been a shift in methodologies to move my team from kanban to a flavour of scrum never quite seen before. This was not my choice but was taken by management as the pressure from the business descended on the team. The business decided that the team should be &ldquo;coding&rdquo; for a full 7 1/2 hours a day and continually checked that this was the case. They stopped pair programming and meetings as this was eating into coding time and not generally the best use of development time.</p>
+<p>They decided that this new &ldquo;agile&rdquo; approach would suit the team better. This offers the question &ldquo;are businesses loosing faith in agile and moving away from it?&rdquo;.</p>
+<p>I asked this question to <a href="http://twitter.com/robcthegeek">Rob Cooper</a> and Rob has the following great view.</p>
+<blockquote>
+<p>&#8221; &nbsp;<em>I don&#8217;t think companies are turning their back on agile, I think they (companies that we would consider not doing agile) generally fall in to one of three camps:</em></p>
+<p><em>1. They simply think they are doing it, but have either not invested time in decent training or misunderstand the process/practices.. The &#8220;The [Self] Proclaimers&#8221;.</em></p>
+<p><em>2. They do not care for all this agile &#8220;nonsense&#8221; since it&#8217;s &#8220;just a way for developers to get out of doing important work&#8221;. The &#8220;Non-Believers&#8221;.</em></p>
+<p><em>3. They simply haven&#8217;t heard of it, or don&#8217;t know what it means. The &#8220;Lost Souls&#8221;. &nbsp;</em>&#8221;</p>
+</blockquote>
+<p>I think Rob has hit the nail on the head here. I know I have certainly been working in companies that has fallen into category 1. This means that we have fallen into the &ldquo;managers know best&rdquo; scenario which is not always correct. I know for a fact in this business they are definitely a &ldquo;Self Proclaimer&rdquo;. They are trying to throw resource at something they see as a problem (there are lots more things involved here but I won&rsquo;t go into them). This flavour of scrum is certainly <strong>not</strong> scrum. In fact it&rsquo;s not agile at all. The management take care of the estimates (yes! I really said that) but this is only recently the case. The developers are not part of the planning process. Therefore estimates are made on a best case scenario rather than accounting for technical debt, code quality, extensibility and architecture.</p>
+<p>It is a really interesting time for this shift in the business to happen. Recently, <a href="http://twitter.com/stevedenning">Steve Denning</a> posted &ldquo;<a href="http://www.forbes.com/sites/stevedenning/2011/08/12/agility-is-not-enough-beyond-the-manifesto/">Agility is not enough: beyond the manifesto</a>&rdquo;. The article talks about how working software is not enough and that we should be aiming to delight the customer at all costs. This attitude reflects the attitude of the management I work under. They believe that an iterative approach delivers value to them. It&rsquo;s the full product or nothing at all. If it is the full product then it has to be delivered at top speed and with little requirements. Less time means less money. Do businesses believe that an agile team wastes time? In my case, yes. They think when we are talking about architecture and code quality that we are not working hard enough.They do not understand that if time is not given to extensibility and maintainability, that delivering software will become very costly due to ridiculously high <a href="http://martinfowler.com/bliki/TechnicalDebt.html">technical debt</a>.</p>
+<p>The writing of this post was triggered by <a href="http://twitter.com/nathangloyn">Nathan Gloyn&rsquo;s</a> strong rebuttal to Steve Denning&rsquo;s article. If you have not read <a href="http://designcoderelease.blogspot.com/2011/08/response-to-agility-is-not-enough.html">Nathan&rsquo;s post</a> then it is certainly worth reading. IF we could bottle the passion and knowledge that Nathan has for agile and sell that to companies then I would not be in this situation.</p>
+<p>I certainly feel that if we, as developers, are not careful then the world of waterfall methodologies awaits us again. If businesses are not turning their back on agile itself as a process but continue to run their own flavour of agile then it begs the final question &ldquo;is it really fair to term it agile?&rdquo;.</p>
+<p>Agile is seen by some companies as a buzzword. Are companies saying they are agile to be in with a shut of hiring the best developers who want to work in an agile environment or winning contracts by baffling customers with methodologies just to impress them? In my opinion, some companies are doing this. They are soon found out though and it is not a fantastic impression to new employees or customers.</p>
+<p>Nathan has given us a few tips to access whether we are in fact agile:</p>
+<p>&ndash; &ldquo;it&rsquo;s not agile if&rdquo;</p>
+<ul>
+<li style="margin-left: 15px;">estimates are done by management or just the team leader</li>
+<li style="margin-left: 15px;">managers decide the amount of time a project will take even after asking the team how long it will take</li>
+<li style="margin-left: 15px;">team members are assigned tasks by a manager</li>
+<li style="margin-left: 15px;">Velocity of the team is adjusted after team estimate to make project fit into an expected time frame</li>
+<li style="margin-left: 15px;">if the team are told what work they have to do and when they have to do it by</li>
+<li style="margin-left: 15px;">the team are a bunch of individuals working separately</li>
+<li style="margin-left: 15px;">quality is just a word, something to be aimed for rather than something that is embedded in the team</li>
+</ul>
+<p>I&rsquo;d like to thank Nathan and Rob for their contributions to this post. You can read Rob&#8217;s version of the post on <a href="http://cantgrokwontgrok.blogspot.com/2011/08/agile-do-or-do-not-there-is-no-try.html" target="_blank">his blog</a>. Also like to thank Nicholas Mayne for some thought provoking words on twitter when I initially started the posst It is always nice to hear that other people are as passionate (if not more!) about a topic that I am.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/17/implementing-your-first-project-into-a-ci-system/">Implementing Your First Project Into a CI System</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-17T00:00:00+01:00" pubdate data-updated="true">Aug 17<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is the 4th post in a series called &ldquo;<a href="http://paulstack.co.uk/blog/post/How-to-get-started-with-CI.aspx">How to get started with CI</a>&rdquo;.</p>
+<p>Previously I talked about <a href="http://paulstack.co.uk/blog/post/choosing-the-correct-ci-tool.aspx">how to choose the right CI tool</a>. This post will assume you have chosen hardware and a CI tool and have it ready to use. It will highlight the steps required to implement a project into a CI tool. The order of the steps is only a reflection of my experience of implementation and how to communicate this with a team.</p>
+<h4>Make your build self building!</h4>
+<p>This is a very important point. This means we need to make sure that all the references of a project are not referenced from the GAC on your local system. This is important as when the CI script is running on the build server, we cannot assume that the same software is installed on that build server. We could therefore have reference problems. With package managers such as Nuget, OpenWrap, Ruby Gems etc we can configure our build script to download the packages required for our project. The other way we can take care of it is to store our 3rd party dependencies in our source control alongside the project.</p>
+<blockquote>
+<p align="center">- solution root <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - src <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - lib</p>
+<p align="center">Notice how I lay my project out. Alongside the &ldquo;src&rdquo; (or trunk or whatever you call it &ndash; this is where the .sln file lies) I have a lib folder. This is effectively my tools folder. I am honestly not sure why I don&rsquo;t call it tools &ndash; I never have though. All my project references to items that don&rsquo;t come as standard with the .Net framework are added here and my solution/ project references from here.</p>
+<p align="center">If you do not adopt this sort of approach, then the first time a developer does a clone of the central repository, then there is a chance the project will not build for them if there are dependencies that are not installed on their machine. This has happened to me and it took me a few days to take care of &ndash; trying to find out what was needed and where I could find it. Don&rsquo;t fall into this area of risk! We should be able to lone and build easily!</p>
+<h4>Automate the build &ndash; nightly</h4>
+</blockquote>
+<p>If the company is sceptical of a CI system, then the first step I take in implementing a CI system is to run a nightly build of the project. This means that when developers do a final push of the day to their source control, they will be able to come in the next morning and see if there are any issues with what they have pushed. Traditionally we do not tend to face integration with other peoples code until much later in the project lifecycle. CI helps us to integrate more frequently &ndash; in the case of a nightly build it will happen overnight and give the developers a chance to know first thing the next morning if there are any issues.</p>
+<p>This can sometimes put developers on edge when checking in as embarrassment ensues when they break the build. I actively encourage breaking the build. When the build breaks, we can see areas we need to think of. If it is because there are missing files then there is no issues, if it is because of integration problems then better to know sooner. The entire team should learn from broken builds.</p>
+<p>If the developers come in to a good build then confidence is gained. Anything that raises developers confidence in their code is a good thing.</p>
+<p><strong>If the build is in a failed state, it is important to fix that build before continuing with a current task. There is absolutely nothing gained from CI if the main repository is in a broken state. It also means fresh clones will have errors instantly.</strong></p>
+<h4>Keep the build fast</h4>
+<p>A nightly build is a great first step, but we need to try and get a bit more instantaneous feedback as to how things are going. This is, of course, the entire point of a CI system. There is absolutely no point in increasing the frequency of builds unless the build is fast. If the build takes 1 hour to run then we are not going to get fast feedback!! The suggested build time is approximately 10 minutes. If we breach this then we really need to investigate how we reduce this time. I have a current project with 78 projects in Visual Studio (approximately 1/2 million lines of code) and it takes approx 1 minute 30 seconds to build.</p>
+<p>Lets think of a developer who checks in and triggers a build. If that build takes 30 minutes to run and then shows errors with the integration, then there is a chance his work in the past 30 minutes may cause even further problems.</p>
+<h4>Increase the frequency of builds</h4>
+<p>No we have reduced the time taken for a build, we can now increase the frequency of our builds. I suggest that we trigger a build every time something has changed in source control. We can add rules to the triggers to exclude README files or trivial files like that. I suggest anything that can have an effect on the code should trigger a build. This means the developer can see within, (our 10 minute rule comes into play here) a short amount of time if their code has caused issues.</p>
+<h4>Give instant feedback on builds</h4>
+<p>If we are increasing the frequency of builds then we need an instant feedback mechanism. Email is all well and good for some things but we need something very fast to see. <a href="http://twitter.com/fatherfil">Phil Collins</a> has written a great article on <a href="http://soyouthinkyouneedtorewrite.com/build-radiators-love-them-long-time/">build radiators</a> as a form of instant feedback for the entire team. If you haven&rsquo;t already read this article then please do. It is a great form of communication with the team.</p>
+<p>You can have tray monitor applications or windows gadgets for your CI tools. This all helps in the instant feedback loop. I the past I have written a custom app that hooks into Skype.exe and send me a message with the status of the build. Anything that will make things clearer will help.</p>
+<p>The faster we know if there is a problem the better it is. Alternatively, the faster we know our code works, the faster we can get on to the next task.</p>
+<p>The steps listed above will help to take a new (or existing) project and implement it into a CI system. It is designed to be a slow introduction to a team (unless the team is fully behind it) as it will help raise the teams confidence in the process. The steps do not have to be followed in this order. I have just suggested they follow this order naturally. The steps purposely do not talk about running unit tests just yet. That will form the next post.</p>
+<p>The process itself may not go smoothly. I have recently been talking to <a href="http://twitter.com/craigber">Craig Berntson</a> about the process as he was doing something similar on a new project. It took him 2 weeks in order to make the project self building. This was a struggle and is not uncommon. Please do bear this in mind when something of this magnitude happens. I do promise you it will all be worth it in the end!</p>
+<p>Good luck with introducing your first project to CI. I would love to hear how your first CI project went &ndash; good or bad!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/13/have-orms-introduced-extra-complexity-into-our-codebase/">Have ORMs Introduced Extra Complexity Into Our Codebase?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-13T00:00:00+01:00" pubdate data-updated="true">Aug 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Whilst at <a href="http://www.dddsouthwest.com" target="_blank">DDDSouthWest 2011</a>, I was speaking to <a href="http://twitter.com/chrishayuk">Chris Hay</a> about his scalability session. One of the areas we touched upon was the issues that ORMs have introduced into code.</p>
+<p>ORMs have become very widely used. In my most recent work project we started using Entity Framework 4, we then migrated to Entity Framework Code First, when that was not working for us we moved away from Code First and stuck with EF4. We have had serious issues with our ORMs. Firstly, we found that our repository layer was causing CPU usage to spike to over 80%. This was due to queries being compiled on the fly each time the query was called. Secondly, when we removed our web service calls (to be replaced by a service layer), we found that the object hierarchy was causing all sorts of issues. Many of these were down to lazy design. The entities have the following look to them:</p>
+<p><a href="http://paulstack.co.uk/blog/images/Drawing1.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="Drawing1" src="http://paulstack.co.uk/blog/images/Drawing1_thumb.gif" alt="Drawing1" width="310" height="203" border="0" /></a></p>
+<p>This meant that we had some hideous queries being created due to some navigation properties of the objects we were using. This is, of course, not just something found in EF4 but can be found in any ORM that is misused. The trouble with this type of scenario is that in order to fine tune the SQL that we (via the ORM) are producing via the ORM requires a change to the entities or their navigational properties. This means a lot of testing, recompilation and a redeploy.</p>
+<p>What would be the alternative to an ORM? A DAL layer that called stored procedures and passed parameters to get data back? That felt very old school to me. I think that&rsquo;s what drove me to start using ORMs initially.</p>
+<p>So, if we cannot change the sql being produced easily, why do we use ORMs? It was described to me, by <a href="http://twitter.com/thecodejunkie">Andreas H&aring;kansson</a> (better known as TheCodeJunkie) as follows:</p>
+<p><em>&ldquo;DAL was born as a reaction to SQL, ORMs is an attempt to provide a DSL for writing DALs&rdquo;</em></p>
+<p><em><a href="http://twitter.com/#!/markrendle/status/102152507706454016">Mark Rendle suggested it was because of the need for intellisense.</a> </em></p>
+<p>To my mind, both are correct. This is clearly a way that enables developers to not have to deal with writing SQL. Now, old person hat on, in the olden days, a developer would have to be proficient in SQL if there were no DBAs around to take care of those things. This meant that a developer knew what was being done &ldquo;under the hood&rdquo;. Now, would it be fair to say that newer developers, born into a world of ORMs, actually don&rsquo;t understand the SQL that they are producing?</p>
+<p>Let&rsquo;s think again about dealing with stored procedures. What would we do if we had to fine tune a stored procedure? Well if we are lucky, then we may not have to change input and output parameters and just change the logic of the procedure itself. This would mean that we could work on it without a recompilation and deployment. But if we have to change the inputs and outputs then we would need to change one layer, the DAL. This seems a lot more desirable to me. I am changing my code in one place which means I am a lot more confident.</p>
+<p>Returning to Chris, he said he needs his SQL to be so finely tuned that it runs in milliseconds rather than seconds and the only way he can achieve this is to use stored procedures. This would allow the stored procedure to be worked on without the application being changed. This begs the questions: has the introduction of ORMs made developers lazy in their DAL layers? And: have they been <strong>too</strong> widely adopted &ndash; were they ever really meant for enterprise applications?</p>
+<p>I can have a simple application up and running with a simple data structure and an ORM in a very short amount of time. If I take the same amount of time when setting up a so-called enterprise application, then my entities will have such bad relationships between them that the SQL produced is very bad. Oh wait &ndash; that&rsquo;s<a name="_GoBack"></a> the issue that has happened to me already&hellip;&hellip;&hellip;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/09/win-a-ticket-to-progressivenet-tutorials/">Win a Ticket to Progressive.Net Tutorials</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-09T00:00:00+01:00" pubdate data-updated="true">Aug 9<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Thanks to <a href="http://www.skillsmatter.com" target="_blank">Skillsmatter</a>, I have been given some tickets to give away to the Progressive.Net tutorials at Skillsmatter, London between September 5th and 7th.</p>
+<p>This is an event I have very fortunate to be presenting at. The event schedule can be found on the <a href="http://skillsmatter.com/event/open-source-dot-net/progressive-dot-net-tutorials-2011" target="_blank">event page</a>.</p>
+<p>In order to be in for a chance to win a ticket, you will need to send me a mail answering the following question:</p>
+<p><strong>Why are you interested in going to the Progressive.Net Tutorials and what do you hope to learn from the event?</strong></p>
+<p>*COMPETITION IS NOW CLOSED!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/04/feature-switching-a-better-way-to-collaborate/">Feature Switching: A Better Way to Collaborate</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-04T00:00:00+01:00" pubdate data-updated="true">Aug 4<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of the biggest pitfalls on working in teams where branches are created to work on features is that we are not continually checking in to the head revision / trunk. This means our work is not constantly being integrated. The feature may be small and we can integrate back in a day or 2 but there are a lot of instances where the feature is longer (2 &ndash; 3 months). If this is the case we need to be continually merging and then re-branching. This means we are going through merge issues more often than required.</p>
+<p>What if I was to tell you there was a much better way? I bet you would be a little sceptical at first but then see the benefits of it. When developing features, we can <strong>all</strong> work from the trunk by feature switching. Feature switching (FS)is the use of a configuration system, db or config file, where we can turn a feature on or off. This will help us with canary releasing (releasing features to just a small group of users) &amp; A/B testing. We really start to see how useful FS is when we look at moving towards a continuous delivery workflow.</p>
+<p>We can write &lsquo;feature&rsquo; code to the trunk and enable a switch to turn it off and then push to our head revision. We can deploy our system as the code we have written will not be parsed or shown (if it is front end changes). The danger is that we can forget to disable the feature. I usually setup my web.config transformations to take care of that issue.</p>
+<p>FS can be temporary, while a small feature is being built. IF this is the case when the feature is complete and signed off then we must remove all instances of the switching code and the settings to go with them. FS can also be long term, e.g. being able to disable the registrations to an event on a website. It is important to keep temporary and permanent switches separate for clarity.</p>
+<script type="text/javascript" src="https://gist.github.com/3eebb9c16ac0ec95b45d.js"></script>
+<p>This code shows that on a simple request to the register action, then a view will be returned. What if we wanted to start tinkering with the view? What if we wanted to start adding new fields to the registration form but not show it until the feature is finished? Well I&#8217;m sure some would say create a cpy of the view and work from that - but there are no ways to get to that view as it is not returned from a request.</p>
+<script type="text/javascript" src="https://gist.github.com/ab16f96600a0e5502612.js"></script>
+<p>This is the same action method with some further logic added to it. This effectively checked to see if a feature is actually enabled and if so the new version of the View is rendered. Otherwise the old version of the view is rendered. This is a very very simple demonstration of feature switching. I would try not to do it this way &ndash; &lsquo;newing up&rsquo; the FeatureManager inside the action method. I&rsquo;d use Dependency Injection to inject an instance into the constructor for loosely coupled code.</p>
+<p>What if I wanted to do this as part of a View and not have to modify the code at all. We can look at the following example:</p>
+<script type="text/javascript" src="https://gist.github.com/b2648207d753b62e5a0a.js"></script>
+<p>This example says that if the feature is enabled then show the new panel. This uses a Html Helper method to hide the logic of the switch. All I have to do is to pass the name of the feature to the helper. The helper code is as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/91232460954b4a787356.js"></script>
+<p>Pretty simple and straightforward stuff. Using this type of approach will mean we can all work effectively on the head revision which will save us time (we shouldn&#8217;t have problem merges). This will als let the CI system take care of integration and spotting integration issues earlier. It will also mean that when we check into the trunk our application <strong>should</strong> be in a deliverable state. There are much more complex ways to feature switch. We will cover those in a later post.</p>
+<p>I have taken a copy of the ASP.NET MVC MusicStore and added some feature switches to it. This is available on my <a href="https://github.com/stack72/SimpleFeatureSwitchingDemo">github repository</a>. Please feel free to take a copy and have a play with the switches. The code there is what is contained in this post</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/03/choosing-the-correct-ci-tool/">Choosing the Correct CI Tool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-03T00:00:00+01:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is the 3rd post in a series &lsquo;<a href="http://paulstack.co.uk/blog/post/How-to-get-started-with-CI.aspx" target="_blank">How to get started with CI&rsquo;</a></p>
+<p>Previously, we talked about choosing the correct infrastructure for your CI system. We will now talk about CI tools themselves. There are lots of CI tools out there. Many more than I know about and have listed here. Some tools are good and some, not to my liking.</p>
+<p><a href="http://paulstack.co.uk/blog/images/ci-tools.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="ci-tools" src="http://paulstack.co.uk/blog/images/ci-tools_thumb.gif" alt="ci-tools" width="557" height="207" border="0" /></a></p>
+<p>If you have used a CI tool before then you may find yourself comfortable with that, if that is the case then I&rsquo;d love to hear about your experiences. Alternatively, if you are new to these tools I have included a few things to consider when choosing a tool:</p>
+<h4>1. Technology</h4>
+<p>Don&rsquo;t choose a CI tool that is not compatible with your environment e.g. if you run linux based servers then you would not choose a windows based tool unless you had the ability to create a windows VM. Before choosing a tool, make sure to investigate the requirements needed by it.</p>
+<h4>2. Cost</h4>
+<p>If you have little or no budget then you will be limited to some of the tools that are either free or have community versions. Check the license agreement for terms and conditions about their uses &ndash; its best to know what is expected before you start using it.</p>
+<h4>3. Support &amp;/or Community</h4>
+<p>Choose a tool that has a good user base or support forums. If you choose otherwise then it may be difficult (if at all) to get help if things do not go as expected or if there are issues with the software. A more established and well known tool means there is a greater probability of someone having a similar issue to you and thus a resolution may be more readily available.</p>
+<h4>4. Ease of Use &amp; Maintainability</h4>
+<p>If you choose a tool that is difficult to use, then it will be difficult to adopt into your organisation. For example. CCNET, hugely powerful tool (and one I started with) is configured mostly via XML files (special editors may be available) and build scripts. There is no easy UI to make things smoother. In my opinion, unless you like creating scripts in notepad (or your favourite text editor) then it may not be the one for you. Remember, you probably won&rsquo;t be at a company forever, so think of the guy that has to pick up this system after you leave &ndash; unless you have a simple system, it <strong>may</strong> get neglected or trashed completely.</p>
+<h4>5. Choose something &lsquo;Cool&rsquo;</h4>
+<p>I personally love new shiny tools. In fact, if there is a developer out there who doesn&rsquo;t then I&rsquo;d love to speak with them to find out why. I enjoy testing, evaluating and writing about new tools. So when a new CI system appears on my radar, I give it a go. If you find a tool that keeps you interested then you will enjoy using it.</p>
+<p>It is very important for your tool to not be a hassle to use, configure or maintain. If you have to reason for &ldquo;CI&rdquo; maintenance that may take hours out of your week then the team is less likely to buy into that situation. My top tip is to use a scoring matrix and score each of the sections above 1 &ndash; 10 (1 being worst, 10 being best) and then get a shortlist of the tools that you like. After you have got a shortlist of say 3 tools, then <strong>trial them.</strong> It is very important to trial them, they may look great on paper but they may not work out how you imagine.</p>
+<p>This article talks about the points worth considering when choosing a CI tool. It you have been through this process and feel there are other points worth considering then please do comment and I will add them to the list. If you feel that a particular CI tool was missed from this article then please do add that as well with a link to its website.</p>
+<p>The next post in this series will talk about how to implement your first project into a CI tool.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/27/progressive-dotnet-at-skillsmatter/">Progressive .Net at SkillsMatter</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-27T00:00:00+01:00" pubdate data-updated="true">Jul 27<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Between September 5th &ndash; September 7th, <a href="http://skillsmatter.com" target="_blank">Skillsmatter</a> will be hosting the <a href="http://skillsmatter.com/event/open-source-dot-net/progressive-dot-net-tutorials-2011/js-2381" target="_blank">Progressive .NET Tutorials</a>. The tutorials comprise of twelve 4-hour hands-on Workshops which provide a deep dive into advanced topics for Agile .NET developers. The Tutorials are in their 5th year and aim to provide a liberal dash of Agile and Software Craftsmanship skills as well as advanced .NET Topics. These are in-depth, hands-on tutorials run by real experts who are there to be quizzed, questioned and interrogated for three days of intensive learning!</p>
+<p>I am extremely pleased and beyond excited to be able to be part of this event. I will be talking, as well as demonstrating, the journey from regular CI practices to the new goal for a lot of people, Continuous Delivery. The event has some fantastic speakers and sessions:</p>
+<p><em>GHERKIN ACCEPTANCE CRITERIA, Christian Hassa &amp; Gaspar Nagy <br />AUTOMATING GHERKIN ACCEPTANCE CRITERIA, Christian Hassa &amp; Gaspar Nag <br /> <br />SOLVING THE PACKAGING PUZZLE, Ian Cooper &amp; Sebastien Lambla <br />FRONT-END TIPS FOR BACK-END DEVS, Dylan Beattie <br /> <br />LOAD TESTING FOR DEVELOPERS, Simon Brown <br />CI TO CONTINUOUS DELIVERY, Paul Stack <br /> <br />TEST-DRIVEN DEVELOPMENT IN JAVASCRIPT, Damjan Vujnovic <br />ADVANCED WEBSHARPER TUTORIAL, Adam Granicz <br /> <br />RESTFUL WEB SERVICE DEVELOPMENT IN .NET, Ian Robinson <br />INTRO TO NANCY &amp; SIMPLE.DATA, Mark Rendle &amp; Steven Robbins <br /> <br />ASYNC METHODS IN C#5, Jon Skeet</em></p>
+<p>If you are interested in any of these topics then I suggest you book yourself a ticket. This is a chance to speak with some well known names in their areas. I hope my session will be well enjoyed and that people actually learn a few things :) For full details of the event, and to register, go to the <a href="http://skillsmatter.com/event/open-source-dot-net/progressive-dot-net-tutorials-2011/js-2381" target="_blank">event page</a> on the skillsmatter website.&nbsp;</p>
+<p>UPDATE: Thanks to SkillsMatter I am able to give away a &pound;50 discount for the event to readers of my blog:</p>
+<p><a href="http://skillsmatter.com/event/open-source-dot-net/progressive-dot-net-tutorials-2011/js-2381">Find more information about this years Progressive .NET Tutorials here</a>. If you would like to <a href="https://skillsmatter.com/register-online/conf/849/js-2381">register</a>, don&#8217;t forget to <a href="http://skillsmatter.com/event/open-source-dot-net/progressive-dot-net-tutorials-2011/js-2381">claim your &pound;50 discount of the ticket price, by quoting Promocode: PROGNET50 when registering</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/18/development-key-skills-or-lack-of-them/">Development Key Skills (or Lack of Them!)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-18T00:00:00+01:00" pubdate data-updated="true">Jul 18<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This post is highly subjective and denotes the skills that I think a developer should have in his/her tool belt by default. I&rsquo;d love to see this post grow by people adding their own ideas to it from their own experiences.</p>
+<h4>1. Good VCS Skills</h4>
+<p>I have added this as number 1 because I feel that at an interview we are not usually asked to demonstrate our knowledge of a version control system (VCS). In my opinion, we <strong>should</strong> have an understanding of why we use the system and basic practices around this system. Recently, I have discovered a developer who doesn&rsquo;t use source control properly. The developer checks into VCS maybe once every 10 days or so. This developer was puzzled as to why I would challenge him on this.</p>
+<p>As developers we should be checking our code into source control at least once as day. Not the use of the broad term &lsquo;source control&rsquo; here as this article is not going to talk about good VCS practices as it is a very hot topic and justice cannot be done to that topic in just a few lines. We need to make sure that we are able to revert our local changes as quickly as we can on a main repo so a good VCS habit is needed for that.</p>
+<h4>2. Ability to write &lsquo;expressive&rsquo; code</h4>
+<p>I&rsquo;m quite fortunate to have read the book <a href="http://www.amazon.co.uk/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882" target="_blank">Clean Code</a> by <a href="http://twitter.com/unclebobmartin" target="_blank">Robert C. Martin</a> early on in my development career. This book changed the way I worked and made me slightly opinionated. Every piece of code I write now is reflected upon as to how it can be refactored, named better, more succinct or reused elsewhere.</p>
+<p>Unfortunately, there are a lot of developers who don&rsquo;t care about the code they write. They will copy and paste classes and methods, perhaps only changing 1 line (if any). This makes maintainability very tough as there are multiple instances of code to change. Developer can sometimes not use expressive names in their code. Others write very long methods that are difficult to follow. The list goes on of &lsquo;code smells&rsquo;.</p>
+<p>I take a great deal of pride in what I do and it frustrates me beyond all belief when I look at code and know the developer hasn&rsquo;t put a lot of effort or thought into. The lack of a key skills can very fast turn a nice codebase into a monolithic, legacy application.</p>
+<h4>3. The ability to care</h4>
+<p>As software professionals, generally, we get paid well for what we do. To me, coding is a hobby and I think I am very privileged to be able to be paid for a hobby. In return for my salary, the least my employer deserves is my full care and attention to my work. IT should be as good as it can be. We wouldn&rsquo;t accept second best on a football pitch so why would we accept second best in the office?</p>
+<blockquote>
+<p><em>Do not onto others what you would wish not them do onto you.</em></p>
+<h4>4. The ability to use basic tools</h4>
+<p>On our CV, we list what tools we are proficient in using. As a developer who writes in C# it may include Visual Studio. As we have listed this on our CV, we should really be able to use it. When it comes to an interview saying you have not used a tool that is listed on your CV would look very bad.</p>
+<p>Falsities (I won&rsquo;t call it lying) can cause concerns amongst the team. These concerns can harm the trust levels in the team and we cannot afford to let issues like this harm the balance of the team.</p>
+<h4>5. A willingness to grow and learn</h4>
+<p>In development, there are many ways to get a job done. There is no ultimate right and wrong answer but there are tried and tested methods that can help. As a developer, we should be able to accept that others may have a better way of doing something. If this is the case we need to be mature enough to accept that this is the case. When writing code this could take the form of a code review. If the reviewer points out an are that can change, then the reviewer and the developer can help to come up with something together. There may even the the transfer of new knowledge as well.</p>
+<p>Too many developers feel their solution is the best possible way to do something or refuse to change the code if something better is pointed out to them. The ability to do the best job possible means we need to be constantly learning as developers. I do not know of a single developer who can be confident they know <strong>everything</strong> (queue jokes).</p>
+<p>In order to do our best we must continually look at better ways of doing things. This could require reading blog posts, going to conferences or reading books etc. Not only will it benefit us, but it may also benefit our team as well.</p>
+<h4>6. Ability to communicate</h4>
+<p>Have you ever seen a sports team that don&rsquo;t communicate? They are effectively a bunch of individuals and they could crumble. Why should we communicate as a development team? Creating the best solution, in order to learn from each other and to communicate issues )or successes) are a few of the reasons. This to me is a prerequisite skill for development. When I interview developers, part of the exercise is to pair program with them. This tests how effective they are at communicating with me. This is just as important as how good their code is.</p>
+<p>If i was able to work with more developers with the skills (attitude) as these then I don&rsquo;t think I could be in a better environment. I have one final question though &ndash; does such a perfect environment exist?</p>
+</blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/15/easy-http-not-just-a-catchy-name/">Easy HTTP–not Just a Catchy Name</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-15T00:00:00+01:00" pubdate data-updated="true">Jul 15<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I was recently referred to <a href="http://nuget.org/List/Packages/EasyHttp" target="_blank">EasyHTTP</a> by it&rsquo;s creator, <a href="http://twitter.com/hhariri" target="_blank">Hadi Hariri</a>. Hadi was looking at some code I had sent him regarding my work with the <a href="http://jetbrains.com/teamcity" target="_blank">TeamCity</a> REST API and thought that things could be a little easier and less verbose.</p>
+<script src="https://gist.github.com/13bd7e958c74e45280f7.js"></script>
+<p>In summary my application creates a new HttpWebRequest passing in the request type as a magic string. It opens a stream to read the JSON response and that JSON is then de-serialised to an entity. It was very messy. In order to call this class from my application I would have had to do the follow:</p>
+<script src="https://gist.github.com/dde8df43b79f7200c517.js"></script>
+<p>There is absolutely no mention of whether the request was a GET never mind a PUT or a DELETE. This is where EasyHTTP came in for me.</p>
+<script src="https://gist.github.com/bfef5d881c07f748eca5.js"></script>
+<p>I was able to make a generic method for a GET request. This method takes a url and a type and with the help of <a href="http://jsonfx.net/" target="_blank">JsonFx</a>, de-serialises the response back to the requested type. THis was a great way to take the hassle out of my old code where I was creating a Url, calling a request and then de-serialising it. The code in the calling class now looks as follows:</p>
+<script src="https://gist.github.com/9ef7d6c027f865b7a8cc.js"></script>
+<p>I was originally using the <a href="http://james.newtonking.com/pages/json-net.aspx" target="_blank">Newtonsoft JSON library</a> for my de-serialising my JSON back to types and to do that I had to decorate the properties with code similar to the following:</p>
+<p>[JsonProperty(PropertyName = &#8220;id&#8221;)]<br /> public string Id {get; set;}</p>
+<p>This would effectively map a piece of JSON to a property that was not named <strong>exactly</strong> the same. EasyHTTP took care of this for me as well. To quote Hadi, EasyHTTP handles mapping as follows:</p>
+<p><em>&ldquo;For mapping properties, it handles camelcase, lowercase and a bunch of other conventions. You can also specify explicitly&rdquo;</em></p>
+<p>Using EasyHTTP, I was able to cut at least 2 lines of code per method in the client code. I was also able to delete an attribute that was present on <strong>all properties in the entities</strong> in a little bit of work.</p>
+<p>The added distinction of creating the notion of GETs, PUTs and DELETE calls from each other mean that my class can be extended much easier. Hadi has written a post on EasyHTTP on <a href="http://hadihariri.com/2011/01/16/easyhttp/" target="_blank">his blog</a>. I would strongly suggest reading this and discovering if you can use this application in place of old HttpWebRequest calls. Its cleaner and helps to make code a little bit more DRY. My thanks to Hadi (and any contributors there may be) for making my work in this area a little easier!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/11/iis-rewrite-tool-the-pain-of-a-simple-rule-change/">IIS Rewrite Tool – the Pain of a Simple Rule Change</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-11T00:00:00+01:00" pubdate data-updated="true">Jul 11<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I had a real pain point with the <a href="http://www.iis.net/download/urlrewrite" target="_blank">IIS Rewrite tool</a> today. I wanted to take an out of the box canonical rewrite rule and then modify it slightly to fit my own scenario. This tool is very easy to setup simple, out of the box rules &ndash; e.g. in order to get a simple canonical url rewrite (<a href="http://test.com">http://test.com</a> to redirect to <a href="http://www.test.com">http://www.test.com</a> then we would do as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_27.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_25.png" border="0" alt="image" width="250" height="168" /></a></p>
+<p>You then enter the primary host name &ndash; in my case it is <a href="http://www.test.com">www.test.com</a><a href="http://paulstack.co.uk/blog/images/image_28.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_26.png" border="0" alt="image" width="244" height="153" /></a></p>
+<p>That is it! The rule is now set up &ndash; pretty easy eh! This will redirect any request that isn&#8217;t http://www.test.com to become http://www.test.com. The following code is added to the web.config file in order to make this work:</p>
+<script src="https://gist.github.com/479580648e7a468780f7.js"></script>
+<p>So this wasn&rsquo;t quite right for my setup. I have a main URL that sits with the load balancer &ndash; lets say that is <a href="http://www.test.com">www.test.com</a> <strong>but</strong> I have individual URLs associated with the individual servers lets say an example is <a href="http://server1.internal-test.com">http://server1.internal-test.com</a>. I use individual server URLs for server monitoring &ndash; <a href="http://www.pingdom.com/" target="_blank">Pingdom</a> will constantly hit a specific page on the individual server to test for uptime. The canonical rule I have listed above will redirect the individual URL to the load balanced URL so I had to try and change the built in rule. Firstly I tried to do this via the web.config and adding my own lines. <strong>This did not work at all</strong>. I could find little documentation about how the rule is constructed so I was basically just &#8220;hacking&#8221; the rule to try to get it to work.</p>
+<p>Then I went and used the built-in editor for the IIS rewrite tool. When I seen the list of rules I double clicked on the rule and got the following screen:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_29.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_27.png" border="0" alt="image" width="224" height="244" /></a></p>
+<p>This is where I finally got my editing correct. I had to add a condition to list -</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_30.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_28.png" border="0" alt="image" width="244" height="162" /></a></p>
+<p>This did not offer my any type of drop down list for the different options I had for condition input &ndash; as you can see it is currently selected as {QUERY_STRING}. I didn&rsquo;t realise I had to change this. But once I had figured this out I changed it to look as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_31.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_29.png" border="0" alt="image" width="244" height="162" /></a></p>
+<p>This was the correct rule &ndash; it says in pseudo terms &ndash; if the URL does not match this format then perform the redirect to the canonical host. This left me with the following web.config entry</p>
+<script src="https://gist.github.com/0b44fed10f6ad782fd76.js"></script>
+<p>&nbsp;</p>
+<p>This was way too easy to mess up. I would love there to be a way to test my rules in an actual scenario &ndash; a sample application that I could pass requests to and see what the response would be. I hope you don&rsquo;t fall into this rewrite rule trap! Please, IIS team, make it easier to test the rules that I have created.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/3/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

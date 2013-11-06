@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Automated W3C Validation with TeamCity - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="This past week, I started experimenting with letting TeamCity create reports of CSS and XHTML Validation from the W3C website. In order to do this &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/10/11/automated-w3c-validation-with-teamcity">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Automated W3C Validation With TeamCity</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-11T00:00:00+01:00" pubdate data-updated="true">Oct 11<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This past week, I started experimenting with letting TeamCity create reports of CSS and XHTML Validation from the W3C website. In order to do this validation I was able to use their web URL and pass a URL to the web address. In order to do this I used <a href="https://github.com/hhariri/EasyHttp" target="_blank">EasyHTTP</a> as it took care of the web request in a very simple way</p>
+<script type="text/javascript" src="https://gist.github.com/8ad9b4ceaca1e1a772d6.js"></script>
+<p>When the response is caught, I was able to take the raw text part of the response and save to a html file. This code is very early proof of concept and plans are a foot to be able to pass in validation types and recursive list of files etc.</p>
+<p>In order to run this from TeamCity, there was 1 very easy build configuration</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_32.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_30.png" alt="image" width="488" height="238" border="0" /></a></p>
+<p align="center">I had pre-configured TeamCity to add new report tabs when the artifacts were available &ndash; using this <a href="http://confluence.jetbrains.net/display/TCD5/Report+Tabs" target="_blank">article</a>. I was then able to tell TeamCity to show these report tabs by outputting the correct files as build artifacts:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_33.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_31.png" alt="image" width="501" height="236" border="0" /></a></p>
+<p align="center">The reports can be found in the build results screen:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_34.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_32.png" alt="image" width="505" height="144" border="0" /></a>&nbsp;&nbsp;</p>
+<p align="center">The code will be available very soon but if you feel you want it sooner then please do let me know. There may be changes to the reports but they look similar to the following:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_35.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_33.png" alt="image" width="520" height="290" border="0" /></a></p>
+<p>&nbsp;</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-11T00:00:00+01:00" pubdate data-updated="true">Oct 11<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/10/11/automated-w3c-validation-with-teamcity/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/10/11/automated-w3c-validation-with-teamcity/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/09/28/is-sql-the-barrier-to-continuous-deployment/" title="Previous Post: Is SQL the barrier to continuous deployment?">&laquo; Is SQL the barrier to continuous deployment?</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/10/16/controlling-iis7-programmatically/" title="Next Post: Controlling IIS7 Programmatically">Controlling IIS7 Programmatically &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

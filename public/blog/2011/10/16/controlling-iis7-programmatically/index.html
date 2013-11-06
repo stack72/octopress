@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Controlling IIS7 Programmatically - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="I am a huge advocate of automation and the automation of as much of a system as can be implemented. I like to make sure than non-developer members of &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/10/16/controlling-iis7-programmatically">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Controlling IIS7 Programmatically</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-16T00:00:00+01:00" pubdate data-updated="true">Oct 16<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I am a huge advocate of automation and the automation of as much of a system as can be implemented. I like to make sure than non-developer members of staff can work effectively and try to do as much as possible to minimise the blockers in their way. IIS can be one of those blockers. When it comes to staff creating new sites and application pools, they can sometimes get it wrong. To make sure all members of my team have the <strong>exact same</strong> setup &ndash; I script the set-up.</p>
+<p>A CI tool should be able to handle the automated rollout of configuration management to systems. This is just another example of making sure all parts of the environment have the correct set-up. Automating this rollout means a smaller chance of human error. Being able to interact with IIS means a simple script could be run to create the required setup &ndash; both locally and on a build environment.</p>
+<p>I was able to create the following Powershell script.</p>
+<script type="text/javascript" src="https://gist.github.com/157876c2e6ca7518c290.js"></script>
+<p>The script basically automates a way of creating a new application pool, a new site and then assigning that application pool to that site</p>
+<p>This script was easily able to run from either powershell or via cmd line (which invokes powershell). It&rsquo;s a script that works perfectly well assuming you only need to run it once as it doesn&rsquo;t take into account the site or the application pool existing. It needed a lot of refactoring. the script that was produced can be found below. It is a lot more useful as it takes parameters for setup.</p>
+<script type="text/javascript" src="https://gist.github.com/f204abb6862bcf34f113.js"></script>
+<p>The trouble I had with this script started when running in different versions of the OS. X64 machines call the X64 powershell by default (as you would expect). When using X64 powershell the following error was encountered:</p>
+<p><a href="http://www.paulstack.co.uk/blog/images/image_36.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://www.paulstack.co.uk/blog/images/image_thumb_34.png" alt="image" width="564" height="107" border="0" /></a></p>
+<p>This of course worked perfectly in X86 version of powershell. Weirdly, a different error was encountered in X86 powershell. The line</p>
+<p>Test-Path IIS:\AppPools\</p>
+<p>command didnt like working. It threw the following error:</p>
+<p><a href="http://www.paulstack.co.uk/blog/images/image_37.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://www.paulstack.co.uk/blog/images/image_thumb_35.png" alt="image" width="529" height="227" border="0" /></a></p>
+<p>I was faced with the dilemma of fixing something I know relatively little about (powershell scripts) or continue to use the simple script and manually manipulate IIS after the initial set-up.</p>
+<p>Strangely, I chose to ditch both methods and wrote a C# console application to manipulate IIS. It took me half the time and was very easy. <a href="http://twitter.com/apwestgarth">Andrew Westgarth, IIS MVP</a>, replied to me on twitter after I said I had done this</p>
+<blockquote>
+<p align="center">I could have told you that :-) the .net APIs rock :-)</p>
+<p align="center">It was as simple as referencing Microsoft.Web.Administration and writing code against that API. As it was a console application, it created an executible that I could call easily from TeamCity or via a batch script for local machine automation. I don&rsquo;t have to worry about ExecutionPolicy either, which is a real bonus.</p>
+<p align="center">The source code for the console application is available on my github site. Feel free to take it and change pieces of it to suit you. I have also included both powershell scripts as listed above.</p>
+</blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-16T00:00:00+01:00" pubdate data-updated="true">Oct 16<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/10/16/controlling-iis7-programmatically/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/10/16/controlling-iis7-programmatically/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/10/11/automated-w3c-validation-with-teamcity/" title="Previous Post: Automated W3C Validation with TeamCity">&laquo; Automated W3C Validation with TeamCity</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/10/31/html5-clean-code-for-front-end-developers/" title="Next Post: HTML5 – Clean Code for Front End Developers">HTML5 – Clean Code for Front End Developers &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

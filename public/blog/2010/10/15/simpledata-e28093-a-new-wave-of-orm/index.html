@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Simple.Data – a new wave of ORM? - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="A while back I seen some tweets from Mark Rendle on his version of Microsoft.Data, Simple.Data, as it seemed to be causing distress for developers &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2010/10/15/simpledata-e28093-a-new-wave-of-orm">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Simple.Data – a New Wave of ORM?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-15T00:00:00+01:00" pubdate data-updated="true">Oct 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>A while back I seen some tweets from <a href="http://twitter.com/markrendle" target="_blank">Mark Rendle</a> on his version of Microsoft.Data, Simple.Data, as it seemed to be causing distress for developers when it was announced earlier.</p>
+<p>I offered to give Simple.Data a trial for Mark as I was doing a small personal project at the time that was far too simple to use a well known ORM or a horrible amount of ADO.NET code. So after getting the sample solution from Mark and reading through the integration and unit tests, my eyes were opened up to a new wave of ORM.</p>
+<p>Lets talk about the requirements of adding this ORM to our solution:</p>
+<ul>
+<li>.Net 4 framework </li>
+<li>Connectionstring called Simple.Data </li>
+<li>References to                  
+<ul>
+<li>Simple.Data.dll </li>
+<li>Simple.DataSetExtensions.dll </li>
+</ul>
+&nbsp;&nbsp;&nbsp; </li>
+</ul>
+<p>Yes that&#8217;s it! Its that easy. I was suitably impressed straight away as I have played with a&nbsp; few ORMs that require some configuration and mappings files to be created. This was very early on for Simple.Data, so there was not much documentation. In-fact the tests <strong>were</strong> the documentation :)</p>
+<p>So I was using this to kill the need to use ADO.NET and we all know how much code we would have had to write to get that working. In fact, I&#8217;m sure I would have used Enterprise Library or something to get it going and make things easier. (Lets assume I would have used Ent. Lib for code examples.)</p>
+<p>First off was to write some code to select data from a users table. With ADO.NET the code would have looked as follows:</p>
+<pre class="brush:csharp">public User GetUserById(int userId)
+{
+    var returnedUser = new User();
+    try
+    {
+        var command = db.GetStoredProcCommand("storedprocname", userId);
+	    var reader = db.ExecuteReader(command);
+	    while (reader.Read())
+	    {
+	        returnedUser = User.GetUserDetails(reader);
+	    }
+    }
+    catch (Exception ex)
+    {
+        DataAccessExceptionHandler.HandleSqlException(ex);
+    }
+    
+    return returnedUser;
+}</pre>
+<p>How does this look with Simple.Data? Well as simple as this:</p>
+<pre class="brush:csharp">public User GetUserByUserId(int userId)
+{
+    dynamic db = Database.Open();
+    var dbUser = db.Users.FindByUserId(userId);
+
+    if (dbUser != null)
+    {
+        return dbUser;
+    }
+    else
+        return new User();
+}
+</pre>
+<p>This makes it a LOT simpler and no need for a stored procedure. Basically it uses the dynamic keyword of C# in order to get the properties of the User table for a specified user and then puts the column names and their values in the dynamic object.</p>
+<p>The same shortening and less complex methods are in place for getting lists of users and items from the database as well as inserting (using Named parameters) and also deleting rows by a specified column name. This was a basic introduction about how easy I found Simple.Data to use. Please read more about <a href="http://blog.markrendle.net/2010/08/introducing-simpledata.html" target="_blank">Simple.Data at Mark Rendle&#8217;s blog</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-15T00:00:00+01:00" pubdate data-updated="true">Oct 15<span>th</span>, 2010</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2010/10/15/simpledata-e28093-a-new-wave-of-orm/" data-via="" data-counturl="http://paulstack.co.uk/blog/2010/10/15/simpledata-e28093-a-new-wave-of-orm/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/09/review-dependency-injection-in-net/" title="Previous Post: Review: Dependency Injection in .Net">&laquo; Review: Dependency Injection in .Net</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/15/tool-of-the-week-e28093-console-e28093-151010/" title="Next Post: Tool Of The Week – Console – 15/10/10">Tool Of The Week – Console – 15/10/10 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

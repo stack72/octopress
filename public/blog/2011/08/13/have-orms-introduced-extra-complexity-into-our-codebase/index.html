@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Have ORMs introduced extra complexity into our codebase? - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="Whilst at DDDSouthWest 2011, I was speaking to Chris Hay about his scalability session. One of the areas we touched upon was the issues that ORMs &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/08/13/have-orms-introduced-extra-complexity-into-our-codebase">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Have ORMs Introduced Extra Complexity Into Our Codebase?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-13T00:00:00+01:00" pubdate data-updated="true">Aug 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Whilst at <a href="http://www.dddsouthwest.com" target="_blank">DDDSouthWest 2011</a>, I was speaking to <a href="http://twitter.com/chrishayuk">Chris Hay</a> about his scalability session. One of the areas we touched upon was the issues that ORMs have introduced into code.</p>
+<p>ORMs have become very widely used. In my most recent work project we started using Entity Framework 4, we then migrated to Entity Framework Code First, when that was not working for us we moved away from Code First and stuck with EF4. We have had serious issues with our ORMs. Firstly, we found that our repository layer was causing CPU usage to spike to over 80%. This was due to queries being compiled on the fly each time the query was called. Secondly, when we removed our web service calls (to be replaced by a service layer), we found that the object hierarchy was causing all sorts of issues. Many of these were down to lazy design. The entities have the following look to them:</p>
+<p><a href="http://paulstack.co.uk/blog/images/Drawing1.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="Drawing1" src="http://paulstack.co.uk/blog/images/Drawing1_thumb.gif" alt="Drawing1" width="310" height="203" border="0" /></a></p>
+<p>This meant that we had some hideous queries being created due to some navigation properties of the objects we were using. This is, of course, not just something found in EF4 but can be found in any ORM that is misused. The trouble with this type of scenario is that in order to fine tune the SQL that we (via the ORM) are producing via the ORM requires a change to the entities or their navigational properties. This means a lot of testing, recompilation and a redeploy.</p>
+<p>What would be the alternative to an ORM? A DAL layer that called stored procedures and passed parameters to get data back? That felt very old school to me. I think that&rsquo;s what drove me to start using ORMs initially.</p>
+<p>So, if we cannot change the sql being produced easily, why do we use ORMs? It was described to me, by <a href="http://twitter.com/thecodejunkie">Andreas H&aring;kansson</a> (better known as TheCodeJunkie) as follows:</p>
+<p><em>&ldquo;DAL was born as a reaction to SQL, ORMs is an attempt to provide a DSL for writing DALs&rdquo;</em></p>
+<p><em><a href="http://twitter.com/#!/markrendle/status/102152507706454016">Mark Rendle suggested it was because of the need for intellisense.</a> </em></p>
+<p>To my mind, both are correct. This is clearly a way that enables developers to not have to deal with writing SQL. Now, old person hat on, in the olden days, a developer would have to be proficient in SQL if there were no DBAs around to take care of those things. This meant that a developer knew what was being done &ldquo;under the hood&rdquo;. Now, would it be fair to say that newer developers, born into a world of ORMs, actually don&rsquo;t understand the SQL that they are producing?</p>
+<p>Let&rsquo;s think again about dealing with stored procedures. What would we do if we had to fine tune a stored procedure? Well if we are lucky, then we may not have to change input and output parameters and just change the logic of the procedure itself. This would mean that we could work on it without a recompilation and deployment. But if we have to change the inputs and outputs then we would need to change one layer, the DAL. This seems a lot more desirable to me. I am changing my code in one place which means I am a lot more confident.</p>
+<p>Returning to Chris, he said he needs his SQL to be so finely tuned that it runs in milliseconds rather than seconds and the only way he can achieve this is to use stored procedures. This would allow the stored procedure to be worked on without the application being changed. This begs the questions: has the introduction of ORMs made developers lazy in their DAL layers? And: have they been <strong>too</strong> widely adopted &ndash; were they ever really meant for enterprise applications?</p>
+<p>I can have a simple application up and running with a simple data structure and an ORM in a very short amount of time. If I take the same amount of time when setting up a so-called enterprise application, then my entities will have such bad relationships between them that the SQL produced is very bad. Oh wait &ndash; that&rsquo;s<a name="_GoBack"></a> the issue that has happened to me already&hellip;&hellip;&hellip;</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-13T00:00:00+01:00" pubdate data-updated="true">Aug 13<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/08/13/have-orms-introduced-extra-complexity-into-our-codebase/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/08/13/have-orms-introduced-extra-complexity-into-our-codebase/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/08/09/win-a-ticket-to-progressivenet-tutorials/" title="Previous Post: Win a ticket to Progressive.Net Tutorials">&laquo; Win a ticket to Progressive.Net Tutorials</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/08/17/implementing-your-first-project-into-a-ci-system/" title="Next Post: Implementing your first project into a CI system">Implementing your first project into a CI system &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

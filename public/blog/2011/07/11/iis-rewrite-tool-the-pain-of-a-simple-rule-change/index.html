@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>IIS Rewrite Tool – the pain of a simple rule change - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="I had a real pain point with the IIS Rewrite tool today. I wanted to take an out of the box canonical rewrite rule and then modify it slightly to fit &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/07/11/iis-rewrite-tool-the-pain-of-a-simple-rule-change">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">IIS Rewrite Tool – the Pain of a Simple Rule Change</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-11T00:00:00+01:00" pubdate data-updated="true">Jul 11<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I had a real pain point with the <a href="http://www.iis.net/download/urlrewrite" target="_blank">IIS Rewrite tool</a> today. I wanted to take an out of the box canonical rewrite rule and then modify it slightly to fit my own scenario. This tool is very easy to setup simple, out of the box rules &ndash; e.g. in order to get a simple canonical url rewrite (<a href="http://test.com">http://test.com</a> to redirect to <a href="http://www.test.com">http://www.test.com</a> then we would do as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_27.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_25.png" border="0" alt="image" width="250" height="168" /></a></p>
+<p>You then enter the primary host name &ndash; in my case it is <a href="http://www.test.com">www.test.com</a><a href="http://paulstack.co.uk/blog/images/image_28.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_26.png" border="0" alt="image" width="244" height="153" /></a></p>
+<p>That is it! The rule is now set up &ndash; pretty easy eh! This will redirect any request that isn&#8217;t http://www.test.com to become http://www.test.com. The following code is added to the web.config file in order to make this work:</p>
+<script src="https://gist.github.com/479580648e7a468780f7.js"></script>
+<p>So this wasn&rsquo;t quite right for my setup. I have a main URL that sits with the load balancer &ndash; lets say that is <a href="http://www.test.com">www.test.com</a> <strong>but</strong> I have individual URLs associated with the individual servers lets say an example is <a href="http://server1.internal-test.com">http://server1.internal-test.com</a>. I use individual server URLs for server monitoring &ndash; <a href="http://www.pingdom.com/" target="_blank">Pingdom</a> will constantly hit a specific page on the individual server to test for uptime. The canonical rule I have listed above will redirect the individual URL to the load balanced URL so I had to try and change the built in rule. Firstly I tried to do this via the web.config and adding my own lines. <strong>This did not work at all</strong>. I could find little documentation about how the rule is constructed so I was basically just &#8220;hacking&#8221; the rule to try to get it to work.</p>
+<p>Then I went and used the built-in editor for the IIS rewrite tool. When I seen the list of rules I double clicked on the rule and got the following screen:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_29.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_27.png" border="0" alt="image" width="224" height="244" /></a></p>
+<p>This is where I finally got my editing correct. I had to add a condition to list -</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_30.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_28.png" border="0" alt="image" width="244" height="162" /></a></p>
+<p>This did not offer my any type of drop down list for the different options I had for condition input &ndash; as you can see it is currently selected as {QUERY_STRING}. I didn&rsquo;t realise I had to change this. But once I had figured this out I changed it to look as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_31.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_29.png" border="0" alt="image" width="244" height="162" /></a></p>
+<p>This was the correct rule &ndash; it says in pseudo terms &ndash; if the URL does not match this format then perform the redirect to the canonical host. This left me with the following web.config entry</p>
+<script src="https://gist.github.com/0b44fed10f6ad782fd76.js"></script>
+<p>&nbsp;</p>
+<p>This was way too easy to mess up. I would love there to be a way to test my rules in an actual scenario &ndash; a sample application that I could pass requests to and see what the response would be. I hope you don&rsquo;t fall into this rewrite rule trap! Please, IIS team, make it easier to test the rules that I have created.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-11T00:00:00+01:00" pubdate data-updated="true">Jul 11<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/07/11/iis-rewrite-tool-the-pain-of-a-simple-rule-change/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/07/11/iis-rewrite-tool-the-pain-of-a-simple-rule-change/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/07/06/considerations-when-choosing-hardware-for-ci/" title="Previous Post: Considerations when choosing hardware for CI">&laquo; Considerations when choosing hardware for CI</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/07/15/easy-http-not-just-a-catchy-name/" title="Next Post: Easy HTTP–not just a catchy name">Easy HTTP–not just a catchy name &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

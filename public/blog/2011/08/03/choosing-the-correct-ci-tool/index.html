@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Choosing the Correct CI Tool - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="This is the 3rd post in a series &lsquo;How to get started with CI&rsquo;
+Previously, we talked about choosing the correct infrastructure for your CI &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/08/03/choosing-the-correct-ci-tool">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Choosing the Correct CI Tool</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-03T00:00:00+01:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This is the 3rd post in a series &lsquo;<a href="http://paulstack.co.uk/blog/post/How-to-get-started-with-CI.aspx" target="_blank">How to get started with CI&rsquo;</a></p>
+<p>Previously, we talked about choosing the correct infrastructure for your CI system. We will now talk about CI tools themselves. There are lots of CI tools out there. Many more than I know about and have listed here. Some tools are good and some, not to my liking.</p>
+<p><a href="http://paulstack.co.uk/blog/images/ci-tools.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="ci-tools" src="http://paulstack.co.uk/blog/images/ci-tools_thumb.gif" alt="ci-tools" width="557" height="207" border="0" /></a></p>
+<p>If you have used a CI tool before then you may find yourself comfortable with that, if that is the case then I&rsquo;d love to hear about your experiences. Alternatively, if you are new to these tools I have included a few things to consider when choosing a tool:</p>
+<h4>1. Technology</h4>
+<p>Don&rsquo;t choose a CI tool that is not compatible with your environment e.g. if you run linux based servers then you would not choose a windows based tool unless you had the ability to create a windows VM. Before choosing a tool, make sure to investigate the requirements needed by it.</p>
+<h4>2. Cost</h4>
+<p>If you have little or no budget then you will be limited to some of the tools that are either free or have community versions. Check the license agreement for terms and conditions about their uses &ndash; its best to know what is expected before you start using it.</p>
+<h4>3. Support &amp;/or Community</h4>
+<p>Choose a tool that has a good user base or support forums. If you choose otherwise then it may be difficult (if at all) to get help if things do not go as expected or if there are issues with the software. A more established and well known tool means there is a greater probability of someone having a similar issue to you and thus a resolution may be more readily available.</p>
+<h4>4. Ease of Use &amp; Maintainability</h4>
+<p>If you choose a tool that is difficult to use, then it will be difficult to adopt into your organisation. For example. CCNET, hugely powerful tool (and one I started with) is configured mostly via XML files (special editors may be available) and build scripts. There is no easy UI to make things smoother. In my opinion, unless you like creating scripts in notepad (or your favourite text editor) then it may not be the one for you. Remember, you probably won&rsquo;t be at a company forever, so think of the guy that has to pick up this system after you leave &ndash; unless you have a simple system, it <strong>may</strong> get neglected or trashed completely.</p>
+<h4>5. Choose something &lsquo;Cool&rsquo;</h4>
+<p>I personally love new shiny tools. In fact, if there is a developer out there who doesn&rsquo;t then I&rsquo;d love to speak with them to find out why. I enjoy testing, evaluating and writing about new tools. So when a new CI system appears on my radar, I give it a go. If you find a tool that keeps you interested then you will enjoy using it.</p>
+<p>It is very important for your tool to not be a hassle to use, configure or maintain. If you have to reason for &ldquo;CI&rdquo; maintenance that may take hours out of your week then the team is less likely to buy into that situation. My top tip is to use a scoring matrix and score each of the sections above 1 &ndash; 10 (1 being worst, 10 being best) and then get a shortlist of the tools that you like. After you have got a shortlist of say 3 tools, then <strong>trial them.</strong> It is very important to trial them, they may look great on paper but they may not work out how you imagine.</p>
+<p>This article talks about the points worth considering when choosing a CI tool. It you have been through this process and feel there are other points worth considering then please do comment and I will add them to the list. If you feel that a particular CI tool was missed from this article then please do add that as well with a link to its website.</p>
+<p>The next post in this series will talk about how to implement your first project into a CI tool.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-03T00:00:00+01:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/08/03/choosing-the-correct-ci-tool/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/08/03/choosing-the-correct-ci-tool/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/07/27/progressive-dotnet-at-skillsmatter/" title="Previous Post: Progressive .Net at SkillsMatter">&laquo; Progressive .Net at SkillsMatter</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/08/04/feature-switching-a-better-way-to-collaborate/" title="Next Post: Feature switching: a better way to collaborate">Feature switching: a better way to collaborate &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

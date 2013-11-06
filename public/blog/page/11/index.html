@@ -1,0 +1,793 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="&nbsp;
+There seems to be a misunderstanding between continuous integration (CI) and build automation. I was confused with this until recently when i &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/page/11">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/06/01/differences-between-build-automation-and-continuous-integration/">Differences Between Build Automation and Continuous Integration</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-01T00:00:00+01:00" pubdate data-updated="true">Jun 1<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>&nbsp;</p>
+<p>There seems to be a misunderstanding between continuous integration (CI) and build automation. I was confused with this until recently when i looked deeper into the concept.</p>
+<p><strong>Build Automation:</strong> The process of automating a build process, on a nightly bases for example, as well as doing it manually when writing an application.</p>
+<p>There tools that i use commonly for this are as follows:</p>
+<ul>
+<li>NAnt </li>
+<li>MSBuild </li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Continuous Integration:</strong> This is the process of using &ldquo;triggers&rdquo; to listen to various events in order to perform some tasks. e.g. a developer checks into SVN CAUSING A TRIGGER to fire that will run a build of the solution and also will run the unit tests or automated acceptance tests.</p>
+<p>The confusion seems to occur when CI tools are used for build automation but are not configured to use triggers to perform events</p>
+<p>CI Tools:</p>
+<ul>
+<li><a href="http://www.jetbrains.com/teamcity/" target="_blank">TeamCity </a></li>
+<li><a href="http://cruisecontrol.sourceforge.net/" target="_blank">CruiseControl.NET </a></li>
+</ul>
+<p>&nbsp;</p>
+<p>TeamCity is not one i have used but it seems to be easier to configure tasks than CCNET as CCNET requires everything to be configured via huge XML files .</p>
+<p>This is apparent in my current employment setup :    <br />On a nightly basis we schedule CCNET to automate builds via NAnt scripts. These are performed via NAnt scheduling and<strong> NOT </strong>via triggers. These CCNET scripts are pretty awful as they require configuration without a UI.</p>
+<p>&nbsp;</p>
+<p>This has lead me to understand now that i currently perform build automation and <strong>NOT</strong>&nbsp; continuous integration. I guess the next step for me now is to start to use TeamCity in order to understand CI better and potentially use it on a small project at work</p>
+<p>&nbsp;</p>
+<p>Received some great feedback/ advice for this:</p>
+<p>&#8220;There is confusion, I would advise people to get to grips with nant first and when they have the build script working then try cc.net after. Trying to do both together before you understand the theory and technology can be very confusing and strange.&#8221;<br /><a href="http://www.paulthor.co.uk/" target="_blank"> Paul Thorrington</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/04/21/functional-programming-in-net/">Functional Programming in .Net</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-21T00:00:00+01:00" pubdate data-updated="true">Apr 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.oliversturm.com/" target="_blank">Oliver Sturm</a>, formerly of <a href="http://www.devexpress.com/" target="_blank">DevExpress</a>, came to <a href="http://edgeug.net/" target="_blank">Edge UG</a> on Tuesday 13th April at the Vue Cinema in Fulham Broadway. This was of course the Venue for 1 of the Microsoft UK TechDays. Oliver came to talk about what functional programming is and why it is interesting. He also brielfy spoke about F#, LINQ and TPL [although were contrained by time]</p>
+<p>&nbsp;</p>
+<p><strong><span style="text-decoration: underline;">So What Did I Learn About Functional Programming?</span></strong></p>
+<p>Functional Programming:</p>
+<p>&nbsp;</p>
+<ul>
+<li>Avoids state management and mutable data</li>
+<li>Helps to focus on the reduction of side-effects [or tries to]</li>
+</ul>
+<div><br /></div>
+<div><strong><span style="text-decoration: underline;">What Do We Mean By The Reduction of Side-Effects?</span></strong></div>
+<div>When a function/ method replies of global variables then it cannot be determined that that variable has not been changed before the function uses it. Of course you could write a check in the function for the correct type but this seems to be a tight coupling towards that type. Therefore the calling function may fail/ throw an exception&nbsp;</div>
+<pre class="brush: csharp">	Person[] people;
+    const int maxPeople = 10;
+    Person[] displayPeople;
+    int displayCount;
+
+    private void InitData( ) 
+	{
+      people = new Person[maxPeople];
+      people[0] = new Person { Name = "Anna" };
+      people[1] = new Person { Name = "Chris" };
+      people[2] = new Person { Name = "Willy" };
+      people[3] = new Person { Name = "Hugh" };
+      people[4] = new Person { Name = "Steve" };
+      people[5] = new Person { Name = "Betty" };
+      people[6] = new Person { Name = "Carla" };
+      people[7] = new Person { Name = "John" };
+      people[8] = new Person { Name = "Pete" };
+      people[9] = new Person { Name = "Susan" };
+      displayPeople = new Person[maxPeople];
+      UpdateUI( );
+    }
+	
+	private void UpdateUI( ) 
+	{
+      DisplayListBox.Items.Clear( );
+      for (int i = 0; i &lt; displayCount; i++)
+	  {
+        DisplayListBox.Items.Add(displayPeople[i]);
+	  }
+    }
+
+
+</pre>
+<div><br /></div>
+<div>So in order to keep our functions side effect free then we should pass in the variable that the function uses rather than rely on it globally.</div>
+<p>&nbsp;</p>
+<pre class="brush: csharp">const int maxPeople = 10;
+    int displayCount;
+
+    private void InitData( ) 
+	{
+      Person[] people = new Person[maxPeople];
+      people[0] = new Person { Name = "Anna" };
+      people[1] = new Person { Name = "Chris" };
+      people[2] = new Person { Name = "Willy" };
+      people[3] = new Person { Name = "Hugh" };
+      people[4] = new Person { Name = "Steve" };
+      people[5] = new Person { Name = "Betty" };
+      people[6] = new Person { Name = "Carla" };
+      people[7] = new Person { Name = "John" };
+      people[8] = new Person { Name = "Pete" };
+      people[9] = new Person { Name = "Susan" };
+      Person[] displayPeople = new Person[maxPeople];
+      UpdateUI(displayPeople);
+    }
+	
+	private void UpdateUI(Person[] displayPeople) 
+	{
+      DisplayListBox.Items.Clear( );
+      for (int i = 0; i &lt; displayCount; i++)
+	  {
+        DisplayListBox.Items.Add(displayPeople[i]);
+	  }
+    }
+</pre>
+<div>This is because a function is a piece of code that should take parameters, process them and return a result. The parameters or the result can even be functions if necessary. This all accounts for a very <strong>pure</strong>&nbsp;function</div>
+<div><br /></div>
+<div>When at Oliver&#8217;s talk i asked the question:</div>
+<div style="text-align: center;"><em>&#8220;How does functional programming help with unit testing and TDD?&#8221;</em></div>
+<div style="text-align: center;"><br /></div>
+<div style="text-align: left;">Oliver pointed out that this is perfect for unit testing as it has no outside influences, therefore if written correctly, it can be tested easily. This function is what we try to product when we write code via TDD - that pure function - as unit tests shouldn&#8217;t have any dependencies.&nbsp;</div>
+<div style="text-align: left;"><br /></div>
+<div style="text-align: left;"><strong><span style="text-decoration: underline;">How Does a Reduction in Side-Effects Help Us?</span></strong></div>
+<div style="text-align: left;">
+<ul>
+<li>Scalability</li>
+<li>Optimized</li>
+<li>Tested</li>
+<li>Easily Debugged</li>
+</ul>
+<div>our code is modularized and potenailly <strong>clean</strong>&nbsp;and well refactored as the function should be pure.</div>
+</div>
+<div><br /></div>
+<div>Oliver showed coding examples of how you go from a function that has side effects and how this can be refactored or cleaned in order to make that function pure. As time constraints got the better of us there was not a huge amount of time to go into details of F# - we had an overview of what F# was and we seen the code samples in F#. From what I seen of it, it looks like id have to delve into that further to grasp anything firm. A small amount of time was given to Parallel in DotNet 4 - since the demo i have looked into this myself and see its very nice - blog post to follow</div>
+<div><br /></div>
+<div><br /></div>
+<div>This was yet another talk that really helped me to think about my current practices. I would definately recommend seeing this talk if you get the opportunity as Oliver is an excellent presenter. He has very kindly put his slides on <a href="http://www.sturmnet.org/blog/2010/04/14/slides-and-samples-from-my-edgeug-techda" target="_blank">his blog</a>. Thanks to Oliver for Code samples i have used here.</div>
+<div><br /></div>
+<div>Thanks to Oliver and Gavin from Edge UG for a very worthwhile talk</div>
+<div><br /></div>
+<div><strong><span style="text-decoration: underline;"><br /></span></strong></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/04/08/iphone-40-announcement/">iPhone 4.0 Announcement</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-08T00:00:00+01:00" pubdate data-updated="true">Apr 8<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>iPhone OS 4 released today - lots of lovely features that would really entice me to get one after my blackberry storm. Then i was pointed out an extract from the SDK licence agreement</h2>
+<p><img src="/blog/images/2010/4/onlyc.GIF" alt="" /></p>
+<p>ok so what does this mean? c# developers can currently use an application called <a href="http://monotouch.net/" target="_blank">Monotouch</a> and this was fantastic. it was pricey but it was very worth it. i had even started using this myself for apps at work</p>
+<p>then this bombshell!! There was no news of this announcement today - this was discovered by people downloading the SDK</p>
+<p>ok so i think that what has happened is as follows:</p>
+<p>&nbsp;</p>
+<ul>
+<li>iPhone versions 1 -3 very successful</li>
+<li>Microsoft release news of Win 7 Phone</li>
+<li>News of free developer software for Win 7 Phone released</li>
+<li>Apple release news of iPhone 4.0</li>
+</ul>
+<h3>Now what does this tells us?</h3>
+<p>in my eyes this seems like Apple have laid down the law that their apps will only really be developed using their products and their specs. No more MonoTouch? What about those who were creating apps using c#?</p>
+<p>I think more will come of this and i really do think that this will loose Apple a huge amount of followers in the development community.</p>
+<p>Let the war begin!</p>
+<p><img src="/blog/images/2010/4/battle.png" alt="" /></p>
+<p>More details and posts will be added as soon as i see them!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/04/07/what-is-microsoftcshaprdll-in-vs2010-rc/">What Is Microsoft.cshapr.dll in VS2010 RC?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-07T00:00:00+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A heads up really but I used the Dynamic keyword this weekend past in .Net 4. I noticed that after doing it a new reference was added to my solution &ndash; Microsoft.csharp.dll</p>
+<p>I didn&#8217;t know what this was so referred to good old Stackoverflow and here&#8217;s what it is</p>
+<p><a href="http://stackoverflow.com/questions/2460883/what-is-microsoft-csharp-dll-in-net-4-0">http://stackoverflow.com/questions/2460883/what-is-microsoft-csharp-dll-in-net-4-0</a></p>
+<p>just quite interesting &ndash; not sure if this will be in the RTM version of VS2010 though</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/04/07/logging-exceptions-via-exceptioneer/">Logging Exceptions via Exceptioneer as Well as Ent Lib 3.1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-07T00:00:00+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I currently use Enterprise Logging 3.1 and i know it can be configured to do what i want with it but it still has horrible log files that no-one likes to review.&nbsp;Over the past few months i have been looking at Exceptioneer - <a href="http://exceptioneer.com/Public/Demonstration.aspx" target="_blank">use this link to find out more</a>. I would continue to use exceptioneer in tandem with enterprise logging as it is a 3rd party service [and my boss would never let me move solely to exceptioneer :)].&nbsp;</p>
+<p>I followed the steps to integrate exceptioneer from their site - addition of the .dll file and addition of the sections inside web.config. But this didnt work with Enterprise logging as the exceptions were not unhandled - i have customer code in order to handle the exceptions</p>
+<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
+{
+	UIExceptionHandler.HandleException(Server.GetLastError(), true);
+}
+</pre>
+<p>Pretty simple i know! so i took advantage of this method were all my UI exceptions were being routed to - therefore i was able to call the Exceptioneer client straight from here. i added a reference to Exceptioneer.WebClient.dll and added in a little custom code [i have changed my APIKey and application name to a config property so they can be managed without a redeployment]</p>
+<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
+{
+         var wc = new Client
+                            {
+                              ApiKey = Config.Settings.ExceptioneerApiKey,
+                              ApplicationName = Config.Settings.ExceptioneerApplicationName,
+                              CurrentException = Server.GetLastError()
+                            };
+          wc.Submit(); 
+         UIExceptionHandler.HandleException(Server.GetLastError(), true);
+}
+</pre>
+<p>Then worried about what would happen if i couldnt connect to Exceptioneer, so i added a try catch to it and also i didnt want to log local exceptions to exceptioneer. Therefore my final method was as follows:</p>
+<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
+{
+            try
+            {
+                if (Config.Settings.EnableExceptioneerLogging)
+                {
+                    var wc = new Client
+                                 {
+                                     ApiKey = Config.Settings.ExceptioneerApiKey,
+                                     ApplicationName =               Config.Settings.ExceptioneerApplicationName,
+                                     CurrentException = Server.GetLastError()
+                                 };
+                    wc.Submit(); 
+                }
+            }
+            catch (Exception)
+            {
+                Logger.Write("Cannot connect to Exceptioneer", "Admin Exceptions");
+            }
+            finally
+            {
+                UIExceptionHandler.HandleException(Server.GetLastError(), true);
+            }
+}
+</pre>
+<p>Im seriously chuffed with this product and would recommend this to anyone! <strong><span style="text-decoration: underline;">They even give you a free version that lets you log 2000 exceptions a month via 3 applications</span></strong>. As soon as i can ill be upgrading to the next account level to get more of our work stuff in here!</p>
+<p>Thanks again Exceptioneer!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/03/23/cuke4nuke-intellisense-for-cuke4vs/">Cuke4Nuke Intellisense for [Cuke4VS]</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-23T00:00:00+00:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Needed to blog about this fantastic tool addin for VS2008 that gives intellisense for .feature files</p>
+<p><a href="http://github.com/henritersteeg/cuke4vs">http://github.com/henritersteeg/cuke4vs</a></p>
+<p>This gives intellisense as follows:</p>
+<p><img src="/blog/images/2010/3/intell.gif" alt="" /></p>
+<p>&nbsp;</p>
+<p>It also gives us the option to add a .feature file when adding a new item to a solution, as follows:</p>
+<p>&nbsp;</p>
+<p><img src="/blog/images/2010/3/feature.gif" alt="" /></p>
+<p>&nbsp;</p>
+<p>One last beautiful feature of this tool is that when in the feature file and on a scenario step, then by pressing F12 you will be taking to the correct method in the class where it is matched.</p>
+<p>The nice thing about this tool is that its free. Im not sure if there are any plans to incorporate this into VS2010 but if not id love to help out with this.</p>
+<p>&nbsp;</p>
+<p>Anyone who uses <a href="http://github.com/richardlawrence/Cuke4Nuke">cuke4nuke</a> from visual studio should use this little adding</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/25/devevening-orm-showdown-feb-25th/">DevEvening - ORM Showdown - Feb 25th</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-25T00:00:00+00:00" pubdate data-updated="true">Feb 25<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Tonight was <a href="http://devevening.co.uk/">DevEvening&#8217;s </a>ORM Showdown and my first visit to a DevEvening.</p>
+<p>The ORMs were demoed in thefollowing order:</p>
+<ul>
+<li>Matt Lacey Demoed - <a href="http://www.subsonicproject.com/">Subsonic</a></li>
+<li>Dave Hawes demoed - <a href="http://llblgen.com/defaultgeneric.aspx">LLBLGenPro</a></li>
+<li>Jeremy Skinner demoed - <a href="https://www.hibernate.org/343.html">NHibernate</a></li>
+<li>Any Pike demoed - <a href="http://www.castleproject.org/activerecord/index.html">Castle ActiveRecord</a></li>
+<li>Nick Haslam demoed - <a href="http://www.telerik.com/products/orm.aspx">Telerik OpenAccess</a></li>
+<li>Howard Richards demoed - <a href="http://msdn.microsoft.com/en-us/library/bb425822.aspx">LINQtoSQL</a></li>
+<li>Jez - Good Old ADO.NET via code generation tools :)</li>
+</ul>
+<div>All the talks were very useful as i hadn&#8217;t seen or even heard of many of these products. i enjoyed seeing how these proudcts worked and hearing about poeple&#8217;s experience using them. i think over the next few weeks ill give them all a go as they are mostly free [except for LLBLGenPro and OpenAccess]</div>
+<div><br /></div>
+<div>DevEvening provided some Sway tonight - 3 copies of <a href="http://www.amazon.co.uk/Cloud-Computing-Windows-Platform-Programmer/dp/0470506385/ref=sr_1_6?ie=UTF8&amp;s=books&amp;qid=1267138263&amp;sr=8-6">Cloud Computing</a>&nbsp;and a copy of the Telerik Premium Toolset. i managed to win the Telerik Premium toolset - wohoo!</div>
+<div><br /></div>
+<div>Thanks to all the guys at DevEvening. The next event is 25th March and will feature Azure and Open Rasta - where do i sign up&nbsp;</div>
+<div><br /></div>
+<div><br /></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/23/temp-table-vs-table-variable/">Temp Table vs Table Variable</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-23T00:00:00+00:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Over the past month or so i have seen the difference between table variables and temporary tables. I thought id write a little post about it incase anyone finds it useful:</p>
+<h3>Temp Tables:</h3>
+<ul>
+<li>temp table is created and populated in the system database tempdb - this means it actually exists for an amount of time</li>
+<li>it has session specific idenitifiers to differentiate between other temp tables</li>
+<li>the table [and data] is only visible to the current scope</li>
+<li>table gets cleared up automatically when the procedure goes out of scope</li>
+<li>Data needs cleared manually &nbsp;when finished</li>
+</ul>
+<pre class="brush:sql">CREATE TABLE #temptablename
+(
+    Id INT,
+    Name VARCHAR(50)
+)
+
+--PROCEDURE GOES HERE
+
+DROP TABLE #temptablename
+</pre>
+<p>The use of DROP TABLE here means that resources are freed up as soon as possible rather than letting the system clean up after the session expires. Some of the problems with temp tables is that the title is limited to 116 characters because of the session specific identifiers and if you wrap the temp table in a transaction and dont commit the transaction then you could cause unnecessary locks in tempdb.</p>
+<h3>Table Variables:</h3>
+<ul>
+<li>A table variable is performed in memory and t
+<script src="http://www.paulstack.co.uk/blog/editors/tiny_mce3/themes/advanced/langs/en.js" type="text/javascript"></script>
+herefore is slightly faster in performance that temp tables.</li>
+<li>There will be less locking as well.</li>
+<li>There are concerns that I/O is still performed to tempdb but this is largely unconfirmed.</li>
+<li>Table variables are auto cleared when the procedure goes out of scope so no structure or data needs cleared. This can be a bad thing as you cant release it
+<script src="http://www.paulstack.co.uk/blog/editors/tiny_mce3/themes/advanced/langs/en.js" type="text/javascript"></script>
+early</li>
+<li>tempdb transaction log doesn&#8217;t get clogged up by table variables</li>
+<li>table variables can lead to fewer stored procedure recompilations</li>
+</ul>
+<pre class="brush:sql">DECLARE @tblVariable TABLE
+(
+    Id INT,
+    Name VARCHAR(50)
+)
+
+--PROCEDURE GOES HERE
+
+</pre>
+<h3>Which is the best to use?</h3>
+<p>As table variables sound great why don&#8217;t we always use them? well they are only available in SQL 2000 + with compatability level of 80 or higher. you cannot truncate a table variable. you cannot alter a table variable after declaration. you cannot add an index to a table variable but you can create a PRIMARY KEY constraint and as many UNIQUE CONSTRAINTS as needed. you cannot drop a table variable like you can with a temp table.</p>
+<p>The big drawback from table variables is that inserting into them will not take advantage of parallelism.</p>
+<p>Therefore i have decided that, with any conflicting technologies, both are good to use in their own right. The decision will come down to performance, and amount of data. As the data gets bigger #temp tables become more effective due to no indexing.</p>
+<p>Try them both and see what your preference is - as for me I&#8217;m happy on my wall :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/19/strange-error-in-visual-studio-2010/">Strange Error in Visual Studio 2010</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-19T00:00:00+00:00" pubdate data-updated="true">Feb 19<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ok i have converted some of the solutions i use to run via Visual Studio 2010 RC. When trying to debug one today i came across this error</p>
+<p><img style="border: 0px initial initial;" src="/blog/images/2010/2/error.GIF" alt="" /></p>
+<p>it was rather a strange one and i couldnt really work it out. this was a fresh solution upgrade to VS2010 RC. i followed the prompt when loading the solution to create the virtual directory in IIS</p>
+<p>when i checked IIS it had set the application pool incorrectly for me</p>
+<p><img style="border: 0px initial initial;" src="/blog/images/2010/2/IIS.gif" alt="&lt;mce:script type=" /></p>
+<p>simply setting the application pool in the image above to as follows:</p>
+<p><img src="/blog/images/2010/2/apppool.GIF" alt="" /></p>
+<p>solved the problem. Hope this helps :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/18/welcome-to-my-new-blog/">Welcome to My New Blog</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-18T00:00:00+00:00" pubdate data-updated="true">Feb 18<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Well if you made it here then you have seen i have moved blog. i felt it was important to have my own control over the blog rather than just go with blogger.com features</p>
+<p>if theres anything you would like to see or if you want added to my blogroll then please contact me or post a comment below</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/12/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/10/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

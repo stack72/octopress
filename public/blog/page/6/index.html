@@ -1,0 +1,624 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="I have to start by saying this post is subjective. These are my thoughts regarding WebMatrix and what I think it will do to the industry. It is not &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/page/6">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/16/is-webmatrix-a-threat-to-the-professional-developer/">Is Webmatrix a Threat to the Professional Developer?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-16T00:00:00+01:00" pubdate data-updated="true">May 16<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have to start by saying this post is subjective. These are my thoughts regarding WebMatrix and what I think it will do to the industry. It is not meant as a jibe against any groups and it is not reflective of my attitude towards any companies. I&rsquo;d also like to say that I know I&rsquo;m very late to the WebMatrix party but I have just started using it since OrchardCMS made it appeal to me</p>
+<h4>What is WebMatrix?</h4>
+<p>To quote <a href="http://twitter.com/scottgu">Scott Guthrie</a> - &ldquo;WebMatrix is a task-focused tool that is designed to make it really easy to get started with web development.&nbsp; It minimizes the number of concepts someone needs to learn in order to get simple things done, and includes and integrates all of the pieces necessary to quickly build Web sites.&rdquo; From my investigations to WebMatrix and the creation of some OrchardCMS sites, I have to agree with Scott. The is really easy to get something together with WebMatrix.&nbsp;</p>
+<h4>What do I think is good about WebMatrix?</h4>
+<ul>
+<li>WebMatrix has a lot of our of the box templates for CMS sites, blog sites etc. </li>
+<li>It is a lightweight IDE for developing on. </li>
+<li>Has automated deployment out of the box </li>
+<li>Comes bundled with IISExpress </li>
+<li>Comes bundled with NuGet It has a lot going for it. I was able to open WebMatrix, choose a new site from gallery and have an OrchardCMS site running in like 5 minutes. I initially thought this was fantastic! I still do in some cases but I can see this may cause us some problems as well. </li>
+<li>Doesn&rsquo;t have a drag and drop interface for creating pages :)</li>
+</ul>
+<h4>What do I think is bad about WebMatrix?</h4>
+<ul>
+<li>WebMatrix seems to store dependencies in the bin only so when opening in Visual Studio and clicking rebuild then bin files are lost</li>
+<li>Lack of intellisense support</li>
+<li>Seemingly lack of Webforms support &ndash; you cant seem to be able to deal with code behind files</li>
+<li>Data Access is a bit of a delicate issue in WebMatrix but I&rsquo;m not jumping on that band wagon - EDIT: This needs a post of its own</li>
+</ul>
+<h4>So is WebMatrix a threat to the role of a professional developer?</h4>
+<p>According to Microsoft, WebMatrix is targeting those who currently write PHP, Classic ASP and who are new to web app development. I think its a great tool to be able to give new users to get started. This is where I also see a downfall in the product. WebMatrix has certainly made quite an impact on professional developers. More and more high profile figures are starting to talk about WebMatrix. 2 of the most high profile are <a href="http://twitter.com/shanselman">Scott Hanselman</a> and <a href="http://twitter.com/robconery">Rob Conery</a>. They have used WebMatrix as a base for the development of their podcast site &ndash; <a href="http://thisdeveloperslife.com/">This Developers Life</a>.</p>
+<p>From my experience, sometimes companies want web applications delivered fast. IF the company is not a native software company (their main product isn&#8217;t software) then they sometimes don&rsquo;t care how it gets made or what is used to make it. From companies I have worked for, if they knew there was a way for less skilled developers, who can be paid less, to create sites fast and get it deployed then they would do it. Those companies don&rsquo;t really care how a site pieces together or care about its maintainability &ndash; once its released its done. There is also the cost &ndash; WebMatrix is free. It has site templates out of the box for free &ndash; VS2010 Professional is $1k (or thereabouts). Would a company struggling for cash be able to choose the $1k product for one of their developers? OR would they just use the free product that a junior developer can use?</p>
+<p>WebMatrix is a great product &ndash; it just works! Its nice to use and has a lot of features out of the box. For smaller companies I truly believe that this tool will become very important. They cant keep up with the larger enterprise products. This is why I think that WebMatrix is a threat to software developers. Developers who work for smaller companies either need to start getting used to WebMatrix or companies may look to replace them in order to survive this harsh economic climate. For larger enterprises, if WebMatrix is a good fit for a job then I&rsquo;d suggest to use it &ndash; right tool for the right job and all that. As I said its just easy! It does exactly what it needs to. Its just a tool I know and you still need a good grounding in development practices but lets see what has happened in 1 years time after it has been more widely trialled.</p>
+<p><strong>Further Resources:</strong></p>
+<ul>
+<li>Download WebMatrix here: <a href="http://www.microsoft.com/web/webmatrix/download/">http://www.microsoft.com/web/webmatrix/download/</a> </li>
+<li>WebMatrix eBook (.pdf) <a href="http://www.microsoft.com/downloads/details.aspx?displaylang=en&amp;FamilyID=b7937c34-3b53-47b7-ae17-5a72fa700472">Download</a> </li>
+<li>Scott Guthrie&rsquo;s <a href="http://weblogs.asp.net/scottgu/archive/2010/07/06/introducing-webmatrix.aspx">WebMatrix Announcement</a> </li>
+<li>Scott Hanselman&rsquo;s <a href="http://www.hanselman.com/blog/MicrosoftWebMatrixInContextAndDeployingYourFirstSite.aspx">blog post</a> on WebMatrix. </li>
+</ul>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/10/attribute-based-caching-with-postsharp/">Attribute Based Caching With PostSharp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-10T00:00:00+01:00" pubdate data-updated="true">May 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve been meaning to write this post for months now to talk about my work with PostSharp and Attribute Based Caching. PostSharp is an AOP tool &ndash; I won&rsquo;t get into too much detail about <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming" target="_blank">AOP</a> and <a href="http://www.sharpcrafters.com/" target="_blank">PostSharp</a> as I have provided links to them</p>
+<p>I used PostSharp to remove the amount of code required for the caching of my calls in a legacy application. Traditionally I would have had to write code such as this:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_21.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_21.png" border="0" alt="image" width="609" height="259" /></a></p>
+<p>I was able to change the way this was done with AOP. This makes the code snippet look as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_22.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_22.png" border="0" alt="image" width="609" height="177" /></a></p>
+<p>I have effectively removed 2 lines of code from EVERY method call and replaced it with an attribute over the method declaration. In order for this to build, I had to either install PostSharp or run it as an import target manually in my .csproj file. So what does the output of the IL look like when decompiled?</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_23.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_23.png" border="0" alt="image" width="615" height="210" /></a></p>
+<p>You can see that the IL has had Aspects added to it. The 3rd party dll I used (<a href="http://cache.codeplex.com/" target="_blank">CacheAspect</a>) then knows what to add to the code and this is then <a href="http://www.sharpcrafters.com/postsharp/documentation#under-the-hood" target="_blank">IL woven using PostSharp</a>. This means that the results of the MyMethod call will be added to the Cache with the key of StoredProcedureResults.</p>
+<p>This has been majorly useful for me since I can invalidate the Cache on specific method calls</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_24.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_24.png" border="0" alt="image" width="613" height="67" /></a></p>
+<p>This method works by Invalidating the cache (key &ldquo;StoredProcedureResults&rdquo;) when the AddMethod is called. This scenario can be very useful when a list of users are cached and a new user is added to the list. It cuts down the code and is easy to read in my opinion.</p>
+<p>I have posted before about how to hook <a href="http://paulstack.co.uk/blog/post/PostSharp-and-TeamCity-Integration.aspx" target="_blank">PostSharp up to my CI server</a>. AOP is not everyone&#8217;s thing. It has been very useful for me on a small project. It has impacted the build time but I think its worth it for DRY code <img class="wlEmoticon wlEmoticon-smile" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-smile_6.png" alt="Smile" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/09/free-speaker-training-day/">Free Speaker Training Day - 27th May 2011</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-09T00:00:00+01:00" pubdate data-updated="true">May 9<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>It was announced last week that Guy Smith-Ferrier will be providing a free speaker training day in the UK on May 27th 2011. The details of the free training are located on <a href="http://guysmithferrier.com/post/2011/05/DDD-Speaker-Training-Day-on-Friday-27th-May-2011.aspx" target="_blank">Guy&rsquo;s blog</a>. I believe that this is a very popular event so if you are interested then please get in contact using the contact details on Guy&rsquo;s blog post. In summary the day will cover the following details:</p>
+<ul>
+<li>How To Explain Absolutely Anything </li>
+<li>Planning Your Presentation </li>
+<li>How To Give Great Demos </li>
+<li>Getting Your Laptop Ready For Your Presentation </li>
+<li>Presenting Your Presentation</li>
+</ul>
+<p>The training will be lead by some very well known speakers in the UK community &ndash; Steve Sanderson, Dave McMahon, Ross Scott and Chris Myhill. This is a <strong>FREE event</strong> so please do try and take advantage of this if you can and are interested in speaking at user groups or regional events in the UK.</p>
+<p>If you are like me, however, and cannot make that speaker training day then Guy has released speaker training videos. They are available on the <a href="https://www.technicalcommunity.com/InfoCenter/Pages/Speaker-Training.aspx" target="_blank">technical community site</a>. After speaking with Guy about this he has suggested that you would not need to watch the videos if you are going to the training day as they cover the same topics.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/08/ddd-scotland-2011/">DDD Scotland 2011</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-08T00:00:00+01:00" pubdate data-updated="true">May 8<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Saturday 7th May was <a href="http://developerdeveloperdeveloper.com/scotland2011/">DDD Scotland</a> in Glasgow. I was fortunate enough to be speaking at the event so obviously had to travel up there for the weekend :)</p>
+<p>There were a range of good tracks available &ndash; <a href="http://scottishdevelopers.com/2011/03/14/ddd-scotland-2011-agenda/">agenda is here</a> &ndash; and I started the day going to see <a href="http://twitter.com/kendallmiller">Kendall Miller</a> talking about How to Grow Your Own Software Company. Kendall is a very good speaker and delivered a very useful session. I really enjoyed the fact that he was able to relate his talk to his own experiences. If you can get a chance to see this session then I would recommend it &ndash; especially if you are thinking about setting up your own company!</p>
+<p>I flitted in and out of a few other sessions throughout the day and really enjoyed the day as a hole. Got some great feedback on my session and <a href="https://twitter.com/#!/guysmithferrier">Guy Smith-Ferrier</a> very kindly critiqued my session for me so I can improve my delivery of my session.</p>
+<p>Had a great day, met some great people and enjoyed having a day of being a geek. Thanks to the organisers &ndash; <a href="https://twitter.com/#!/ColinMackay">Colin MacKay</a>, <a href="http://twitter.com/camurphy">Craig Murphy</a>, <a href="https://twitter.com/#!/ARGibson">Andy Gibson</a> and <a href="http://twitter.com/barrycarr">Barry Carr</a>. Thanks again!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/14/sql-ce-4-database-scripting/">SQL CE 4 Database Difference Scripting With SqlCEDiffer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-14T00:00:00+01:00" pubdate data-updated="true">Apr 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I wrote some posts on how to take two different SQL CE 4 db files (.sdf) and how to compare them to create a SQL change script. The general flow was as follows:</p>
+<ul>
+<li>Generate Sql Schema File from SDF files </li>
+<li>Compare the SDF files to generate a change script </li>
+</ul>
+<ul>
+I started using this at work and it was noticed that the sql change script that was produced wasn&rsquo;t fantastic. What it was doing was completely creating a new table, dropping the old table and then renaming that newly created table. We were worried that this would cause an issue with our database on our live server.
+</ul>
+<ul>
+After speaking with <a href="https://twitter.com/erikej">Erik Ejlskov Jensen</a>, a SQL Server Compact MVP, I was pointed in the direction of the API that he wrote in order to make his Sql Compact 4 toolbox. This API allowed me to write my own little command line tool (as simple as it gets) that takes 2 .sdf files and generates a sql diff file.&nbsp; I have called this, inspirationally, SqlCEDiffer.
+</ul>
+<ul>
+In order to use this tool you can do it from the command line or you can hook it into your MSBuild scripts as follows:
+</ul>
+<ul>
+<strong>Command Line</strong>
+</ul>
+<p>sqlcediffer.exe    <br />&nbsp;&nbsp;&nbsp; -source:{path to latest schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -target:{path to old schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -outputPath:{path to save the diff script to&gt;.sql</p>
+<p>It&rsquo;s a very simple explanation really. Source is the latest sdf file created, this has all the new changes in it. The target is the source that we wish (eventually) to update. The output path is the path we want the resulting .sql file saved to.</p>
+<p>&nbsp;</p>
+<p><strong>Running from MSBuild</strong></p>
+<p>&lt;Target Name=&#8221;Build&#8221;&gt;   <br />&nbsp;&nbsp;&nbsp; &lt;Message Text=&#8221;Starting Sql Differencing&#8221; /&gt;    <br />&nbsp;&nbsp;&nbsp; &lt;Exec Command=&#8221;sqlcediffer.exe -source:{new sdf file} -target:{old sdf file} -outputPath:{save path}.sql&#8221; /&gt;    <br />&lt;/Target&gt;</p>
+<p>It works exactly the same as from command line <strong>but</strong> being able to use the MSBuild exec command means that we can hook this into a build script. This now opens up the opportunity for its use in automation of sql differencing and potentially continuous database deployment.</p>
+<p>The code is very simple and does exactly what it says on the tin. It has been created as a wrapper around the code that Erik already created for his tools already available on <a href="http://exportsqlce.codeplex.com/" target="_blank">codeplex</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/12/ddd-southwest-get-ready-to-register/">DDD Southwest – Get Ready to Register</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-12T00:00:00+01:00" pubdate data-updated="true">Apr 12<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I found out that my session on &ldquo;<strong>SpecFlow - functional testing made easy</strong>&rdquo; was selected for inclusion on the DDD Southwest agenda for June 11 2011.&nbsp; This has made all 3 DDD events so far this year for me which I am very happy about :) More information about my talk can be found on this blog on my <a href="http://paulstack.co.uk/blog/page/Public-Speaking.aspx" target="_blank">public speaking page</a></p>
+<p>DDD Southwest registration opens on April 12th at 10am &ndash; Go to <a href="http://www.dddsouthwest.com/">http://www.dddsouthwest.com/</a> and register as it will prove to be a great day judging by some of the talks I know that are selected. If you want to see the agenda before you sign up then you can find that one the <a href="http://www.dddsouthwest.com/Agenda/tabid/55/Default.aspx" target="_blank">dddsw site</a> as well</p>
+<p>On the day be sure to come and say hello :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/07/using-sql-compare-from-the-command-line/">Using Sql Compare From the Command Line</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-07T00:00:00+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In March, I wrote a post about how to <a href="http://paulstack.co.uk/blog/post/Extracting-a-Sql-Server-Schema-from-Sql-Server-CE-File.aspx" target="_blank">generate sql schema scripts from a SQL CE4 database file</a> from the command line. After working out how to do this I wanted to be able to take the generate sql server schema (in .sql file) and compare it against an existing schema. The resulting differences would then generate a sql change script.</p>
+<p>I tried <a href="http://www.red-gate.com/products/sql-development/sql-compare/" target="_blank">Sql Compare</a>, a Redgate tool, and this seemed to prove effective for what I was able to do. After doing a bit of research I was able to find out that Sql Compare isn&rsquo;t able to compare individual .sql files. BUT you could give it a directory path and compare ALL the .sql files in a directory.</p>
+<p>Previously I generated a schema.sql file and placed this file in the following folder: c:\temp\schema</p>
+<p>I had an old sql schema file that from previously investigatations with .sdf file. I took one of those files and put it in c:\temp\oldschema</p>
+<p>I was then able to run the command as follows from the command prompt:</p>
+<p>cd &#8220;C:\Program Files\SQL Compare 8&#8221;</p>
+<p>sqlcompare.exe    <br />&nbsp;&nbsp;&nbsp; /scr1:&#8221;C:\temp\new&#8221;     <br />&nbsp;&nbsp;&nbsp; /scr2:&#8221;C:\temp\oldschema&#8221;     <br />&nbsp;&nbsp;&nbsp; /o:Default     <br />&nbsp;&nbsp;&nbsp; /ScriptFile:&#8221;C:\temp\SqlChangeScript.sql&#8221;</p>
+<p>This script effectively says to compare the old schema files (scr2) against the new schema files (scr1) . O:/default specifies that the default options for comparison and synchronisation will be used. The resulting sql change script will be saved as SqlChangeScript.sql. I could have changed the last option from /ScriptFile to /sync which would have run the synchronisation in place and not produced the change file. I wanted the change file for version control and release history.</p>
+<p>When running this through the command line I was able to see the following:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_20.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_20.png" border="0" alt="image" width="398" height="245" /></a></p>
+<p>This worked perfectly and generated a change script that has everything rolled in a transaction to make sure no errors will run. The nice touch here is that there are messages printed when an action is started.</p>
+<p>I didnt want to keep 2 schema files on my build server for comparison so I then started to look at how to compare the new schema file against the database itself. Low and behold this is also available with Sql Compare and works as follows:</p>
+<p>sqlcompare.exe    <br />&nbsp;&nbsp;&nbsp; /scr1:&#8221;C:\temp\new&#8221;     <br />&nbsp;&nbsp;&nbsp; /Server2:&#8221;&lt;server name or ip&gt;&#8221; /db2:&#8221;&lt;database name&gt;&#8221;     <br />&nbsp;&nbsp;&nbsp; /o:Default     <br />&nbsp;&nbsp;&nbsp; /ScriptFile:&#8221;C:\temp\SchemaSyncScript.sql&#8221;</p>
+<p>The only difference here is to change the /scr2 to actually be a database instead of another sql server file.Again this worked as expected and created a nice sql change script that I could then use for database deployment.</p>
+<p>If you have any aspirations of automated database deployment then I think that you should try the trial of Sql Compare. It has been very useful for me. I&rsquo;m just very glad my company already had a company of it I could use for the build server. As this process can be run from command line it can also be run from MSBuild and as part of a TeamCity build. To be continued&hellip;&hellip;&hellip;&hellip;&hellip;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/05/using-add-deployable-dependencies-in-vs2010-sp1/">Using Add Deployable Dependencies in VS2010 SP1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-05T00:00:00+01:00" pubdate data-updated="true">Apr 5<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Before the dawn of VS2010 SP1, when I wanted to deploy dependency dlls, I had to go to the properties of the .dll and set CopyLocal to true</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_16.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_16.png" border="0" alt="image" width="602" height="251" /></a></p>
+<p>This was critical for me when MVC3 first came out as MVC3 was not installed on our production server and we needed to deploy the MVC3 and Razor dlls to our servers in order for the application to run.</p>
+<p>The nice people at Microsoft added a feature in VS2010 SP1 that allowed you to specify a specific set of deployable dependencies. When you right click on the web project you can now see a menu option as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_17.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_17.png" border="0" alt="image" width="215" height="329" /></a></p>
+<p>When you choose this option you get an option to choose the dependencies you want:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_18.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_18.png" border="0" alt="image" width="321" height="155" /></a></p>
+<p>If I choose ASP.NET MVC and select ok I will now have a new folder added to my solution that has the following contents:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_19.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_19.png" border="0" alt="image" width="290" height="197" /></a></p>
+<p>This folder is now taken care of using the new Microsoft.WebApplication.targets and Microsoft.Web.Publishing.targets file that comes with MSBuild and was upgraded after VS2010 SP1 install. MSBuild will take care of this folder and its contents and move those contents to the /bin of the application. This will work as part of a CI build or as part of using a publish with MSDeploy.</p>
+<p>This has made my life easier as I used to have to find what files were needed as part of the deploy and keep a copy of them in a /lib folder and then use an MSBuild copy task to copy them as part of my CI build</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/05/iis-rewrite-module-and-mvc3/">IIS Rewrite Module and ASP.NET MVC3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-05T00:00:00+01:00" pubdate data-updated="true">Apr 5<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This morning I found out that the IIS Rewrite module causes a problem with MVC routing when trying to POST back to the server. I added a rule to the web.config to enforce all lowercase URLs as follows:</p>  <p><a href="http://paulstack.co.uk/blog/images/image_15.png"><img style="background-image: none; border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_15.png" width="612" height="437" /></a></p>  <p>As you can see this is the rule that comes out of the box with the module. There doesn’t seem to be any notes included with this particular rule. This adds the following to the web.config</p>  <p>&lt;system.webServer&gt;    <br />&#160;&#160;&#160; &lt;modules runAllManagedModulesForAllRequests=&quot;true&quot;&gt;&lt;/modules&gt;     <br />&#160;&#160;&#160; &lt;handlers&gt;     <br />&#160;&#160;&#160; &lt;remove name=&quot;UrlRoutingHandler&quot; /&gt;     <br />&#160;&#160;&#160; &lt;/handlers&gt;     <br />&#160;&#160;&#160; &lt;rewrite&gt;     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;rules&gt;     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;rule name=&quot;LowerCaseRule1&quot; stopProcessing=&quot;true&quot;&gt;     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;match url=&quot;[A-Z]&quot; ignoreCase=&quot;false&quot; /&gt;     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;action type=&quot;Redirect&quot; url=&quot;{ToLower:{URL}}&quot; /&gt;     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;/rule&gt;     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;/rules&gt;     <br />&#160;&#160;&#160; &lt;/rewrite&gt;     <br />&lt;/system.webServer&gt;</p>  <p>This works as expected as it changes <a href="http://localhost/SiteName/Account/Register">http://localhost/SiteName/Account/Register</a>&#160; to <a href="http://localhost/sitename/account/register">http://localhost/sitename/account/register</a>. We have decided to keep all URL’s lowercase and enforce the rule so Google cannot see duplicate URLs due to casing. When the user is presented with the register view, a form on that page has a POST action. When that POST action posts to a non-lowercase URL then the Rewrite module weighs in a redirects to the lowercase URL and presents the user with the view again and not with the results of the POST.</p>  <p>I mentioned this on twitter and <a href="http://twitter.com/plip" target="_blank">Phil Winstanley</a>, of Microsoft, kindly offered to enquire about this on the internal distribution lists to see what that brought back. The responses helped me understand what actually happen. they also pointed out that the behaviour, although it isn’t strictly correct, is kind of expected. According the HTTP spec </p>  <p>“If the 301 status code is received in response to a request other than GET or HEAD, the user agent MUST NOT automatically redirect the request    <br />unless it can be confirmed by the user, since this might change the conditions under which the request was issued.“ <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.2">http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.2</a></p>  <p>It was also pointed out to me that as Login and Register are not really sites that are promoted for SEO purposes then we can exclude these routes from the redirect rule. Overall I have seen that I have not got a flawless plan for enforcing lowercase URLs. If I want lowercase URLs then I should really enforce them myself in my code. The one thing I’m slightly confused about is that there are no notes that come with the IIS Rewrite module that tell me these types of things. Fair enough I can get them from HTTP spec, but I really didn’t realise that this would be an issue.</p>  <p>If possible, I’d love people to see that the Rewrite module documentation may be lacking in specific areas. Hopefully this will improve. I’d like to thank Phil and all the guys at Microsoft who helped with responses in this query.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/26/extracting-a-sql-server-schema-from-sql-server-ce-file/">Extracting a Sql Server Schema From Sql Server CE File</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-26T00:00:00+00:00" pubdate data-updated="true">Mar 26<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>My current project at work sees me building an ASP.NET MVC3 project. When the project was being built initially, we had no idea of what the final schema of the database would look like. So we built the app using a fake dataset that we can in cache and read / wrote to that cache during the application. The decision was made that we would use Entity Framework 4 for our data access method and as we already had&nbsp; business entities in place, we thought that Code First would be a good way to go since it was in RC.</p>
+<p>We didnt get our DBAs involved as the schema wasn&#8217;t completely finished. So we decided to use Sql Server CE 4. I know what you are thinking&nbsp; - MS Fan Boy, new technology freak &ndash; and you would be right. I&rsquo;m happy with what we have chosen and its worked for us. We have now managed to get a database schema that we are happy with.</p>
+<p><strong>BUT</strong> we hit a flaw when we looked at how we migrate our Sql Server CE 4 database to Sql Server. I know there are tools available but I didn&rsquo;t feel that I had a huge amount of control over these and I wanted one to be able to run from msbuild since I will (eventually) be automating the process.</p>
+<p>Step up web deploy v2! I managed to find an article a while back that was tweeted by Sayed Hashim on the new features of web deploy v2. There is build in support for this exact purpose.&nbsp;So in order to run the process I opened a command line and change directory to the Web Deploy v2 folder (C:\Program Files (x86)\IIS\Microsoft Web Deploy V2). I can then run the command as follows:</p>
+<p><strong>msdeploy      <br />-verb:sync       <br />-source:dbFullSql=&#8221;Data Source=&lt;path to .sdf&gt;&#8221;,ScriptData=false,sqlCe=true       <br />-dest:dbFullSql=&#8221;&lt;output .sql path&gt;&#8221;</strong></p>
+<p>This is pretty self explanatory but the important parts are to include sqlCe = true as this will make msdeploy know its a sql compact edition database. ScriptData = false will mean that only the schema will be output and no data will be included. If this is omitted then the schema will be exported as well as the data.</p>
+<p>When I run this i get something similar to this screen on my console:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_14.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_14.png" border="0" alt="image" width="598" height="101" /></a>&nbsp;</p>
+<p>Of course this command can be included in a batch file and be executed from TeamCity (post coming soon on this!) or manually run when necessary.</p>
+<p>The output of the script can be opened and run against Sql Server &ndash; or if you wait for my next post &ndash; to be used to create sql change scripts that can be used from continuous database deployment.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/7/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/5/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

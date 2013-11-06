@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>HTML5 – Clean Code for Front End Developers - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="I have recently started looking into the new html specification (HTML5) and have noticed that benefits of this new specification include improved &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2011/10/31/html5-clean-code-for-front-end-developers">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">HTML5 – Clean Code for Front End Developers</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-31T00:00:00+00:00" pubdate data-updated="true">Oct 31<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I have recently started looking into the new html specification (HTML5) and have noticed that benefits of this new specification include improved semantics and cleaner mark-up.&nbsp;<span class="Apple-style-span" style="font-family: sans-serif; font-size: 13px; line-height: 19px;">Semantic HTML is a way of writing HTML that emphasizes the meaning of the encoded information over its presentation.</span>&nbsp;Consider the following code snippet:</p>
+<script type="text/javascript" src="http://gist.github.com/1328385.js"></script>
+<p>This would usually denote a small area of navigation that loosely regards a navigational class on a html page. The loose association to the navigation is because I had the sense to name the class &#8220;navigation&#8221;. Had I named the class &#8220;list&#8221; then this would have meant nothing to the reader of the mark-up. The &lt;h2&gt; tag relates to the &lt;div&gt; but is actually not part of the mark-up. HTML5 gives the ability to clean this mark-up and make it more semantic. the resulting code in HTML5 could be:</p>
+<script type="text/javascript" src="http://gist.github.com/1328389.js"></script>
+<p>This code snippet actually lets the user see that the list of links are actually a small navigational element of the site. It will also relate the heading, Quick Links, to that small navigational element. There is another element, menu, that I will not talk about. It could be substituted for my use of &lt;nav&gt;</p>
+<p>When I first started reading about HTML5 and how the semantics and cleanliness of the mark-up changed, it made be beg the question:</p>
+<p><strong>Is HTML5 the excuse to get front end developers to think about Clean Code?</strong></p>
+<p>I am a huge advocate of clean code. I expect my methods / classes and variables to have good naming conventions. I also expect the code to be short, concise and descriptive. I am a developer, not a designer. Design / front end development is usually my last port of call. therefore my mark-up and it&#8217;s structure usually suffer. this means that it can be poorly organised and when I test in different browsers, I sometimes have to shoehorn in fixes which results in my code being messy.</p>
+<p>Html5 may not be a finished specification, but I for one will start to embrace it in my development. If there is an easy way for the front end mark-up to be as clean as business logic then I think we should all lobby the W3C to finalise the specification and get this new standard into place.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-31T00:00:00+00:00" pubdate data-updated="true">Oct 31<span>st</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2011/10/31/html5-clean-code-for-front-end-developers/" data-via="" data-counturl="http://paulstack.co.uk/blog/2011/10/31/html5-clean-code-for-front-end-developers/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/10/16/controlling-iis7-programmatically/" title="Previous Post: Controlling IIS7 Programmatically">&laquo; Controlling IIS7 Programmatically</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/11/10/is-implementing-continuous-delivery-the-key-to-success/" title="Next Post: Is Implementing Continuous Delivery the key to success?">Is Implementing Continuous Delivery the key to success? &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

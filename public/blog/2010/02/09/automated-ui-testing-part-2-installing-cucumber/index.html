@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Automated UI Testing - Part 2 - Installing Cucumber - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="OK, so after my foraging into WatiN, I really wanted to push things a bit further and begin to look at other ways of automating UI testing. This is &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2010/02/09/automated-ui-testing-part-2-installing-cucumber">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Automated UI Testing - Part 2 - Installing Cucumber</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-09T00:00:00+00:00" pubdate data-updated="true">Feb 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>OK, so after my foraging into WatiN, I really wanted to push things a bit further and begin to look at other ways of automating UI testing. This is when I was pointed in the direction of <a href="http://cukes.info/">Cucumber</a>.</p>
+<p>Cucumber lets software development teams describe how software should behave in plain text. The text is written in <a href="http://www.martinfowler.com/bliki/BusinessReadableDSL.html">business-readable domain-specific language</a> and serves as documentation, automated tests and development-aid - all rolled into one format. [Thanks to cukes.info for the blurb :)]</p>
+<p>To install Cucumber i have had a nightmare following many many different guides. the way i installed it works as follows:</p>
+<ol>
+<li>Download the one click ruby installer from <a href="http://www.rubyinstaller.org/download.html">here</a> [I installed the 1.91 version]</li>
+<li>install Ruby [the path I installed to was c:/ruby19] as this does not come with the new installer</li>
+<li>Download the Ruby Development kit from <a href="http://wiki.github.com/oneclick/rubyinstaller/development-kit">here</a></li>
+<li>Extract the location of the Ruby development kit to the ruby install path [for me c:/ruby19]</li>
+<li>The last change i had to make was to update the Ruby development kit to show the path for my ruby installation</li>
+<li>C:\Ruby19\devkit\msys\1.0.11\etc\fstab</li>
+<li>This just required changing c:\ruby to c:\ruby19 in the paths</li>
+<li>Start &gt; All Programs &gt; Ruby 1.9.1-p243 &gt; Start Ruby With Console to open the command line tool</li>
+<li>We need to add gemcutter.org to our list of Ruby Gem sources                
+<ul>
+<li>Do this by typing</li>
+<li>gem sources -a http://gemcutter.org/</li>
+</ul>
+</li>
+<li>Install Cuke4Nuke gem              
+<ul>
+<li>Do this by typing</li>
+<li>gem install cuke4nuke</li>
+</ul>
+</li>
+<li>Install the Win32Console gem to get colour reports in the windows console window              
+<ul>
+<li>Do this by typing</li>
+<li>gem install win32console</li>
+</ul>
+</li>
+<li>Save a copy of WAC to work out console colour problems. Download it <a href="http://github.com/aslakhellesoy/wac/raw/master/wac.exe">here</a> 
+<ul>
+<li>I saved this to an easy path - c:/wac.exe</li>
+</ul>
+</li>
+</ol>
+<p>To check all is working, open a command line and type</p>
+<p>Cuke4Nuke</p>
+<p>If all is working well then you will see a list of help commands</p>
+<p>My product didn&#8217;t install correctly at this point due to location of ruby files. So i had to make a few changes as detailed. Please note that this is my installation paths and the paths should be changed to your versions:</p>
+<ul>
+<li>My console ANSI file was not reporting the correct encoding            
+<ul>
+<li>C:\Ruby19\lib\ruby\gems\1.9.1\gems\win32console-1.2.0-x86-mingw32\lib\Win32\Console\ANSI.rb</li>
+<li>I added the following to the first line of this file           
+<ul>
+<li># encoding: ISO-8859-1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The change detailed above then reports an error in a ruby18.dll     
+<ul>
+<li>removing this files solves this error     
+<ul>
+<li>C:\Ruby19\lib\ruby\gems\1.9.1\gems\win32console-1.2.0-x86-mingw32\lib\Win32\console.so</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Hopefully when you run a command line and type Cuke4Nuke the help options will show</p>
+<p>Next post will be a sample application that can be run via Cuke4Nuke</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-09T00:00:00+00:00" pubdate data-updated="true">Feb 9<span>th</span>, 2010</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2010/02/09/automated-ui-testing-part-2-installing-cucumber/" data-via="" data-counturl="http://paulstack.co.uk/blog/2010/02/09/automated-ui-testing-part-2-installing-cucumber/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/02/05/automated-ui-testing-part-1-watin/" title="Previous Post: Automated UI Testing - Part 1 - WatiN">&laquo; Automated UI Testing - Part 1 - WatiN</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/02/09/visual-studio-2010-release-candidate/" title="Next Post: Visual Studio 2010 Release Candidate">Visual Studio 2010 Release Candidate &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

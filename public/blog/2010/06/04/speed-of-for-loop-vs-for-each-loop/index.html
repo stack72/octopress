@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Speed of For Loop vs For Each Loop - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="Tonight i seen, via Twitter, that it was potentially faster to iterate through a collection with a For loop rather than a For Each loop. I didn&#8217 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2010/06/04/speed-of-for-loop-vs-for-each-loop">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Speed of for Loop vs for Each Loop</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-04T00:00:00+01:00" pubdate data-updated="true">Jun 4<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Tonight i seen, <a href="http://twitter.com/blowdart/status/15337766237" target="_blank">via Twitter</a>, that it was potentially faster to iterate through a collection with a For loop rather than a For Each loop. I didn&#8217;t believe this [being my usual sceptical self]. Therefore i thought i&#8217;d write some sample code to either support the theory and prove it right or to quash it.</p>
+<p>&nbsp;</p>
+<pre class="brush:csharp">        static void GetIEnumberableResults()
+        {
+            //Small Method call in order to get an IEnumerable
+            //Then parse this IEnumerable firstly over a For Loop
+            //Then over a ForEach Loop - Each Method Returned a TimeSpan
+            var strings = GetStrings();
+            var forLoopElapsedTimespan = GetForLoopElapsed_ForStrings(strings);
+            var forEachLoopElapsedTimeSpan = GetForEachLoopElapsed_ForString(strings);
+
+            Console.WriteLine("Results For IEnumberable");
+            CreateResults(forLoopElapsedTimespan, forEachLoopElapsedTimeSpan);
+            Console.ReadLine();
+        }
+</pre>
+<p>&nbsp;</p>
+<p>I started with a simple IEnumberable&lt;string&gt; and iterated over this. I expected this to tell me that ForEach was faster than a For loop as this is what i was expecting. The results are below:</p>
+<p><img src="/blog/images/2010/6/Capture-IEnumerable.GIF" alt="" /></p>
+<p>&nbsp;</p>
+<p>I was then told that the size of the collection being iterated over was a char[] of approx 65000.&nbsp;There was a challenge if ever i needed one. I created a char[] of a huge size [6
+<script src="http://www.paulstack.co.uk/blog/editors/tiny_mce3/themes/advanced/langs/en.js" type="text/javascript"></script>
+8000+] ad ran the same iteration over the array.</p>
+<pre class="brush:csharp">        
+        static void GetCharArrayResults()
+        {
+            //Small Method call in order to get char[] of size 68000 +
+            //Then parse this char[] firstly over a For Loop
+            //Then over a ForEach Loop - Each Method Returned a TimeSpan
+            var chars = GetChars();
+            var forLoopElapsed = GetForLoopElapsed_ForCharArray(chars);
+            var forEachLoopElapsed = GetForEachLoopElapsed_ForCharArray(chars);
+
+            Console.WriteLine(string.Format("Results for char[] of size {0}", chars.Length));
+            CreateResults(forLoopElapsed, forEachLoopElapsed);
+            Console.ReadLine();
+        }
+</pre>
+<p>Again i expected the ForEach loop to be faster. The results are below:</p>
+<p><img src="/blog/images/2010/6/Capture-char.GIF" alt="" /></p>
+<p>&nbsp;</p>
+<p>i have absolutely no idea what&#8217;s causing this - so if any of you can let me know that would be fantastic. This has really brought out the proper geek in me :)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-04T00:00:00+01:00" pubdate data-updated="true">Jun 4<span>th</span>, 2010</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2010/06/04/speed-of-for-loop-vs-for-each-loop/" data-via="" data-counturl="http://paulstack.co.uk/blog/2010/06/04/speed-of-for-loop-vs-for-each-loop/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/06/04/how-to-create-and-fill-and-ienumerable3cstring3e/" title="Previous Post: How-to-Create-and-Fill-and-IEnumerable<string>">&laquo; How-to-Create-and-Fill-and-IEnumerable<string></a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/06/07/my-ddd-south-west-review/" title="Next Post: My DDD South West Review">My DDD South West Review &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Follow Me</h1>
+  Twitter follow me goes here
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
