@@ -22,7 +22,7 @@ use Rack::Rewrite do
   r301 %r{^/post/installing-mono-on-windows.aspx/?$}, "/blog/2012/01/31/installing-mono-on-windows/"
   r301 %r{^/post/how-nuget-could-improve.aspx/?$}, "/blog/2012/01/17/how-nuget-could-improve/"
   r301 %r{^/post/codemash-2012-truly-awesome.aspx/?$}, "/blog/2012/01/14/codemash-2012-truly-awesome/"
-  r301 %r{^/post/2011-my-year-in-review.aspx/?$}, "/blog/2011/12/29/features-nuget-would-benefit-from/
+  r301 %r{^/post/2011-my-year-in-review.aspx/?$}, "/blog/2011/12/29/features-nuget-would-benefit-from/"
   r301 %r{^/post/features-nuget-would-benefit-from.aspx/?$}, "/blog/2011/12/29/2011-my-year-in-review/"
   r301 %r{^/post/memory-management-in-net-story-board.aspx/?$}, "/blog/2011/12/19/memory-management-in-net-story-board/"
   r301 %r{^/post/teamcitysharp-v02.aspx/?$}, "/blog/2011/11/30/teamcitysharp-v02/"
