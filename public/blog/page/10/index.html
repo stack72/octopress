@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="After my recent review of Continuous Integration in .Net, I wanted to review another book as i enjoyed it a lot. Therefore I was offered the &hellip;">
+  <meta name="description" content="A while back I seen some tweets from Mark Rendle on his version of Microsoft.Data, Simple.Data, as it seemed to be causing distress for developers &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,92 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2010/10/15/simpledata-e28093-a-new-wave-of-orm/">Simple.Data – a New Wave of ORM?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-15T00:00:00-04:00" pubdate data-updated="true">Oct 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A while back I seen some tweets from <a href="http://twitter.com/markrendle" target="_blank">Mark Rendle</a> on his version of Microsoft.Data, Simple.Data, as it seemed to be causing distress for developers when it was announced earlier.</p>
+<p>I offered to give Simple.Data a trial for Mark as I was doing a small personal project at the time that was far too simple to use a well known ORM or a horrible amount of ADO.NET code. So after getting the sample solution from Mark and reading through the integration and unit tests, my eyes were opened up to a new wave of ORM.</p>
+<p>Lets talk about the requirements of adding this ORM to our solution:</p>
+<ul>
+<li>.Net 4 framework </li>
+<li>Connectionstring called Simple.Data </li>
+<li>References to                  
+<ul>
+<li>Simple.Data.dll </li>
+<li>Simple.DataSetExtensions.dll </li>
+</ul>
+&nbsp;&nbsp;&nbsp; </li>
+</ul>
+<p>Yes that&#8217;s it! Its that easy. I was suitably impressed straight away as I have played with a&nbsp; few ORMs that require some configuration and mappings files to be created. This was very early on for Simple.Data, so there was not much documentation. In-fact the tests <strong>were</strong> the documentation :)</p>
+<p>So I was using this to kill the need to use ADO.NET and we all know how much code we would have had to write to get that working. In fact, I&#8217;m sure I would have used Enterprise Library or something to get it going and make things easier. (Lets assume I would have used Ent. Lib for code examples.)</p>
+<p>First off was to write some code to select data from a users table. With ADO.NET the code would have looked as follows:</p>
+<pre class="brush:csharp">public User GetUserById(int userId)
+{
+    var returnedUser = new User();
+    try
+    {
+        var command = db.GetStoredProcCommand("storedprocname", userId);
+	    var reader = db.ExecuteReader(command);
+	    while (reader.Read())
+	    {
+	        returnedUser = User.GetUserDetails(reader);
+	    }
+    }
+    catch (Exception ex)
+    {
+        DataAccessExceptionHandler.HandleSqlException(ex);
+    }
+    
+    return returnedUser;
+}</pre>
+<p>How does this look with Simple.Data? Well as simple as this:</p>
+<pre class="brush:csharp">public User GetUserByUserId(int userId)
+{
+    dynamic db = Database.Open();
+    var dbUser = db.Users.FindByUserId(userId);
+
+    if (dbUser != null)
+    {
+        return dbUser;
+    }
+    else
+        return new User();
+}
+</pre>
+<p>This makes it a LOT simpler and no need for a stored procedure. Basically it uses the dynamic keyword of C# in order to get the properties of the User table for a specified user and then puts the column names and their values in the dynamic object.</p>
+<p>The same shortening and less complex methods are in place for getting lists of users and items from the database as well as inserting (using Named parameters) and also deleting rows by a specified column name. This was a basic introduction about how easy I found Simple.Data to use. Please read more about <a href="http://blog.markrendle.net/2010/08/introducing-simpledata.html" target="_blank">Simple.Data at Mark Rendle&#8217;s blog</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2010/10/09/review-dependency-injection-in-net/">Review: Dependency Injection in .Net</a></h1>
     
     
@@ -89,7 +175,7 @@
   
 
 
-<time datetime="2010-10-09T00:00:00+01:00" pubdate data-updated="true">Oct 9<span>th</span>, 2010</time>
+<time datetime="2010-10-09T00:00:00-04:00" pubdate data-updated="true">Oct 9<span>th</span>, 2010</time>
         
       </p>
     
@@ -125,7 +211,7 @@
   
 
 
-<time datetime="2010-09-13T00:00:00+01:00" pubdate data-updated="true">Sep 13<span>th</span>, 2010</time>
+<time datetime="2010-09-13T00:00:00-04:00" pubdate data-updated="true">Sep 13<span>th</span>, 2010</time>
         
       </p>
     
@@ -185,7 +271,7 @@
   
 
 
-<time datetime="2010-08-31T00:00:00+01:00" pubdate data-updated="true">Aug 31<span>st</span>, 2010</time>
+<time datetime="2010-08-31T00:00:00-04:00" pubdate data-updated="true">Aug 31<span>st</span>, 2010</time>
         
       </p>
     
@@ -278,7 +364,7 @@
   
 
 
-<time datetime="2010-08-14T00:00:00+01:00" pubdate data-updated="true">Aug 14<span>th</span>, 2010</time>
+<time datetime="2010-08-14T00:00:00-04:00" pubdate data-updated="true">Aug 14<span>th</span>, 2010</time>
         
       </p>
     
@@ -347,7 +433,7 @@
   
 
 
-<time datetime="2010-08-09T00:00:00+01:00" pubdate data-updated="true">Aug 9<span>th</span>, 2010</time>
+<time datetime="2010-08-09T00:00:00-04:00" pubdate data-updated="true">Aug 9<span>th</span>, 2010</time>
         
       </p>
     
@@ -458,7 +544,7 @@ string pixel_placeholders = _CONFIG.GetAppSettingsPropertyValue("TrackingPixelPl
   
 
 
-<time datetime="2010-07-29T00:00:00+01:00" pubdate data-updated="true">Jul 29<span>th</span>, 2010</time>
+<time datetime="2010-07-29T00:00:00-04:00" pubdate data-updated="true">Jul 29<span>th</span>, 2010</time>
         
       </p>
     
@@ -525,7 +611,7 @@ w3svc.Invoke(command, null);
   
 
 
-<time datetime="2010-07-27T00:00:00+01:00" pubdate data-updated="true">Jul 27<span>th</span>, 2010</time>
+<time datetime="2010-07-27T00:00:00-04:00" pubdate data-updated="true">Jul 27<span>th</span>, 2010</time>
         
       </p>
     
@@ -576,7 +662,7 @@ w3svc.Invoke(command, null);
   
 
 
-<time datetime="2010-06-07T00:00:00+01:00" pubdate data-updated="true">Jun 7<span>th</span>, 2010</time>
+<time datetime="2010-06-07T00:00:00-04:00" pubdate data-updated="true">Jun 7<span>th</span>, 2010</time>
         
       </p>
     
@@ -628,7 +714,7 @@ w3svc.Invoke(command, null);
   
 
 
-<time datetime="2010-06-04T00:00:00+01:00" pubdate data-updated="true">Jun 4<span>th</span>, 2010</time>
+<time datetime="2010-06-04T00:00:00-04:00" pubdate data-updated="true">Jun 4<span>th</span>, 2010</time>
         
       </p>
     
@@ -684,76 +770,6 @@ w3svc.Invoke(command, null);
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/06/04/how-to-create-and-fill-and-ienumerable3cstring3e/">How-to-Create-and-Fill-and-IEnumerable<string></a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-06-04T00:00:00+01:00" pubdate data-updated="true">Jun 4<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Very simple tip i found at <a href="http://www.devevening.co.uk" target="_blank">DevEvening</a> tonight from <a href="http://blog.markrendle.net/" target="_blank">Mark Rendle</a></p>
-<p>To create a new IEnumerable&lt;string&gt; and add items to that IEnumerable&lt;string&gt; then something very small along the lines of:</p>
-<pre class="brush: csharp">        private static IEnumerable GetStrings()
-        {
-            yield return "a";
-            yield return "b";
-            yield return "c";
-            yield return "d";
-            yield return "e";
-            yield return "f";
-            yield return "g";
-            yield return "h";
-            yield return "i";
-            yield return "j";
-            yield return "k";
-            yield return "l";
-            yield return "m";
-            yield return "n";
-        }
-</pre>
-<p>I&#8217;m sure most of you knew this but it was never something i knew how to do. i usually ended up doing something along the lines of</p>
-<pre class="brush: csharp">        private static IEnumerable ConvertListToIEnumberable()
-        {
-            var&gt; listStrings = new List();
-            listStrings.Add("a");
-            listStrings.Add("b");
-            listStrings.Add("c");
-            listStrings.Add("d");
-            listStrings.Add("e");
-
-            IEnumerable ienumString = listStrings;
-            return ienumString;
-        }
-</pre>
-<p>Possibly useful to you, possibly not as you may already know it :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -777,6 +793,10 @@ w3svc.Invoke(command, null);
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
       </li>
     
@@ -792,10 +812,6 @@ w3svc.Invoke(command, null);
         <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -809,7 +825,7 @@ w3svc.Invoke(command, null);
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  Copyright &copy; 2014 - Paul Stack (@stack72) -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

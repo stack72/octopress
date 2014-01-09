@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="In recent months, there has been a shift in methodologies to move my team from kanban to a flavour of scrum never quite seen before. This was not my &hellip;">
+  <meta name="description" content="This is post 5 in a series called &lsquo;How to get started with CI&rsquo;. The last post talked about how to implement CI to your first CI project. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,63 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/08/31/strategy-to-make-ci-builds-self-testing/">Strategy to Make CI Builds Self Testing</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-31T00:00:00-04:00" pubdate data-updated="true">Aug 31<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is post 5 in a series called &lsquo;<a href="http://paulstack.co.uk/blog/post/How-to-get-started-with-CI.aspx">How to get started with CI</a>&rsquo;. The last post talked about how to implement CI to your first CI project. This post will extend that implementation by making sure that a build is &lsquo;self testing.</p>
+<p>A &lsquo;self-testing&rsquo; build is a build that runs all of the required <em>tests</em> as part of it. It is important to stress the term <em>tests</em> here as there are different types of tests, unit, integration, regression, UI etc.). In general tests as described run in the following way:</p>
+<ul>
+<li>unit tests &ndash; run in isolation, mock any dependencies and should be fast</li>
+<li>integration / regression tests &ndash; require some sort of setup of data / environment and will be slower to run</li>
+<li>UI / acceptance tests are slower to run and will require a replica of the application to test against. These will be a lot slower.</li>
+</ul>
+<ul>
+<ul>It is important to understand that if a build that has triggered because of a VCS check in and doesn&rsquo;t break the build then we cannot assume the integration of the code has worked.</ul>
+</ul>
+<p><strong>We will not know that the integration has been successful until the code has been tested. </strong></p>
+<ul>The most efficient way of testing the code is with our test suite. If the integration fails with obvious errors, e.g. a compilation error, then that&rsquo;s a huge clue that something has gone wrong.</ul>
+<ul>My usual strategy for CI builds and their tests runs is as follows:</ul>
+<h4>&nbsp;</h4>
+<h4>1. On VCS check in run all the unit tests</h4>
+<p>This will give us fast feedback about problems at a code level and will tell us if the code still behaves as expected. For this instant feedback to happen, builds (including test runs) must be fast. IF the runs are not fast then development could potentially be impacted by developers working with code that doesn&rsquo;t build or hasn&rsquo;t been tested. Always think of the 10 minute rule for the time a build starts till completion.</p>
+<h4>2. Every 2 hours run the integration / regression tests</h4>
+<p>These tests are very important to us but are a step below the priority of unit tests. They will be slower to run since we require data to be setup and torn down for the tests. They can require network and database interaction so we cannot hang around waiting for them to complete.</p>
+<h4>3. Nightly run the UI / Acceptance tests</h4>
+<p>These are again still import but the lowest of the priority order for a <strong>standard</strong> CI build. There will always be a round of testing by QAs or whoever before a release so there is time to fix any errors arising. From my nightly strategy, errors in these tests will only take at maximum a day to appear to a team. These tests are slower again and may require a full compilation and installation of an application to run against so running them overnight means there should be no real problem with time.</p>
+<p>The steps listed about are the steps I use for a project is running a normal CI environment. These would change when an environment changes to include continuous delivery of the application. This will be discussed in a further post.</p>
+<p>This is only a suggested approach from the experiences I have had with CI. If you run your builds in a different manner then I would love to hear about it &ndash; leave a comment below.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/08/22/is-it-really-agile/">Is It Really Agile?</a></h1>
     
     
@@ -89,7 +146,7 @@
   
 
 
-<time datetime="2011-08-22T00:00:00+01:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2011</time>
+<time datetime="2011-08-22T00:00:00-04:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2011</time>
         
       </p>
     
@@ -150,7 +207,7 @@
   
 
 
-<time datetime="2011-08-17T00:00:00+01:00" pubdate data-updated="true">Aug 17<span>th</span>, 2011</time>
+<time datetime="2011-08-17T00:00:00-04:00" pubdate data-updated="true">Aug 17<span>th</span>, 2011</time>
         
       </p>
     
@@ -211,7 +268,7 @@
   
 
 
-<time datetime="2011-08-13T00:00:00+01:00" pubdate data-updated="true">Aug 13<span>th</span>, 2011</time>
+<time datetime="2011-08-13T00:00:00-04:00" pubdate data-updated="true">Aug 13<span>th</span>, 2011</time>
         
       </p>
     
@@ -258,7 +315,7 @@
   
 
 
-<time datetime="2011-08-09T00:00:00+01:00" pubdate data-updated="true">Aug 9<span>th</span>, 2011</time>
+<time datetime="2011-08-09T00:00:00-04:00" pubdate data-updated="true">Aug 9<span>th</span>, 2011</time>
         
       </p>
     
@@ -298,7 +355,7 @@
   
 
 
-<time datetime="2011-08-04T00:00:00+01:00" pubdate data-updated="true">Aug 4<span>th</span>, 2011</time>
+<time datetime="2011-08-04T00:00:00-04:00" pubdate data-updated="true">Aug 4<span>th</span>, 2011</time>
         
       </p>
     
@@ -347,7 +404,7 @@
   
 
 
-<time datetime="2011-08-03T00:00:00+01:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2011</time>
+<time datetime="2011-08-03T00:00:00-04:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2011</time>
         
       </p>
     
@@ -399,7 +456,7 @@
   
 
 
-<time datetime="2011-07-27T00:00:00+01:00" pubdate data-updated="true">Jul 27<span>th</span>, 2011</time>
+<time datetime="2011-07-27T00:00:00-04:00" pubdate data-updated="true">Jul 27<span>th</span>, 2011</time>
         
       </p>
     
@@ -440,7 +497,7 @@
   
 
 
-<time datetime="2011-07-18T00:00:00+01:00" pubdate data-updated="true">Jul 18<span>th</span>, 2011</time>
+<time datetime="2011-07-18T00:00:00-04:00" pubdate data-updated="true">Jul 18<span>th</span>, 2011</time>
         
       </p>
     
@@ -498,7 +555,7 @@
   
 
 
-<time datetime="2011-07-15T00:00:00+01:00" pubdate data-updated="true">Jul 15<span>th</span>, 2011</time>
+<time datetime="2011-07-15T00:00:00-04:00" pubdate data-updated="true">Jul 15<span>th</span>, 2011</time>
         
       </p>
     
@@ -519,57 +576,6 @@
 <p><em>&ldquo;For mapping properties, it handles camelcase, lowercase and a bunch of other conventions. You can also specify explicitly&rdquo;</em></p>
 <p>Using EasyHTTP, I was able to cut at least 2 lines of code per method in the client code. I was also able to delete an attribute that was present on <strong>all properties in the entities</strong> in a little bit of work.</p>
 <p>The added distinction of creating the notion of GETs, PUTs and DELETE calls from each other mean that my class can be extended much easier. Hadi has written a post on EasyHTTP on <a href="http://hadihariri.com/2011/01/16/easyhttp/" target="_blank">his blog</a>. I would strongly suggest reading this and discovering if you can use this application in place of old HttpWebRequest calls. Its cleaner and helps to make code a little bit more DRY. My thanks to Hadi (and any contributors there may be) for making my work in this area a little easier!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/07/11/iis-rewrite-tool-the-pain-of-a-simple-rule-change/">IIS Rewrite Tool – the Pain of a Simple Rule Change</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-11T00:00:00+01:00" pubdate data-updated="true">Jul 11<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I had a real pain point with the <a href="http://www.iis.net/download/urlrewrite" target="_blank">IIS Rewrite tool</a> today. I wanted to take an out of the box canonical rewrite rule and then modify it slightly to fit my own scenario. This tool is very easy to setup simple, out of the box rules &ndash; e.g. in order to get a simple canonical url rewrite (<a href="http://test.com">http://test.com</a> to redirect to <a href="http://www.test.com">http://www.test.com</a> then we would do as follows:</p>
-<p><a href="http://paulstack.co.uk/blog/images/image_27.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_25.png" border="0" alt="image" width="250" height="168" /></a></p>
-<p>You then enter the primary host name &ndash; in my case it is <a href="http://www.test.com">www.test.com</a><a href="http://paulstack.co.uk/blog/images/image_28.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_26.png" border="0" alt="image" width="244" height="153" /></a></p>
-<p>That is it! The rule is now set up &ndash; pretty easy eh! This will redirect any request that isn&#8217;t http://www.test.com to become http://www.test.com. The following code is added to the web.config file in order to make this work:</p>
-<script src="https://gist.github.com/479580648e7a468780f7.js"></script>
-<p>So this wasn&rsquo;t quite right for my setup. I have a main URL that sits with the load balancer &ndash; lets say that is <a href="http://www.test.com">www.test.com</a> <strong>but</strong> I have individual URLs associated with the individual servers lets say an example is <a href="http://server1.internal-test.com">http://server1.internal-test.com</a>. I use individual server URLs for server monitoring &ndash; <a href="http://www.pingdom.com/" target="_blank">Pingdom</a> will constantly hit a specific page on the individual server to test for uptime. The canonical rule I have listed above will redirect the individual URL to the load balanced URL so I had to try and change the built in rule. Firstly I tried to do this via the web.config and adding my own lines. <strong>This did not work at all</strong>. I could find little documentation about how the rule is constructed so I was basically just &#8220;hacking&#8221; the rule to try to get it to work.</p>
-<p>Then I went and used the built-in editor for the IIS rewrite tool. When I seen the list of rules I double clicked on the rule and got the following screen:</p>
-<p><a href="http://paulstack.co.uk/blog/images/image_29.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_27.png" border="0" alt="image" width="224" height="244" /></a></p>
-<p>This is where I finally got my editing correct. I had to add a condition to list -</p>
-<p><a href="http://paulstack.co.uk/blog/images/image_30.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_28.png" border="0" alt="image" width="244" height="162" /></a></p>
-<p>This did not offer my any type of drop down list for the different options I had for condition input &ndash; as you can see it is currently selected as {QUERY_STRING}. I didn&rsquo;t realise I had to change this. But once I had figured this out I changed it to look as follows:</p>
-<p><a href="http://paulstack.co.uk/blog/images/image_31.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_29.png" border="0" alt="image" width="244" height="162" /></a></p>
-<p>This was the correct rule &ndash; it says in pseudo terms &ndash; if the URL does not match this format then perform the redirect to the canonical host. This left me with the following web.config entry</p>
-<script src="https://gist.github.com/0b44fed10f6ad782fd76.js"></script>
-<p>&nbsp;</p>
-<p>This was way too easy to mess up. I would love there to be a way to test my rules in an actual scenario &ndash; a sample application that I could pass requests to and see what the response would be. I hope you don&rsquo;t fall into this rewrite rule trap! Please, IIS team, make it easier to test the rules that I have created.</p>
 </div>
   
   
@@ -600,6 +606,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
       </li>
     
@@ -615,10 +625,6 @@
         <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -632,7 +638,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  Copyright &copy; 2014 - Paul Stack (@stack72) -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

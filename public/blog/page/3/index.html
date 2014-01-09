@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I have heard people talking for a while on the TeamCity pricing strategy and thought I&rsquo;d write a post to start to get some opinions on what you &hellip;">
+  <meta name="description" content="Hot on the heels of the first release of TeamCitySharp, a new update has been released for the project to nuget. There were 2 major additions to the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,59 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/11/30/teamcitysharp-v02/">TeamCitySharp v0.2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-30T00:00:00-05:00" pubdate data-updated="true">Nov 30<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Hot on the heels of the first release of <a href="http://github.com/stack72/teamcitysharp">TeamCitySharp</a>, a new update has been released for the project to <a href="http://nuget.org/List/Packages/TeamCitySharp">nuget</a>. There were 2 major additions to the project both contributed via pull requests on Github.</p>
+<h4>Introduction of Build Locator</h4>
+<p>This makes the protocol for obtaining build information easier as we use the locator in the url rather than trying to build a query string manually. Previously we built a query string as follows:</p>
+<p>http://myserver.com/httpAuth/app/rest/buildTypes/id:bt437/builds?status=SUCCESS</p>
+<p>This would get the successful builds for build config id 437. This has now been replaced by the following query string:</p>
+<p>http://myserver.com/httpAuth/app/rest/builds?locator=buildType:id:bt437,status:SUCCESS</p>
+<p>Thanks must go to <a href="http://twitter.com/#!/sibartlett">Simon Bartlett</a> for this addition to the codebase. The existing methods will work in this way as the code behind the public methods has been changed to us the build locator pattern. Therefore you can still call the method:</p>
+<script type="text/javascript" src="https://gist.github.com/90d156986380a6f43bd5.js"></script>
+<p>Behind the scenes TeamCitySharp does the following call:</p>
+<script type="text/javascript" src="https://gist.github.com/47fa6fdb8ec5f4e2159c.js"></script>
+<p>&nbsp;</p>
+<h4>New Sample Build Monitor</h4>
+<p>There is now a new project included in the source code. This project is a sample implementation of a build monitor using TeamCitySharp based on MVC3 and Knockout.js. Thanks to <a href="http://twitter.com/codingbadger">Barry Mooring</a> for contributing this sample to the project.</p>
+<p>In order to use the build monitor you just need to go to the settings file and add the TeamCity url, username and password.</p>
+<p>This gives a look and feel as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_38.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_36.png" alt="image" width="497" height="282" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>You can download the source from <a href="http://github.com/stack72/TeamCitySharp">Github</a> or via nuget (install-package TeamCitySharp). Please feel free to leave feedback about what you feel it is lacking or what you don&rsquo;t like about the project. This library will only be able to get better through help from users.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/11/29/teamcity-pricing-model-discussion/">TeamCity Pricing Model Discussion</a></h1>
     
     
@@ -89,7 +142,7 @@
   
 
 
-<time datetime="2011-11-29T00:00:00+00:00" pubdate data-updated="true">Nov 29<span>th</span>, 2011</time>
+<time datetime="2011-11-29T00:00:00-05:00" pubdate data-updated="true">Nov 29<span>th</span>, 2011</time>
         
       </p>
     
@@ -132,7 +185,7 @@
   
 
 
-<time datetime="2011-11-24T00:00:00+00:00" pubdate data-updated="true">Nov 24<span>th</span>, 2011</time>
+<time datetime="2011-11-24T00:00:00-05:00" pubdate data-updated="true">Nov 24<span>th</span>, 2011</time>
         
       </p>
     
@@ -177,7 +230,7 @@
   
 
 
-<time datetime="2011-11-10T00:00:00+00:00" pubdate data-updated="true">Nov 10<span>th</span>, 2011</time>
+<time datetime="2011-11-10T00:00:00-05:00" pubdate data-updated="true">Nov 10<span>th</span>, 2011</time>
         
       </p>
     
@@ -222,7 +275,7 @@
   
 
 
-<time datetime="2011-10-31T00:00:00+00:00" pubdate data-updated="true">Oct 31<span>st</span>, 2011</time>
+<time datetime="2011-10-31T00:00:00-04:00" pubdate data-updated="true">Oct 31<span>st</span>, 2011</time>
         
       </p>
     
@@ -266,7 +319,7 @@
   
 
 
-<time datetime="2011-10-16T00:00:00+01:00" pubdate data-updated="true">Oct 16<span>th</span>, 2011</time>
+<time datetime="2011-10-16T00:00:00-04:00" pubdate data-updated="true">Oct 16<span>th</span>, 2011</time>
         
       </p>
     
@@ -321,7 +374,7 @@
   
 
 
-<time datetime="2011-10-11T00:00:00+01:00" pubdate data-updated="true">Oct 11<span>th</span>, 2011</time>
+<time datetime="2011-10-11T00:00:00-04:00" pubdate data-updated="true">Oct 11<span>th</span>, 2011</time>
         
       </p>
     
@@ -368,7 +421,7 @@
   
 
 
-<time datetime="2011-09-28T00:00:00+01:00" pubdate data-updated="true">Sep 28<span>th</span>, 2011</time>
+<time datetime="2011-09-28T00:00:00-04:00" pubdate data-updated="true">Sep 28<span>th</span>, 2011</time>
         
       </p>
     
@@ -411,7 +464,7 @@
   
 
 
-<time datetime="2011-09-20T00:00:00+01:00" pubdate data-updated="true">Sep 20<span>th</span>, 2011</time>
+<time datetime="2011-09-20T00:00:00-04:00" pubdate data-updated="true">Sep 20<span>th</span>, 2011</time>
         
       </p>
     
@@ -457,7 +510,7 @@
   
 
 
-<time datetime="2011-09-10T00:00:00+01:00" pubdate data-updated="true">Sep 10<span>th</span>, 2011</time>
+<time datetime="2011-09-10T00:00:00-04:00" pubdate data-updated="true">Sep 10<span>th</span>, 2011</time>
         
       </p>
     
@@ -471,63 +524,6 @@
 <p>We are all continually learning. It will be scary to be at GiveCampUK and be put in a situation that puts us out of our comfort zone. I personally think it will make us better developers for facing the situation and overcoming it. The way we will structure the technical teams of GiveCampUK means that help is only a shout away. There will be a team of &#8220;roving&#8221; developers who will effectively troubleshooters! We have also managed to get hold of Pluralsight subscriptions for all the attendees &ndash; this will help them &ldquo;hone&rdquo; their skills.</p>
 <p>Please try to take this advice about GiveCampUK &ndash; embrace the experience and use the nerves to your advantage! This is a great opportunity to network and show that you are a good developer who is passionate about what you do! <strong>IT IS NOT A JOB INTERVIEW &ndash; </strong>we will not try to trick you :)</p>
 <p>Its in 6 weeks time &ndash; I&rsquo;m getting very excited!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/31/strategy-to-make-ci-builds-self-testing/">Strategy to Make CI Builds Self Testing</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-08-31T00:00:00+01:00" pubdate data-updated="true">Aug 31<span>st</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This is post 5 in a series called &lsquo;<a href="http://paulstack.co.uk/blog/post/How-to-get-started-with-CI.aspx">How to get started with CI</a>&rsquo;. The last post talked about how to implement CI to your first CI project. This post will extend that implementation by making sure that a build is &lsquo;self testing.</p>
-<p>A &lsquo;self-testing&rsquo; build is a build that runs all of the required <em>tests</em> as part of it. It is important to stress the term <em>tests</em> here as there are different types of tests, unit, integration, regression, UI etc.). In general tests as described run in the following way:</p>
-<ul>
-<li>unit tests &ndash; run in isolation, mock any dependencies and should be fast</li>
-<li>integration / regression tests &ndash; require some sort of setup of data / environment and will be slower to run</li>
-<li>UI / acceptance tests are slower to run and will require a replica of the application to test against. These will be a lot slower.</li>
-</ul>
-<ul>
-<ul>It is important to understand that if a build that has triggered because of a VCS check in and doesn&rsquo;t break the build then we cannot assume the integration of the code has worked.</ul>
-</ul>
-<p><strong>We will not know that the integration has been successful until the code has been tested. </strong></p>
-<ul>The most efficient way of testing the code is with our test suite. If the integration fails with obvious errors, e.g. a compilation error, then that&rsquo;s a huge clue that something has gone wrong.</ul>
-<ul>My usual strategy for CI builds and their tests runs is as follows:</ul>
-<h4>&nbsp;</h4>
-<h4>1. On VCS check in run all the unit tests</h4>
-<p>This will give us fast feedback about problems at a code level and will tell us if the code still behaves as expected. For this instant feedback to happen, builds (including test runs) must be fast. IF the runs are not fast then development could potentially be impacted by developers working with code that doesn&rsquo;t build or hasn&rsquo;t been tested. Always think of the 10 minute rule for the time a build starts till completion.</p>
-<h4>2. Every 2 hours run the integration / regression tests</h4>
-<p>These tests are very important to us but are a step below the priority of unit tests. They will be slower to run since we require data to be setup and torn down for the tests. They can require network and database interaction so we cannot hang around waiting for them to complete.</p>
-<h4>3. Nightly run the UI / Acceptance tests</h4>
-<p>These are again still import but the lowest of the priority order for a <strong>standard</strong> CI build. There will always be a round of testing by QAs or whoever before a release so there is time to fix any errors arising. From my nightly strategy, errors in these tests will only take at maximum a day to appear to a team. These tests are slower again and may require a full compilation and installation of an application to run against so running them overnight means there should be no real problem with time.</p>
-<p>The steps listed about are the steps I use for a project is running a normal CI environment. These would change when an environment changes to include continuous delivery of the application. This will be discussed in a further post.</p>
-<p>This is only a suggested approach from the experiences I have had with CI. If you run your builds in a different manner then I would love to hear about it &ndash; leave a comment below.</p>
 </div>
   
   
@@ -558,6 +554,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
       </li>
     
@@ -573,10 +573,6 @@
         <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -590,7 +586,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  Copyright &copy; 2014 - Paul Stack (@stack72) -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="This post is not in any way going to tell you what PostSharp is &ndash; you will need to check their website for a full explanation of what it is and &hellip;">
+  <meta name="description" content="A few weeks back, Craig Bernston posted a link about how MSBuild files can be debugged! I wasn&#8217;t sure if this was possible so I followed the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,42 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/02/19/how-to-debug-msbuild-files-in-vs2010/">How to Debug MSBuild Files in VS2010</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-19T00:00:00-05:00" pubdate data-updated="true">Feb 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A few weeks back, <a href="http://twitter.com/craigber" target="_blank">Craig Bernston</a> posted a link about how MSBuild files can be debugged! I wasn&#8217;t sure if this was possible so I followed the guide to get it going. I hit a few snags with trying to get msbuild working (or so I thought) but it was down to x86 and x64 versions. </p>  <p>It has taken me a while to post this so that I can actually try this out and make sure that it works – i can’t be responsible for passing around a link that causes harm ;) The guide is here - <a title="http://stack72.me/gfGTse" href="http://stack72.me/gfGTse">http://stack72.me/gfGTse</a></p>  <p>The start of the guide talks about how to add the registry information to allow this to happen. Please note the following caveat to that information:</p>  <p>If you are on a x64 system – then you will usually start the cmd.exe in x64 version. Therefore when you are actually starting the msbuild version you have just edited it will usually be on the following path</p>  <p>C:\Windows\Microsoft.NET\Framework64\v4.0.30319</p>  <p>so when you are trying to debug a msbuild file open a command prompt and run a command similar to as follows:</p>  <p>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe /t:rebuild /debug &lt;project or solution path here&gt;</p>  <p>This will then allow you to proceed and debug the file as necessary. This has brought me a lot of happiness as it has helped me create killer build scripts.</p>  <p>Happy building!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/02/11/postsharp-and-teamcity-integration/">PostSharp 2.0 and TeamCity Integration</a></h1>
     
     
@@ -89,7 +125,7 @@
   
 
 
-<time datetime="2011-02-11T00:00:00+00:00" pubdate data-updated="true">Feb 11<span>th</span>, 2011</time>
+<time datetime="2011-02-11T00:00:00-05:00" pubdate data-updated="true">Feb 11<span>th</span>, 2011</time>
         
       </p>
     
@@ -141,7 +177,7 @@
   
 
 
-<time datetime="2011-02-04T00:00:00+00:00" pubdate data-updated="true">Feb 4<span>th</span>, 2011</time>
+<time datetime="2011-02-04T00:00:00-05:00" pubdate data-updated="true">Feb 4<span>th</span>, 2011</time>
         
       </p>
     
@@ -190,7 +226,7 @@ I&rsquo;d then like to be able to take this xml file and import it to a new exte
   
 
 
-<time datetime="2011-01-31T00:00:00+00:00" pubdate data-updated="true">Jan 31<span>st</span>, 2011</time>
+<time datetime="2011-01-31T00:00:00-05:00" pubdate data-updated="true">Jan 31<span>st</span>, 2011</time>
         
       </p>
     
@@ -238,7 +274,7 @@ I&rsquo;d then like to be able to take this xml file and import it to a new exte
   
 
 
-<time datetime="2011-01-24T00:00:00+00:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
+<time datetime="2011-01-24T00:00:00-05:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
         
       </p>
     
@@ -274,7 +310,7 @@ I&rsquo;d then like to be able to take this xml file and import it to a new exte
   
 
 
-<time datetime="2011-01-22T00:00:00+00:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2011</time>
+<time datetime="2011-01-22T00:00:00-05:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2011</time>
         
       </p>
     
@@ -318,7 +354,7 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
   
 
 
-<time datetime="2011-01-21T00:00:00+00:00" pubdate data-updated="true">Jan 21<span>st</span>, 2011</time>
+<time datetime="2011-01-21T00:00:00-05:00" pubdate data-updated="true">Jan 21<span>st</span>, 2011</time>
         
       </p>
     
@@ -365,7 +401,7 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
   
 
 
-<time datetime="2011-01-17T00:00:00+00:00" pubdate data-updated="true">Jan 17<span>th</span>, 2011</time>
+<time datetime="2011-01-17T00:00:00-05:00" pubdate data-updated="true">Jan 17<span>th</span>, 2011</time>
         
       </p>
     
@@ -418,7 +454,7 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
   
 
 
-<time datetime="2011-01-15T00:00:00+00:00" pubdate data-updated="true">Jan 15<span>th</span>, 2011</time>
+<time datetime="2011-01-15T00:00:00-05:00" pubdate data-updated="true">Jan 15<span>th</span>, 2011</time>
         
       </p>
     
@@ -475,7 +511,7 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
   
 
 
-<time datetime="2011-01-12T00:00:00+00:00" pubdate data-updated="true">Jan 12<span>th</span>, 2011</time>
+<time datetime="2011-01-12T00:00:00-05:00" pubdate data-updated="true">Jan 12<span>th</span>, 2011</time>
         
       </p>
     
@@ -483,42 +519,6 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
 
 
   <div class="entry-content"><p>For the past few years I have been <strike>annoying</strike> introducing all of the people I have worked with to automated testing. The tool I showed was <a href="https://github.com/richardlawrence/Cuke4Nuke/wiki" target="_blank">Cuke4nuke</a>. Now this has been a great tool for me. Its a way to run Cucumber style tests written in asp.net code (read more about it at the link above)</p>  <p>I think the time has come for me to finally move away from this. This is no reflection on the product itself, I think <a href="http://www.richardlawrence.info/" target="_blank">Richard Lawrence</a> has done a fantastic job on the product, but the reason I’m moving away from the product is that it is no longer feasible for me to be able to run my tests using a ruby console. The team I currently work with are having trouble with ruby installations etc. so I made the decision to move to <a href="http://specflow.org/" target="_blank">Specflow</a> as it’s a asp.net BDD tool. </p>  <h4>What advantages will specflow give me over cuke4nuke?</h4>  <p>1<sup>st</sup>, and the main advantage, is that the tests written with specflow can be run directly from Visual Studio Unit test sessions. For my test this is very important as we are trying to get the tests run on a regular basis as they do their work.</p>  <p>2nd the developers will no longer need to have a ruby installation. For me, having Ruby isn’t too much of an issue as I’m interested in learning it and looking at it, but for other developers they see this as a bit of a chore to run the tests via ruby console and command line.</p>  <p>3rd is that the developers who run the tests can debug the tests themselves as they are running inside the Visual Studio environment. Again I’m not saying that tests always need debugged but it helps them when it’s needed</p>  <p>I’ll still be keeping an eye on the project as I have very much enjoyed using it. I guess my thanks have to go to Richard Lawrence and Goyko Adzic for blogging about the product and its uses</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/11/review-soa-patterns/">Review: SOA Patterns</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-11T00:00:00+00:00" pubdate data-updated="true">Jan 11<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I started reading the SOA Patterns book by Manning and was very pleased with it so I thought i&rsquo;d blog my thoughts on it.</p>
 </div>
   
   
@@ -549,6 +549,10 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
       </li>
     
@@ -564,10 +568,6 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
         <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -581,7 +581,7 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Paul Stack (@stack72) -
+  Copyright &copy; 2014 - Paul Stack (@stack72) -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
