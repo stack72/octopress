@@ -4,7 +4,7 @@
   <title><![CDATA[Category: change | Adventures of a wannabe geek!]]></title>
   <link href="http://paulstack.co.uk/blog/categories/change/atom.xml" rel="self"/>
   <link href="http://paulstack.co.uk/"/>
-  <updated>2014-01-09T10:43:08-05:00</updated>
+  <updated>2014-01-09T10:56:24-05:00</updated>
   <id>http://paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -29,7 +29,7 @@
 </ul>
 
 
-<p>DevOps is very importand to me. When a company has a great culture, things get done. Operations work is smooth, software delivery is smooth and the teams are truly focused on achieving the goals of the business. Without a DevOps culture, things are not as smooth as they could be. In order to allow our developers to more faster, we will be building better systems (e.g. provisioning, configuration management, monitoring, logging etc.) to allow them to really achieve &lsquo;situational awareness&rsquo;</p>
+<p>DevOps is very important to me. When a company has a great culture, things get done. Operations work is smooth, software delivery is smooth and the teams are truly focused on achieving the goals of the business. Without a DevOps culture, things are not as smooth as they could be. In order to allow our developers to more faster, we will be building better systems (e.g. provisioning, configuration management, monitoring, logging etc.) to allow them to really achieve &lsquo;situational awareness&rsquo;</p>
 
 <p>I heard the term &lsquo;situational awareness&rsquo; just over a year ago. It was defined as &lsquo;knowing what is going on around you&rsquo;. Putting this into context, do you know what is going on with your applications in production? I certainly didn&rsquo;t. This is essential to understand how your software is performing. I will be trying to help our engineers to try and solve this issue by helping them build better infrastructure management systems.</p>
 
