@@ -547,12 +547,18 @@
         <lastmod>2014-01-09T10:56:14-05:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://paulstack.co.uk/blog/2014/01/11/can-we-fully-trust-online-training_cources/
+        </loc>
+        <lastmod>2014-01-11T21:43:24-05:00</lastmod>
+    </url>
+    <url>
         <loc>http://paulstack.co.uk/about-me/</loc>
         <lastmod>2013-10-21T03:16:53-04:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/archives/</loc>
-        <lastmod>2014-01-09T10:56:14-05:00</lastmod>
+        <lastmod>2014-01-11T21:43:24-05:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/contact/</loc>
@@ -560,7 +566,7 @@
     </url>
     <url>
         <loc>http://paulstack.co.uk/</loc>
-        <lastmod>2014-01-09T10:56:14-05:00</lastmod>
+        <lastmod>2014-01-11T21:43:24-05:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/robots.txt</loc>

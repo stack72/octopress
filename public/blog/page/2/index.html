@@ -9,7 +9,8 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I had to refactor some very old code a while back. The code looked similar to this: I had to refactor it so that I could add more parts to it. There &hellip;">
+  <meta name="description" content="I had this idea to create a dashboard that would ping different version of a site in order to get the build number. The details are as follows:
+www. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +68,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/30/spoofing-the-host-entry-in-a-httpwebrequest/">Spoofing the Host Entry in a HTTPWebRequest</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-30T00:00:00-04:00" pubdate data-updated="true">Apr 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I had this idea to create a dashboard that would ping different version of a site in order to get the build number. The details are as follows:</p>
+<p><a href="http://www.mysite.com">www.mysite.com</a></p>
+<p>runs on a local site at 192.x.x.x, a QA environment at 10.x.x.x, a staging environment at 66.x.x.x, and a live environment at 88.x.x.x (these IPs are made up). In order to hit each site, I would usually manually change the host file and then make the web request. This was not a great solution as I hate dealing with host file entries. On experimenting with HTTPWebRequest, I noticed that you can use reflection in order to change the Headers of the Request. The normal code to create a HTTPWebRequest would look as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/17bf91700d77d25c2435.js"></script>
+<p>I was able to spoof the host by changing the host using reflection:</p>
+<script type="text/javascript" src="https://gist.github.com/5eb2fcb26600cd81416c.js"></script>
+<p>This allowed me to make multiple requests to different versions of the same site. Using a simple collection of my site objects to build a dashboard that had the following outline:</p>
+<table style="width: 574px;" border="1" cellspacing="0" cellpadding="2">
+<tbody>
+<tr>
+<td valign="top" width="116">&nbsp;</td>
+<td valign="top" width="118">Local</td>
+<td valign="top" width="110">QA</td>
+<td valign="top" width="113">Stage</td>
+<td valign="top" width="115">Live</td>
+</tr>
+<tr>
+<td valign="top" width="115">Build Number</td>
+<td valign="top" width="118">web_12_4_qa</td>
+<td valign="top" width="111">web_12_4_qa</td>
+<td valign="top" width="114">web_12_5_stg</td>
+<td valign="top" width="116">web_12_4_prod</td>
+</tr>
+</tbody>
+</table>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -488,44 +549,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/12/19/memory-management-in-net-story-board/">Memory Management in .Net–Story Board</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-19T00:00:00-05:00" pubdate data-updated="true">Dec 19<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>During a work trip, I was prompted to get back into recalling how memory management in .net works as my company found a bit of an issue when they migrated their codebase from .net 3.5 to .net 4.</p>
-<p>Lots of searching on Google and reading of MSDN documentation helped me get back to speed on what I knew before and then I found an email from <a href="http://www.red-gate.com/">Redgate</a> in my inbox. Those awesome folk have created a simple storyboard of how it works to make it easy to understand. This has been sent to all the developers on my team as this is a great resource.</p>
-<p>I strongly suggest checking this resource out: <a title="http://stack72.me/uT8A1z" href="http://stack72.me/uT8A1z">Memory Management in .Net</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -549,6 +572,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_cources/">Can We Fully Trust Online Training Courses?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
@@ -562,10 +589,6 @@
     
       <li class="post">
         <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
       </li>
     
   </ul>

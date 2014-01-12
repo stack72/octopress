@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Well if you made it here then you have seen i have moved blog. i felt it was important to have my own control over the blog rather than just go with &hellip;">
+  <meta name="description" content="Ok i have converted some of the solutions i use to run via Visual Studio 2010 RC. When trying to debug one today i came across this error it was &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/19/strange-error-in-visual-studio-2010/">Strange Error in Visual Studio 2010</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-19T00:00:00-05:00" pubdate data-updated="true">Feb 19<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ok i have converted some of the solutions i use to run via Visual Studio 2010 RC. When trying to debug one today i came across this error</p>
+<p><img style="border: 0px initial initial;" src="/blog/images/2010/2/error.GIF" alt="" /></p>
+<p>it was rather a strange one and i couldnt really work it out. this was a fresh solution upgrade to VS2010 RC. i followed the prompt when loading the solution to create the virtual directory in IIS</p>
+<p>when i checked IIS it had set the application pool incorrectly for me</p>
+<p><img style="border: 0px initial initial;" src="/blog/images/2010/2/IIS.gif" alt="&lt;mce:script type=" /></p>
+<p>simply setting the application pool in the image above to as follows:</p>
+<p><img src="/blog/images/2010/2/apppool.GIF" alt="" /></p>
+<p>solved the problem. Hope this helps :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -553,6 +596,10 @@ public void SearchForWatiNOnGoofle()
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_cources/">Can We Fully Trust Online Training Courses?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
@@ -566,10 +613,6 @@ public void SearchForWatiNOnGoofle()
     
       <li class="post">
         <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
       </li>
     
   </ul>

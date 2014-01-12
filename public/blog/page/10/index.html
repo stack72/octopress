@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="A while back I seen some tweets from Mark Rendle on his version of Microsoft.Data, Simple.Data, as it seemed to be causing distress for developers &hellip;">
+  <meta name="description" content="This week my tool of the week is Console. This is an application that allows the hosting of different shell types all under 1 application. I can have &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,42 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/10/15/tool-of-the-week-e28093-console-e28093-151010/">Tool of the Week – Console – 15/10/10</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-15T00:00:00-04:00" pubdate data-updated="true">Oct 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This week my tool of the week is Console. This is an application that allows the hosting of different shell types all under 1 application.</p>  <p>I can have different tabs open in the application and each tab can relate to a different shell type as follows:</p>  <p><a href="http://paulstack.co.uk/blog/images/tabs.png"><img style="border-right-width: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" title="tabs" border="0" alt="tabs" src="http://paulstack.co.uk/blog/images/tabs_thumb.png" width="244" height="71" /></a> </p>  <p>This is very useful for me as I use Ruby command prompt a lot and use pinned icons to my Win 7 taskbar.</p>  <p>Its simple to add new shell types. Edit &gt; Settings </p>  <p><a href="http://paulstack.co.uk/blog/images/settings.png"><img style="border-right-width: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" title="settings" border="0" alt="settings" src="http://paulstack.co.uk/blog/images/settings_thumb.png" width="244" height="162" /></a> </p>  <p>then add a new tab and complete the details. The last part of the application that I really like is the improved copy and paste functionality. There is a right click context menu that has the following options:</p>  <p><a href="http://paulstack.co.uk/blog/images/rightclick.png"><img style="border-right-width: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" title="rightclick" border="0" alt="rightclick" src="http://paulstack.co.uk/blog/images/rightclick_thumb.png" width="244" height="182" /></a> </p>  <p>In my opinion its a fantastic product and its OSS. Check it out from <a href="http://sourceforge.net/projects/console/" target="_blank">sourceforge</a>. This is a definite 5/5 and has made my development environment a lot more company.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -693,83 +729,6 @@ w3svc.Invoke(command, null);
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/06/04/speed-of-for-loop-vs-for-each-loop/">Speed of for Loop vs for Each Loop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-06-04T00:00:00-04:00" pubdate data-updated="true">Jun 4<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Tonight i seen, <a href="http://twitter.com/blowdart/status/15337766237" target="_blank">via Twitter</a>, that it was potentially faster to iterate through a collection with a For loop rather than a For Each loop. I didn&#8217;t believe this [being my usual sceptical self]. Therefore i thought i&#8217;d write some sample code to either support the theory and prove it right or to quash it.</p>
-<p>&nbsp;</p>
-<pre class="brush:csharp">        static void GetIEnumberableResults()
-        {
-            //Small Method call in order to get an IEnumerable
-            //Then parse this IEnumerable firstly over a For Loop
-            //Then over a ForEach Loop - Each Method Returned a TimeSpan
-            var strings = GetStrings();
-            var forLoopElapsedTimespan = GetForLoopElapsed_ForStrings(strings);
-            var forEachLoopElapsedTimeSpan = GetForEachLoopElapsed_ForString(strings);
-
-            Console.WriteLine("Results For IEnumberable");
-            CreateResults(forLoopElapsedTimespan, forEachLoopElapsedTimeSpan);
-            Console.ReadLine();
-        }
-</pre>
-<p>&nbsp;</p>
-<p>I started with a simple IEnumberable&lt;string&gt; and iterated over this. I expected this to tell me that ForEach was faster than a For loop as this is what i was expecting. The results are below:</p>
-<p><img src="/blog/images/2010/6/Capture-IEnumerable.GIF" alt="" /></p>
-<p>&nbsp;</p>
-<p>I was then told that the size of the collection being iterated over was a char[] of approx 65000.&nbsp;There was a challenge if ever i needed one. I created a char[] of a huge size [6
-<script src="http://www.paulstack.co.uk/blog/editors/tiny_mce3/themes/advanced/langs/en.js" type="text/javascript"></script>
-8000+] ad ran the same iteration over the array.</p>
-<pre class="brush:csharp">        
-        static void GetCharArrayResults()
-        {
-            //Small Method call in order to get char[] of size 68000 +
-            //Then parse this char[] firstly over a For Loop
-            //Then over a ForEach Loop - Each Method Returned a TimeSpan
-            var chars = GetChars();
-            var forLoopElapsed = GetForLoopElapsed_ForCharArray(chars);
-            var forEachLoopElapsed = GetForEachLoopElapsed_ForCharArray(chars);
-
-            Console.WriteLine(string.Format("Results for char[] of size {0}", chars.Length));
-            CreateResults(forLoopElapsed, forEachLoopElapsed);
-            Console.ReadLine();
-        }
-</pre>
-<p>Again i expected the ForEach loop to be faster. The results are below:</p>
-<p><img src="/blog/images/2010/6/Capture-char.GIF" alt="" /></p>
-<p>&nbsp;</p>
-<p>i have absolutely no idea what&#8217;s causing this - so if any of you can let me know that would be fantastic. This has really brought out the proper geek in me :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -793,6 +752,10 @@ w3svc.Invoke(command, null);
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_cources/">Can We Fully Trust Online Training Courses?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
@@ -806,10 +769,6 @@ w3svc.Invoke(command, null);
     
       <li class="post">
         <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
       </li>
     
   </ul>

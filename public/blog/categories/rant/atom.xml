@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: rant | Adventures of a wannabe geek!]]></title>
+  <link href="http://paulstack.co.uk/blog/categories/rant/atom.xml" rel="self"/>
+  <link href="http://paulstack.co.uk/"/>
+  <updated>2014-01-11T21:43:27-05:00</updated>
+  <id>http://paulstack.co.uk/</id>
+  <author>
+    <name><![CDATA[Paul Stack (@stack72)]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Can we fully trust online training courses?]]></title>
+    <link href="http://paulstack.co.uk/blog/2014/01/11/can-we-fully-trust-online-training_cources/"/>
+    <updated>2014-01-11T21:11:00-05:00</updated>
+    <id>http://paulstack.co.uk/blog/2014/01/11/can-we-fully-trust-online-training_cources</id>
+    <content type="html"><![CDATA[<p><em>NOTICE: This post is not written to pick on any specific person or service. This is only my thoughts from speaking to people in the past few weeks</em></p>
+
+<p>The online training industry seems to be a lucrative thing. I have heard rumours (unconfirmed! ) of authors earning 6 or 7 figure sums from training courses they have made and delivered. While part of me thinks, &ldquo;I really want a part of that&rdquo;, the other part of me thinks that I don&rsquo;t have the level of expertise to do it.</p>
+
+<p>I (used to) blog a lot. I speak at a lot of conferences. I have even been known to ramble on a podcast or a screencast. In my opinion, I suggest others get involved in doing things like this. It creates a culture of sharing and exchanging information. I don&rsquo;t earn money for these activities. I feel like I can talk about what I am passionate about. I also feel as though I can talk about new things.</p>
+
+<p>I also run training courses on continuous integration and delivery. I am paid for these. Since I am paid for these, I feel that the level of information I put into these courses needs to create value for the attendees. In order to deliver information that is useful, I <strong>really</strong> need to understand my subject matter. By no means do I consider myself an expert in continuous integration or continuous delivery. I do feel as though I have enough experience building these systems that I can pass my learnings off to other users.</p>
+
+<p>The courses that I run are very much face to face. I listen to the attendees to see what they want to achieve and I tailor the content to give them that information. Online training courses do not do this, in my opinion. I have considered trying to record some material but I don&rsquo;t know if the information would be of use. My pet hate is when people record training material on subjects that they know very little about or have little understanding about.</p>
+
+<p>I have seen places where individual people record lots and lots of courses. Of course, they get paid to do this. To me, this feels wrong. What gives those authors the right to disseminate information on a topic that they don&rsquo;t have a deep understanding of? The information they give may not be accurate &ndash; does the user get their money back if they watch a video on API design, follow it and causes a production outage?</p>
+
+<p>Is the issue with the authors themselves or the training companies?</p>
+
+<p>The same issue happens with books. I reviewed a lot of books in 2013. A lot of the books were excellent. Some of them were not very good at all. Book publishers are spamming potential authors trying to get them to write. This is a source of income for them (albet it low). But it&rsquo;s extra income all the same.</p>
+
+<p>In my opinion, publishers have a contract with people who use their services. Get the best possible trainers for the subject. Don&rsquo;t put metrics above the level of service you give to your customers. Good training makes us all better at what we do. It&rsquo;s important we don&rsquo;t give developers / operations / managers a false understanding of topics. It can cause issues in a team and it can cause issues in our systems. I&rsquo;m not looking to name and shame people / companies here but I do expect a good level of service if I pay for something</p>
+
+<p>&lt;/rant&gt;</p>
+]]></content>
+  </entry>
+  
+</feed>

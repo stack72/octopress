@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="This is post 5 in a series called &lsquo;How to get started with CI&rsquo;. The last post talked about how to implement CI to your first CI project. &hellip;">
+  <meta name="description" content="I have been reading more and more posts and comments about how some developers are worried about coming along to GiveCampUK (has anyone told you &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/10/why-you-shouldnt-feel-nervous-about-givecampuk/">Why You Shouldn’t Feel Nervous About GiveCampUk</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-10T00:00:00-04:00" pubdate data-updated="true">Sep 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have been reading more and more posts and comments about how some developers are worried about coming along to GiveCampUK (has anyone told you about GiveCampUK &ndash; more information on <a href="http://givecamp.org.uk" target="_blank">the website</a> :) ). I cannot tell you not to feel this as I cannot control your feelings but I can try and help make you see that it is unfounded.</p>
+<h4>Who knows everything about software development?</h4>
+<p>Personally, I&rsquo;d say that I do not know 1 single person who knows <em><strong>everything</strong></em> about software development. I seen Scott Guthrie once tell the audience that <a href="http://twitter.com/stevensanderson" target="_blank">Steve Sanderson</a> knew more about MVC than he did. <a href="http://twitter.com/scottgu" target="_blank">Scott Guthrie</a> is, what I would class as the infinite source of ASP.NET wisdom. For him to be able to still class himself as learning something, then I guess that gives us all hope.</p>
+<p>I know a lot of people who travel and speak about development and the different forms of it. These people all realise there will be nuggets of information that they will pick up from conferences. If they didn&rsquo;t get to speak to people and learn new things then conferences would be boring. FACT! You will be able to show others in your team a new way of doing something. There is no right or wrong answer.</p>
+<p>We are all continually learning. It will be scary to be at GiveCampUK and be put in a situation that puts us out of our comfort zone. I personally think it will make us better developers for facing the situation and overcoming it. The way we will structure the technical teams of GiveCampUK means that help is only a shout away. There will be a team of &#8220;roving&#8221; developers who will effectively troubleshooters! We have also managed to get hold of Pluralsight subscriptions for all the attendees &ndash; this will help them &ldquo;hone&rdquo; their skills.</p>
+<p>Please try to take this advice about GiveCampUK &ndash; embrace the experience and use the nerves to your advantage! This is a great opportunity to network and show that you are a good developer who is passionate about what you do! <strong>IT IS NOT A JOB INTERVIEW &ndash; </strong>we will not try to trick you :)</p>
+<p>Its in 6 weeks time &ndash; I&rsquo;m getting very excited!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -534,55 +576,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/07/15/easy-http-not-just-a-catchy-name/">Easy HTTP–not Just a Catchy Name</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-15T00:00:00-04:00" pubdate data-updated="true">Jul 15<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I was recently referred to <a href="http://nuget.org/List/Packages/EasyHttp" target="_blank">EasyHTTP</a> by it&rsquo;s creator, <a href="http://twitter.com/hhariri" target="_blank">Hadi Hariri</a>. Hadi was looking at some code I had sent him regarding my work with the <a href="http://jetbrains.com/teamcity" target="_blank">TeamCity</a> REST API and thought that things could be a little easier and less verbose.</p>
-<script src="https://gist.github.com/13bd7e958c74e45280f7.js"></script>
-<p>In summary my application creates a new HttpWebRequest passing in the request type as a magic string. It opens a stream to read the JSON response and that JSON is then de-serialised to an entity. It was very messy. In order to call this class from my application I would have had to do the follow:</p>
-<script src="https://gist.github.com/dde8df43b79f7200c517.js"></script>
-<p>There is absolutely no mention of whether the request was a GET never mind a PUT or a DELETE. This is where EasyHTTP came in for me.</p>
-<script src="https://gist.github.com/bfef5d881c07f748eca5.js"></script>
-<p>I was able to make a generic method for a GET request. This method takes a url and a type and with the help of <a href="http://jsonfx.net/" target="_blank">JsonFx</a>, de-serialises the response back to the requested type. THis was a great way to take the hassle out of my old code where I was creating a Url, calling a request and then de-serialising it. The code in the calling class now looks as follows:</p>
-<script src="https://gist.github.com/9ef7d6c027f865b7a8cc.js"></script>
-<p>I was originally using the <a href="http://james.newtonking.com/pages/json-net.aspx" target="_blank">Newtonsoft JSON library</a> for my de-serialising my JSON back to types and to do that I had to decorate the properties with code similar to the following:</p>
-<p>[JsonProperty(PropertyName = &#8220;id&#8221;)]<br /> public string Id {get; set;}</p>
-<p>This would effectively map a piece of JSON to a property that was not named <strong>exactly</strong> the same. EasyHTTP took care of this for me as well. To quote Hadi, EasyHTTP handles mapping as follows:</p>
-<p><em>&ldquo;For mapping properties, it handles camelcase, lowercase and a bunch of other conventions. You can also specify explicitly&rdquo;</em></p>
-<p>Using EasyHTTP, I was able to cut at least 2 lines of code per method in the client code. I was also able to delete an attribute that was present on <strong>all properties in the entities</strong> in a little bit of work.</p>
-<p>The added distinction of creating the notion of GETs, PUTs and DELETE calls from each other mean that my class can be extended much easier. Hadi has written a post on EasyHTTP on <a href="http://hadihariri.com/2011/01/16/easyhttp/" target="_blank">his blog</a>. I would strongly suggest reading this and discovering if you can use this application in place of old HttpWebRequest calls. Its cleaner and helps to make code a little bit more DRY. My thanks to Hadi (and any contributors there may be) for making my work in this area a little easier!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -606,6 +599,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_cources/">Can We Fully Trust Online Training Courses?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
@@ -619,10 +616,6 @@
     
       <li class="post">
         <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a>
       </li>
     
   </ul>
