@@ -24,3 +24,7 @@ The same issue happens with books. I reviewed a lot of books in 2013. A lot of t
 In my opinion, publishers have a contract with people who use their services. Get the best possible trainers for the subject. Don't put metrics above the level of service you give to your customers. Good training makes us all better at what we do. It's important we don't give developers / operations / managers a false understanding of topics. It can cause issues in a team and it can cause issues in our systems. I'm not looking to name and shame people / companies here but I do expect a good level of service if I pay for something
 
 &lt;/rant&gt;
+
+I just learned that [Hadi Hariri](https://twitter.com/hariri) wrote a post on the [Journey of Teaching](http://hadihariri.com/2012/03/18/the-journey-of-teaching/).
+
+Thanks to [thefringeninja](https://twitter.com/thefringeninja) for making sure this wasn't too ranty :)
