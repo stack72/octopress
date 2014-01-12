@@ -25,6 +25,6 @@ In my opinion, publishers have a contract with people who use their services. Ge
 
 &lt;/rant&gt;
 
-I just learned that [Hadi Hariri](https://twitter.com/hariri) wrote a post on the [Journey of Teaching](http://hadihariri.com/2012/03/18/the-journey-of-teaching/).
+I just learned that [Hadi Hariri](https://twitter.com/hhariri) wrote a post on the [Journey of Teaching](http://hadihariri.com/2012/03/18/the-journey-of-teaching/).
 
 Thanks to [thefringeninja](https://twitter.com/thefringeninja) for making sure this wasn't too ranty :)
