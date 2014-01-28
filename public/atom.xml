@@ -4,7 +4,7 @@
   <title><![CDATA[Adventures of a wannabe geek!]]></title>
   <link href="http://paulstack.co.uk/atom.xml" rel="self"/>
   <link href="http://paulstack.co.uk/"/>
-  <updated>2014-01-11T21:59:50-05:00</updated>
+  <updated>2014-01-28T18:57:38+00:00</updated>
   <id>http://paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -14,9 +14,69 @@
 
   
   <entry>
+    <title type="html"><![CDATA[IT Recruitment is F**ked]]></title>
+    <link href="http://paulstack.co.uk/blog/2014/01/28/it-recruitment-is-f-star-star-ked/"/>
+    <updated>2014-01-28T18:12:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2014/01/28/it-recruitment-is-f-star-star-ked</id>
+    <content type="html"><![CDATA[<p>We get inundated with job specs in our inbox. Each email is filled with buzzwords in order to try and entice me to take the new role. I have not, nor will not, take a job due to buzzwords. I join a company because of a culture. Having read Simon Sinek&rsquo;s book, Start With Why, I really started to see how recruitment in IT is broken. Simon talks about manipulations in modern society. This may sound like a bad thing. It&rsquo;s not. It&rsquo;s something we see everyday. We get offered &lsquo;buy 1 get 1 free&rsquo; in supermarkets. We get offered &lsquo;£500 cashback&rsquo; when buying a new car. This is all manipulation to get us to buy things. How many of us have bought a second item at the supermarket as it is buy 1 get 1 half price? Manipluation.</p>
+
+<p>Recruitment also has these manipulations. In the past, I have applied for jobs by giving my details to recruitment companies. I have turned up for these job interviews for a job that I had no idea I had applied for. My CV had been changed to fit the spec the company had asked for. The recruiter was manipulating the company to get someone in the door. It still happens to this day. I get emails in my inbox offering me &lsquo;John Smith&rsquo; at £250 a day. I am not a recruitment manager and I have never spoken to these companies. They are effectively fishing.</p>
+
+<p>It is because of this that I have a mistrust in recruiters. It feels as thought they manipulate us (companies) into working with them. I understand they are just trying to do their job. I try not to use them. I would rather hire someone based on a referral from someone else. Even that has manipulations to it though. How many of you get a referral bonus for bringing someone to your company? Are we doing it for the right reasons? I like to think I am.</p>
+
+<p>I mentioned above that I would only join companies now because of culture. Culture is very important to me. I need to be working with smart people who challenge me or I get bored. I don&rsquo;t want to be bored. Too often I see job specs that look as follows [please note this is <em>not</em> real]</p>
+
+<hr />
+
+<p><strong>Job Description:</strong> <br/>
+Do you have strong experience in X and Y technologies? Are you interested in joining a strong team who do A, B and C?</p>
+
+<p><strong>Skills &amp; Requirements:</strong><br/>
+* 5 years experience in X<br/>
+* Deep understanding of Agile<br/>
+* 3 years experience in a technology only released this year<br/>
+* Buzzword 1<br/>
+* Buzzword 2<br/>
+* etc.</p>
+
+<p>If interested, then please contact, <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x6d;&#101;&#64;&#x62;&#x75;&#122;&#122;&#119;&#x6f;&#114;&#x64;&#x72;&#x65;&#x63;&#x72;&#x75;&#x69;&#x74;&#101;&#114;&#x2e;&#99;&#111;&#x2e;&#x75;&#107;">&#x6d;&#101;&#64;&#x62;&#x75;&#122;&#122;&#x77;&#x6f;&#x72;&#x64;&#x72;&#x65;&#x63;&#114;&#x75;&#105;&#x74;&#101;&#x72;&#46;&#x63;&#x6f;&#x2e;&#x75;&#107;</a></p>
+
+<hr />
+
+<p>This doesn&rsquo;t interest me in the slightest. I have no feel about what type of work I&rsquo;d be doing or who I&rsquo;d be working with. It stipulates the technologies I&rsquo;d be using to try and eliminate people up front.It doesn&rsquo;t tell me anything about the company or what they are trying to achieve. This type of advert is <strong>never</strong> going to entice me to join this company.</p>
+
+<p>In the book Start With Why, Simon Sinek continually reiterates &lsquo;people don&rsquo;t buy what you do, they buy why you do it&rsquo;. This advert is a great example of a company that cannot sell why they do something. They have no ability to sell themselves rather than the role. Not many companies can do it. A few companies I know can do this are Etsy, Tretton37 and Github. The structure of a job spec from Etsy starts as follows:</p>
+
+<p><em>We build tools that enable our engineering team to safely deploy code to the Etsy website. These include the Continuous Integration (CI) system, xUnit frameworks, and functional testing suites. Everyone in the Product and Engineering teams can deploy code into production, on their own. We do this over 30 times every day. Release management is a role in which everyone on the team plays an active part, starting on their first day of work</em></p>
+
+<p>Straight away, before I read more than 1 paragraph, I understand what the values of their engineering team is. They then go on to talk about the team:</p>
+
+<p><em>The technical staff at Etsy believes that code is craft, good software and systems designs are works of art, and that the work we do is part of larger creative culture represented by the hundreds of thousands of inspired makers who make Etsy such a wondrous marketplace</em></p>
+
+<p>This helps solidify the culture they are telling me about and the engineers they hire to make this happen. They go on to say the following:</p>
+
+<p><em>Our current systems run PHP, Java, Python, Ruby, Solr/Lucene, Postgres, MySQL, and more.</em></p>
+
+<p>They are not saying I need to use these systems. They are merely telling me what they currently run. This sounds like it gives scope for new technology introductions</p>
+
+<p>I could go on with the advert. It summed up the perfect advert for me. It really made me think more about how I sell positions at my company and how I don&rsquo;t get bogged down with the details of what we do but why we do it. This is the type of advert that would really get me interested in a job. I would join them for that culture.</p>
+
+<p>Is skills / technologies the most important thing to me when I hire someone? Simple, no! If someone doesnt have passion or buy into what I buy into then all the skills in the world will not help me and that person work well together. Skills can be taught. Communications, culture and passion can&rsquo;t (in my opinion). Too often we are sold a role that doesn&rsquo;t really work out the way it was sold to us.</p>
+
+<p>It is important to say that not 100% of blame sits with recruiters. Companies themselves need to be much better at how they sell themselves. After reading Remote, the 37 signals book, I really started to see how somethings are being missed by companies themselves. Remote working is definitely 1 of them. I was never a fan of remote working. I would not want a remote worker in my team, until I started travelling a lot for work. Being remote from my team has really get better at communication and focus. I often will go to a conference and work remotely now. I am actually quite productive. I am writing this blog post on an 11 hour flight :).</p>
+
+<p>To me, I don&rsquo;t think we, as compnaies, should care where you are based. We should allow our team members to work where they are most productive &ndash; if that happens to be in their home in the Swiss Alps then so be it. I understand there are legal hurdles when hiring remote workers. These are not insurmountable. It&rsquo;s important to say that companies like Github and Etsy have staff all over the world. American companies with staff in UK, Australia, New Zealand etc. Nothing is impossible.</p>
+
+<p>Staff benefits are another piece of the puzzle required to help recruit people. Too many job specs say things like &lsquo;subsidised gym membership&rsquo; or &lsquo;healthcare&rsquo; included. What if I have my own gym membership or my own private healtcare? Can&rsquo;t I choose something else to help me during my time at that company? Again, the Remote book helped me to see that this is important. At 37 signals, staff are offered a family holiday or cooking school experience etc. This becomes part of their benefits package. That is much more useful to someone who has healthcare and gym membership already. It also helps the employee feel really valued</p>
+
+<p>Everything I write about here is the result of creating a good culture and a sense of understanding of Why we do things rather than what we do. Culture is a tough thing to breed but when you do get there it seems as though it&rsquo;s really worth it. We need to keep hiring people to vreed that culture, people who buy into it. It&rsquo;s 2014, we should be better at hiring people. There are a lot of skilled people out there &ndash; it&rsquo;s time to tap into that resource pool. It can help you create truly special products.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Can we fully trust online training courses?]]></title>
     <link href="http://paulstack.co.uk/blog/2014/01/11/can-we-fully-trust-online-training_courses/"/>
-    <updated>2014-01-11T21:11:00-05:00</updated>
+    <updated>2014-01-11T21:11:00+00:00</updated>
     <id>http://paulstack.co.uk/blog/2014/01/11/can-we-fully-trust-online-training_courses</id>
     <content type="html"><![CDATA[<p><em>NOTICE: This post is not written to pick on any specific person or service. This is only my thoughts from speaking to people in the past few weeks</em></p>
 
@@ -47,7 +107,7 @@
   <entry>
     <title type="html"><![CDATA[Changing my focus]]></title>
     <link href="http://paulstack.co.uk/blog/2014/01/09/changing-my-focus/"/>
-    <updated>2014-01-09T10:11:00-05:00</updated>
+    <updated>2014-01-09T10:11:00+00:00</updated>
     <id>http://paulstack.co.uk/blog/2014/01/09/changing-my-focus</id>
     <content type="html"><![CDATA[<p>For those that know me, you know that I am very passionate about infrastructure and DevOps. Infrastructure is something that we, as developers, don&rsquo;t really give a lot of thought to. DevOps is something that will make our businesses more successful. So, I am changing the job role that I have.</p>
 
@@ -75,7 +135,7 @@
   <entry>
     <title type="html"><![CDATA[Why delay the VS2012 release, Microsoft?]]></title>
     <link href="http://paulstack.co.uk/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/"/>
-    <updated>2012-08-09T00:00:00-04:00</updated>
+    <updated>2012-08-09T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/08/09/why-delay-the-vs2012-release-microsoft</id>
     <content type="html"><![CDATA[<p>The date is 1st August 2012. Developers have been wondering for weeks when the release of VS2012 and ASP.NET 4.5 will happen. Somasegar, cvp of dev div in Microsoft, has just <a href="http://blogs.msdn.com/b/somasegar/archive/2012/08/01/visual-studio-2012-and-net-4-5-complete.aspx" target="_blank">announced that the final build version of VS2012 is complete</a>.This means the product is ready for release. Dot net developers all over the world are eagerly waiting for the immortal words, &ldquo;it&rsquo;s available to download on MSDN&rdquo;. Unfortunately they haven&rsquo;t come. Instead, the download will not show up for another 14 days. This seems wasteful to me.</p>
 <p>Tell me if I am incorrect, but I believe the delay is that the product has gone to tool vendors to make sure that their tools / plugins will work with the application. This to me seems a very strange thing to do. This product has technically been in the making for 18 months (since the release of VS2010) so giving it to vendors in the final 2 weeks is crazy. What will happen if the vendors report it doesn&rsquo;t work with their tools? Would Microsoft stop a release for this considering it is so baked into the windows 8 release? I don&rsquo;t think there is any possibility of that happening at all. Therefore why the delay? I understand that 3rd party vendors are customers that Microsoft have to satisfy, but technically so are we &ndash; the users of the product.</p>
@@ -87,7 +147,7 @@
   <entry>
     <title type="html"><![CDATA[Survival of the fittest – fluid teams?]]></title>
     <link href="http://paulstack.co.uk/blog/2012/06/25/survival-of-the-fittest-fluid-teams/"/>
-    <updated>2012-06-25T00:00:00-04:00</updated>
+    <updated>2012-06-25T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/06/25/survival-of-the-fittest-fluid-teams</id>
     <content type="html"><![CDATA[<p>In traditional, waterfall organisations, a development team follows the organisation hierarchy. The development team can be split into smaller sub teams and each of those teams can have their own leader, but ultimately the hierarchy still exists. Developers usually stay in that sub team for most of their time in the organisation and they know exactly who their line manger is and who is responsible for their reviews and can act accordingly. The organisational structure is rigid and embedded into the process of the team and organisation.</p>
 <p>In more agile teams, the organisational structure is less rigid meaning that developers do not need to stay in a single sub team for their time at the company. They can be organised (or organise themselves in more advanced agile cultures) into teams based on skills. New developers are hired with a view to how they can benefit the wider team and not towards the skills needed for a sub team in a waterfall environment. Even though there are less restrictions on people moving between teams, it is not always guaranteed. It can happen when required, e.g. when a new member of staff is hired and the skillsets need to be spread evenly. This can evolve further.</p>
@@ -110,7 +170,7 @@
   <entry>
     <title type="html"><![CDATA[TFS and Continuous Deployment]]></title>
     <link href="http://paulstack.co.uk/blog/2012/06/19/tfs-and-continuous-deployment/"/>
-    <updated>2012-06-19T00:00:00-04:00</updated>
+    <updated>2012-06-19T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/06/19/tfs-and-continuous-deployment</id>
     <content type="html"><![CDATA[<p>I am a huge advocate of continuous integration and continuous delivery. I am always cautious about mentioning continuous deployment in my talks. This <strong>can</strong>, I stress the word can, be dangerous. For me there is a journey in the delivery of software.</p>  <ul>   <li>Companies, traditionally, started slow and go with manual deployments infrequently </li>    <li>Continuous Integration was introduced to the team when the team grew and needed to help test the integration of their code </li>    <li>The need to deploy more frequently may arise and as manual deployments are time consuming and (or) painful, deployments become automated </li>    <li>Continuous delivery was then said to be the better way to develop software (this meaning that code in the master repo is always in a state where it can be released to the end user) </li> </ul>  <p>This journey not only required a development teams skillset to grow to support it, but it also required a culture and attitude change as we move through the lifecycle. Developers need to start taking more care in their work and making sure that technical debt is not accrued too fast and that work is tested thoroughly. For me, when a team reaches this maturity point, they have reached the pinnacle of software delivery. The time required to release a new feature (cycle time) is determined by how fast the developer can develop and test the feature rather than worrying about release cycles. A release for this individual can be created and scheduled as appropriate to the needs of the business. The process is almost completely automated.</p>  <p>Lets take the step to continuous deployment. This is where every successful build is released to the end user. For me, things start to get a bit scary here. Continuous deployment is associated with start-ups. Companies that are releasing a new product and need to get it to market fast to get revenue and user feedback. As the codebase is young, it would has accrued less technical debt so the cycle time would potentially be faster than companies with legacy code. I believe that continuous deployment needs to be surrounded by rigorous automated testing (unit, integration, acceptance, system, performance etc..) and also supported by an immune system that helps to notify everyone if key performance or conversion metrics etc. drop below certain thresholds. This would help the confidence in the code being released to be as high as possible. In this type of environment, developers should work with the operations staff to make sure that deployments happen and follow up if there are issues with the release. I cannot stress enough that continuous deployment should not be taken lightly. It *will* come back and bit you on the ass if you are not well prepared.</p>  <p>Imagine my surprise when I read on twitter during the (azure announcement name hashtag) that the new version of TFS will support continuously deploying applications to the new azure portal [THIS NEEDS CHECKED FOR ACCURACY]. Firstly, I was surprised that this feature was added to TFS over something more useful, e.g. DVCS style version control. The lack of the good version control is a major downfall in TFS for me. Secondly, I think that this new feature will inspire a new breed of false bravery. I understand that it is very good to be brave. Nothing is braver than finishing development fast and pushing straight to production. There needs to be a process around these deployments – are they dark deployments, canary releases, have A/B testing etc.? Have you got the performance test analysis incase your feature causes an issue in production that costs the company money. Have you got monitoring around the system to spot potential issues early. There are many things I have set up around my continuous deployment sites.I don’t believe that all software developers give enough thought to what they are doing and will fix it later. Continuous deployment may not be good for these types of developer. A small issue unnoticed, e.g. a missing ‘checkout’ button on the site, can cause the company a lot of money. </p>  <p>I am by no way trying to say my setup is better than other developer setups, I am merely pointing out that a good support network around a deployment is needed. Maybe azure has this good support network but a developer should definitely know how to use it if they are to take advantage of this feature. If you are working on a personal project that doesn’t affect too much then continuously deploy until your heart is content. If wanting to take the giant leap to this in a company with legacy code then think twice. don’t f**k with your users. They potentially pay your salary. I think TFS should focus on making the tool easier to use for developers rather than worry about continuous deployment just yet</p>  <p>&lt;/TFSRant&gt;</p>
 ]]></content>
@@ -119,7 +179,7 @@
   <entry>
     <title type="html"><![CDATA[What is your interpretation of burnout?]]></title>
     <link href="http://paulstack.co.uk/blog/2012/06/07/what-is-your-interpretation-of-burnout/"/>
-    <updated>2012-06-07T00:00:00-04:00</updated>
+    <updated>2012-06-07T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/06/07/what-is-your-interpretation-of-burnout</id>
     <content type="html"><![CDATA[<p>I always had the idea that the term &lsquo;burnout&rsquo; had a pretty standard meaning in software development. I&rsquo;m sure each developer have their own way of phrasing it but in essence, I was always of the idea that it meant &lsquo;over working leading to exhaustion and lack of motivation&rsquo;.</p>
 <p>I wanted to see what the exact thoughts of my peers was so asked on twitter &ldquo;what does burnout meant to you?&rdquo;. I got a list of varied responses:</p>
@@ -137,7 +197,7 @@
   <entry>
     <title type="html"><![CDATA[TeamCity - OutOfMemoryError]]></title>
     <link href="http://paulstack.co.uk/blog/2012/05/21/teamcity-outofmemoryerror/"/>
-    <updated>2012-05-21T00:00:00-04:00</updated>
+    <updated>2012-05-21T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/05/21/teamcity-outofmemoryerror</id>
     <content type="html"><![CDATA[<p>Whilst upgrading our TeamCity server from 6.5 to 7.x, I encountered an error:</p>
 <p><em>Unexpected error occurred inside Alarm task: java.lang.OutOfMemoryError: GC overhead limit exceeded</em></p>
@@ -163,7 +223,7 @@ This will open the following dialog:</ul>
   <entry>
     <title type="html"><![CDATA[Introducing TeamCityMetro for WP7]]></title>
     <link href="http://paulstack.co.uk/blog/2012/05/17/introducing-teamcity-metro/"/>
-    <updated>2012-05-17T00:00:00-04:00</updated>
+    <updated>2012-05-17T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/05/17/introducing-teamcity-metro</id>
     <content type="html"><![CDATA[<p>After my foray into the work of the <a href="http://www.jetbrains.com/teamcity/" target="_blank">TeamCity</a> API, <a href="http://twitter.com/gep13" target="_blank">Gary Park</a> and I have written a WP7 app. We are pleased to announce that this app is now available in the <a href="http://stack72.me/teamcitymetrowp" target="_blank">AppStore</a> and is FREE to all. For version 1, the application will only give you the opportunity to see your projects, builds types, last 10 builds of each build type and then link to the build on your teamcity server. This is only an initial release and will be followed up with the ability to trigger builds.</p>
 <p>The application looks as follows:</p>
@@ -175,7 +235,7 @@ This will open the following dialog:</ul>
   <entry>
     <title type="html"><![CDATA[Enum String Value with JQuery Mobile]]></title>
     <link href="http://paulstack.co.uk/blog/2012/05/03/enum-string-value-for-use-with-jquery-mobile/"/>
-    <updated>2012-05-03T00:00:00-04:00</updated>
+    <updated>2012-05-03T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/05/03/enum-string-value-for-use-with-jquery-mobile</id>
     <content type="html"><![CDATA[<p>A while back I had to use <a href="http://jquerymobile.com/" target="_blank">JQuery mobile</a> for a project. The project needed to have 2 themes on an application and the configuration would need to tell the application what theme to load. With JQuery Mobile, the theme string could only be a single letter. I like keeping to decent and meaningful naming conventions, so I created a configuration setting as follows:</p>
 <p>&lt;add key=&#8221;Theme&#8221; value=&#8221;Plain&#8221; /&gt;</p>
@@ -192,7 +252,7 @@ This will open the following dialog:</ul>
   <entry>
     <title type="html"><![CDATA[You think I'm doing it wrong, so help me do it right]]></title>
     <link href="http://paulstack.co.uk/blog/2012/05/01/you-think-im-doing-it-wrong-so-help-me-do-it-right/"/>
-    <updated>2012-05-01T00:00:00-04:00</updated>
+    <updated>2012-05-01T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/05/01/you-think-im-doing-it-wrong-so-help-me-do-it-right</id>
     <content type="html"><![CDATA[<p>I am fed up with reading more and more posts, mostly on twitter, telling me I&rsquo;m wrong if I&rsquo;m doing it this way or wrong if I&rsquo;m not using this tool. Who gives you the right to tell me I am not correct? You do not know my problem space, domain or the criteria I need to work towards.</p>
 <p>I have to say that this post is not in retaliation to anyone telling me I am doing something wrong. It is based towards all the posts titled &lsquo;You&rsquo;re doing it wrong&hellip;.&rsquo;</p>
@@ -205,7 +265,7 @@ This will open the following dialog:</ul>
   <entry>
     <title type="html"><![CDATA[Spoofing the Host Entry in a HTTPWebRequest]]></title>
     <link href="http://paulstack.co.uk/blog/2012/04/30/spoofing-the-host-entry-in-a-httpwebrequest/"/>
-    <updated>2012-04-30T00:00:00-04:00</updated>
+    <updated>2012-04-30T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/04/30/spoofing-the-host-entry-in-a-httpwebrequest</id>
     <content type="html"><![CDATA[<p>I had this idea to create a dashboard that would ping different version of a site in order to get the build number. The details are as follows:</p>
 <p><a href="http://www.mysite.com">www.mysite.com</a></p>
@@ -238,7 +298,7 @@ This will open the following dialog:</ul>
   <entry>
     <title type="html"><![CDATA[My approach to refactoring a monster switch statement]]></title>
     <link href="http://paulstack.co.uk/blog/2012/04/15/my-approach-to-refactoring-a-monster-switch-statement/"/>
-    <updated>2012-04-15T00:00:00-04:00</updated>
+    <updated>2012-04-15T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/04/15/my-approach-to-refactoring-a-monster-switch-statement</id>
     <content type="html"><![CDATA[<p>I had to refactor some very old code a while back. The code looked similar to this:</p>
 <script type="text/javascript" src="https://gist.github.com/02f6a05870b5b2dd277f.js"></script>
@@ -255,7 +315,7 @@ This will open the following dialog:</ul>
   <entry>
     <title type="html"><![CDATA[Custom blogging workflow with YouTrack]]></title>
     <link href="http://paulstack.co.uk/blog/2012/04/09/custom-blogging-workflow-with-youtrack/"/>
-    <updated>2012-04-09T00:00:00-04:00</updated>
+    <updated>2012-04-09T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/04/09/custom-blogging-workflow-with-youtrack</id>
     <content type="html"><![CDATA[<p>In the past week, I have started using <a href="http://www.jetbrains.com/youtrack" target="_blank">YouTrack</a>&nbsp;3.0 in the cloud as a think tank of blog posts that I want to write. Previously I had used Trello. there was no particular reason for moving away from <a href="http://trello.com">Trello</a> other than curiosity about what YouTrack could offer me. On setting up YouTrack I added a project to start the tracking of the blog posts. On adding the first post, I was given the following state workflow:</p>
 <p><a href="http://paulstack.co.uk/blog/images/image_41.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_39.png" alt="image" width="419" height="227" border="0" /></a></p>
@@ -283,7 +343,7 @@ This will open the following dialog:</ul>
   <entry>
     <title type="html"><![CDATA[Agile teams and working from home]]></title>
     <link href="http://paulstack.co.uk/blog/2012/04/03/agile-teams-and-working-from-home/"/>
-    <updated>2012-04-03T00:00:00-04:00</updated>
+    <updated>2012-04-03T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/04/03/agile-teams-and-working-from-home</id>
     <content type="html"><![CDATA[<p>Yesterday (April 2nd 2012), I posed a question on twitter:</p>  <p><strong>Does anyone think that people working from home in an agile team is a bad idea?</strong></p>  <p>This seemed to be quite a controversial question to pose. My favourite response was “isn’t agile – as long as you get the work done, doesn’t matter home, office, card, no-cards, no??” Now, I can see what the author <a href="http://twitter.com/edonsojeva" target="_blank">(@edonsojeva)</a> is trying to say. I agree that one of the main principles of agile is getting work done. But, on the other hand, for me the best principle of agile is the ability to communicate with members of the team <strong>*and*</strong> the business. IM clients (Skype, Lync, MSN etc.) are a great way to keep in touch. But I have never found them to be fantastically efficient at being able to display the entire picture. When speaking to people I want to see them face to face (where possible). this allows us both to focus on the issue at hand.</p>  <p>when working remotely, people can get distracted. That’s just our nature. It doesn’t matter whether we get distracted by emails, twitter, other IM conversations happening at the same time or TV (yes I have seen this happen to some people), it happens. I find that that level of distraction is less in the office. Why email someone when you can get up from your desk, walk 10feet and speak to them and strike up a conversation instead? </p>  <p>I understand that it can sometimes be very important to isolate yourself just to get a few hours of no distraction. Being at home, with no one round can give you this isolation. My thoughts here are that if you do have so much to do that requires you to be isolated from the rest of the team, that you a) haven’t planned very well or b) are not agile. Team is the key word here. For me working from home takes away that sense of being part of the team. It can just make you feel a little isolated. Architecture and code can be a bit of a beast sometimes. It can therefore take other people to wind in crazy ideas. Unless you are this incredibly focused person, you can sometimes go off in a tangent or with an idea that another has already tried. It can also save time. If you run into an issue, a team member who has been in this situation before can point out a fix.</p>  <p>This leads me to the general idea that working from home is the exception rather than the rule. I wouldn’t be fantastically happy with members of the team who constantly worked from home. They would feel more like remote contractors than anything else. I understand there are incredibly focused individuals out there that can block out all these impediments and work from home efficiently. I am in no way saying that it isn’t possible. This post is merely a scratch pad to get feedback on what others have experienced.</p>
 ]]></content>
@@ -292,7 +352,7 @@ This will open the following dialog:</ul>
   <entry>
     <title type="html"><![CDATA[TeamCitySharp now builds with Mono]]></title>
     <link href="http://paulstack.co.uk/blog/2012/02/08/teamcitysharp-now-builds-with-mono/"/>
-    <updated>2012-02-08T00:00:00-05:00</updated>
+    <updated>2012-02-08T00:00:00+00:00</updated>
     <id>http://paulstack.co.uk/blog/2012/02/08/teamcitysharp-now-builds-with-mono</id>
     <content type="html"><![CDATA[<p>I am pleased to be able to say that <a href="http://github.com/stack72/TeamCitySharp" target="_blank">TeamCitySharp</a> is now supports <a href="http://www.mono-project.com/" target="_blank">mono</a>. In order to get the project supported I had to change a few parts of the system.</p>
 <p>Up until now, each project within the solution has a &ldquo;BeforeBuild&rdquo; event that downloaded the nuget packages needed to build the solution. This was in place to keep the github repository small enough to facilitate a fast download for people who fork it. <a href="http://www.nuget.org" target="_blank">Nuget</a> doesn&rsquo;t work with mono so there was a trade off I had to make. In this instance I chose supporting mono over the &ldquo;BeforeBuild&rdquo; event. This does mean that once the repository is cloned or forked. then it will work instantly. I hope to revisit this if / when someone manages to get nuget working with mono.</p>
@@ -308,7 +368,7 @@ This will open the following dialog:</ul>
   <entry>
     <title type="html"><![CDATA[Installing Mono on Windows]]></title>
     <link href="http://paulstack.co.uk/blog/2012/01/31/installing-mono-on-windows/"/>
-    <updated>2012-01-31T00:00:00-05:00</updated>
+    <updated>2012-01-31T00:00:00+00:00</updated>
     <id>http://paulstack.co.uk/blog/2012/01/31/installing-mono-on-windows</id>
     <content type="html"><![CDATA[<p>I have recently been thinking about making <a href="http://github.com/stack72/TeamCitySharp">TeamCitySharp</a> supported on <a href="http://www.mono-project.com/Main_Page">mono</a>. This would require me to either run a VM (that you can download form the mono project site) or install mono on Windows. As I would continue to develop TeamCitySharp in VS2010, I thought it would be better to install mono on windows.</p>
 <p>When trying to install mono, I went to the mono project download page and was presented with 3 options for windows:</p>
@@ -331,7 +391,7 @@ This will open the following dialog:</ul>
   <entry>
     <title type="html"><![CDATA[How Nuget could improve]]></title>
     <link href="http://paulstack.co.uk/blog/2012/01/17/how-nuget-could-improve/"/>
-    <updated>2012-01-17T00:00:00-05:00</updated>
+    <updated>2012-01-17T00:00:00+00:00</updated>
     <id>http://paulstack.co.uk/blog/2012/01/17/how-nuget-could-improve</id>
     <content type="html"><![CDATA[<p>Late in December 2011, I stuck my oar into a conversation on twitter (as I usually do) between <a href="http://twitter.com/lazycoder">Scott Koon</a>, <a href="http://twitter.com/davidebbo">David Ebbo</a>, <a href="http://twitter.com/sumitkm">Sumit Maitra</a>&nbsp; and <a href="http://twitter.com/Ang3lFir3">Eric Ridgeway</a>. This conversation was about why <a href="http://nuget.org">Nuget.org</a> was not the best place for a <a href="http://nuget.org/packages/Northwind.Db">Northwind DB Sample</a> package. My comment was as follows:</p>
 <p align="center"><em>@lazycoder @davidebbo @sumitkm @Ang3lFir3 maybe have the ability for codeplex to have a nuget style feed of its own for sample libraries?</em></p>
@@ -351,7 +411,7 @@ This will open the following dialog:</ul>
   <entry>
     <title type="html"><![CDATA[CodeMash 2012–what an awesome event!]]></title>
     <link href="http://paulstack.co.uk/blog/2012/01/14/codemash-2012-truly-awesome/"/>
-    <updated>2012-01-14T00:00:00-05:00</updated>
+    <updated>2012-01-14T00:00:00+00:00</updated>
     <id>http://paulstack.co.uk/blog/2012/01/14/codemash-2012-truly-awesome</id>
     <content type="html"><![CDATA[<p>This past weekend (January 10th &ndash; 14th 2012) <a href="http://codemash.org">CodeMash</a> was held in the Kalahari resort in Sandusky, OH. Yes I know &ndash; Ohio in January!! I had been warned that firstly its cold there and secondly there is usually a lot of snow. This time we were quite lucky and only got a little snow. I arrived on Wednesday night after a very long journey and walked into what was just a hive of activity. I have been to a lot of conferences, this one was not only huge but very interactive and social. A lot of the attendees brought their families for the week!</p>
 <p><a href="http://paulstack.co.uk/blog/images/495876401.jpg"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="495876401" src="http://paulstack.co.uk/blog/images/495876401_thumb.jpg" alt="495876401" width="244" height="139" border="0" /></a></p>
@@ -376,7 +436,7 @@ This will open the following dialog:</ul>
   <entry>
     <title type="html"><![CDATA[Features Nuget Would Benefit From]]></title>
     <link href="http://paulstack.co.uk/blog/2011/12/29/features-nuget-would-benefit-from/"/>
-    <updated>2011-12-29T00:00:00-05:00</updated>
+    <updated>2011-12-29T00:00:00+00:00</updated>
     <id>http://paulstack.co.uk/blog/2011/12/29/features-nuget-would-benefit-from</id>
     <content type="html"><![CDATA[<p>I look to <a href="http://nuget.org/">Nuget</a> as the package manager for Windows development in the same way that <a href="http://rubygems.org/">RubyGems</a> is to Ruby development. This may be immature of me but it works for my scenarios. In comparing the different systems, I feel that Nuget is lacking a few key features that sometimes I look for.</p>
 <h4>1. Install a specific version of a package</h4>
@@ -391,24 +451,6 @@ This will open the following dialog:</ul>
 <p>Currently, you would select the project from the list in the console and then call the install command. I would like to be able able install a package to a number of packages. For example, I have 20 unit test assemblies. I wouldn&#8217;t want to have to type the command to install NUnit 20 times. I would like to be able to do something like:</p>
 <p>Install-package NUnit&nbsp; -include *.UnitTest.dll &ndash;exclude *.config</p>
 <p>This would utilise the full power of the PowerShell console. This is purely a timesaver and would help when working in a multi project environment.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2011 – My Year in Review]]></title>
-    <link href="http://paulstack.co.uk/blog/2011/12/29/2011-my-year-in-review/"/>
-    <updated>2011-12-29T00:00:00-05:00</updated>
-    <id>http://paulstack.co.uk/blog/2011/12/29/2011-my-year-in-review</id>
-    <content type="html"><![CDATA[<p>2011 was an excellent year for me. Unfortunately I didn&rsquo;t see the point in setting myself clear personal goals for it.&nbsp; But here is my retrospective of my personal work. This post does not include anything that happened at work or in my personal life. 2011 was the year:</p>
-<p><strong>1. I started speaking at user groups / events</strong> <br />In total I spoke at 26 events. This included some bigger events (DDD) in Reading. Scotland, Bristol and Sunderland as well as a lot of user group events all around the country. Unfortunately, 2 had to be cancelled due to unforeseen circumstances but I will make it up to those groups in 2012.</p>
-<p><strong>2.&nbsp; I was made a Jetbrains Academy Member <br /></strong>I still cannot believe this happened and I am honoured at being involved with it. I hope to be part of some big things with this academy and I look forward to continuing to be part of it in 2012. You can read more about this program on the Jetbrains <a href="http://www.jetbrains.com/devnet/academy/index.html">site</a>.</p>
-<p><strong>3. I helped organise GiveCamp UK</strong> <br />Even now, almost 3 months after the event, I am still on a high about this. It was certainly something I can look back on in my career and be really proud to have been part of such a fantastic weekend. More information on GiveCamp and a chance to sign up for the 2012 event can be done on the GiveCamp UK <a href="http://www.givecamp.org.uk/">site</a>.</p>
-<p><strong>4. I was Technical Reviewing books <br /></strong>I was part of the reviewing effort of <a href="http://manning.com/palermo3/">MVC3 In Action</a> and <a href="http://manning.com/jackson/">HTML5 for the .Net Developer</a> both by Manning Books. For those who know me, I can be quite opinionated and this was a great opportunity for me to take those opinions in order to help shape a book.</p>
-<p><strong>5. I was accepted as a Friend of Redgate <br /></strong>Redgate run a program that helps bring together some well known community members and MVPs in order to help give feedback on their products. This was another great opportunity for me to use my opinions and experience in order to help evaluate the products developers use on a daily basis. You can read more about this program on the Redgate <a href="http://www.red-gate.com/our-company/about/community-relations/friends-of-rg">site</a>.</p>
-<p><strong>6. I started my first real OSS project &ndash; TeamCitySharp <br /></strong>As an avid TeamCity user, this was a project that I really enjoyed writing. IT is now approaching 100 downloads from Nuget.org, 27 watchers, 7 forks and 11 pull requests on github. I am very happy with it. You can find the project on my <a href="http://github.com/stack72/TeamCitySharp">github repository</a>.</p>
-<h3>What does 2012 hold for me?</h3>
-<p>I&rsquo;m honestly not too sure what 2012 has in store for me. 2011 was such a fantastic year that I am not sure I can top it.&nbsp; Bit it does give me the opportunity to speak at 2 international events. <a href="http://codemash.org/">Codemash</a> and <a href="http://softwarepassion.se/">Software Passion Summit</a>. Hopefully there will be more well known events that I can submit sessions and speak at but there are so many fantastic speakers that I have to be on top of my game.</p>
-<p>I hope 2012 is half as good a year for me as 2011! I look forward to it&hellip;&hellip;</p>
 ]]></content>
   </entry>
   

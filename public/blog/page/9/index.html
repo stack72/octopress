@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="For the past few years I have been annoying introducing all of the people I have worked with to automated testing. The tool I showed was Cuke4nuke. &hellip;">
+  <meta name="description" content="I am working on a new application at work that&rsquo;s an MVC3 app that talks to a WCF Service. I use a number of 3rd party libraries: Ninject &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +85,63 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/01/15/the-nightmare-when-i-upgraded-my-mvc2-solution-to-mvc3/">The Nightmare When I Upgraded My MVC2 Solution to MVC3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-15T00:00:00+00:00" pubdate data-updated="true">Jan 15<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I am working on a new application at work that&rsquo;s an MVC3 app that talks to a WCF Service. I use a number of 3rd party libraries:</p>
+<ul>
+<li>Ninject </li>
+<li>Ninject WCF </li>
+<li>Ninject MVC </li>
+<li>Ninject Logging Extensions </li>
+<li>Fluent Validation </li>
+<li>MVCContrib </li>
+<li>Automapper </li>
+</ul>
+<p>So when i had to upgrade to MVC3 RTM I had to see what happened to these 3rd party systems &ndash; FYI I had a bit of a nightmare! It happened in the following order:</p>
+<p><strong>MVCContrib</strong> &ndash; I was a bit ahead of the game here and checked out latest branch and build from source &ndash; SORTED!</p>
+<p><strong>Fluent Validation</strong> &ndash; Luckily <a href="http://twitter.com/jeremyskinner" target="_blank">Jeremy Skinner</a> tweeted that Fluent Validation for MVC3 was available &ndash; SORTED!</p>
+<p><strong>Ninject</strong> &ndash; I had to download this from github, update the solution to run as .Net 4.0 and add the new MVC3 System.Web.MVC dll to it and build from source &ndash; SORTED!</p>
+<p>Now things started getting a bit weird!</p>
+<p><strong>Ninject MVC</strong> &ndash; this required the solution to be downloaded from github, upgraded to .net 4, the MVC3 System.Web.MVC dll and the previously compiled ninject dll</p>
+<p><strong>Ninject WCF</strong> - this required the solution to be downloaded from github, upgraded to .net 4 and the previously compiled ninject dll</p>
+<p><strong>Ninject Logging</strong> - this required the solution to be downloaded from github, upgraded to .net 4 and the previously compiled ninject dll</p>
+<p>This was a horrendous task! I&rsquo;m not sure I&#8217;d want to upgrade something so complex again but its all for a good cause as I can now use the Razor view engine :)</p>
+<p>&nbsp;</p>
+<p>EDIT: Those awesome codebetter guys have created these upgrades of Ninject on their build server so you don&#8217;t have to -&nbsp;<a href="http://teamcity.codebetter.com/login.html">http://teamcity.codebetter.com/</a></p>
+<p>Word of warning: DON&rsquo;T TRY THIS AT HOME!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/01/12/moving-from-cuke4nuke-to-specflow/">Moving From Cuke4Nuke to Specflow</a></h1>
     
     
@@ -101,7 +158,7 @@
   
 
 
-<time datetime="2011-01-12T00:00:00-05:00" pubdate data-updated="true">Jan 12<span>th</span>, 2011</time>
+<time datetime="2011-01-12T00:00:00+00:00" pubdate data-updated="true">Jan 12<span>th</span>, 2011</time>
         
       </p>
     
@@ -137,7 +194,7 @@
   
 
 
-<time datetime="2011-01-11T00:00:00-05:00" pubdate data-updated="true">Jan 11<span>th</span>, 2011</time>
+<time datetime="2011-01-11T00:00:00+00:00" pubdate data-updated="true">Jan 11<span>th</span>, 2011</time>
         
       </p>
     
@@ -173,7 +230,7 @@
   
 
 
-<time datetime="2010-12-22T00:00:00-05:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2010</time>
+<time datetime="2010-12-22T00:00:00+00:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2010</time>
         
       </p>
     
@@ -209,7 +266,7 @@
   
 
 
-<time datetime="2010-12-14T00:00:00-05:00" pubdate data-updated="true">Dec 14<span>th</span>, 2010</time>
+<time datetime="2010-12-14T00:00:00+00:00" pubdate data-updated="true">Dec 14<span>th</span>, 2010</time>
         
       </p>
     
@@ -245,7 +302,7 @@
   
 
 
-<time datetime="2010-12-14T00:00:00-05:00" pubdate data-updated="true">Dec 14<span>th</span>, 2010</time>
+<time datetime="2010-12-14T00:00:00+00:00" pubdate data-updated="true">Dec 14<span>th</span>, 2010</time>
         
       </p>
     
@@ -288,7 +345,7 @@
   
 
 
-<time datetime="2010-11-26T00:00:00-05:00" pubdate data-updated="true">Nov 26<span>th</span>, 2010</time>
+<time datetime="2010-11-26T00:00:00+00:00" pubdate data-updated="true">Nov 26<span>th</span>, 2010</time>
         
       </p>
     
@@ -324,7 +381,7 @@
   
 
 
-<time datetime="2010-11-21T00:00:00-05:00" pubdate data-updated="true">Nov 21<span>st</span>, 2010</time>
+<time datetime="2010-11-21T00:00:00+00:00" pubdate data-updated="true">Nov 21<span>st</span>, 2010</time>
         
       </p>
     
@@ -369,7 +426,7 @@
   
 
 
-<time datetime="2010-11-17T00:00:00-05:00" pubdate data-updated="true">Nov 17<span>th</span>, 2010</time>
+<time datetime="2010-11-17T00:00:00+00:00" pubdate data-updated="true">Nov 17<span>th</span>, 2010</time>
         
       </p>
     
@@ -405,7 +462,7 @@
   
 
 
-<time datetime="2010-10-27T00:00:00-04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2010</time>
+<time datetime="2010-10-27T00:00:00+01:00" pubdate data-updated="true">Oct 27<span>th</span>, 2010</time>
         
       </p>
     
@@ -413,54 +470,6 @@
 
 
   <div class="entry-content"><p>This book was a real introduction to Silverlight for me as I have never had ‘real’ exposure to it. Therefore I was delighted when I was given the opportunity to review it. For me, the book was an introduction into how Silverlight, or RIAs, can be used in to develop real world applications and not just Twitter clients like I have seen in demos.</p>  <p>The book was well structured as it gave an introduction to what Silverlight is, then&#160; discussed the controls, then how to use data in applications. The book even talked about Blend and game development. It is exactly what I was looking for in a book to help me understand the wider sense of the Silverlight world that I kept hearing about.</p>  <p><em><u>Chapter 1: Hello, Silverlight</u></em></p>  <p>This is an introduction RIA (Rich Internet Applications) and how RIAs can be different to develop for compared to the web. Silverlight is obviously the RIA that will be being discussed in this book. The author discusses how developers who work on the .net framework can create Silverlight applications using the tools they already know.</p>  <p>The author discusses the fact that, with Silverlight, designers and developers can work together more effectively because of the tools involved.</p>  <p>the last part of the chapter discusses the anatomy of a Silverlight application including reference to the .xap and how these applications can be deployed.</p>  <p><em><u>Chapter 2: Silverlight Controls</u></em></p>  <p>The basic controls of Silverlight seem similar to that of web development i.e. button, grid, textbox, label etc. The author discusses the basic use of these controls plus some further ones that are used in Silverlight, stack panel, layout panels and the Rich text area (in SL4). The chapter doesn&#8217;t go into huge depth about the controls but describes their basic anatomy and use.</p>  <p><em><u>Chapter 3: Data Services in Silverlight 4</u></em></p>  <p>Databinding in Silverlight applications falls into 3 different categories (one time, one way and two way). The chapter discusses how you can use the XAML to bind data to objects without the need for code behind files to be used. </p>  <p>The chapter then goes on to talk about Isolated storage and how important this can be for a developer. I can see how Isolated storage can be abused easily but I can also see its power in developing applications.</p>  <p><em><u>Chapter 4: Learning Xaml Through Blend</u></em></p>  <p>Blend is a tool by Microsoft that can help create XAML from building a nice UI. This chapter discussed how Blend can be used by designers to work on the SAME files as the developer is working on. </p>  <p><em><u>Chapter 5: Creating a Fish Eye Menu</u></em></p>  <p>The chapter touched briefly on the patterns of building a site e.g. MVVM and how pages and user controls can be combined to create a multipage application. the chapter also talked about storyboards and control templates to help create a more interactive application. </p>  <p>There was lots to digest in this chapter but the fact that the user gives step by step instructions on how this can be done means that the user can really learn how this happens. This was a very useful chapter in getting our hands ‘dirty’ with the code.</p>  <p><em><u>Chapter 6: WCF RIA Services to the Rescue</u></em></p>  <p>Silverlight toolkit and RIA services are external libraries that can be used to create a “better” applications. This is another chapter that actually lets the user get their hands dirty with code and how to consume a RIA service. Interactions with file system, validation and customizing user feedback was all discussed and all very important areas of building an application</p>  <p>This was a critical chapter for me as I really started to embrace the power of Silverlight. Previously, I was of the opinion it was not really used for ‘business-like’ applications, but this chapter made me see otherwise</p>  <p><em><u>Chapter 7: Out of Browser Mode</u></em></p>  <p>Out of browser is as it sounds, the application doesn’t need to run in the browser. There are pros and cons to this. Firstly, the pro is that the application can run on mac (unlike WPF). The cons are the system must still have Silverlight installed. </p>  <p>Installations of OOB applications can be customized to provide valuable user feedback to keep the user informed of what is actually happing to their system. The use of trusted mode means that the OOB app can make use of COM objects and much more on the host computer. </p>  <p>Silverlight traditionally runs&#160; in a ‘sandbox’ type environment where it has very little access to the host machine, OOB can remove this ‘sandbox’ like environment where it can actually work with the host machine in order to use system resources.&#160; WPF has more access but again we must point out Silverlight OOBs can run on mac <img style="border-bottom-style: none; border-right-style: none; border-top-style: none; border-left-style: none" class="wlEmoticon wlEmoticon-smile" alt="Smile" src="http://paulstack.co.uk/blog/images/wlEmoticon-smile.png" /></p>  <p><em><u>Chapter 8: Game development in Silverlight</u></em></p>  <p>This chapter was a lot different to what was discussed so far. Up until now the book talked about using Silverlight to create applications, both in and out of browser. But not the author discusses how Silverlight can be used to actually create games. The beauty of using Silverlight for game development, is that it uses vector graphics which can scale whereas bitmap images cannot. </p>  <p>Sprites, loops and collisions are all terms and techniques talked about to create an interactive games for users. This is a tough chapter for me as I am not really into game development. I can see how Silverlight can be good fro game development but its not for me…. yet!</p>  <p>Great book, really enjoyed it! Since reading this book I have bought a Silverlight 4 book as I really want to start furthering my Silverlight skills <img style="border-bottom-style: none; border-right-style: none; border-top-style: none; border-left-style: none" class="wlEmoticon wlEmoticon-smile" alt="Smile" src="http://paulstack.co.uk/blog/images/wlEmoticon-smile.png" /></p>  <p>Thanks to Manning books and the authors, Bill Reiss and Dave Campbell, for an excellent introduction to this huge topic. </p>  <p>Id recommend this book for Silverlight n00bs as it will give you that taster to wet your appetite.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/18/getting-started-with-simpledata/">Getting Started With Simple.Data</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-18T00:00:00-04:00" pubdate data-updated="true">Oct 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>To continue in my evangelism of Simple.Data, I have decided to write a series of posts about how to use the product. The first part is how to get started with Simple.Data. This post will simple describe how we actually incorporate Simple.Data in an application.</p>
-<ul>
-<li>Download the source from Github - <a href="http://github.com/markrendle/Simple.Data">http://github.com/markrendle/Simple.Data</a> </li>
-<li>Open the .sln file and build it </li>
-<li>When the project is built then the required libraries are in the following location: &lt;solutiondirectory&gt;\Simple.Data\bin\&lt;configuration&gt;\ </li>
-<li>The required files are Simple.Data.dll, Simple.Data.pdb </li>
-<li>Add the files above to your lib or assemblies directory </li>
-<li>Reference Simple.Data.dll from your application </li>
-<li>Add the following to your web.config </li>
-</ul>
-<p>&lt;?xml version=&#8221;1.0&#8221; encoding=&#8221;utf-8&#8221; ?&gt;    <br />&lt;configuration&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;configSections&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;/configSections&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;connectionStrings&gt;     <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;add name=&#8221;Simple.Data.Properties.Settings.ConnectionString&#8221;     <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; connectionString=&#8221;server&rdquo;;initial catalog=&rdquo;databasename&rdquo;;integrated security=true&#8221; /&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;/connectionStrings&gt;     <br />&lt;/configuration&gt;</p>
-<p>&nbsp;</p>
-<p>That&#8217;s it! We are now ready to actually start querying your database.</p>
 </div>
   
   
@@ -481,14 +490,19 @@
 <aside class="sidebar">
   
     <section>
-  <h1>Follow Me</h1>
-  Twitter follow me goes here
+<h1>Follow me on Twitter</h1>
+<a href="https://twitter.com/stack72" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @stack72</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </section>
 
 
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
@@ -504,10 +518,6 @@
     
       <li class="post">
         <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a>
       </li>
     
   </ul>

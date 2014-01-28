@@ -2,574 +2,578 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://paulstack.co.uk/blog/2009/04/18/webdd-09/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2009/08/03/agile-assessment/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2009/08/05/uk-citizenship-test/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2009/08/06/windows-7/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/02/05/automated-ui-testing-part-1-watin/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2010/02/09/automated-ui-testing-part-2-installing-cucumber/
         </loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/02/09/visual-studio-2010-release-candidate/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2010/02/16/what-happens-to-watin-tests-when-containers-change/
         </loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/02/18/welcome-to-my-new-blog/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/02/19/strange-error-in-visual-studio-2010/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/02/23/temp-table-vs-table-variable/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/02/25/devevening-orm-showdown-feb-25th/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/03/23/cuke4nuke-intellisense-for-cuke4vs/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/04/07/logging-exceptions-via-exceptioneer/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/04/07/what-is-microsoftcshaprdll-in-vs2010-rc/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/04/08/iphone-40-announcement/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/04/21/functional-programming-in-net/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2010/06/01/differences-between-build-automation-and-continuous-integration/
         </loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2010/06/04/how-to-create-and-fill-and-ienumerable3cstring3e/
         </loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/06/04/speed-of-for-loop-vs-for-each-loop/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/06/07/my-ddd-south-west-review/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/07/27/all-change-please%21/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/07/29/iis-administration-application/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/08/09/breaking-the-dependency/</loc>
-        <lastmod>2013-10-20T18:41:59-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/08/14/guathon-london-august-2010/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/08/31/review-continuous-integration-in-net/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2010/09/13/tool-of-the-week-e28093-programmers-notepad2-e28093-100910/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/10/09/review-dependency-injection-in-net/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/10/15/simpledata-e28093-a-new-wave-of-orm/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2010/10/15/tool-of-the-week-e28093-console-e28093-151010/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/10/18/getting-started-with-simpledata/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/10/27/review-hello%21-silverlight/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/11/17/firebreake28093my-thoughts/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2010/11/21/review-of-nosql-day-at-dundee-university/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2010/11/26/why-scrum-doesne28099t-suit-me-but-kanban-does/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/12/14/macosx-theme-for-win7-laptop/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/12/14/upgrading-from-teamcity-5x-to-60/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2010/12/22/visual-studio-2010-bug/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/01/11/review-soa-patterns/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/01/12/moving-from-cuke4nuke-to-specflow/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/01/15/the-nightmare-when-i-upgraded-my-mvc2-solution-to-mvc3/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/01/17/where-have-all-the-good-developers-gone/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/01/21/what-passion-means-to-me/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/01/22/error-in-android-21/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/01/24/differences-between-specflow-and-cuke4nuke/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/01/31/how-i-enjoyed-ddd9/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/02/04/visual-studio-2010-extension-required/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/02/11/postsharp-and-teamcity-integration/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/02/19/how-to-debug-msbuild-files-in-vs2010/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/02/22/review-azure-in-action/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/02/28/running-powershell-scripts-from-teamcity/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/03/07/how-i-disconnect-stop-myself-burning-out/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/03/13/ddd-scotland-e28093-registration-almost-open%21/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/03/13/how-to-install-teamcity-6x-plugins/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/03/15/microsoft-release-ie9/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/03/18/using-razor-to-clean-up-my-scripts-and-styles/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/03/20/finally-a-visual-studio-extension-sync-tool/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/03/23/teamcity-iis-seo-toolkit/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/03/26/extracting-a-sql-server-schema-from-sql-server-ce-file/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/04/05/iis-rewrite-module-and-mvc3/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/04/05/using-add-deployable-dependencies-in-vs2010-sp1/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/04/07/using-sql-compare-from-the-command-line/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/04/12/ddd-southwest-get-ready-to-register/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/04/14/sql-ce-4-database-scripting/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/05/08/ddd-scotland-2011/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/05/09/free-speaker-training-day/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/05/10/attribute-based-caching-with-postsharp/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/05/16/is-webmatrix-a-threat-to-the-professional-developer/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/05/25/best-recruitment-drive-ever%21/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/05/27/givecamp-is-coming-to-the-uk%21/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/06/03/dont-hate-the-player-hate-the-game/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/06/06/review-of-ddd-guathon-2/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/06/15/ingredients-needed-for-an-effective-team/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/06/20/continuous-delivery-is-not-continuous-deployment/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/06/28/how-to-get-started-with-ci/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/06/30/mocks-stubs-a-thing-of-the-past/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/07/04/satisfyr-useful-little-addition-to-my-testing/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/07/06/considerations-when-choosing-hardware-for-ci/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/07/11/iis-rewrite-tool-the-pain-of-a-simple-rule-change/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/07/15/easy-http-not-just-a-catchy-name/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/07/18/development-key-skills-or-lack-of-them/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/07/27/progressive-dotnet-at-skillsmatter/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/08/03/choosing-the-correct-ci-tool/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/08/04/feature-switching-a-better-way-to-collaborate/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/08/09/win-a-ticket-to-progressivenet-tutorials/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/08/13/have-orms-introduced-extra-complexity-into-our-codebase/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/08/17/implementing-your-first-project-into-a-ci-system/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/08/22/is-it-really-agile/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/08/31/strategy-to-make-ci-builds-self-testing/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/09/10/why-you-shouldnt-feel-nervous-about-givecampuk/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/09/20/tfs-vnext-falls-short-of-the-mark/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/09/28/is-sql-the-barrier-to-continuous-deployment/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/10/11/automated-w3c-validation-with-teamcity/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/10/16/controlling-iis7-programmatically/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/10/31/html5-clean-code-for-front-end-developers/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2011/11/10/is-implementing-continuous-delivery-the-key-to-success/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/11/24/introducing-teamcitysharp/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/11/29/teamcity-pricing-model-discussion/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/11/30/teamcitysharp-v02/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/12/19/memory-management-in-net-story-board/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/12/29/2011-my-year-in-review/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2011/12/29/features-nuget-would-benefit-from/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2012/01/14/codemash-2012-truly-awesome/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2012/01/17/how-nuget-could-improve/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2012/01/31/installing-mono-on-windows/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2012/02/08/teamcitysharp-now-builds-with-mono/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2012/04/03/agile-teams-and-working-from-home/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2012/04/09/custom-blogging-workflow-with-youtrack/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2012/04/15/my-approach-to-refactoring-a-monster-switch-statement/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2012/04/30/spoofing-the-host-entry-in-a-httpwebrequest/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2012/05/01/you-think-im-doing-it-wrong-so-help-me-do-it-right/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2012/05/03/enum-string-value-for-use-with-jquery-mobile/
         </loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2012/05/17/introducing-teamcity-metro/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2012/05/21/teamcity-outofmemoryerror/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2012/06/07/what-is-your-interpretation-of-burnout/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2012/06/19/tfs-and-continuous-deployment/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2012/06/25/survival-of-the-fittest-fluid-teams/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/</loc>
-        <lastmod>2013-10-20T18:41:58-04:00</lastmod>
+        <lastmod>2013-10-20T23:41:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/2014/01/09/changing-my-focus/</loc>
-        <lastmod>2014-01-09T10:56:14-05:00</lastmod>
+        <lastmod>2014-01-09T15:56:14+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2014/01/11/can-we-fully-trust-online-training_courses/
         </loc>
-        <lastmod>2014-01-11T21:51:14-05:00</lastmod>
+        <lastmod>2014-01-12T02:51:14+00:00</lastmod>
+    </url>
+    <url>
+        <loc>http://paulstack.co.uk/blog/2014/01/28/it-recruitment-is-f-star-star-ked/</loc>
+        <lastmod>2014-01-28T18:56:58+00:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/about-me/</loc>
-        <lastmod>2013-10-21T03:16:53-04:00</lastmod>
+        <lastmod>2013-10-21T08:16:53+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/archives/</loc>
-        <lastmod>2014-01-11T21:51:14-05:00</lastmod>
+        <lastmod>2014-01-28T18:56:58+00:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/contact/</loc>
-        <lastmod>2013-10-21T03:22:48-04:00</lastmod>
+        <lastmod>2013-10-21T08:22:48+01:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/</loc>
-        <lastmod>2014-01-11T21:51:14-05:00</lastmod>
+        <lastmod>2014-01-28T18:56:58+00:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/robots.txt</loc>
-        <lastmod>2013-10-20T15:34:07-04:00</lastmod>
+        <lastmod>2013-10-20T20:34:07+01:00</lastmod>
     </url>
 </urlset>
