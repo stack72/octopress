@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Before the dawn of VS2010 SP1, when I wanted to deploy dependency dlls, I had to go to the properties of the .dll and set CopyLocal to true This was &hellip;">
+  <meta name="description" content="In March, I wrote a post about how to generate sql schema scripts from a SQL CE4 database file from the command line. After working out how to do &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +85,56 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/04/07/using-sql-compare-from-the-command-line/">Using Sql Compare From the Command Line</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-07T00:00:00+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In March, I wrote a post about how to <a href="http://paulstack.co.uk/blog/post/Extracting-a-Sql-Server-Schema-from-Sql-Server-CE-File.aspx" target="_blank">generate sql schema scripts from a SQL CE4 database file</a> from the command line. After working out how to do this I wanted to be able to take the generate sql server schema (in .sql file) and compare it against an existing schema. The resulting differences would then generate a sql change script.</p>
+<p>I tried <a href="http://www.red-gate.com/products/sql-development/sql-compare/" target="_blank">Sql Compare</a>, a Redgate tool, and this seemed to prove effective for what I was able to do. After doing a bit of research I was able to find out that Sql Compare isn&rsquo;t able to compare individual .sql files. BUT you could give it a directory path and compare ALL the .sql files in a directory.</p>
+<p>Previously I generated a schema.sql file and placed this file in the following folder: c:\temp\schema</p>
+<p>I had an old sql schema file that from previously investigatations with .sdf file. I took one of those files and put it in c:\temp\oldschema</p>
+<p>I was then able to run the command as follows from the command prompt:</p>
+<p>cd &#8220;C:\Program Files\SQL Compare 8&#8221;</p>
+<p>sqlcompare.exe    <br />&nbsp;&nbsp;&nbsp; /scr1:&#8221;C:\temp\new&#8221;     <br />&nbsp;&nbsp;&nbsp; /scr2:&#8221;C:\temp\oldschema&#8221;     <br />&nbsp;&nbsp;&nbsp; /o:Default     <br />&nbsp;&nbsp;&nbsp; /ScriptFile:&#8221;C:\temp\SqlChangeScript.sql&#8221;</p>
+<p>This script effectively says to compare the old schema files (scr2) against the new schema files (scr1) . O:/default specifies that the default options for comparison and synchronisation will be used. The resulting sql change script will be saved as SqlChangeScript.sql. I could have changed the last option from /ScriptFile to /sync which would have run the synchronisation in place and not produced the change file. I wanted the change file for version control and release history.</p>
+<p>When running this through the command line I was able to see the following:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_20.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_20.png" border="0" alt="image" width="398" height="245" /></a></p>
+<p>This worked perfectly and generated a change script that has everything rolled in a transaction to make sure no errors will run. The nice touch here is that there are messages printed when an action is started.</p>
+<p>I didnt want to keep 2 schema files on my build server for comparison so I then started to look at how to compare the new schema file against the database itself. Low and behold this is also available with Sql Compare and works as follows:</p>
+<p>sqlcompare.exe    <br />&nbsp;&nbsp;&nbsp; /scr1:&#8221;C:\temp\new&#8221;     <br />&nbsp;&nbsp;&nbsp; /Server2:&#8221;&lt;server name or ip&gt;&#8221; /db2:&#8221;&lt;database name&gt;&#8221;     <br />&nbsp;&nbsp;&nbsp; /o:Default     <br />&nbsp;&nbsp;&nbsp; /ScriptFile:&#8221;C:\temp\SchemaSyncScript.sql&#8221;</p>
+<p>The only difference here is to change the /scr2 to actually be a database instead of another sql server file.Again this worked as expected and created a nice sql change script that I could then use for database deployment.</p>
+<p>If you have any aspirations of automated database deployment then I think that you should try the trial of Sql Compare. It has been very useful for me. I&rsquo;m just very glad my company already had a company of it I could use for the build server. As this process can be run from command line it can also be run from MSBuild and as part of a TeamCity build. To be continued&hellip;&hellip;&hellip;&hellip;&hellip;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/04/05/using-add-deployable-dependencies-in-vs2010-sp1/">Using Add Deployable Dependencies in VS2010 SP1</a></h1>
     
     
@@ -101,7 +151,7 @@
   
 
 
-<time datetime="2011-04-05T00:00:00-07:00" pubdate data-updated="true">Apr 5<span>th</span>, 2011</time>
+<time datetime="2011-04-05T00:00:00+01:00" pubdate data-updated="true">Apr 5<span>th</span>, 2011</time>
         
       </p>
     
@@ -147,7 +197,7 @@
   
 
 
-<time datetime="2011-04-05T00:00:00-07:00" pubdate data-updated="true">Apr 5<span>th</span>, 2011</time>
+<time datetime="2011-04-05T00:00:00+01:00" pubdate data-updated="true">Apr 5<span>th</span>, 2011</time>
         
       </p>
     
@@ -183,7 +233,7 @@
   
 
 
-<time datetime="2011-03-26T00:00:00-07:00" pubdate data-updated="true">Mar 26<span>th</span>, 2011</time>
+<time datetime="2011-03-26T00:00:00+00:00" pubdate data-updated="true">Mar 26<span>th</span>, 2011</time>
         
       </p>
     
@@ -228,7 +278,7 @@
   
 
 
-<time datetime="2011-03-23T00:00:00-07:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2011</time>
+<time datetime="2011-03-23T00:00:00+00:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2011</time>
         
       </p>
     
@@ -288,7 +338,7 @@
   
 
 
-<time datetime="2011-03-20T00:00:00-07:00" pubdate data-updated="true">Mar 20<span>th</span>, 2011</time>
+<time datetime="2011-03-20T00:00:00+00:00" pubdate data-updated="true">Mar 20<span>th</span>, 2011</time>
         
       </p>
     
@@ -324,7 +374,7 @@
   
 
 
-<time datetime="2011-03-18T00:00:00-07:00" pubdate data-updated="true">Mar 18<span>th</span>, 2011</time>
+<time datetime="2011-03-18T00:00:00+00:00" pubdate data-updated="true">Mar 18<span>th</span>, 2011</time>
         
       </p>
     
@@ -360,7 +410,7 @@
   
 
 
-<time datetime="2011-03-15T00:00:00-07:00" pubdate data-updated="true">Mar 15<span>th</span>, 2011</time>
+<time datetime="2011-03-15T00:00:00+00:00" pubdate data-updated="true">Mar 15<span>th</span>, 2011</time>
         
       </p>
     
@@ -404,7 +454,7 @@
   
 
 
-<time datetime="2011-03-13T00:00:00-08:00" pubdate data-updated="true">Mar 13<span>th</span>, 2011</time>
+<time datetime="2011-03-13T00:00:00+00:00" pubdate data-updated="true">Mar 13<span>th</span>, 2011</time>
         
       </p>
     
@@ -470,7 +520,7 @@
   
 
 
-<time datetime="2011-03-13T00:00:00-08:00" pubdate data-updated="true">Mar 13<span>th</span>, 2011</time>
+<time datetime="2011-03-13T00:00:00+00:00" pubdate data-updated="true">Mar 13<span>th</span>, 2011</time>
         
       </p>
     
@@ -478,46 +528,6 @@
 
 
   <div class="entry-content"><p>Today, I got an email to say that my session on “SpecFlow – functional testing made easy” was selected for DDD Scotland. I’m really pleased at this and am very much looking forward to presenting it. I haven’t got a chance to see the full schedule yet but I know of a few other sessions that were selected.</p>  <p>I’m disappointed I won’t get to present my more advanced TeamCity talk there but I will try for another conference for that. Who knows maybe I’ll finally get my workshop up and running for it!</p>  <p>If you are interested in going to this <strong>free</strong> event run for the community, by the community then registration opens on march 14th 2011 at 1230pm (GMT). The registration site is at <a href="http://developerdeveloperdeveloper.com/scotland2011/" target="_blank">developerdeveloperdeveloper.com</a>.</p>  <p>I hope to see you there! :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/03/07/how-i-disconnect-stop-myself-burning-out/">How I Disconnect & Stop Myself Burning Out</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-07T00:00:00-08:00" pubdate data-updated="true">Mar 7<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A while back I wrote a post on what passion means to me. Someone asked me to discuss how I achieved a work / life balance so I thought I&rsquo;d write this post while on holiday (ironic eh!)</p>
-<p>So, as someone who believes they have passion, I guess i can be described as working a lot. This doesn&rsquo;t just mean my day job but it means studying/reading new things, writing code of my own for research applications or helping others with development related tasks. I read a lot of development books as well so I&rsquo;m sure this can really eat into my time.</p>
-<p>I personally think that definitions of disconnecting and developer burnout&nbsp; are subjective. But even more, each developer has their own way or preventing burnout and from disconnecting from their life as a developer. I am absolutely addicted to twitter and I am on there an awful lot. I don&rsquo;t feel that when I&rsquo;m on twitter that I&rsquo;m working or engaging in work. Certainly it can make me talk about work but I don&rsquo;t generally have Visual Studio open while I&rsquo;m on there. This, to me, means that twitter isn&rsquo;t really stopping me from disconnecting. I use it more as a social networking tool &ndash; to talk to other developers who can help me, to bookmark articles for use later when I am on my laptop.</p>
-<p>So what is disconnecting to me? I feel that it&rsquo;s when I don&rsquo;t writing code, don&rsquo;t do overtime at work, don&rsquo;t look at emails and generally don&rsquo;t do any development related tasks. I can still tweet &ndash; twitter is facebook for geeks so tweeting is just being social! Disconnecting goes hand in hand with trying to prevent myself burning out. Burning out is doing far too much &ndash; this can stem from working too many hours or working strange or anti-social hours. This can cause slight depression in some cases or problems at home. First stage of burnout to me is when I cannot sleep because all I can think about is my work or my projects.</p>
-<p>Burnout I&rsquo;m told can be a bit of a killer to a developer. Burnout can occur when a developer works too much. This can be overtime for day job or can be working late hours on a personal project. I don&rsquo;t feel I have been &ldquo;burnt out&rdquo; but I&rsquo;m honestly not in a position to say this. I&rsquo;m sure my girlfriend would be a better judge of this. In order to try and stay away from burnout I tend to try and have 3 nights a week away from work related activities. During this time I still tweet (but hey its on my phone so its ok ;)) but I don&rsquo;t actively do any development related activities unless they are classed as incredibly urgent. My girlfriend and my dog are the things that keep me focused way from work when I&rsquo;m on a &ldquo;night off&rdquo;. Hopefully I&rsquo;ll continue to not be 100% workaholic but as my job changes or new things happen or are released in the development work things may change. Lets just hope that I can be strong and not give up all my free time!</p>
 </div>
   
   
@@ -549,6 +559,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
       </li>
     
@@ -564,10 +578,6 @@
         <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -581,7 +591,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Paul Stack (@stack72) -
+  Copyright &copy; 2015 - Paul Stack (@stack72) -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

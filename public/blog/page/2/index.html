@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I am fed up with reading more and more posts, mostly on twitter, telling me I&rsquo;m wrong if I&rsquo;m doing it this way or wrong if I&rsquo;m not &hellip;">
+  <meta name="description" content="A while back I had to use JQuery mobile for a project. The project needed to have 2 themes on an application and the configuration would need to tell &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +85,50 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2012/05/03/enum-string-value-for-use-with-jquery-mobile/">Enum String Value With JQuery Mobile</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-03T00:00:00+01:00" pubdate data-updated="true">May 3<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A while back I had to use <a href="http://jquerymobile.com/" target="_blank">JQuery mobile</a> for a project. The project needed to have 2 themes on an application and the configuration would need to tell the application what theme to load. With JQuery Mobile, the theme string could only be a single letter. I like keeping to decent and meaningful naming conventions, so I created a configuration setting as follows:</p>
+<p>&lt;add key=&#8221;Theme&#8221; value=&#8221;Plain&#8221; /&gt;</p>
+<p>I could see easily that the theme for this build of the application is the Plain theme. How could I relate that back to a JQuery theme? Plain would not be acceptable with JQuery Mobile. Therefore I had to do something different. I was able to use an attribute on the Theme Enum:</p>
+<script type="text/javascript" src="https://gist.github.com/87a15d10b39c4ab6f26a.js"></script>
+<p>I then overrode the WebViewPage to include logic to get the Theme as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/cdd00afc29b4b4599ebb.js"></script>
+<p>As you can see, I have an extension method in place to get the string value of the enum. This then taps back into my String attribute as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/94a594f634ee0aa1e3ae.js"></script>
+<p>This then allowed me to turn a simple readable string from a web.config, into something that JQuery Mobile could understand and parse as normal</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2012/05/01/you-think-im-doing-it-wrong-so-help-me-do-it-right/">You Think I&#8217;m Doing It Wrong, So Help Me Do It Right</a></h1>
     
     
@@ -101,7 +145,7 @@
   
 
 
-<time datetime="2012-05-01T00:00:00-07:00" pubdate data-updated="true">May 1<span>st</span>, 2012</time>
+<time datetime="2012-05-01T00:00:00+01:00" pubdate data-updated="true">May 1<span>st</span>, 2012</time>
         
       </p>
     
@@ -141,7 +185,7 @@
   
 
 
-<time datetime="2012-04-30T00:00:00-07:00" pubdate data-updated="true">Apr 30<span>th</span>, 2012</time>
+<time datetime="2012-04-30T00:00:00+01:00" pubdate data-updated="true">Apr 30<span>th</span>, 2012</time>
         
       </p>
     
@@ -201,7 +245,7 @@
   
 
 
-<time datetime="2012-04-15T00:00:00-07:00" pubdate data-updated="true">Apr 15<span>th</span>, 2012</time>
+<time datetime="2012-04-15T00:00:00+01:00" pubdate data-updated="true">Apr 15<span>th</span>, 2012</time>
         
       </p>
     
@@ -245,7 +289,7 @@
   
 
 
-<time datetime="2012-04-09T00:00:00-07:00" pubdate data-updated="true">Apr 9<span>th</span>, 2012</time>
+<time datetime="2012-04-09T00:00:00+01:00" pubdate data-updated="true">Apr 9<span>th</span>, 2012</time>
         
       </p>
     
@@ -300,7 +344,7 @@
   
 
 
-<time datetime="2012-04-03T00:00:00-07:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2012</time>
+<time datetime="2012-04-03T00:00:00+01:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2012</time>
         
       </p>
     
@@ -336,7 +380,7 @@
   
 
 
-<time datetime="2012-02-08T00:00:00-08:00" pubdate data-updated="true">Feb 8<span>th</span>, 2012</time>
+<time datetime="2012-02-08T00:00:00+00:00" pubdate data-updated="true">Feb 8<span>th</span>, 2012</time>
         
       </p>
     
@@ -379,7 +423,7 @@
   
 
 
-<time datetime="2012-01-31T00:00:00-08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2012</time>
+<time datetime="2012-01-31T00:00:00+00:00" pubdate data-updated="true">Jan 31<span>st</span>, 2012</time>
         
       </p>
     
@@ -429,7 +473,7 @@
   
 
 
-<time datetime="2012-01-17T00:00:00-08:00" pubdate data-updated="true">Jan 17<span>th</span>, 2012</time>
+<time datetime="2012-01-17T00:00:00+00:00" pubdate data-updated="true">Jan 17<span>th</span>, 2012</time>
         
       </p>
     
@@ -476,7 +520,7 @@
   
 
 
-<time datetime="2012-01-14T00:00:00-08:00" pubdate data-updated="true">Jan 14<span>th</span>, 2012</time>
+<time datetime="2012-01-14T00:00:00+00:00" pubdate data-updated="true">Jan 14<span>th</span>, 2012</time>
         
       </p>
     
@@ -500,54 +544,6 @@
 </blockquote>
 <p>Most importantly, I would sincerely like to thank all the organisers. These guys work on this conference while holding down jobs. Its an incredible accomplishment. It was what I would certainly class as <strong>the best</strong> conference ever. Thinking of 1300 geeks in a waterpark in Ohio in January doesn&rsquo;t do this event justice at all. It is quite literally a software conference for the entire family.</p>
 <p>I met so many cool people &ndash; I couldn&#8217;t begin to name them all or acknowledge them all! I will certainly be back next year! For now I will have to get over the bacon sweats, keep icing my head from my stupidity and start working on my submission next year!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/12/29/features-nuget-would-benefit-from/">Features Nuget Would Benefit From</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-29T00:00:00-08:00" pubdate data-updated="true">Dec 29<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I look to <a href="http://nuget.org/">Nuget</a> as the package manager for Windows development in the same way that <a href="http://rubygems.org/">RubyGems</a> is to Ruby development. This may be immature of me but it works for my scenarios. In comparing the different systems, I feel that Nuget is lacking a few key features that sometimes I look for.</p>
-<h4>1. Install a specific version of a package</h4>
-<p>Currently from the Nuget console in Visual Studio a command like the following is run:</p>
-<p><strong>Install-package TeamCitySharp</strong></p>
-<p>This would install the <em>latest</em> package available. This is sometimes not always the best solution. If the package owner releases a package that has a bug in it then we cannot use the package at all. I would like the be able to install a version of the package that I know works:</p>
-<p><strong>Install-package TeamCitySharp &ndash;version:0.2</strong></p>
-<p>This would mean I can then update at a time when I am happy with the new package or when a fix has been added.</p>
-<h4>2. Download package direct from the Nuget gallery</h4>
-<p>I may want to download&nbsp; package without the need to open the Nuget console. A simple download link would be a welcome addition to be able to help this.</p>
-<h4>3. Global installation of a package</h4>
-<p>Currently, you would select the project from the list in the console and then call the install command. I would like to be able able install a package to a number of packages. For example, I have 20 unit test assemblies. I wouldn&#8217;t want to have to type the command to install NUnit 20 times. I would like to be able to do something like:</p>
-<p>Install-package NUnit&nbsp; -include *.UnitTest.dll &ndash;exclude *.config</p>
-<p>This would utilise the full power of the PowerShell console. This is purely a timesaver and would help when working in a multi project environment.</p>
 </div>
   
   
@@ -579,6 +575,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
       </li>
     
@@ -594,10 +594,6 @@
         <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -611,7 +607,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Paul Stack (@stack72) -
+  Copyright &copy; 2015 - Paul Stack (@stack72) -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

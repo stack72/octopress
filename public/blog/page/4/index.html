@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="After the BUILD conference (September 13 &ndash; 16), there was a lot of buzz about the next version of TFS. From the conference we heard that vNext &hellip;">
+  <meta name="description" content="When it comes to the step between continuous delivery and continuous deployment (automated release of every good build), then the barrier I hear most &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +85,49 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/09/28/is-sql-the-barrier-to-continuous-deployment/">Is SQL the Barrier to Continuous Deployment?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-28T00:00:00+01:00" pubdate data-updated="true">Sep 28<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When it comes to the step between continuous delivery and continuous deployment (automated release of <strong>every</strong> good build), then the barrier I hear most often is <em>automated deployments work fine until we have database changes.</em></p>
+<p>Can we be confident in saying that database deployments are the only barrier to continuous deployment? Probably not the only barrier, but there are a large part of the puzzle. There will be other factors, e.g. audit regulations regarding sign off of releases etc., but I don&rsquo;t think I would be frowned upon by agreeing with this statement.</p>
+<p>I know there are many great tools out there will will help us overcome sql changes. Redgate&rsquo;s <a href="http://www.red-gate.com/products/sql-development/sql-compare/" target="_blank">Sql Compare</a> can take 2 schemas and compare them to create a change script and a rollback script. This can be controlled by a CI tool. Others do a similar job, but Sql Compare is one I use regularly. Sql Server management studio can also be manipulated very easily via msbuild. So I can assure you it is <strong>very easy</strong> to automate sql deployments. But it scares a lot of people as they are worried they will kill their database. This is not a fear that is uncalled for if I am truthful.</p>
+<p>Since there is the fear of damaging the database, some companies who are already doing continuous deployment will actively &lsquo;skip&rsquo; a deployment when sql changes are involved. This involves using VCS hooks. A typical hook would be the presence of a commit message, e.g. #Skip Deployment. This would then let source control / CI server know to handle the commit without the need for a deployment.</p>
+<p>Back in late 2010, I was introduced to the concept of NoSQL databases. This is essentially any type of store that doe not use a relational model. I have been looking at NoSQL more and more and have recently pondered &lsquo;how easy would NoSQL based systems be to include in a continuous deployment system&rsquo;?</p>
+<p>I <span style="text-decoration: underline;">thought</span> the answer was that NoSQL <strong>was</strong> indeed the missing piece of the continuous deployment puzzle. If companies were only ever deploying code then that&rsquo;s easy right? Things are never that easy though. I looked further and then thought that if data was held in a store (of any kind) in a specific structure then how could we retrieve that data if the structure changed with the next system deployment.</p>
+<p>I asked <a href="http://twitter.com/robashton" target="_blank">Rob Ashton</a>, a well know presenter of <a href="http://ravendb.net/" target="_blank">Raven DB</a>, this question. Rob said that it wouldn&rsquo;t work unless you ran some sort of data migration against the data structures or versioned them in some way. So, in essence it was a no! I&rsquo;m not disagreeing with Rob by any means but I still think NoSQL systems have got scope built in to allow us to handle automated deployments a little easier. As part of our development task, we could write the migration scripts for the data. We would have to do this anyway if we worked in a sql world. I&rsquo;m a coder, not a sql developer. Therefore I would be a lot happier writing code migrations rather than sql migrations. This means I would also be a lot happier about deployments where only code changes were involved.</p>
+<p>I have not had time to try this approach as I am not skilled by any means in using NoSQL. So in essence, this is a theory but I am confident it has some wheels. What do you think?&hellip;&hellip;&hellip;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/09/20/tfs-vnext-falls-short-of-the-mark/">TFS vNext – Falls Short of the Mark</a></h1>
     
     
@@ -101,7 +144,7 @@
   
 
 
-<time datetime="2011-09-20T00:00:00-07:00" pubdate data-updated="true">Sep 20<span>th</span>, 2011</time>
+<time datetime="2011-09-20T00:00:00+01:00" pubdate data-updated="true">Sep 20<span>th</span>, 2011</time>
         
       </p>
     
@@ -147,7 +190,7 @@
   
 
 
-<time datetime="2011-09-10T00:00:00-07:00" pubdate data-updated="true">Sep 10<span>th</span>, 2011</time>
+<time datetime="2011-09-10T00:00:00+01:00" pubdate data-updated="true">Sep 10<span>th</span>, 2011</time>
         
       </p>
     
@@ -189,7 +232,7 @@
   
 
 
-<time datetime="2011-08-31T00:00:00-07:00" pubdate data-updated="true">Aug 31<span>st</span>, 2011</time>
+<time datetime="2011-08-31T00:00:00+01:00" pubdate data-updated="true">Aug 31<span>st</span>, 2011</time>
         
       </p>
     
@@ -246,7 +289,7 @@
   
 
 
-<time datetime="2011-08-22T00:00:00-07:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2011</time>
+<time datetime="2011-08-22T00:00:00+01:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2011</time>
         
       </p>
     
@@ -307,7 +350,7 @@
   
 
 
-<time datetime="2011-08-17T00:00:00-07:00" pubdate data-updated="true">Aug 17<span>th</span>, 2011</time>
+<time datetime="2011-08-17T00:00:00+01:00" pubdate data-updated="true">Aug 17<span>th</span>, 2011</time>
         
       </p>
     
@@ -368,7 +411,7 @@
   
 
 
-<time datetime="2011-08-13T00:00:00-07:00" pubdate data-updated="true">Aug 13<span>th</span>, 2011</time>
+<time datetime="2011-08-13T00:00:00+01:00" pubdate data-updated="true">Aug 13<span>th</span>, 2011</time>
         
       </p>
     
@@ -415,7 +458,7 @@
   
 
 
-<time datetime="2011-08-09T00:00:00-07:00" pubdate data-updated="true">Aug 9<span>th</span>, 2011</time>
+<time datetime="2011-08-09T00:00:00+01:00" pubdate data-updated="true">Aug 9<span>th</span>, 2011</time>
         
       </p>
     
@@ -455,7 +498,7 @@
   
 
 
-<time datetime="2011-08-04T00:00:00-07:00" pubdate data-updated="true">Aug 4<span>th</span>, 2011</time>
+<time datetime="2011-08-04T00:00:00+01:00" pubdate data-updated="true">Aug 4<span>th</span>, 2011</time>
         
       </p>
     
@@ -504,7 +547,7 @@
   
 
 
-<time datetime="2011-08-03T00:00:00-07:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2011</time>
+<time datetime="2011-08-03T00:00:00+01:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2011</time>
         
       </p>
     
@@ -528,47 +571,6 @@
 <p>It is very important for your tool to not be a hassle to use, configure or maintain. If you have to reason for &ldquo;CI&rdquo; maintenance that may take hours out of your week then the team is less likely to buy into that situation. My top tip is to use a scoring matrix and score each of the sections above 1 &ndash; 10 (1 being worst, 10 being best) and then get a shortlist of the tools that you like. After you have got a shortlist of say 3 tools, then <strong>trial them.</strong> It is very important to trial them, they may look great on paper but they may not work out how you imagine.</p>
 <p>This article talks about the points worth considering when choosing a CI tool. It you have been through this process and feel there are other points worth considering then please do comment and I will add them to the list. If you feel that a particular CI tool was missed from this article then please do add that as well with a link to its website.</p>
 <p>The next post in this series will talk about how to implement your first project into a CI tool.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/07/27/progressive-dotnet-at-skillsmatter/">Progressive .Net at SkillsMatter</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-27T00:00:00-07:00" pubdate data-updated="true">Jul 27<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Between September 5th &ndash; September 7th, <a href="http://skillsmatter.com" target="_blank">Skillsmatter</a> will be hosting the <a href="http://skillsmatter.com/event/open-source-dot-net/progressive-dot-net-tutorials-2011/js-2381" target="_blank">Progressive .NET Tutorials</a>. The tutorials comprise of twelve 4-hour hands-on Workshops which provide a deep dive into advanced topics for Agile .NET developers. The Tutorials are in their 5th year and aim to provide a liberal dash of Agile and Software Craftsmanship skills as well as advanced .NET Topics. These are in-depth, hands-on tutorials run by real experts who are there to be quizzed, questioned and interrogated for three days of intensive learning!</p>
-<p>I am extremely pleased and beyond excited to be able to be part of this event. I will be talking, as well as demonstrating, the journey from regular CI practices to the new goal for a lot of people, Continuous Delivery. The event has some fantastic speakers and sessions:</p>
-<p><em>GHERKIN ACCEPTANCE CRITERIA, Christian Hassa &amp; Gaspar Nagy <br />AUTOMATING GHERKIN ACCEPTANCE CRITERIA, Christian Hassa &amp; Gaspar Nag <br /> <br />SOLVING THE PACKAGING PUZZLE, Ian Cooper &amp; Sebastien Lambla <br />FRONT-END TIPS FOR BACK-END DEVS, Dylan Beattie <br /> <br />LOAD TESTING FOR DEVELOPERS, Simon Brown <br />CI TO CONTINUOUS DELIVERY, Paul Stack <br /> <br />TEST-DRIVEN DEVELOPMENT IN JAVASCRIPT, Damjan Vujnovic <br />ADVANCED WEBSHARPER TUTORIAL, Adam Granicz <br /> <br />RESTFUL WEB SERVICE DEVELOPMENT IN .NET, Ian Robinson <br />INTRO TO NANCY &amp; SIMPLE.DATA, Mark Rendle &amp; Steven Robbins <br /> <br />ASYNC METHODS IN C#5, Jon Skeet</em></p>
-<p>If you are interested in any of these topics then I suggest you book yourself a ticket. This is a chance to speak with some well known names in their areas. I hope my session will be well enjoyed and that people actually learn a few things :) For full details of the event, and to register, go to the <a href="http://skillsmatter.com/event/open-source-dot-net/progressive-dot-net-tutorials-2011/js-2381" target="_blank">event page</a> on the skillsmatter website.&nbsp;</p>
-<p>UPDATE: Thanks to SkillsMatter I am able to give away a &pound;50 discount for the event to readers of my blog:</p>
-<p><a href="http://skillsmatter.com/event/open-source-dot-net/progressive-dot-net-tutorials-2011/js-2381">Find more information about this years Progressive .NET Tutorials here</a>. If you would like to <a href="https://skillsmatter.com/register-online/conf/849/js-2381">register</a>, don&#8217;t forget to <a href="http://skillsmatter.com/event/open-source-dot-net/progressive-dot-net-tutorials-2011/js-2381">claim your &pound;50 discount of the ticket price, by quoting Promocode: PROGNET50 when registering</a></p>
 </div>
   
   
@@ -600,6 +602,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
       </li>
     
@@ -615,10 +621,6 @@
         <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/06/25/survival-of-the-fittest-fluid-teams/">Survival of the Fittest – Fluid Teams?</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -632,7 +634,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Paul Stack (@stack72) -
+  Copyright &copy; 2015 - Paul Stack (@stack72) -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
