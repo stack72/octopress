@@ -5,12 +5,12 @@ date: 2015-03-04 14:20
 comments: true
 categories: 
 ---
-TL;DR: I am looking for a new role. I am am infrastructure developer who has a passion for metrics, monitoring and alerting. If you feel that you are interested in me coming to help your engineering team, then get in contact with me
+TL;DR: I am looking for a new role. I am an infrastructure developer who has a passion for metrics, monitoring and alerting. If you feel that you are interested in me coming to help your engineering team, then get in contact with me
 
 <a href="public@paulstack.co.uk">public@paulstack.co.uk</a>
 
 ### I love working on infrastructure!
-Over the past few years, I have helped transform a team who worked solely in the manual sysadmin space into the configuration mmanagement world. This has reduced the time taken to provision a server and get an application into production from a number of weeks, to a number of hours.
+Over the past few years, I have helped transform a team who worked solely in the manual sysadmin space into the configuration management world. This has reduced the time taken to provision a server and get an application into production from a number of weeks, to a number of hours.
 
 Metrics are a key part of my day to day work. I believe that if we don't measure it then we cannot improve on it and learn from it. I also love to know what is happening with my systems before getting a call from an end user telling me there is a problem.
 
@@ -31,6 +31,6 @@ I want to be part of a team that care about the systems they create. Working on 
 I don't want to be a ticket filler. I want to be involved in helping to shape infrastructure systems and helping to drive decisions going forward. In my opinion, automation is key to helping deliver great systems and I really want to be part of delivering those systems
 
 ### So hire me!
-If your company is looking for passionate infrastructure develoeprs who always want to improve or If your company has a need (and the willingness) to drive their infrastructure forward and improve then I could be the right person for you. 
+If your company is looking for passionate infrastructure developers who always want to improve or If your company has a need (and the willingness) to drive their infrastructure forward and improve then I could be the right person for you. 
 
 <a href="public@paulstack.co.uk">public@paulstack.co.uk</a>
