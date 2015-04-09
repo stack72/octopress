@@ -5,6 +5,9 @@ date: 2015-03-04 14:20
 comments: true
 categories: 
 ---
+
+EDIT: I am no longer looking for a new role. Thanks to all for the suggestions
+
 TL;DR: I am looking for a new role. I am an infrastructure developer who has a passion for metrics, monitoring and alerting. If you feel that you are interested in me coming to help your engineering team, then get in contact with me
 
 <a href="public@paulstack.co.uk">public@paulstack.co.uk</a>
