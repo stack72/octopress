@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="When it comes to the step between continuous delivery and continuous deployment (automated release of every good build), then the barrier I hear most &hellip;">
+  <meta name="description" content="This past week, I started experimenting with letting TeamCity create reports of CSS and XHTML Validation from the W3C website. In order to do this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/11/automated-w3c-validation-with-teamcity/">Automated W3C Validation With TeamCity</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-11T00:00:00+01:00" pubdate data-updated="true">Oct 11<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This past week, I started experimenting with letting TeamCity create reports of CSS and XHTML Validation from the W3C website. In order to do this validation I was able to use their web URL and pass a URL to the web address. In order to do this I used <a href="https://github.com/hhariri/EasyHttp" target="_blank">EasyHTTP</a> as it took care of the web request in a very simple way</p>
+<script type="text/javascript" src="https://gist.github.com/8ad9b4ceaca1e1a772d6.js"></script>
+<p>When the response is caught, I was able to take the raw text part of the response and save to a html file. This code is very early proof of concept and plans are a foot to be able to pass in validation types and recursive list of files etc.</p>
+<p>In order to run this from TeamCity, there was 1 very easy build configuration</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_32.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_30.png" alt="image" width="488" height="238" border="0" /></a></p>
+<p align="center">I had pre-configured TeamCity to add new report tabs when the artifacts were available &ndash; using this <a href="http://confluence.jetbrains.net/display/TCD5/Report+Tabs" target="_blank">article</a>. I was then able to tell TeamCity to show these report tabs by outputting the correct files as build artifacts:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_33.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_31.png" alt="image" width="501" height="236" border="0" /></a></p>
+<p align="center">The reports can be found in the build results screen:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_34.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_32.png" alt="image" width="505" height="144" border="0" /></a>&nbsp;&nbsp;</p>
+<p align="center">The code will be available very soon but if you feel you want it sooner then please do let me know. There may be changes to the reports but they look similar to the following:</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_35.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_33.png" alt="image" width="520" height="290" border="0" /></a></p>
+<p>&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -526,58 +573,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/03/choosing-the-correct-ci-tool/">Choosing the Correct CI Tool</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-08-03T00:00:00+01:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This is the 3rd post in a series &lsquo;<a href="http://paulstack.co.uk/blog/post/How-to-get-started-with-CI.aspx" target="_blank">How to get started with CI&rsquo;</a></p>
-<p>Previously, we talked about choosing the correct infrastructure for your CI system. We will now talk about CI tools themselves. There are lots of CI tools out there. Many more than I know about and have listed here. Some tools are good and some, not to my liking.</p>
-<p><a href="http://paulstack.co.uk/blog/images/ci-tools.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="ci-tools" src="http://paulstack.co.uk/blog/images/ci-tools_thumb.gif" alt="ci-tools" width="557" height="207" border="0" /></a></p>
-<p>If you have used a CI tool before then you may find yourself comfortable with that, if that is the case then I&rsquo;d love to hear about your experiences. Alternatively, if you are new to these tools I have included a few things to consider when choosing a tool:</p>
-<h4>1. Technology</h4>
-<p>Don&rsquo;t choose a CI tool that is not compatible with your environment e.g. if you run linux based servers then you would not choose a windows based tool unless you had the ability to create a windows VM. Before choosing a tool, make sure to investigate the requirements needed by it.</p>
-<h4>2. Cost</h4>
-<p>If you have little or no budget then you will be limited to some of the tools that are either free or have community versions. Check the license agreement for terms and conditions about their uses &ndash; its best to know what is expected before you start using it.</p>
-<h4>3. Support &amp;/or Community</h4>
-<p>Choose a tool that has a good user base or support forums. If you choose otherwise then it may be difficult (if at all) to get help if things do not go as expected or if there are issues with the software. A more established and well known tool means there is a greater probability of someone having a similar issue to you and thus a resolution may be more readily available.</p>
-<h4>4. Ease of Use &amp; Maintainability</h4>
-<p>If you choose a tool that is difficult to use, then it will be difficult to adopt into your organisation. For example. CCNET, hugely powerful tool (and one I started with) is configured mostly via XML files (special editors may be available) and build scripts. There is no easy UI to make things smoother. In my opinion, unless you like creating scripts in notepad (or your favourite text editor) then it may not be the one for you. Remember, you probably won&rsquo;t be at a company forever, so think of the guy that has to pick up this system after you leave &ndash; unless you have a simple system, it <strong>may</strong> get neglected or trashed completely.</p>
-<h4>5. Choose something &lsquo;Cool&rsquo;</h4>
-<p>I personally love new shiny tools. In fact, if there is a developer out there who doesn&rsquo;t then I&rsquo;d love to speak with them to find out why. I enjoy testing, evaluating and writing about new tools. So when a new CI system appears on my radar, I give it a go. If you find a tool that keeps you interested then you will enjoy using it.</p>
-<p>It is very important for your tool to not be a hassle to use, configure or maintain. If you have to reason for &ldquo;CI&rdquo; maintenance that may take hours out of your week then the team is less likely to buy into that situation. My top tip is to use a scoring matrix and score each of the sections above 1 &ndash; 10 (1 being worst, 10 being best) and then get a shortlist of the tools that you like. After you have got a shortlist of say 3 tools, then <strong>trial them.</strong> It is very important to trial them, they may look great on paper but they may not work out how you imagine.</p>
-<p>This article talks about the points worth considering when choosing a CI tool. It you have been through this process and feel there are other points worth considering then please do comment and I will add them to the list. If you feel that a particular CI tool was missed from this article then please do add that as well with a link to its website.</p>
-<p>The next post in this series will talk about how to implement your first project into a CI tool.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -602,6 +597,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
       </li>
     
@@ -615,10 +614,6 @@
     
       <li class="post">
         <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/">Why Delay the VS2012 Release, Microsoft?</a>
       </li>
     
   </ul>
