@@ -4,7 +4,7 @@
   <title><![CDATA[Adventures of a wannabe geek!]]></title>
   <link href="http://paulstack.co.uk/atom.xml" rel="self"/>
   <link href="http://paulstack.co.uk/"/>
-  <updated>2015-04-09T11:54:26+01:00</updated>
+  <updated>2015-05-14T11:52:52+01:00</updated>
   <id>http://paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Test Post]]></title>
+    <link href="http://paulstack.co.uk/blog/2015/05/14/test-post/"/>
+    <updated>2015-05-14T00:00:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2015/05/14/test-post</id>
+    <content type="html"><![CDATA[<p>Sample pushed to heroku</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Configuration Management for Laptop and Desktops]]></title>
+    <link href="http://paulstack.co.uk/blog/2015/04/22/configuration-management-for-laptop-and-desktops/"/>
+    <updated>2015-04-22T16:39:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2015/04/22/configuration-management-for-laptop-and-desktops</id>
+    <content type="html"><![CDATA[<p>Recently, I changed jobs. I had to set up a new ping</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Is Immutability the Evolution of Infrastructure Management?]]></title>
+    <link href="http://paulstack.co.uk/blog/2015/04/22/is-immutability-the-evolution-of-infrastructure-management/"/>
+    <updated>2015-04-22T16:22:00+01:00</updated>
+    <id>http://paulstack.co.uk/blog/2015/04/22/is-immutability-the-evolution-of-infrastructure-management</id>
+    <content type="html"><![CDATA[<p>The publishing of the <a href="">Continuous Delivery book</a> in x seemed to cause an explosion of development tools to make pushing our code to production easier. The rise of the <a href="">DevOps</a> movement seems to have caused an explosion of tooling that follows a similar pattern. Tools like <a href="">CFEngine</a>, <a href="">Puppet</a>, <a href="">Chef</a>, and to a certain extent, <a href="">Microsoft SCCM</a> were pioneers in how operations teams used to manage environments. I have worked in companies that managed environments without the use of tools like this &ndash; it was certainly &lsquo;interesting&rsquo; to manage systems.</p>
+
+<p>No longer do we only strive to manage the packages and users we have on our servers, but we now seem to manage our <a href="">networks</a> in an automated fashion</p>
+
+<p>We certainly are working in an amazing part of the industry right now.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Recommended Ops Books]]></title>
@@ -43,7 +74,7 @@
     <id>http://paulstack.co.uk/blog/2015/03/04/looking-for-a-new-role</id>
     <content type="html"><![CDATA[<p>TL;DR: I am looking for a new role. I am an infrastructure developer who has a passion for metrics, monitoring and alerting. If you feel that you are interested in me coming to help your engineering team, then get in contact with me</p>
 
-<p><a href="public@paulstack.co.uk"><a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#112;&#117;&#98;&#x6c;&#105;&#99;&#64;&#x70;&#97;&#117;&#x6c;&#115;&#x74;&#x61;&#99;&#x6b;&#x2e;&#x63;&#x6f;&#x2e;&#117;&#107;">&#112;&#117;&#x62;&#x6c;&#105;&#99;&#64;&#x70;&#97;&#117;&#x6c;&#115;&#x74;&#x61;&#99;&#x6b;&#46;&#99;&#x6f;&#x2e;&#x75;&#x6b;</a></a></p>
+<p><a href="public@paulstack.co.uk"><a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#x70;&#x75;&#x62;&#108;&#105;&#99;&#x40;&#x70;&#97;&#117;&#x6c;&#115;&#x74;&#x61;&#99;&#107;&#46;&#x63;&#111;&#x2e;&#117;&#x6b;">&#x70;&#x75;&#98;&#108;&#105;&#x63;&#64;&#112;&#x61;&#117;&#x6c;&#115;&#116;&#97;&#x63;&#x6b;&#x2e;&#x63;&#x6f;&#46;&#117;&#x6b;</a></a></p>
 
 <h3>I love working on infrastructure!</h3>
 
@@ -71,7 +102,7 @@
 
 <p>If your company is looking for passionate infrastructure developers who always want to improve or If your company has a need (and the willingness) to drive their infrastructure forward and improve then I could be the right person for you.</p>
 
-<p><a href="public@paulstack.co.uk"><a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#112;&#117;&#x62;&#108;&#105;&#99;&#64;&#112;&#97;&#x75;&#108;&#115;&#116;&#x61;&#x63;&#x6b;&#x2e;&#99;&#x6f;&#46;&#117;&#x6b;">&#x70;&#x75;&#x62;&#108;&#x69;&#x63;&#64;&#x70;&#x61;&#117;&#108;&#115;&#116;&#97;&#x63;&#107;&#46;&#x63;&#x6f;&#x2e;&#117;&#x6b;</a></a></p>
+<p><a href="public@paulstack.co.uk"><a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x70;&#117;&#98;&#x6c;&#x69;&#99;&#x40;&#112;&#x61;&#117;&#x6c;&#x73;&#x74;&#97;&#x63;&#x6b;&#x2e;&#99;&#x6f;&#46;&#117;&#x6b;">&#112;&#x75;&#x62;&#108;&#105;&#x63;&#x40;&#x70;&#x61;&#x75;&#108;&#x73;&#116;&#x61;&#99;&#x6b;&#x2e;&#x63;&#x6f;&#x2e;&#117;&#x6b;</a></a></p>
 ]]></content>
   </entry>
   
@@ -101,7 +132,7 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
 * Buzzword 2<br/>
 * etc.</p>
 
-<p>If interested, then please contact, <a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#109;&#x65;&#64;&#98;&#x75;&#122;&#x7a;&#119;&#111;&#114;&#100;&#x72;&#x65;&#99;&#x72;&#117;&#x69;&#116;&#x65;&#114;&#x2e;&#99;&#111;&#46;&#117;&#107;">&#x6d;&#101;&#x40;&#x62;&#x75;&#x7a;&#122;&#x77;&#x6f;&#x72;&#100;&#114;&#x65;&#99;&#x72;&#117;&#x69;&#116;&#101;&#x72;&#46;&#99;&#x6f;&#x2e;&#117;&#107;</a></p>
+<p>If interested, then please contact, <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#x6d;&#101;&#x40;&#x62;&#x75;&#x7a;&#x7a;&#119;&#111;&#x72;&#x64;&#x72;&#x65;&#99;&#x72;&#117;&#x69;&#116;&#101;&#114;&#x2e;&#x63;&#x6f;&#46;&#x75;&#x6b;">&#x6d;&#101;&#x40;&#x62;&#117;&#122;&#x7a;&#x77;&#x6f;&#x72;&#100;&#114;&#x65;&#99;&#x72;&#117;&#x69;&#116;&#101;&#x72;&#46;&#x63;&#x6f;&#46;&#x75;&#x6b;</a></p>
 
 <hr />
 
@@ -408,65 +439,6 @@ This will open the following dialog:</ul>
     <updated>2012-04-03T00:00:00+01:00</updated>
     <id>http://paulstack.co.uk/blog/2012/04/03/agile-teams-and-working-from-home</id>
     <content type="html"><![CDATA[<p>Yesterday (April 2nd 2012), I posed a question on twitter:</p>  <p><strong>Does anyone think that people working from home in an agile team is a bad idea?</strong></p>  <p>This seemed to be quite a controversial question to pose. My favourite response was “isn’t agile – as long as you get the work done, doesn’t matter home, office, card, no-cards, no??” Now, I can see what the author <a href="http://twitter.com/edonsojeva" target="_blank">(@edonsojeva)</a> is trying to say. I agree that one of the main principles of agile is getting work done. But, on the other hand, for me the best principle of agile is the ability to communicate with members of the team <strong>*and*</strong> the business. IM clients (Skype, Lync, MSN etc.) are a great way to keep in touch. But I have never found them to be fantastically efficient at being able to display the entire picture. When speaking to people I want to see them face to face (where possible). this allows us both to focus on the issue at hand.</p>  <p>when working remotely, people can get distracted. That’s just our nature. It doesn’t matter whether we get distracted by emails, twitter, other IM conversations happening at the same time or TV (yes I have seen this happen to some people), it happens. I find that that level of distraction is less in the office. Why email someone when you can get up from your desk, walk 10feet and speak to them and strike up a conversation instead? </p>  <p>I understand that it can sometimes be very important to isolate yourself just to get a few hours of no distraction. Being at home, with no one round can give you this isolation. My thoughts here are that if you do have so much to do that requires you to be isolated from the rest of the team, that you a) haven’t planned very well or b) are not agile. Team is the key word here. For me working from home takes away that sense of being part of the team. It can just make you feel a little isolated. Architecture and code can be a bit of a beast sometimes. It can therefore take other people to wind in crazy ideas. Unless you are this incredibly focused person, you can sometimes go off in a tangent or with an idea that another has already tried. It can also save time. If you run into an issue, a team member who has been in this situation before can point out a fix.</p>  <p>This leads me to the general idea that working from home is the exception rather than the rule. I wouldn’t be fantastically happy with members of the team who constantly worked from home. They would feel more like remote contractors than anything else. I understand there are incredibly focused individuals out there that can block out all these impediments and work from home efficiently. I am in no way saying that it isn’t possible. This post is merely a scratch pad to get feedback on what others have experienced.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[TeamCitySharp now builds with Mono]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/02/08/teamcitysharp-now-builds-with-mono/"/>
-    <updated>2012-02-08T00:00:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/02/08/teamcitysharp-now-builds-with-mono</id>
-    <content type="html"><![CDATA[<p>I am pleased to be able to say that <a href="http://github.com/stack72/TeamCitySharp" target="_blank">TeamCitySharp</a> is now supports <a href="http://www.mono-project.com/" target="_blank">mono</a>. In order to get the project supported I had to change a few parts of the system.</p>
-<p>Up until now, each project within the solution has a &ldquo;BeforeBuild&rdquo; event that downloaded the nuget packages needed to build the solution. This was in place to keep the github repository small enough to facilitate a fast download for people who fork it. <a href="http://www.nuget.org" target="_blank">Nuget</a> doesn&rsquo;t work with mono so there was a trade off I had to make. In this instance I chose supporting mono over the &ldquo;BeforeBuild&rdquo; event. This does mean that once the repository is cloned or forked. then it will work instantly. I hope to revisit this if / when someone manages to get nuget working with mono.</p>
-<p>The sample build monitor was a standard ASP.NET MVC 3 project. I found that this didn&rsquo;t build with mono out of the box. It was throwing errors due to the references contained. The following references were present:</p>
-<p><a href="http://paulstack.co.uk/blog/images/before.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="before" src="http://paulstack.co.uk/blog/images/before_thumb.gif" alt="before" width="189" height="317" border="0" /></a></p>
-<p>On running a reference analysis, I was able to see that the following references were not used:</p>
-<p><a href="http://paulstack.co.uk/blog/images/ToRemove.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="ToRemove" src="http://paulstack.co.uk/blog/images/ToRemove_thumb.gif" alt="ToRemove" width="240" height="227" border="0" /></a></p>
-<p>This meant that only the core references were left behind. This meant that the entire solution was able to build under mono.</p>
-<p>In order to build the project with mono, you can run the following command: <br /><strong>xbuild TeamCitySharp.sln</strong></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Installing Mono on Windows]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/01/31/installing-mono-on-windows/"/>
-    <updated>2012-01-31T00:00:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/01/31/installing-mono-on-windows</id>
-    <content type="html"><![CDATA[<p>I have recently been thinking about making <a href="http://github.com/stack72/TeamCitySharp">TeamCitySharp</a> supported on <a href="http://www.mono-project.com/Main_Page">mono</a>. This would require me to either run a VM (that you can download form the mono project site) or install mono on Windows. As I would continue to develop TeamCitySharp in VS2010, I thought it would be better to install mono on windows.</p>
-<p>When trying to install mono, I went to the mono project download page and was presented with 3 options for windows:</p>
-<p><a href="http://paulstack.co.uk/blog/images/image_39.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_37.png" alt="image" width="368" height="288" border="0" /></a></p>
-<p>I had no idea what to install &amp; tweeted to that effect. Almost immediately, <a href="http://twitter.com/ferventcoder">Rob Reynolds</a> tweeted this back:</p>
-<p><strong>cinst mono</strong></p>
-<p>This is a reference to chocolatey which I have used before. <a href="http://chocolatey.org/">Chocolatey</a> is described as &ldquo;apt-get for windows&rdquo;. In order to install mono I had a number of steps to follow:</p>
-<p>1. Set the execution policy of PowerShell to unrestricted</p>
-<p><a href="http://paulstack.co.uk/blog/images/execution-policy.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="execution-policy" src="http://paulstack.co.uk/blog/images/execution-policy_thumb.png" alt="execution-policy" width="308" height="159" border="0" /></a></p>
-<p>2. Install chocolatey</p>
-<p><a href="http://paulstack.co.uk/blog/images/chocolatey-install.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="chocolatey-install" src="http://paulstack.co.uk/blog/images/chocolatey-install_thumb.png" alt="chocolatey-install" width="313" height="173" border="0" /></a></p>
-<p>3. cinst mono</p>
-<p><a href="http://paulstack.co.uk/blog/images/mono-install-1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="mono-install-1" src="http://paulstack.co.uk/blog/images/mono-install-1_thumb.png" alt="mono-install-1" width="313" height="173" border="0" /></a></p>
-<p>which, when downloaded triggers the install</p>
-<p align="center"><a href="http://paulstack.co.uk/blog/images/mono-install-2.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="mono-install-2" src="http://paulstack.co.uk/blog/images/mono-install-2_thumb.png" alt="mono-install-2" width="283" height="220" border="0" /></a></p>
-<p>Mono is now installed and ready to be used. This was extremely easy using chocolatey. I have used it before to install <a href="http://nodejs.org/">nodejs</a> but I have to admit I didn&#8217;t really pay attention to what packages it contained. I will be doing so from now on. If you have not checked out chocolatey then please do so &ndash; it rocks!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[How Nuget could improve]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/01/17/how-nuget-could-improve/"/>
-    <updated>2012-01-17T00:00:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/01/17/how-nuget-could-improve</id>
-    <content type="html"><![CDATA[<p>Late in December 2011, I stuck my oar into a conversation on twitter (as I usually do) between <a href="http://twitter.com/lazycoder">Scott Koon</a>, <a href="http://twitter.com/davidebbo">David Ebbo</a>, <a href="http://twitter.com/sumitkm">Sumit Maitra</a>&nbsp; and <a href="http://twitter.com/Ang3lFir3">Eric Ridgeway</a>. This conversation was about why <a href="http://nuget.org">Nuget.org</a> was not the best place for a <a href="http://nuget.org/packages/Northwind.Db">Northwind DB Sample</a> package. My comment was as follows:</p>
-<p align="center"><em>@lazycoder @davidebbo @sumitkm @Ang3lFir3 maybe have the ability for codeplex to have a nuget style feed of its own for sample libraries?</em></p>
-<p align="left">I thought I should clarify my thoughts further. Nuget (and <a href="http://www.openwrap.org/">OpenWrap</a>) have set the .net world into a new era for dependency management but there are not many enforced rules or moderation of the packages you can upload. For example, I <strong>maintain</strong> the NUnit package. This means I submit updates to the package when a new version is released by NUnit. I once received a comment on how I should split the package up into just a dll package and then have a full package.I really had to think hard about why I should do this. Who am I to change the way the guys who create NUnit distribute the package. All I do is to get the contents of their .zip and redistribute that &ndash; and I do struggle to think how I have the authority to do that sometimes. This led me to a very prudent question:</p>
-<p><strong><em>Is Nuget.org a site that should have strict regulations about the packages that get uploaded there?</em></strong></p>
-<p>I have heard about a few broken packages and actually sample applications. Is this the correct place for these packages to go to?Has it become a dumping ground for software. Sites like <a href="http://www.codeplex.com">codeplex</a>, <a href="http://www.github.com">github</a> and <a href="http://www.bitbucket.org">bitbucket</a> are used more frequently for source control. Are these sites the correct areas for the sample applications? I would argue yes. I feel that Nuget should contain only packages that I can download and use immediately. I don&rsquo;t want to have to download a 12mb sample application when I could view the source in github or codeplex. Maybe a way to take this further would be to set up the ability for nuget to hook into these types of systems:</p>
-<p><strong>nuget install-sample &lt;path to codeplex&gt; </strong></p>
-<p>This would keep the nuget library free of the packages not deemed useful. Who can classify a package as useful in this theory I hear you say? Well the users of the site, via a stackoverflow style voting system. A broken package gets a downvote, then any packages below &ndash;4 (for example) would get archived by the system and the package owner to get notified. There would have to be some sort of moderation of this though or people with rival packages could eliminate the competition <img class="wlEmoticon wlEmoticon-devil" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-devil.png" alt="Devil" /></p>
-<p>I do believe that uploads to the nuget library should be regulated. There are more than enough people in the .net community that would spend a few minutes a day clearing out / verifying packages. If we regulate the packages then developers will continue to use for nuget. If it continues with the following types of packages then this may not be the case:</p>
-<p><a href="http://paulstack.co.uk/blog/images/NuGet%20Gallery.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="NuGet Gallery" src="http://paulstack.co.uk/blog/images/NuGet%20Gallery_thumb.png" alt="NuGet Gallery" width="500" height="528" border="0" /></a></p>
-<p>The naming conventions of these packages contain the letters &lsquo;&ndash;ci&rsquo;. How on earth can I work out what the different between MvcContrib.MVC3-ci is? Is it a special kind of package for CI use only or was it built with a CI system? This is exactly the issue. Some kind of visual check around this would have stopped &ndash; for the record I actually installed MvcContrib before I realised it was not compatible with MVC3 &ndash; this should have been noted in the description, in my opinion.</p>
-<p>I enjoy using nuget and I really want to continue enjoying it. All we (as a community) need to do is to be respectful of other developers when we create a package. When delivering software to paying customers, do we release potentially untested applications or do we make sure that they work?</p>
-<p>$0.02</p>
 ]]></content>
   </entry>
   

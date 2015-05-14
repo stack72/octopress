@@ -9,8 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="This is the 3rd post in a series &lsquo;How to get started with CI&rsquo;
-Previously, we talked about choosing the correct infrastructure for your CI &hellip;">
+  <meta name="description" content="Whilst at DDDSouthWest 2011, I was speaking to Chris Hay about his scalability session. One of the areas we touched upon was the issues that ORMs &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +79,142 @@ Previously, we talked about choosing the correct infrastructure for your CI &hel
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/13/have-orms-introduced-extra-complexity-into-our-codebase/">Have ORMs Introduced Extra Complexity Into Our Codebase?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-13T00:00:00+01:00" pubdate data-updated="true">Aug 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Whilst at <a href="http://www.dddsouthwest.com" target="_blank">DDDSouthWest 2011</a>, I was speaking to <a href="http://twitter.com/chrishayuk">Chris Hay</a> about his scalability session. One of the areas we touched upon was the issues that ORMs have introduced into code.</p>
+<p>ORMs have become very widely used. In my most recent work project we started using Entity Framework 4, we then migrated to Entity Framework Code First, when that was not working for us we moved away from Code First and stuck with EF4. We have had serious issues with our ORMs. Firstly, we found that our repository layer was causing CPU usage to spike to over 80%. This was due to queries being compiled on the fly each time the query was called. Secondly, when we removed our web service calls (to be replaced by a service layer), we found that the object hierarchy was causing all sorts of issues. Many of these were down to lazy design. The entities have the following look to them:</p>
+<p><a href="http://paulstack.co.uk/blog/images/Drawing1.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="Drawing1" src="http://paulstack.co.uk/blog/images/Drawing1_thumb.gif" alt="Drawing1" width="310" height="203" border="0" /></a></p>
+<p>This meant that we had some hideous queries being created due to some navigation properties of the objects we were using. This is, of course, not just something found in EF4 but can be found in any ORM that is misused. The trouble with this type of scenario is that in order to fine tune the SQL that we (via the ORM) are producing via the ORM requires a change to the entities or their navigational properties. This means a lot of testing, recompilation and a redeploy.</p>
+<p>What would be the alternative to an ORM? A DAL layer that called stored procedures and passed parameters to get data back? That felt very old school to me. I think that&rsquo;s what drove me to start using ORMs initially.</p>
+<p>So, if we cannot change the sql being produced easily, why do we use ORMs? It was described to me, by <a href="http://twitter.com/thecodejunkie">Andreas H&aring;kansson</a> (better known as TheCodeJunkie) as follows:</p>
+<p><em>&ldquo;DAL was born as a reaction to SQL, ORMs is an attempt to provide a DSL for writing DALs&rdquo;</em></p>
+<p><em><a href="http://twitter.com/#!/markrendle/status/102152507706454016">Mark Rendle suggested it was because of the need for intellisense.</a> </em></p>
+<p>To my mind, both are correct. This is clearly a way that enables developers to not have to deal with writing SQL. Now, old person hat on, in the olden days, a developer would have to be proficient in SQL if there were no DBAs around to take care of those things. This meant that a developer knew what was being done &ldquo;under the hood&rdquo;. Now, would it be fair to say that newer developers, born into a world of ORMs, actually don&rsquo;t understand the SQL that they are producing?</p>
+<p>Let&rsquo;s think again about dealing with stored procedures. What would we do if we had to fine tune a stored procedure? Well if we are lucky, then we may not have to change input and output parameters and just change the logic of the procedure itself. This would mean that we could work on it without a recompilation and deployment. But if we have to change the inputs and outputs then we would need to change one layer, the DAL. This seems a lot more desirable to me. I am changing my code in one place which means I am a lot more confident.</p>
+<p>Returning to Chris, he said he needs his SQL to be so finely tuned that it runs in milliseconds rather than seconds and the only way he can achieve this is to use stored procedures. This would allow the stored procedure to be worked on without the application being changed. This begs the questions: has the introduction of ORMs made developers lazy in their DAL layers? And: have they been <strong>too</strong> widely adopted &ndash; were they ever really meant for enterprise applications?</p>
+<p>I can have a simple application up and running with a simple data structure and an ORM in a very short amount of time. If I take the same amount of time when setting up a so-called enterprise application, then my entities will have such bad relationships between them that the SQL produced is very bad. Oh wait &ndash; that&rsquo;s<a name="_GoBack"></a> the issue that has happened to me already&hellip;&hellip;&hellip;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/09/win-a-ticket-to-progressivenet-tutorials/">Win a Ticket to Progressive.Net Tutorials</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-09T00:00:00+01:00" pubdate data-updated="true">Aug 9<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Thanks to <a href="http://www.skillsmatter.com" target="_blank">Skillsmatter</a>, I have been given some tickets to give away to the Progressive.Net tutorials at Skillsmatter, London between September 5th and 7th.</p>
+<p>This is an event I have very fortunate to be presenting at. The event schedule can be found on the <a href="http://skillsmatter.com/event/open-source-dot-net/progressive-dot-net-tutorials-2011" target="_blank">event page</a>.</p>
+<p>In order to be in for a chance to win a ticket, you will need to send me a mail answering the following question:</p>
+<p><strong>Why are you interested in going to the Progressive.Net Tutorials and what do you hope to learn from the event?</strong></p>
+<p>*COMPETITION IS NOW CLOSED!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/04/feature-switching-a-better-way-to-collaborate/">Feature Switching: A Better Way to Collaborate</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-04T00:00:00+01:00" pubdate data-updated="true">Aug 4<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of the biggest pitfalls on working in teams where branches are created to work on features is that we are not continually checking in to the head revision / trunk. This means our work is not constantly being integrated. The feature may be small and we can integrate back in a day or 2 but there are a lot of instances where the feature is longer (2 &ndash; 3 months). If this is the case we need to be continually merging and then re-branching. This means we are going through merge issues more often than required.</p>
+<p>What if I was to tell you there was a much better way? I bet you would be a little sceptical at first but then see the benefits of it. When developing features, we can <strong>all</strong> work from the trunk by feature switching. Feature switching (FS)is the use of a configuration system, db or config file, where we can turn a feature on or off. This will help us with canary releasing (releasing features to just a small group of users) &amp; A/B testing. We really start to see how useful FS is when we look at moving towards a continuous delivery workflow.</p>
+<p>We can write &lsquo;feature&rsquo; code to the trunk and enable a switch to turn it off and then push to our head revision. We can deploy our system as the code we have written will not be parsed or shown (if it is front end changes). The danger is that we can forget to disable the feature. I usually setup my web.config transformations to take care of that issue.</p>
+<p>FS can be temporary, while a small feature is being built. IF this is the case when the feature is complete and signed off then we must remove all instances of the switching code and the settings to go with them. FS can also be long term, e.g. being able to disable the registrations to an event on a website. It is important to keep temporary and permanent switches separate for clarity.</p>
+<script type="text/javascript" src="https://gist.github.com/3eebb9c16ac0ec95b45d.js"></script>
+<p>This code shows that on a simple request to the register action, then a view will be returned. What if we wanted to start tinkering with the view? What if we wanted to start adding new fields to the registration form but not show it until the feature is finished? Well I&#8217;m sure some would say create a cpy of the view and work from that - but there are no ways to get to that view as it is not returned from a request.</p>
+<script type="text/javascript" src="https://gist.github.com/ab16f96600a0e5502612.js"></script>
+<p>This is the same action method with some further logic added to it. This effectively checked to see if a feature is actually enabled and if so the new version of the View is rendered. Otherwise the old version of the view is rendered. This is a very very simple demonstration of feature switching. I would try not to do it this way &ndash; &lsquo;newing up&rsquo; the FeatureManager inside the action method. I&rsquo;d use Dependency Injection to inject an instance into the constructor for loosely coupled code.</p>
+<p>What if I wanted to do this as part of a View and not have to modify the code at all. We can look at the following example:</p>
+<script type="text/javascript" src="https://gist.github.com/b2648207d753b62e5a0a.js"></script>
+<p>This example says that if the feature is enabled then show the new panel. This uses a Html Helper method to hide the logic of the switch. All I have to do is to pass the name of the feature to the helper. The helper code is as follows:</p>
+<script type="text/javascript" src="https://gist.github.com/91232460954b4a787356.js"></script>
+<p>Pretty simple and straightforward stuff. Using this type of approach will mean we can all work effectively on the head revision which will save us time (we shouldn&#8217;t have problem merges). This will als let the CI system take care of integration and spotting integration issues earlier. It will also mean that when we check into the trunk our application <strong>should</strong> be in a deliverable state. There are much more complex ways to feature switch. We will cover those in a later post.</p>
+<p>I have taken a copy of the ASP.NET MVC MusicStore and added some feature switches to it. This is available on my <a href="https://github.com/stack72/SimpleFeatureSwitchingDemo">github repository</a>. Please feel free to take a copy and have a play with the switches. The code there is what is contained in this post</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -426,153 +561,6 @@ Previously, we talked about choosing the correct infrastructure for your CI &hel
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/06/30/mocks-stubs-a-thing-of-the-past/">Mocks & Stubs–a Thing of the Past?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-30T00:00:00+01:00" pubdate data-updated="true">Jun 30<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>One of my favourite new tools to come across in 2011 is <a href="http://nsubstitute.github.com/" target="_blank">NSubstitute</a>. This a is friendly substitution framework for .net. This will allow me to use these substitutes in place of mocks and stubs. Traditionally I use a mocking framework that requires the use of mocks and stubs. Unfortunately, this type of tool has now become a bit of a hindrance for me. The code that is written to assert behaviour has happened seems complex and is not instantly readable for junior developers. Now this isn&rsquo;t a tool bashing exercise &ndash; this post is to demonstrate that this tool (NSubstitute) has effectively made me see the complexity of my tests. It has made me think about being more expressive in my intent. Its not about the tool itself &ndash; its about the concept behind it.</p>
-<p>On the commencement of a new project, i tried to show some developers NSubstitute. They liked it &ndash; they said on first look it was easy to read test code. I suggested they try it for the new project as it was brand new and had 0 test count. I was immediately shot down due to an apparent &ldquo;learning curve&rdquo; and &ldquo;sticking with what they know&rdquo;. I understand the learning curve part &ndash; learning a new tool is potentially tough as its a real shift in what they know. The apathy of sticking with what they knew really saddens me. If I had this level of apathy, I&rsquo;d still be working with ASP.NET webforms 2.0 and still not unit testing like I was doing 7 years ago. We should all want to push ourselves a little and move outside our comfort zone in order to mature as professionals. Its effectively how we grow, learn and get better at what we do.</p>
-<p>I can understand why a developer would not what to change to a new tool when working in an established project. It would be like a rewrite of a section of the project. It would also take time and money to change. But when it is a brand new project with no current toolset what is the issue? Seems a little strange to me.</p>
-<p>From my investigations about this topic of mocks and stubs vs. fakes / substitutes, I have seen that there is a real lack of understanding of the differences between mocks and stubs. This article will not talk about the differences &ndash; <a href="http://martinfowler.com/aboutMe.html" target="_blank">Martin Fowler</a> has already done this in his article <a href="http://martinfowler.com/articles/mocksArentStubs.html" target="_blank">Mocks aren&rsquo;t stubs</a> and there is no way I could do it the justice he has. This has really led me to the question <em>do we really need to care about the differences of mocks and stubs when we have this level of complexity in our tests?.</em> As a developer who tries to push testing to a team, all I want to do is to take an object or a class and test that some logic or behaviour has happened and I get the correct result. We <span style="text-decoration: line-through;">don&rsquo;t want to</span> shouldn&rsquo;t make this difficult for ourselves by trying to decide if the object or class that we want should be a mock or a stub.</p>
-<p>I have heard of people who get this concept so mixed up that they try and verify all expectations against stubs so they get passing unit tests when this is of course not correct. This is to show sample of implementation of that test.</p>
-<script src="http://gist.github.com/a618e24f7a6967b730e2.js"></script>
-<p>This shows a test with mocking and stubbing to check that specific behaviour has happened</p>
-<script src="http://gist.github.com/192394caae6914998a12.js"></script>
-<p>The same behaviour using substitutes / fakes to demonstrate how much easier it can be without the layer of complexity (written by <a href="http://twitter.com/davetchepak">Dave Tchepak</a> from NSubstitute). Dave did point out that other tools can drive this expressive type of test and also he could write complex looking tests with NSubstitute as well.</p>
-<script src="https://gist.github.com/1056347.js"></script>
-<p>I&rsquo;m not the first developer to talk about this topic and I&rsquo;m certainly not the last. I think it&rsquo;s a topic that requires buy in/ backing from a host of developers who lead the way. When talking about this on twitter, <a href="http://hadihariri.com/" target="_blank">Hadi Hariri</a> said the following:</p>
-<p><em>&ldquo;People need to understand the difference between state and interaction testing, not stubs/mocks/fakes/dupes/blabla&rdquo;</em></p>
-<p>This is very true! Let&rsquo;s remove this barrier of complexity in our tests and learn how to write better tests. It doesn&#8217;t matter which tool we use to do it. Join me in trying to get developers to take the plunge!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/06/28/how-to-get-started-with-ci/">How to Get Started With CI - Series</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-28T00:00:00+01:00" pubdate data-updated="true">Jun 28<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>About a year ago (July 2010), I started working with my current company. When I started the team were lacking in process and the process they had was not as useful as it could be for developers. The first thing I done in that team was to restructure the VCS and introduce continuous integration (CI).</p>
-<p>The reason I chose these 2 practices first was that the team were not working as productively as they could be. There were no VCS regular check-ins and merging was hell. A good set of practices in VCS and a CI server to help spot merge issues up front was my idea of a step forward.</p>
-<p>CI was a tough sell to the team. They didn&#8217;t like the fact that it took time to introduce, they didn&#8217;t like the fact that people could see everyone&#8217;s mistakes and the company wasn&#8217;t sure of the cost of the products and infrastructure needed. Originally, it was not fully understood why CI would be good for us and what it would help. I examined the current state of development and concluded that due to bad VCS practices it was becoming more and more difficult to &lsquo;ship&rsquo; a version of the site. The points were how i eventually sold it:</p>
-<ul>
-<li>earlier notification of integration errors</li>
-<li>elimination of bad reference and dependency management</li>
-<li>raising the confidence of developers</li>
-</ul>
-<p>The team had a very bad management of references and dependencies in our visual studio solutions. There were GAC references and files missing everywhere. There was no standardisation of 3rd party tool storage. This led to deployment nightmares as there was a <strong>post release</strong> scramble to find missing dlls &amp; files and FTP them to the live server. I was able to point out that&nbsp; CI system meant we could find dependency issues and missing files faster (on every check in as it happens).</p>
-<p>After a few weeks in place the developer confidence got higher. They were more confident of deployments and the team went from deploying once every few months to weekly then to twice weekly and then 3 times weekly. It became more of a lean production line as something was working on &ndash; checked into VCS and then the following day (or 2 days) it went live.</p>
-<p>IF you are struggling with selling CI to your company or even if you are trying to introduce your company to CI then the following posts are a summary of the steps I had to go through to get CI integrated into our working practices. It started as a proof of concept, to demonstrate the benefits and it has grown exponentially for me. The posts are:</p>
-<ol>
-<li><a href="http://paulstack.co.uk/blog/post/considerations-when-choosing-hardware-for-ci.aspx" target="_blank">Choosing the hardware requirements</a></li>
-<li><a href="http://paulstack.co.uk/blog/post/choosing-the-correct-ci-tool.aspx">Choosing the correct tool</a></li>
-<li><a href="http://paulstack.co.uk/blog/post/implementing-your-first-project-into-a-ci-system.aspx">How to integrate CI into your first project</a></li>
-<li>Making the Build Self Testing</li>
-<li>What is the potential of CI tools</li>
-</ol>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/06/20/continuous-delivery-is-not-continuous-deployment/">Continuous Delivery Is Not Continuous Deployment</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-20T00:00:00+01:00" pubdate data-updated="true">Jun 20<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>There seems to be a lack of understanding about what continuous delivery is. I feel that continuous delivery has an ambiguous meaning to continuous deployment. This post will help to explain my understanding of both terms in relation to my experience of both.</p>
-<h4>What is continuous delivery?</h4>
-<p>Continuous delivery is the process of having a shippable product/ piece of software after each check in to source control. At work I work on an up and coming quiz site. On&nbsp; successful check in, i have a <a href="http://www.jetbrains.com/teamcity/" target="_blank">TeamCity</a> that fires and my web application is build in release mode, is packaged with the correct 3rd party dependencies and correct web.config transformations.</p>
-<p>This application is then a potentially shippable product. In theory, I could open an FTP client and push the package to the correct web server and it would work as expected.</p>
-<h4>What is continuous deployment?</h4>
-<p>This is the process of shipping your product after every check in to source control. When starting out it is a very scary thought and really should not be implemented without real thought. In order to implement this in a team, you need to be 100% confident that the work they are checking in is fully tested and works 100% as expected. Unit tests, integration tests and other types of testing will help to ensure this confidence.</p>
-<p>GiveCamp UK, a site i look after, is setup in a continuous deployment manner. I have a local git repository and I can check in freely to that repository. When i push to github, my CI server triggers a release build and then actually pushes the changes to the live site automatically.I can make 3 or 4 deliveries a day in this format. I have heard of teams who can do this up to <a href="http://timothyfitz.wordpress.com/2009/02/10/continuous-deployment-at-imvu-doing-the-impossible-fifty-times-a-day/" target="_blank">50 times a day</a>.</p>
-<p>In my opinion, continuous deployment is not a natural progression from CI. It will take time for a CI process to mature and help the development team to be more effective in their work. For example, a developer continually forgets to check in files when he checks in, release script fires, files are missing therefore site could not work correctly. Successful deployments would suffer and errors recorded on site may increase. A good CI process will help the developers to stop these types of mistakes.</p>
-<p>For me, the natural progression after CI, is continuous delivery. The potential for your application to be in a shippable state after every check in <strong>is</strong> an achievable goal. Once you deploy these &lsquo;packages&rsquo; and the confidence in the process increases could you then progress to automatically deployment as part of the process. For me, its the holy grail of dev ops work although I have read that it isn&rsquo;t for others. My argument to them would be a quote I once read:</p>
-<p><em>A bad developer will manually carry out the same tasks repeatedly, a good developer will automate the task, a great developer will make the task obsolete.&rdquo;</em></p>
-<p>I will let you draw your own conclusions as to which of the 3 types of developer in the quote related to CI, continuous delivery and continuous deployment. :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -597,23 +585,23 @@ Previously, we talked about choosing the correct infrastructure for your CI &hel
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/14/test-post/">Test Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/22/configuration-management-for-laptop-and-desktops/">Configuration Management for Laptop and Desktops</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/22/is-immutability-the-evolution-of-infrastructure-management/">Is Immutability the Evolution of Infrastructure Management?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>

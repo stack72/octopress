@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Today, I got an email to say that my session on “SpecFlow – functional testing made easy” was selected for DDD Scotland. I’m really pleased at this &hellip;">
+  <meta name="description" content="Today I witnessed a real show of power of the Razor View engine included with ASP.NET MVC3. Traditionally in sites scripts and styles are all thrown &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,152 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/18/using-razor-to-clean-up-my-scripts-and-styles/">Using Razor to Clean Up My Scripts and Styles</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-18T00:00:00+00:00" pubdate data-updated="true">Mar 18<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today I witnessed a real show of power of the <a href="http://weblogs.asp.net/scottgu/archive/2010/07/02/introducing-razor.aspx" target="_blank">Razor View engine</a> included with ASP.NET MVC3.</p>  <p>Traditionally in sites scripts and styles are all thrown in the masterpage (webforms) or sitelayout (razor). This can lead to pages taking potentially longer to load when they don&#8217;t even need some of the scripts or styles. As Google announced that page load times were going to be part of Google rankings, it’s not ideal for this to happen.</p>  <p><a href="http://paulstack.co.uk/blog/images/image_11.png"><img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_11.png" width="609" height="188" /></a> </p>  <p>This has been made easier as Razor has introduced the ability to define sections in our pages.</p>  <p><a href="http://paulstack.co.uk/blog/images/image_12.png"><img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_12.png" width="609" height="221" /></a> </p>  <p>The code here checks to see if a section of the required name is defined and if so it will render it.&#160; This can be used to encapsulate scripts and styles as shown. Here we load the site.css as this is required for the entire site and we load the jQuery main library as this will also be required all over the site. We can then define Sections in our sitelayout and render specific scripts and styles required for a specific View</p>  <p><a href="http://paulstack.co.uk/blog/images/image_13.png"><img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_13.png" width="610" height="287" /></a> </p>  <p>This image shows that by then using the appropriate section named from the sitelayout page that we can play only the scripts required for that view in that section. This will help to make the views as lightweight as possible when they are being rendered.</p>  <p>This is a demonstration of the power of the Razor view engine. It just makes it very easy to achieve. I’m loving using MVC3 and feel as though things are not quite “right” when I go back to working on webforms projects! :(</p>  <p>Hope it helps!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/15/microsoft-release-ie9/">Microsoft Release IE9 - End of Developer Browser Woe?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-15T00:00:00+00:00" pubdate data-updated="true">Mar 15<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Late last night (14th March 9PM PST), Microsoft released IE9 to the world (www.beautyoftheweb.com). I must begin by saying I didn&rsquo;t know this launch was happening which was strange as a release of this scale would usually be major news. I found out via <a href="http://twitter.com/ironshay" target="_blank">Shay Friedman</a> on Twitter. So IE9 was released, pretty huge eh? Finally a browser released by Microsoft to challenge the likes of Mozilla Firefox and Google Chrome.</p>
+<p>IE 9 was billed as a huge step forward in terms of browsers from Microsoft. It has HTML5 support, industry leading JavaScript speed and full hardware acceleration. It is supposedly very fast indeed! A browser I was certainly waiting for to rival my love for Google Chrome.</p>
+<p>I have heard mixed stories about installation encounters from different people. Some people said that it asked them to close all programs and then installed fine, others suggested that it installed as normal then required a machine reboot. Why would a browser ever require a reboot of a machine for installation? In 2011 it seems like utter madness! Apparently its because it updates explorer.exe and requires a reboot because of that. I believe it&rsquo;s too tightly coupled to the operating system and that&rsquo;s why the reboot is required. I thought I&#8217;d install it anyway,</p>
+<p>So I downloaded the correct version (x64 or x86). I started the installation process. At this point I had 2 instances of Visual Studio 2010 open. I also had Seesmic Desktop 2, Spotify, Google chrome and various instances of SVN, TeamCity Tray monitor and Skype. I thought I&rsquo;d be prompted to close all the applications but I wasn&rsquo;t. I feared a reboot! At the end of the installation my worst fears were realised! Reboot required &ndash; in the middle doing some work on a personal project. As you can imagine I was pretty annoyed.</p>
+<p>Apart from the required reboot, the product itself looks like. On first glance it doesn&rsquo;t seem like a game changer for me. I&rsquo;m a huge fan of chrome as its so slick and I love their upgrade process so I think for the foreseeable future I&rsquo;ll be sticking with that. But speaking about upgrade processes lets talk about versions of IE.</p>
+<p>Currently In the market we have IE6, IE7, IE8 and now IE9. I realise that other pieces of software have got different versions around at the minute. I also know that there are many different versions of Firefox around at the minute. But those who protest that have NEVER tried to support all the major different browsers for design. As huge corporate and government organisations still use IE6 &ndash; it can still be classed as a major browser. The differences between IE6 and IE7 in terms of design rendering was huge. IE8 then introduced compatibility mode. There is no real backwards compatibility in my opinion. Designing a site for IE8 may not render correctly in IE6 so I really dread seeing an IE9 designed site in IE6.</p>
+<p>I understand that Microsoft will never be able to keep everyone happy. I appreciate the efforts made in the design of IE9 and I will certainly give it a shot rather than just say it&rsquo;s not for me. But I would rather some effort be put into killing off some of the older versions of IE before IE10 is released. I don&rsquo;t think I could cope with 5 versions :)</p>
+<p>This isn&rsquo;t designed as a rant &ndash; I applaud Microsoft for pushing their products onwards. But I really do feel that <strong>we</strong> need to help Microsoft by killing off older browsers. Make our own lives easier please! Currently I can count 13 different browsers while sitting on a train. Lets make that number decrease before new ones are added.</p>
+<p>p.s. Microsoft please please please bear in mind user gripes when designing IE10 so that it doesn&rsquo;t require a reboot. We are in the 21st century ;)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/13/how-to-install-teamcity-6x-plugins/">How to Install TeamCity 6.x Plug-in</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-13T00:00:00+00:00" pubdate data-updated="true">Mar 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When installing Teamcity plug-ins, you need to find out what version of TeamCity the plugin was designed for. This will more than likely be stated on the supporting documentation on the TeamCity confluence site. Lets use the <a href="http://confluence.jetbrains.net/display/TW/PowerShell" target="_blank">Powershell plugin</a> as an example as that is designed for Teamcity 6.x</p>
+<p>In order to install this plugin:</p>
+<ul>
+<li>Download the .zip </li>
+<li>
+<div>Open a command line and go to TeamCity bin folder</div>
+<ul>
+<li>
+<div>(C:\Program Files (x86)\JetBrains\TeamCity\bin)</div>
+</li>
+</ul>
+</li>
+<li>
+<div>Run the command: runAll.bat stop</div>
+</li>
+<li>
+<div>Go to the build server plug-ins folder</div>
+<ul>
+<li>
+<div>(C:\Program Files (x86)\JetBrains\TeamCity\buildServer\plugins)</div>
+</li>
+</ul>
+</li>
+<li>
+<div>Drop the .zip file into the folder</div>
+</li>
+<li>
+<div>Go back to the command line and restart the TeamCity build server: runAll.bat start</div>
+</li>
+</ul>
+<p>The build agent will then load the plugin. Hope it helps :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -389,134 +535,6 @@ I&rsquo;d then like to be able to take this xml file and import it to a new exte
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/31/how-i-enjoyed-ddd9/">How I Enjoyed DDD9</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-31T00:00:00+00:00" pubdate data-updated="true">Jan 31<span>st</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>So Saturday past, 29th January 2011, was DDD9, Organised by Craig Murphy, Phil Winstanley and Dave Sussman et all. All I can say is what a thoroughly enjoyable day. As I was speaking in the last session of the day, I was a bit too nervous to go to every session. But I dipped in and out of a few. Here&rsquo;s my highlights:</p>
-<h4>.Net Collections Deep Dive &ndash; Gary Short</h4>
-<p>Well I have seen Gary present before and I think he&#8217;s an awesome presenter but I hadn&rsquo;t seen this session. So I thought I could learn a lot. I wasn&rsquo;t wrong &ndash; I learned a lot of new data structures that I didn&rsquo;t know existed as I don&rsquo;t use them for anything.</p>
-<p>This session has prompted me to really think about what I use and for what scenarios. Shame there wasn&rsquo;t time for more of this talk &ndash; but the questions kept on coming for Gary and people made him run out of time I think.</p>
-<h4>Functional Alchemy: Tricks to keep your C# DRY &ndash; Mark Rendle</h4>
-<p>What can we say about Mark &ndash; his sessions are fun. This is like the 4th time I have seen this session and I keep picking up new parts to it. What made it even better was the interaction between Jon Skeet and Mark on ways which things could be done differently to Marks way</p>
-<h4>Is your code S.O.L.I.D ? &ndash; Nathan Gloyn</h4>
-<p>I has seen a lot of talks on SOLID and have been inspired by quite a few but this one was completely different. Nathan related the SOLID principles to real world code and that made such a huge difference. Well delivered and with good explanations.</p>
-<p>It&rsquo;s a real shame that I wasn&rsquo;t able to watch the end of the session since my laptop started to not work well when I was messing with some demos before my own session</p>
-<h4>Enforcing Code &lsquo;Beauty&rsquo; With StyleCop &ndash; Guy Smith-Ferrier</h4>
-<p>I have to admit I was a bit interested in this session as I have had some interesting times with StyleCop before so i thought I&rsquo;d go along. I was actually going to go to Colin Gemmell&rsquo;s session (I&rsquo;ll have to catch that another time). Good fun session and really made me see the benefit of Style Cop &ndash; I shall be trying this product out more soon <img class="wlEmoticon wlEmoticon-smile" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-smile_3.png" alt="Smile" /></p>
-<h4>Overall</h4>
-<p>Great day with lots of good people and good sessions. I can&rsquo;t wait for DDD Scotland and DDD SouthWest this year. I will be at both! Massive thanks to all the team for the day and thanks to all the people who voted my session in! Got to meet loads of people I have been talking to on Twitter (too many to mention) but shame I couldn&#8217;t meet more. I&#8217;m gutted I couldn&#8217;t clone myself so I could have been to more talks but human cloning is a taboo topic&#8230;..</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/24/differences-between-specflow-and-cuke4nuke/">Differences Between Specflow and Cuke4Nuke</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-24T00:00:00+00:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This post will highlight the differences between the specflow project configuration from that of cuke4nuke. This will be described in detail in terms of moving from 1 to the other.</p>  <p>//basics of cuke4nuke configuration</p>  <p>//basics of specflow configuration here</p>  <p>//how to effectively move from cuke4nuke to specflow</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/22/error-in-android-21/">Error in Android 2.1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-22T00:00:00+00:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I have today just set up a Google Apps account to replace my old email addresses as they have started spamming consistently. So I wanted to add my Google apps account to my Samsung Galaxy S but when going to Gmail and trying to add an account it was telling me:</p><pre>"Signing in... 
-Your phone is communicating with Google servers and setting up your 
-account. This may take up to five minutes."</pre><pre>&nbsp;</pre>
-<p>This was then followed by the message:</p><pre>"Can't establish a reliable data connection to the server.
-This could be a temporary problem or your SIM card may not be provisioned 
-for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
-<p>I&#8217;ve been racking my brains all day on how to fix this. I have Googled it and read all sorts of articles that suggest a factory reset will help. I really didn&#8217;t want to do that. I tried using Google talk and trying that – still nothing</p>
-<p>I finally read that if i tried to sign into the build in YouTube application on my phone then it would work! I tried it – success!</p>
-<p>What a ridiculous bug – in order to add a second Google mail account to my phone I had to sign into YouTube? This is the type of thing that will ruin an OS as its been a bug since early 2010. I&#8217;m sure i wouldn&#8217;t have had this trouble with a WP7</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -541,23 +559,23 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/14/test-post/">Test Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/22/configuration-management-for-laptop-and-desktops/">Configuration Management for Laptop and Desktops</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/22/is-immutability-the-evolution-of-infrastructure-management/">Is Immutability the Evolution of Infrastructure Management?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>

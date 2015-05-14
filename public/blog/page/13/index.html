@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Well just took the test and scored 25% and failed! what a joke some of the questions were! You need 75% to pass which i don&#8217;t think can happen &hellip;">
+  <meta name="description" content="OK, so after my foraging into WatiN, I really wanted to push things a bit further and begin to look at other ways of automating UI testing. This is &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,193 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/09/automated-ui-testing-part-2-installing-cucumber/">Automated UI Testing - Part 2 - Installing Cucumber</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-09T00:00:00+00:00" pubdate data-updated="true">Feb 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>OK, so after my foraging into WatiN, I really wanted to push things a bit further and begin to look at other ways of automating UI testing. This is when I was pointed in the direction of <a href="http://cukes.info/">Cucumber</a>.</p>
+<p>Cucumber lets software development teams describe how software should behave in plain text. The text is written in <a href="http://www.martinfowler.com/bliki/BusinessReadableDSL.html">business-readable domain-specific language</a> and serves as documentation, automated tests and development-aid - all rolled into one format. [Thanks to cukes.info for the blurb :)]</p>
+<p>To install Cucumber i have had a nightmare following many many different guides. the way i installed it works as follows:</p>
+<ol>
+<li>Download the one click ruby installer from <a href="http://www.rubyinstaller.org/download.html">here</a> [I installed the 1.91 version]</li>
+<li>install Ruby [the path I installed to was c:/ruby19] as this does not come with the new installer</li>
+<li>Download the Ruby Development kit from <a href="http://wiki.github.com/oneclick/rubyinstaller/development-kit">here</a></li>
+<li>Extract the location of the Ruby development kit to the ruby install path [for me c:/ruby19]</li>
+<li>The last change i had to make was to update the Ruby development kit to show the path for my ruby installation</li>
+<li>C:\Ruby19\devkit\msys\1.0.11\etc\fstab</li>
+<li>This just required changing c:\ruby to c:\ruby19 in the paths</li>
+<li>Start &gt; All Programs &gt; Ruby 1.9.1-p243 &gt; Start Ruby With Console to open the command line tool</li>
+<li>We need to add gemcutter.org to our list of Ruby Gem sources                
+<ul>
+<li>Do this by typing</li>
+<li>gem sources -a http://gemcutter.org/</li>
+</ul>
+</li>
+<li>Install Cuke4Nuke gem              
+<ul>
+<li>Do this by typing</li>
+<li>gem install cuke4nuke</li>
+</ul>
+</li>
+<li>Install the Win32Console gem to get colour reports in the windows console window              
+<ul>
+<li>Do this by typing</li>
+<li>gem install win32console</li>
+</ul>
+</li>
+<li>Save a copy of WAC to work out console colour problems. Download it <a href="http://github.com/aslakhellesoy/wac/raw/master/wac.exe">here</a> 
+<ul>
+<li>I saved this to an easy path - c:/wac.exe</li>
+</ul>
+</li>
+</ol>
+<p>To check all is working, open a command line and type</p>
+<p>Cuke4Nuke</p>
+<p>If all is working well then you will see a list of help commands</p>
+<p>My product didn&#8217;t install correctly at this point due to location of ruby files. So i had to make a few changes as detailed. Please note that this is my installation paths and the paths should be changed to your versions:</p>
+<ul>
+<li>My console ANSI file was not reporting the correct encoding            
+<ul>
+<li>C:\Ruby19\lib\ruby\gems\1.9.1\gems\win32console-1.2.0-x86-mingw32\lib\Win32\Console\ANSI.rb</li>
+<li>I added the following to the first line of this file           
+<ul>
+<li># encoding: ISO-8859-1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The change detailed above then reports an error in a ruby18.dll     
+<ul>
+<li>removing this files solves this error     
+<ul>
+<li>C:\Ruby19\lib\ruby\gems\1.9.1\gems\win32console-1.2.0-x86-mingw32\lib\Win32\console.so</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Hopefully when you run a command line and type Cuke4Nuke the help options will show</p>
+<p>Next post will be a sample application that can be run via Cuke4Nuke</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/05/automated-ui-testing-part-1-watin/">Automated UI Testing - Part 1 - WatiN</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-05T00:00:00+00:00" pubdate data-updated="true">Feb 5<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Its been an absolute age since i last blogged so i thought my recent experience was worth talking about.</p>
+<p>A few months back I discovered a tool called <a href="http://watin.sourceforge.net/" target="_blank">WaiN</a>. This is based on WatiR and is a web application testing tool for Dot Net developers. After doing a few little test applications i started to see the benefit of using this application in my development. The best thing i could see it could do for me was making sure my pre testing cycle smoke checks were all run and passing. This would save time in fixing little UI bugs spotted by QA testers.</p>
+<p>For those who don&#8217;t know what WatiN does then look at the following code:</p>
+<pre class="brush:csharp">[Test]
+public void SearchForWatiNOnGoofle()
+{
+    using(IE browser = new IE("http://www.google.com"))
+    {
+        browser.TextField(Find.ByName("q")).TypeText("WatiN");
+        browser.Button(Find.ByName("btnG")).Click();
+        Assert.IsTrue(browser.ContainsText("WatiN"));
+    }
+}
+</pre>
+<p>Within the class add a reference to WatiN.Core.dll and Nutit.framework.dll and then run this little test app. What will happen is a new instance of IE will spin up [other browsers can be run if necessary using further references]. It will search teh page for the textbox with the name &#8216;q&#8217; and enter the text &#8216;WatiN&#8217;. It will then find the button called &#8216;btnG&#8217; and click it.</p>
+<p>This will then give us the results and it checks to make sure that the results include the term &#8216;WatiN&#8217;. Pretty easy &nbsp;to follow eh?</p>
+<p>I could really see the potential of how this could be used to see how a site behaves when certain things are done e.g. logging in as a user and making sure that user has the correct options available to them etc.</p>
+<p>This was my first forage into the world of what i now know as BDD (behavioural driven development) and automated UI testing.&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/08/06/windows-7/">Windows 7</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-06T00:00:00+01:00" pubdate data-updated="true">Aug 6<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><span style="font-family: Verdana, Arial, sans-serif; font-size: 13px; color: #333333; line-height: 16px;">Ok was given the go-ahead from my boss to dual boot and have Windows 7. It was a bit of hassle getting the second hard-drive bootable.<br /><br />From moving to XP to Windows 7 is a major user experience change - but for all the right reasons!<br /><br />there are so many features i missed out on by not going to Vista - the snipping tool, the great search functionality, user access control (?) ha ha, but as they were on Vista, they were on a buggy O/S.<br /><br />They billed Windows 7 as a fixed up Vista and it certainly is that! I love it and will be spending the weekend working out a full list of tools and hacks etc from my XP machine to install on Windows 7 the minute it hits full release! MSDN license is ready, machine is ready, Windows 7 is almost here!!<br /><br />Try it and i promise you will like it<br /><br />EDIT: Windows 7 RTM hit MSDN yesterday - already migrated to it!</span></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -213,23 +400,23 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/14/test-post/">Test Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/22/configuration-management-for-laptop-and-desktops/">Configuration Management for Laptop and Desktops</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/22/is-immutability-the-evolution-of-infrastructure-management/">Is Immutability the Evolution of Infrastructure Management?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>

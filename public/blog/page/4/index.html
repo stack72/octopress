@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="This past week, I started experimenting with letting TeamCity create reports of CSS and XHTML Validation from the W3C website. In order to do this &hellip;">
+  <meta name="description" content="&ldquo;Until your pretty code is in production, making money, or doing whatever it does, you&#8217;ve just wasted your time&rdquo; - Chris Read &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,150 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/10/is-implementing-continuous-delivery-the-key-to-success/">Is Implementing Continuous Delivery the Key to Success?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-10T00:00:00+00:00" pubdate data-updated="true">Nov 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote>
+<p><em>&ldquo;Until your pretty code is in production, making money, or doing whatever it does, you&#8217;ve just wasted your time&rdquo; -</em><a href="http://blog.chris-read.net/"><em> Chris Read</em></a><em> whilst at London CI.</em></p>
+<p>In my opinion, this quote really sums up software development. Process and red tape are becoming an obstacle to more and more developers from doing what they are paid to do &ndash; create software.</p>
+<p>I attended a talk by<a href="http://twitter.com/kendallmiller"> Kendall Miller</a> whilst at<a href="http://developerdeveloperdeveloper.com/scotland2011"> DDDScotland</a> entitled &ldquo;<a href="http://developerdeveloperdeveloper.com/scotland2011/ViewSession.aspx?SessionID=676">Creating your own software company: A survival guide</a>&rdquo;. I am a huge supporter of continuous delivery and have attended many sessions but this session was extremely useful to me. It was really the first time that the reasoning and importance of continuous delivery for developers really hit home with me. I knew the benefits and drawbacks but hearing someone actually demonstrate their experience really helped me. The most important thing I learned in this session was that you have got to get your software out early, this is particularly important when you are starting up a software company. Shipping software early will not only give you a source of much needed income, but can provide potentially useful feedback that can help shape the project before too much investment, both in terms of development time and money, is wasted. This goes hand in hand with the opening quote of this blog post.</p>
+<p>I am a huge fan of clean, SOLID, DRY code and I cannot emphasise enough about why developers should write code in this fashion. I do understand that I may be giving a mixed message here. Is it possible to create software in a clean, SOLID and DRY way and in a fast time? Could we be sacrificing quality for delivery? In my opinion, this is simply not the case. There are some fantastic guide lines laid down by<a href="http://twitter.com/unclebobmartin"> Robert &lsquo;unclebob&rsquo; Martin</a> in his book,<a href="http://www.amazon.co.uk/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/ref=sr_1_1?ie=UTF8&amp;qid=1320920781&amp;sr=8-1"> Clean Code</a>. These guide lines do not take extra time to implement &ndash; they are baked in to how we write the code. As developers they should be second nature to us. If they aren&rsquo;t then you should address this as soon as you can.</p>
+<p>Fast delivery can, however, affect architecture. Architecture is one of those areas of development that really does demonstrate a lot of ways to do achieve a single task. For example there are many different frameworks, tools, code layout etc. and these are another area to be concerned with. You can implement a solution to a problem that is clean &amp; efficient but that may not prove to be the best architecture. You could continue to work on this solution and refactor it to the nth degree until you come up with an architecture that you like.&nbsp; You may feel that you have used your development time wisely to improve your solution, when in actual fact, what you may have done is to waste your development resources refactoring when other solutions may be available to you.</p>
+<p>I would argue that release fast, fail fast is a good way to develop. Get the code out there, let some decent A/B testing give feedback on its fit for purpose and let that shape the architecture. I understand this may be easier for start-up based systems as their customer base can initially be small. But I do not think it is only targeted towards them. Lets look at Google Chrome or Firefox as an example of this philosophy in practice. Changes to Chrome and Firefox are happening on a regular basis now. This means the companies can create a new piece of functionality, release it to users and collect feedback and know that feedback is targeted towards the last small release. This means they are letting the user feedback help drive the system. Firefox takes a lot of grief about how resource hungry it is. Releasing smaller code changes more often will help them see if they are addressing the issue.</p>
+<p>Releasing a solution early can also bring problems of it&rsquo;s own. There are some companies out there that are of the opinion &ndash; if it has shipped and it works then why should we spend any more money on code improvements. This falls into the argument about Technical Debt which I will not cover in this post.</p>
+<p>In summary, I believe software should be delivered in small, continual chunks. This helps create an efficient delivery mechanism that will give us a chance to collect useful feedback in a much more structured and continual way. We can use this feedback to deliver software that is better suited for its purpose and become better at what we are paid to do!</p>
+</blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/31/html5-clean-code-for-front-end-developers/">HTML5 – Clean Code for Front End Developers</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-31T00:00:00+00:00" pubdate data-updated="true">Oct 31<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have recently started looking into the new html specification (HTML5) and have noticed that benefits of this new specification include improved semantics and cleaner mark-up.&nbsp;<span class="Apple-style-span" style="font-family: sans-serif; font-size: 13px; line-height: 19px;">Semantic HTML is a way of writing HTML that emphasizes the meaning of the encoded information over its presentation.</span>&nbsp;Consider the following code snippet:</p>
+<script type="text/javascript" src="http://gist.github.com/1328385.js"></script>
+<p>This would usually denote a small area of navigation that loosely regards a navigational class on a html page. The loose association to the navigation is because I had the sense to name the class &#8220;navigation&#8221;. Had I named the class &#8220;list&#8221; then this would have meant nothing to the reader of the mark-up. The &lt;h2&gt; tag relates to the &lt;div&gt; but is actually not part of the mark-up. HTML5 gives the ability to clean this mark-up and make it more semantic. the resulting code in HTML5 could be:</p>
+<script type="text/javascript" src="http://gist.github.com/1328389.js"></script>
+<p>This code snippet actually lets the user see that the list of links are actually a small navigational element of the site. It will also relate the heading, Quick Links, to that small navigational element. There is another element, menu, that I will not talk about. It could be substituted for my use of &lt;nav&gt;</p>
+<p>When I first started reading about HTML5 and how the semantics and cleanliness of the mark-up changed, it made be beg the question:</p>
+<p><strong>Is HTML5 the excuse to get front end developers to think about Clean Code?</strong></p>
+<p>I am a huge advocate of clean code. I expect my methods / classes and variables to have good naming conventions. I also expect the code to be short, concise and descriptive. I am a developer, not a designer. Design / front end development is usually my last port of call. therefore my mark-up and it&#8217;s structure usually suffer. this means that it can be poorly organised and when I test in different browsers, I sometimes have to shoehorn in fixes which results in my code being messy.</p>
+<p>Html5 may not be a finished specification, but I for one will start to embrace it in my development. If there is an easy way for the front end mark-up to be as clean as business logic then I think we should all lobby the W3C to finalise the specification and get this new standard into place.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/16/controlling-iis7-programmatically/">Controlling IIS7 Programmatically</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-16T00:00:00+01:00" pubdate data-updated="true">Oct 16<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I am a huge advocate of automation and the automation of as much of a system as can be implemented. I like to make sure than non-developer members of staff can work effectively and try to do as much as possible to minimise the blockers in their way. IIS can be one of those blockers. When it comes to staff creating new sites and application pools, they can sometimes get it wrong. To make sure all members of my team have the <strong>exact same</strong> setup &ndash; I script the set-up.</p>
+<p>A CI tool should be able to handle the automated rollout of configuration management to systems. This is just another example of making sure all parts of the environment have the correct set-up. Automating this rollout means a smaller chance of human error. Being able to interact with IIS means a simple script could be run to create the required setup &ndash; both locally and on a build environment.</p>
+<p>I was able to create the following Powershell script.</p>
+<script type="text/javascript" src="https://gist.github.com/157876c2e6ca7518c290.js"></script>
+<p>The script basically automates a way of creating a new application pool, a new site and then assigning that application pool to that site</p>
+<p>This script was easily able to run from either powershell or via cmd line (which invokes powershell). It&rsquo;s a script that works perfectly well assuming you only need to run it once as it doesn&rsquo;t take into account the site or the application pool existing. It needed a lot of refactoring. the script that was produced can be found below. It is a lot more useful as it takes parameters for setup.</p>
+<script type="text/javascript" src="https://gist.github.com/f204abb6862bcf34f113.js"></script>
+<p>The trouble I had with this script started when running in different versions of the OS. X64 machines call the X64 powershell by default (as you would expect). When using X64 powershell the following error was encountered:</p>
+<p><a href="http://www.paulstack.co.uk/blog/images/image_36.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://www.paulstack.co.uk/blog/images/image_thumb_34.png" alt="image" width="564" height="107" border="0" /></a></p>
+<p>This of course worked perfectly in X86 version of powershell. Weirdly, a different error was encountered in X86 powershell. The line</p>
+<p>Test-Path IIS:\AppPools\</p>
+<p>command didnt like working. It threw the following error:</p>
+<p><a href="http://www.paulstack.co.uk/blog/images/image_37.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://www.paulstack.co.uk/blog/images/image_thumb_35.png" alt="image" width="529" height="227" border="0" /></a></p>
+<p>I was faced with the dilemma of fixing something I know relatively little about (powershell scripts) or continue to use the simple script and manually manipulate IIS after the initial set-up.</p>
+<p>Strangely, I chose to ditch both methods and wrote a C# console application to manipulate IIS. It took me half the time and was very easy. <a href="http://twitter.com/apwestgarth">Andrew Westgarth, IIS MVP</a>, replied to me on twitter after I said I had done this</p>
+<blockquote>
+<p align="center">I could have told you that :-) the .net APIs rock :-)</p>
+<p align="center">It was as simple as referencing Microsoft.Web.Administration and writing code against that API. As it was a console application, it created an executible that I could call easily from TeamCity or via a batch script for local machine automation. I don&rsquo;t have to worry about ExecutionPolicy either, which is a real bonus.</p>
+<p align="center">The source code for the console application is available on my github site. Feel free to take it and change pieces of it to suit you. I have also included both powershell scripts as listed above.</p>
+</blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -437,142 +581,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/13/have-orms-introduced-extra-complexity-into-our-codebase/">Have ORMs Introduced Extra Complexity Into Our Codebase?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-08-13T00:00:00+01:00" pubdate data-updated="true">Aug 13<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Whilst at <a href="http://www.dddsouthwest.com" target="_blank">DDDSouthWest 2011</a>, I was speaking to <a href="http://twitter.com/chrishayuk">Chris Hay</a> about his scalability session. One of the areas we touched upon was the issues that ORMs have introduced into code.</p>
-<p>ORMs have become very widely used. In my most recent work project we started using Entity Framework 4, we then migrated to Entity Framework Code First, when that was not working for us we moved away from Code First and stuck with EF4. We have had serious issues with our ORMs. Firstly, we found that our repository layer was causing CPU usage to spike to over 80%. This was due to queries being compiled on the fly each time the query was called. Secondly, when we removed our web service calls (to be replaced by a service layer), we found that the object hierarchy was causing all sorts of issues. Many of these were down to lazy design. The entities have the following look to them:</p>
-<p><a href="http://paulstack.co.uk/blog/images/Drawing1.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="Drawing1" src="http://paulstack.co.uk/blog/images/Drawing1_thumb.gif" alt="Drawing1" width="310" height="203" border="0" /></a></p>
-<p>This meant that we had some hideous queries being created due to some navigation properties of the objects we were using. This is, of course, not just something found in EF4 but can be found in any ORM that is misused. The trouble with this type of scenario is that in order to fine tune the SQL that we (via the ORM) are producing via the ORM requires a change to the entities or their navigational properties. This means a lot of testing, recompilation and a redeploy.</p>
-<p>What would be the alternative to an ORM? A DAL layer that called stored procedures and passed parameters to get data back? That felt very old school to me. I think that&rsquo;s what drove me to start using ORMs initially.</p>
-<p>So, if we cannot change the sql being produced easily, why do we use ORMs? It was described to me, by <a href="http://twitter.com/thecodejunkie">Andreas H&aring;kansson</a> (better known as TheCodeJunkie) as follows:</p>
-<p><em>&ldquo;DAL was born as a reaction to SQL, ORMs is an attempt to provide a DSL for writing DALs&rdquo;</em></p>
-<p><em><a href="http://twitter.com/#!/markrendle/status/102152507706454016">Mark Rendle suggested it was because of the need for intellisense.</a> </em></p>
-<p>To my mind, both are correct. This is clearly a way that enables developers to not have to deal with writing SQL. Now, old person hat on, in the olden days, a developer would have to be proficient in SQL if there were no DBAs around to take care of those things. This meant that a developer knew what was being done &ldquo;under the hood&rdquo;. Now, would it be fair to say that newer developers, born into a world of ORMs, actually don&rsquo;t understand the SQL that they are producing?</p>
-<p>Let&rsquo;s think again about dealing with stored procedures. What would we do if we had to fine tune a stored procedure? Well if we are lucky, then we may not have to change input and output parameters and just change the logic of the procedure itself. This would mean that we could work on it without a recompilation and deployment. But if we have to change the inputs and outputs then we would need to change one layer, the DAL. This seems a lot more desirable to me. I am changing my code in one place which means I am a lot more confident.</p>
-<p>Returning to Chris, he said he needs his SQL to be so finely tuned that it runs in milliseconds rather than seconds and the only way he can achieve this is to use stored procedures. This would allow the stored procedure to be worked on without the application being changed. This begs the questions: has the introduction of ORMs made developers lazy in their DAL layers? And: have they been <strong>too</strong> widely adopted &ndash; were they ever really meant for enterprise applications?</p>
-<p>I can have a simple application up and running with a simple data structure and an ORM in a very short amount of time. If I take the same amount of time when setting up a so-called enterprise application, then my entities will have such bad relationships between them that the SQL produced is very bad. Oh wait &ndash; that&rsquo;s<a name="_GoBack"></a> the issue that has happened to me already&hellip;&hellip;&hellip;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/09/win-a-ticket-to-progressivenet-tutorials/">Win a Ticket to Progressive.Net Tutorials</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-08-09T00:00:00+01:00" pubdate data-updated="true">Aug 9<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Thanks to <a href="http://www.skillsmatter.com" target="_blank">Skillsmatter</a>, I have been given some tickets to give away to the Progressive.Net tutorials at Skillsmatter, London between September 5th and 7th.</p>
-<p>This is an event I have very fortunate to be presenting at. The event schedule can be found on the <a href="http://skillsmatter.com/event/open-source-dot-net/progressive-dot-net-tutorials-2011" target="_blank">event page</a>.</p>
-<p>In order to be in for a chance to win a ticket, you will need to send me a mail answering the following question:</p>
-<p><strong>Why are you interested in going to the Progressive.Net Tutorials and what do you hope to learn from the event?</strong></p>
-<p>*COMPETITION IS NOW CLOSED!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/04/feature-switching-a-better-way-to-collaborate/">Feature Switching: A Better Way to Collaborate</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-08-04T00:00:00+01:00" pubdate data-updated="true">Aug 4<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>One of the biggest pitfalls on working in teams where branches are created to work on features is that we are not continually checking in to the head revision / trunk. This means our work is not constantly being integrated. The feature may be small and we can integrate back in a day or 2 but there are a lot of instances where the feature is longer (2 &ndash; 3 months). If this is the case we need to be continually merging and then re-branching. This means we are going through merge issues more often than required.</p>
-<p>What if I was to tell you there was a much better way? I bet you would be a little sceptical at first but then see the benefits of it. When developing features, we can <strong>all</strong> work from the trunk by feature switching. Feature switching (FS)is the use of a configuration system, db or config file, where we can turn a feature on or off. This will help us with canary releasing (releasing features to just a small group of users) &amp; A/B testing. We really start to see how useful FS is when we look at moving towards a continuous delivery workflow.</p>
-<p>We can write &lsquo;feature&rsquo; code to the trunk and enable a switch to turn it off and then push to our head revision. We can deploy our system as the code we have written will not be parsed or shown (if it is front end changes). The danger is that we can forget to disable the feature. I usually setup my web.config transformations to take care of that issue.</p>
-<p>FS can be temporary, while a small feature is being built. IF this is the case when the feature is complete and signed off then we must remove all instances of the switching code and the settings to go with them. FS can also be long term, e.g. being able to disable the registrations to an event on a website. It is important to keep temporary and permanent switches separate for clarity.</p>
-<script type="text/javascript" src="https://gist.github.com/3eebb9c16ac0ec95b45d.js"></script>
-<p>This code shows that on a simple request to the register action, then a view will be returned. What if we wanted to start tinkering with the view? What if we wanted to start adding new fields to the registration form but not show it until the feature is finished? Well I&#8217;m sure some would say create a cpy of the view and work from that - but there are no ways to get to that view as it is not returned from a request.</p>
-<script type="text/javascript" src="https://gist.github.com/ab16f96600a0e5502612.js"></script>
-<p>This is the same action method with some further logic added to it. This effectively checked to see if a feature is actually enabled and if so the new version of the View is rendered. Otherwise the old version of the view is rendered. This is a very very simple demonstration of feature switching. I would try not to do it this way &ndash; &lsquo;newing up&rsquo; the FeatureManager inside the action method. I&rsquo;d use Dependency Injection to inject an instance into the constructor for loosely coupled code.</p>
-<p>What if I wanted to do this as part of a View and not have to modify the code at all. We can look at the following example:</p>
-<script type="text/javascript" src="https://gist.github.com/b2648207d753b62e5a0a.js"></script>
-<p>This example says that if the feature is enabled then show the new panel. This uses a Html Helper method to hide the logic of the switch. All I have to do is to pass the name of the feature to the helper. The helper code is as follows:</p>
-<script type="text/javascript" src="https://gist.github.com/91232460954b4a787356.js"></script>
-<p>Pretty simple and straightforward stuff. Using this type of approach will mean we can all work effectively on the head revision which will save us time (we shouldn&#8217;t have problem merges). This will als let the CI system take care of integration and spotting integration issues earlier. It will also mean that when we check into the trunk our application <strong>should</strong> be in a deliverable state. There are much more complex ways to feature switch. We will cover those in a later post.</p>
-<p>I have taken a copy of the ASP.NET MVC MusicStore and added some feature switches to it. This is available on my <a href="https://github.com/stack72/SimpleFeatureSwitchingDemo">github repository</a>. Please feel free to take a copy and have a play with the switches. The code there is what is contained in this post</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -597,23 +605,23 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/14/test-post/">Test Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/22/configuration-management-for-laptop-and-desktops/">Configuration Management for Laptop and Desktops</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/22/is-immutability-the-evolution-of-infrastructure-management/">Is Immutability the Evolution of Infrastructure Management?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>
