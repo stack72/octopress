@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="One of my favourite new tools to come across in 2011 is NSubstitute. This a is friendly substitution framework for .net. This will allow me to use &hellip;">
+  <meta name="description" content="This post denotes the attributes needed in order to help form an effective team. They are attributes that I have worked to bring to my current team &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,153 +79,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/06/30/mocks-stubs-a-thing-of-the-past/">Mocks & Stubs–a Thing of the Past?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-30T00:00:00+01:00" pubdate data-updated="true">Jun 30<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>One of my favourite new tools to come across in 2011 is <a href="http://nsubstitute.github.com/" target="_blank">NSubstitute</a>. This a is friendly substitution framework for .net. This will allow me to use these substitutes in place of mocks and stubs. Traditionally I use a mocking framework that requires the use of mocks and stubs. Unfortunately, this type of tool has now become a bit of a hindrance for me. The code that is written to assert behaviour has happened seems complex and is not instantly readable for junior developers. Now this isn&rsquo;t a tool bashing exercise &ndash; this post is to demonstrate that this tool (NSubstitute) has effectively made me see the complexity of my tests. It has made me think about being more expressive in my intent. Its not about the tool itself &ndash; its about the concept behind it.</p>
-<p>On the commencement of a new project, i tried to show some developers NSubstitute. They liked it &ndash; they said on first look it was easy to read test code. I suggested they try it for the new project as it was brand new and had 0 test count. I was immediately shot down due to an apparent &ldquo;learning curve&rdquo; and &ldquo;sticking with what they know&rdquo;. I understand the learning curve part &ndash; learning a new tool is potentially tough as its a real shift in what they know. The apathy of sticking with what they knew really saddens me. If I had this level of apathy, I&rsquo;d still be working with ASP.NET webforms 2.0 and still not unit testing like I was doing 7 years ago. We should all want to push ourselves a little and move outside our comfort zone in order to mature as professionals. Its effectively how we grow, learn and get better at what we do.</p>
-<p>I can understand why a developer would not what to change to a new tool when working in an established project. It would be like a rewrite of a section of the project. It would also take time and money to change. But when it is a brand new project with no current toolset what is the issue? Seems a little strange to me.</p>
-<p>From my investigations about this topic of mocks and stubs vs. fakes / substitutes, I have seen that there is a real lack of understanding of the differences between mocks and stubs. This article will not talk about the differences &ndash; <a href="http://martinfowler.com/aboutMe.html" target="_blank">Martin Fowler</a> has already done this in his article <a href="http://martinfowler.com/articles/mocksArentStubs.html" target="_blank">Mocks aren&rsquo;t stubs</a> and there is no way I could do it the justice he has. This has really led me to the question <em>do we really need to care about the differences of mocks and stubs when we have this level of complexity in our tests?.</em> As a developer who tries to push testing to a team, all I want to do is to take an object or a class and test that some logic or behaviour has happened and I get the correct result. We <span style="text-decoration: line-through;">don&rsquo;t want to</span> shouldn&rsquo;t make this difficult for ourselves by trying to decide if the object or class that we want should be a mock or a stub.</p>
-<p>I have heard of people who get this concept so mixed up that they try and verify all expectations against stubs so they get passing unit tests when this is of course not correct. This is to show sample of implementation of that test.</p>
-<script src="http://gist.github.com/a618e24f7a6967b730e2.js"></script>
-<p>This shows a test with mocking and stubbing to check that specific behaviour has happened</p>
-<script src="http://gist.github.com/192394caae6914998a12.js"></script>
-<p>The same behaviour using substitutes / fakes to demonstrate how much easier it can be without the layer of complexity (written by <a href="http://twitter.com/davetchepak">Dave Tchepak</a> from NSubstitute). Dave did point out that other tools can drive this expressive type of test and also he could write complex looking tests with NSubstitute as well.</p>
-<script src="https://gist.github.com/1056347.js"></script>
-<p>I&rsquo;m not the first developer to talk about this topic and I&rsquo;m certainly not the last. I think it&rsquo;s a topic that requires buy in/ backing from a host of developers who lead the way. When talking about this on twitter, <a href="http://hadihariri.com/" target="_blank">Hadi Hariri</a> said the following:</p>
-<p><em>&ldquo;People need to understand the difference between state and interaction testing, not stubs/mocks/fakes/dupes/blabla&rdquo;</em></p>
-<p>This is very true! Let&rsquo;s remove this barrier of complexity in our tests and learn how to write better tests. It doesn&#8217;t matter which tool we use to do it. Join me in trying to get developers to take the plunge!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/06/28/how-to-get-started-with-ci/">How to Get Started With CI - Series</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-28T00:00:00+01:00" pubdate data-updated="true">Jun 28<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>About a year ago (July 2010), I started working with my current company. When I started the team were lacking in process and the process they had was not as useful as it could be for developers. The first thing I done in that team was to restructure the VCS and introduce continuous integration (CI).</p>
-<p>The reason I chose these 2 practices first was that the team were not working as productively as they could be. There were no VCS regular check-ins and merging was hell. A good set of practices in VCS and a CI server to help spot merge issues up front was my idea of a step forward.</p>
-<p>CI was a tough sell to the team. They didn&#8217;t like the fact that it took time to introduce, they didn&#8217;t like the fact that people could see everyone&#8217;s mistakes and the company wasn&#8217;t sure of the cost of the products and infrastructure needed. Originally, it was not fully understood why CI would be good for us and what it would help. I examined the current state of development and concluded that due to bad VCS practices it was becoming more and more difficult to &lsquo;ship&rsquo; a version of the site. The points were how i eventually sold it:</p>
-<ul>
-<li>earlier notification of integration errors</li>
-<li>elimination of bad reference and dependency management</li>
-<li>raising the confidence of developers</li>
-</ul>
-<p>The team had a very bad management of references and dependencies in our visual studio solutions. There were GAC references and files missing everywhere. There was no standardisation of 3rd party tool storage. This led to deployment nightmares as there was a <strong>post release</strong> scramble to find missing dlls &amp; files and FTP them to the live server. I was able to point out that&nbsp; CI system meant we could find dependency issues and missing files faster (on every check in as it happens).</p>
-<p>After a few weeks in place the developer confidence got higher. They were more confident of deployments and the team went from deploying once every few months to weekly then to twice weekly and then 3 times weekly. It became more of a lean production line as something was working on &ndash; checked into VCS and then the following day (or 2 days) it went live.</p>
-<p>IF you are struggling with selling CI to your company or even if you are trying to introduce your company to CI then the following posts are a summary of the steps I had to go through to get CI integrated into our working practices. It started as a proof of concept, to demonstrate the benefits and it has grown exponentially for me. The posts are:</p>
-<ol>
-<li><a href="http://paulstack.co.uk/blog/post/considerations-when-choosing-hardware-for-ci.aspx" target="_blank">Choosing the hardware requirements</a></li>
-<li><a href="http://paulstack.co.uk/blog/post/choosing-the-correct-ci-tool.aspx">Choosing the correct tool</a></li>
-<li><a href="http://paulstack.co.uk/blog/post/implementing-your-first-project-into-a-ci-system.aspx">How to integrate CI into your first project</a></li>
-<li>Making the Build Self Testing</li>
-<li>What is the potential of CI tools</li>
-</ol>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/06/20/continuous-delivery-is-not-continuous-deployment/">Continuous Delivery Is Not Continuous Deployment</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-20T00:00:00+01:00" pubdate data-updated="true">Jun 20<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>There seems to be a lack of understanding about what continuous delivery is. I feel that continuous delivery has an ambiguous meaning to continuous deployment. This post will help to explain my understanding of both terms in relation to my experience of both.</p>
-<h4>What is continuous delivery?</h4>
-<p>Continuous delivery is the process of having a shippable product/ piece of software after each check in to source control. At work I work on an up and coming quiz site. On&nbsp; successful check in, i have a <a href="http://www.jetbrains.com/teamcity/" target="_blank">TeamCity</a> that fires and my web application is build in release mode, is packaged with the correct 3rd party dependencies and correct web.config transformations.</p>
-<p>This application is then a potentially shippable product. In theory, I could open an FTP client and push the package to the correct web server and it would work as expected.</p>
-<h4>What is continuous deployment?</h4>
-<p>This is the process of shipping your product after every check in to source control. When starting out it is a very scary thought and really should not be implemented without real thought. In order to implement this in a team, you need to be 100% confident that the work they are checking in is fully tested and works 100% as expected. Unit tests, integration tests and other types of testing will help to ensure this confidence.</p>
-<p>GiveCamp UK, a site i look after, is setup in a continuous deployment manner. I have a local git repository and I can check in freely to that repository. When i push to github, my CI server triggers a release build and then actually pushes the changes to the live site automatically.I can make 3 or 4 deliveries a day in this format. I have heard of teams who can do this up to <a href="http://timothyfitz.wordpress.com/2009/02/10/continuous-deployment-at-imvu-doing-the-impossible-fifty-times-a-day/" target="_blank">50 times a day</a>.</p>
-<p>In my opinion, continuous deployment is not a natural progression from CI. It will take time for a CI process to mature and help the development team to be more effective in their work. For example, a developer continually forgets to check in files when he checks in, release script fires, files are missing therefore site could not work correctly. Successful deployments would suffer and errors recorded on site may increase. A good CI process will help the developers to stop these types of mistakes.</p>
-<p>For me, the natural progression after CI, is continuous delivery. The potential for your application to be in a shippable state after every check in <strong>is</strong> an achievable goal. Once you deploy these &lsquo;packages&rsquo; and the confidence in the process increases could you then progress to automatically deployment as part of the process. For me, its the holy grail of dev ops work although I have read that it isn&rsquo;t for others. My argument to them would be a quote I once read:</p>
-<p><em>A bad developer will manually carry out the same tasks repeatedly, a good developer will automate the task, a great developer will make the task obsolete.&rdquo;</em></p>
-<p>I will let you draw your own conclusions as to which of the 3 types of developer in the quote related to CI, continuous delivery and continuous deployment. :)</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -539,6 +392,149 @@
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/09/free-speaker-training-day/">Free Speaker Training Day - 27th May 2011</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-09T00:00:00+01:00" pubdate data-updated="true">May 9<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>It was announced last week that Guy Smith-Ferrier will be providing a free speaker training day in the UK on May 27th 2011. The details of the free training are located on <a href="http://guysmithferrier.com/post/2011/05/DDD-Speaker-Training-Day-on-Friday-27th-May-2011.aspx" target="_blank">Guy&rsquo;s blog</a>. I believe that this is a very popular event so if you are interested then please get in contact using the contact details on Guy&rsquo;s blog post. In summary the day will cover the following details:</p>
+<ul>
+<li>How To Explain Absolutely Anything </li>
+<li>Planning Your Presentation </li>
+<li>How To Give Great Demos </li>
+<li>Getting Your Laptop Ready For Your Presentation </li>
+<li>Presenting Your Presentation</li>
+</ul>
+<p>The training will be lead by some very well known speakers in the UK community &ndash; Steve Sanderson, Dave McMahon, Ross Scott and Chris Myhill. This is a <strong>FREE event</strong> so please do try and take advantage of this if you can and are interested in speaking at user groups or regional events in the UK.</p>
+<p>If you are like me, however, and cannot make that speaker training day then Guy has released speaker training videos. They are available on the <a href="https://www.technicalcommunity.com/InfoCenter/Pages/Speaker-Training.aspx" target="_blank">technical community site</a>. After speaking with Guy about this he has suggested that you would not need to watch the videos if you are going to the training day as they cover the same topics.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/08/ddd-scotland-2011/">DDD Scotland 2011</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-08T00:00:00+01:00" pubdate data-updated="true">May 8<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Saturday 7th May was <a href="http://developerdeveloperdeveloper.com/scotland2011/">DDD Scotland</a> in Glasgow. I was fortunate enough to be speaking at the event so obviously had to travel up there for the weekend :)</p>
+<p>There were a range of good tracks available &ndash; <a href="http://scottishdevelopers.com/2011/03/14/ddd-scotland-2011-agenda/">agenda is here</a> &ndash; and I started the day going to see <a href="http://twitter.com/kendallmiller">Kendall Miller</a> talking about How to Grow Your Own Software Company. Kendall is a very good speaker and delivered a very useful session. I really enjoyed the fact that he was able to relate his talk to his own experiences. If you can get a chance to see this session then I would recommend it &ndash; especially if you are thinking about setting up your own company!</p>
+<p>I flitted in and out of a few other sessions throughout the day and really enjoyed the day as a hole. Got some great feedback on my session and <a href="https://twitter.com/#!/guysmithferrier">Guy Smith-Ferrier</a> very kindly critiqued my session for me so I can improve my delivery of my session.</p>
+<p>Had a great day, met some great people and enjoyed having a day of being a geek. Thanks to the organisers &ndash; <a href="https://twitter.com/#!/ColinMackay">Colin MacKay</a>, <a href="http://twitter.com/camurphy">Craig Murphy</a>, <a href="https://twitter.com/#!/ARGibson">Andy Gibson</a> and <a href="http://twitter.com/barrycarr">Barry Carr</a>. Thanks again!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/14/sql-ce-4-database-scripting/">SQL CE 4 Database Difference Scripting With SqlCEDiffer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-14T00:00:00+01:00" pubdate data-updated="true">Apr 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I wrote some posts on how to take two different SQL CE 4 db files (.sdf) and how to compare them to create a SQL change script. The general flow was as follows:</p>
+<ul>
+<li>Generate Sql Schema File from SDF files </li>
+<li>Compare the SDF files to generate a change script </li>
+</ul>
+<ul>
+I started using this at work and it was noticed that the sql change script that was produced wasn&rsquo;t fantastic. What it was doing was completely creating a new table, dropping the old table and then renaming that newly created table. We were worried that this would cause an issue with our database on our live server.
+</ul>
+<ul>
+After speaking with <a href="https://twitter.com/erikej">Erik Ejlskov Jensen</a>, a SQL Server Compact MVP, I was pointed in the direction of the API that he wrote in order to make his Sql Compact 4 toolbox. This API allowed me to write my own little command line tool (as simple as it gets) that takes 2 .sdf files and generates a sql diff file.&nbsp; I have called this, inspirationally, SqlCEDiffer.
+</ul>
+<ul>
+In order to use this tool you can do it from the command line or you can hook it into your MSBuild scripts as follows:
+</ul>
+<ul>
+<strong>Command Line</strong>
+</ul>
+<p>sqlcediffer.exe    <br />&nbsp;&nbsp;&nbsp; -source:{path to latest schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -target:{path to old schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -outputPath:{path to save the diff script to&gt;.sql</p>
+<p>It&rsquo;s a very simple explanation really. Source is the latest sdf file created, this has all the new changes in it. The target is the source that we wish (eventually) to update. The output path is the path we want the resulting .sql file saved to.</p>
+<p>&nbsp;</p>
+<p><strong>Running from MSBuild</strong></p>
+<p>&lt;Target Name=&#8221;Build&#8221;&gt;   <br />&nbsp;&nbsp;&nbsp; &lt;Message Text=&#8221;Starting Sql Differencing&#8221; /&gt;    <br />&nbsp;&nbsp;&nbsp; &lt;Exec Command=&#8221;sqlcediffer.exe -source:{new sdf file} -target:{old sdf file} -outputPath:{save path}.sql&#8221; /&gt;    <br />&lt;/Target&gt;</p>
+<p>It works exactly the same as from command line <strong>but</strong> being able to use the MSBuild exec command means that we can hook this into a build script. This now opens up the opportunity for its use in automation of sql differencing and potentially continuous database deployment.</p>
+<p>The code is very simple and does exactly what it says on the tin. It has been created as a wrapper around the code that Erik already created for his tools already available on <a href="http://exportsqlce.codeplex.com/" target="_blank">codeplex</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -563,23 +559,23 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/05/14/test-post/">Test Post</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/22/configuration-management-for-laptop-and-desktops/">Configuration Management for Laptop and Desktops</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/22/is-immutability-the-evolution-of-infrastructure-management/">Is Immutability the Evolution of Infrastructure Management?</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>

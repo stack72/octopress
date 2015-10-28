@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="It was announced last week that Guy Smith-Ferrier will be providing a free speaker training day in the UK on May 27th 2011. The details of the free &hellip;">
+  <meta name="description" content="I found out that my session on &ldquo;SpecFlow - functional testing made easy&rdquo; was selected for inclusion on the DDD Southwest agenda for June &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,149 +79,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/09/free-speaker-training-day/">Free Speaker Training Day - 27th May 2011</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-09T00:00:00+01:00" pubdate data-updated="true">May 9<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>It was announced last week that Guy Smith-Ferrier will be providing a free speaker training day in the UK on May 27th 2011. The details of the free training are located on <a href="http://guysmithferrier.com/post/2011/05/DDD-Speaker-Training-Day-on-Friday-27th-May-2011.aspx" target="_blank">Guy&rsquo;s blog</a>. I believe that this is a very popular event so if you are interested then please get in contact using the contact details on Guy&rsquo;s blog post. In summary the day will cover the following details:</p>
-<ul>
-<li>How To Explain Absolutely Anything </li>
-<li>Planning Your Presentation </li>
-<li>How To Give Great Demos </li>
-<li>Getting Your Laptop Ready For Your Presentation </li>
-<li>Presenting Your Presentation</li>
-</ul>
-<p>The training will be lead by some very well known speakers in the UK community &ndash; Steve Sanderson, Dave McMahon, Ross Scott and Chris Myhill. This is a <strong>FREE event</strong> so please do try and take advantage of this if you can and are interested in speaking at user groups or regional events in the UK.</p>
-<p>If you are like me, however, and cannot make that speaker training day then Guy has released speaker training videos. They are available on the <a href="https://www.technicalcommunity.com/InfoCenter/Pages/Speaker-Training.aspx" target="_blank">technical community site</a>. After speaking with Guy about this he has suggested that you would not need to watch the videos if you are going to the training day as they cover the same topics.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/08/ddd-scotland-2011/">DDD Scotland 2011</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-08T00:00:00+01:00" pubdate data-updated="true">May 8<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Saturday 7th May was <a href="http://developerdeveloperdeveloper.com/scotland2011/">DDD Scotland</a> in Glasgow. I was fortunate enough to be speaking at the event so obviously had to travel up there for the weekend :)</p>
-<p>There were a range of good tracks available &ndash; <a href="http://scottishdevelopers.com/2011/03/14/ddd-scotland-2011-agenda/">agenda is here</a> &ndash; and I started the day going to see <a href="http://twitter.com/kendallmiller">Kendall Miller</a> talking about How to Grow Your Own Software Company. Kendall is a very good speaker and delivered a very useful session. I really enjoyed the fact that he was able to relate his talk to his own experiences. If you can get a chance to see this session then I would recommend it &ndash; especially if you are thinking about setting up your own company!</p>
-<p>I flitted in and out of a few other sessions throughout the day and really enjoyed the day as a hole. Got some great feedback on my session and <a href="https://twitter.com/#!/guysmithferrier">Guy Smith-Ferrier</a> very kindly critiqued my session for me so I can improve my delivery of my session.</p>
-<p>Had a great day, met some great people and enjoyed having a day of being a geek. Thanks to the organisers &ndash; <a href="https://twitter.com/#!/ColinMackay">Colin MacKay</a>, <a href="http://twitter.com/camurphy">Craig Murphy</a>, <a href="https://twitter.com/#!/ARGibson">Andy Gibson</a> and <a href="http://twitter.com/barrycarr">Barry Carr</a>. Thanks again!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/04/14/sql-ce-4-database-scripting/">SQL CE 4 Database Difference Scripting With SqlCEDiffer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-14T00:00:00+01:00" pubdate data-updated="true">Apr 14<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I wrote some posts on how to take two different SQL CE 4 db files (.sdf) and how to compare them to create a SQL change script. The general flow was as follows:</p>
-<ul>
-<li>Generate Sql Schema File from SDF files </li>
-<li>Compare the SDF files to generate a change script </li>
-</ul>
-<ul>
-I started using this at work and it was noticed that the sql change script that was produced wasn&rsquo;t fantastic. What it was doing was completely creating a new table, dropping the old table and then renaming that newly created table. We were worried that this would cause an issue with our database on our live server.
-</ul>
-<ul>
-After speaking with <a href="https://twitter.com/erikej">Erik Ejlskov Jensen</a>, a SQL Server Compact MVP, I was pointed in the direction of the API that he wrote in order to make his Sql Compact 4 toolbox. This API allowed me to write my own little command line tool (as simple as it gets) that takes 2 .sdf files and generates a sql diff file.&nbsp; I have called this, inspirationally, SqlCEDiffer.
-</ul>
-<ul>
-In order to use this tool you can do it from the command line or you can hook it into your MSBuild scripts as follows:
-</ul>
-<ul>
-<strong>Command Line</strong>
-</ul>
-<p>sqlcediffer.exe    <br />&nbsp;&nbsp;&nbsp; -source:{path to latest schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -target:{path to old schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -outputPath:{path to save the diff script to&gt;.sql</p>
-<p>It&rsquo;s a very simple explanation really. Source is the latest sdf file created, this has all the new changes in it. The target is the source that we wish (eventually) to update. The output path is the path we want the resulting .sql file saved to.</p>
-<p>&nbsp;</p>
-<p><strong>Running from MSBuild</strong></p>
-<p>&lt;Target Name=&#8221;Build&#8221;&gt;   <br />&nbsp;&nbsp;&nbsp; &lt;Message Text=&#8221;Starting Sql Differencing&#8221; /&gt;    <br />&nbsp;&nbsp;&nbsp; &lt;Exec Command=&#8221;sqlcediffer.exe -source:{new sdf file} -target:{old sdf file} -outputPath:{save path}.sql&#8221; /&gt;    <br />&lt;/Target&gt;</p>
-<p>It works exactly the same as from command line <strong>but</strong> being able to use the MSBuild exec command means that we can hook this into a build script. This now opens up the opportunity for its use in automation of sql differencing and potentially continuous database deployment.</p>
-<p>The code is very simple and does exactly what it says on the tin. It has been created as a wrapper around the code that Erik already created for his tools already available on <a href="http://exportsqlce.codeplex.com/" target="_blank">codeplex</a>.</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -534,6 +391,152 @@ In order to use this tool you can do it from the command line or you can hook it
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/18/using-razor-to-clean-up-my-scripts-and-styles/">Using Razor to Clean Up My Scripts and Styles</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-18T00:00:00+00:00" pubdate data-updated="true">Mar 18<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today I witnessed a real show of power of the <a href="http://weblogs.asp.net/scottgu/archive/2010/07/02/introducing-razor.aspx" target="_blank">Razor View engine</a> included with ASP.NET MVC3.</p>  <p>Traditionally in sites scripts and styles are all thrown in the masterpage (webforms) or sitelayout (razor). This can lead to pages taking potentially longer to load when they don&#8217;t even need some of the scripts or styles. As Google announced that page load times were going to be part of Google rankings, it’s not ideal for this to happen.</p>  <p><a href="http://paulstack.co.uk/blog/images/image_11.png"><img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_11.png" width="609" height="188" /></a> </p>  <p>This has been made easier as Razor has introduced the ability to define sections in our pages.</p>  <p><a href="http://paulstack.co.uk/blog/images/image_12.png"><img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_12.png" width="609" height="221" /></a> </p>  <p>The code here checks to see if a section of the required name is defined and if so it will render it.&#160; This can be used to encapsulate scripts and styles as shown. Here we load the site.css as this is required for the entire site and we load the jQuery main library as this will also be required all over the site. We can then define Sections in our sitelayout and render specific scripts and styles required for a specific View</p>  <p><a href="http://paulstack.co.uk/blog/images/image_13.png"><img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_13.png" width="610" height="287" /></a> </p>  <p>This image shows that by then using the appropriate section named from the sitelayout page that we can play only the scripts required for that view in that section. This will help to make the views as lightweight as possible when they are being rendered.</p>  <p>This is a demonstration of the power of the Razor view engine. It just makes it very easy to achieve. I’m loving using MVC3 and feel as though things are not quite “right” when I go back to working on webforms projects! :(</p>  <p>Hope it helps!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/15/microsoft-release-ie9/">Microsoft Release IE9 - End of Developer Browser Woe?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-15T00:00:00+00:00" pubdate data-updated="true">Mar 15<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Late last night (14th March 9PM PST), Microsoft released IE9 to the world (www.beautyoftheweb.com). I must begin by saying I didn&rsquo;t know this launch was happening which was strange as a release of this scale would usually be major news. I found out via <a href="http://twitter.com/ironshay" target="_blank">Shay Friedman</a> on Twitter. So IE9 was released, pretty huge eh? Finally a browser released by Microsoft to challenge the likes of Mozilla Firefox and Google Chrome.</p>
+<p>IE 9 was billed as a huge step forward in terms of browsers from Microsoft. It has HTML5 support, industry leading JavaScript speed and full hardware acceleration. It is supposedly very fast indeed! A browser I was certainly waiting for to rival my love for Google Chrome.</p>
+<p>I have heard mixed stories about installation encounters from different people. Some people said that it asked them to close all programs and then installed fine, others suggested that it installed as normal then required a machine reboot. Why would a browser ever require a reboot of a machine for installation? In 2011 it seems like utter madness! Apparently its because it updates explorer.exe and requires a reboot because of that. I believe it&rsquo;s too tightly coupled to the operating system and that&rsquo;s why the reboot is required. I thought I&#8217;d install it anyway,</p>
+<p>So I downloaded the correct version (x64 or x86). I started the installation process. At this point I had 2 instances of Visual Studio 2010 open. I also had Seesmic Desktop 2, Spotify, Google chrome and various instances of SVN, TeamCity Tray monitor and Skype. I thought I&rsquo;d be prompted to close all the applications but I wasn&rsquo;t. I feared a reboot! At the end of the installation my worst fears were realised! Reboot required &ndash; in the middle doing some work on a personal project. As you can imagine I was pretty annoyed.</p>
+<p>Apart from the required reboot, the product itself looks like. On first glance it doesn&rsquo;t seem like a game changer for me. I&rsquo;m a huge fan of chrome as its so slick and I love their upgrade process so I think for the foreseeable future I&rsquo;ll be sticking with that. But speaking about upgrade processes lets talk about versions of IE.</p>
+<p>Currently In the market we have IE6, IE7, IE8 and now IE9. I realise that other pieces of software have got different versions around at the minute. I also know that there are many different versions of Firefox around at the minute. But those who protest that have NEVER tried to support all the major different browsers for design. As huge corporate and government organisations still use IE6 &ndash; it can still be classed as a major browser. The differences between IE6 and IE7 in terms of design rendering was huge. IE8 then introduced compatibility mode. There is no real backwards compatibility in my opinion. Designing a site for IE8 may not render correctly in IE6 so I really dread seeing an IE9 designed site in IE6.</p>
+<p>I understand that Microsoft will never be able to keep everyone happy. I appreciate the efforts made in the design of IE9 and I will certainly give it a shot rather than just say it&rsquo;s not for me. But I would rather some effort be put into killing off some of the older versions of IE before IE10 is released. I don&rsquo;t think I could cope with 5 versions :)</p>
+<p>This isn&rsquo;t designed as a rant &ndash; I applaud Microsoft for pushing their products onwards. But I really do feel that <strong>we</strong> need to help Microsoft by killing off older browsers. Make our own lives easier please! Currently I can count 13 different browsers while sitting on a train. Lets make that number decrease before new ones are added.</p>
+<p>p.s. Microsoft please please please bear in mind user gripes when designing IE10 so that it doesn&rsquo;t require a reboot. We are in the 21st century ;)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/13/how-to-install-teamcity-6x-plugins/">How to Install TeamCity 6.x Plug-in</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-13T00:00:00+00:00" pubdate data-updated="true">Mar 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When installing Teamcity plug-ins, you need to find out what version of TeamCity the plugin was designed for. This will more than likely be stated on the supporting documentation on the TeamCity confluence site. Lets use the <a href="http://confluence.jetbrains.net/display/TW/PowerShell" target="_blank">Powershell plugin</a> as an example as that is designed for Teamcity 6.x</p>
+<p>In order to install this plugin:</p>
+<ul>
+<li>Download the .zip </li>
+<li>
+<div>Open a command line and go to TeamCity bin folder</div>
+<ul>
+<li>
+<div>(C:\Program Files (x86)\JetBrains\TeamCity\bin)</div>
+</li>
+</ul>
+</li>
+<li>
+<div>Run the command: runAll.bat stop</div>
+</li>
+<li>
+<div>Go to the build server plug-ins folder</div>
+<ul>
+<li>
+<div>(C:\Program Files (x86)\JetBrains\TeamCity\buildServer\plugins)</div>
+</li>
+</ul>
+</li>
+<li>
+<div>Drop the .zip file into the folder</div>
+</li>
+<li>
+<div>Go back to the command line and restart the TeamCity build server: runAll.bat start</div>
+</li>
+</ul>
+<p>The build agent will then load the plugin. Hope it helps :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -558,23 +561,23 @@ In order to use this tool you can do it from the command line or you can hook it
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/05/14/test-post/">Test Post</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/22/configuration-management-for-laptop-and-desktops/">Configuration Management for Laptop and Desktops</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/22/is-immutability-the-evolution-of-infrastructure-management/">Is Immutability the Evolution of Infrastructure Management?</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>

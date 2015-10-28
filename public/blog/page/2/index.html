@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I am a huge advocate of continuous integration and continuous delivery. I am always cautious about mentioning continuous deployment in my talks. This &hellip;">
+  <meta name="description" content="After my foray into the work of the TeamCity API, Gary Park and I have written a WP7 app. We are pleased to announce that this app is now available &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,140 +79,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/19/tfs-and-continuous-deployment/">TFS and Continuous Deployment</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-19T00:00:00+01:00" pubdate data-updated="true">Jun 19<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I am a huge advocate of continuous integration and continuous delivery. I am always cautious about mentioning continuous deployment in my talks. This <strong>can</strong>, I stress the word can, be dangerous. For me there is a journey in the delivery of software.</p>  <ul>   <li>Companies, traditionally, started slow and go with manual deployments infrequently </li>    <li>Continuous Integration was introduced to the team when the team grew and needed to help test the integration of their code </li>    <li>The need to deploy more frequently may arise and as manual deployments are time consuming and (or) painful, deployments become automated </li>    <li>Continuous delivery was then said to be the better way to develop software (this meaning that code in the master repo is always in a state where it can be released to the end user) </li> </ul>  <p>This journey not only required a development teams skillset to grow to support it, but it also required a culture and attitude change as we move through the lifecycle. Developers need to start taking more care in their work and making sure that technical debt is not accrued too fast and that work is tested thoroughly. For me, when a team reaches this maturity point, they have reached the pinnacle of software delivery. The time required to release a new feature (cycle time) is determined by how fast the developer can develop and test the feature rather than worrying about release cycles. A release for this individual can be created and scheduled as appropriate to the needs of the business. The process is almost completely automated.</p>  <p>Lets take the step to continuous deployment. This is where every successful build is released to the end user. For me, things start to get a bit scary here. Continuous deployment is associated with start-ups. Companies that are releasing a new product and need to get it to market fast to get revenue and user feedback. As the codebase is young, it would has accrued less technical debt so the cycle time would potentially be faster than companies with legacy code. I believe that continuous deployment needs to be surrounded by rigorous automated testing (unit, integration, acceptance, system, performance etc..) and also supported by an immune system that helps to notify everyone if key performance or conversion metrics etc. drop below certain thresholds. This would help the confidence in the code being released to be as high as possible. In this type of environment, developers should work with the operations staff to make sure that deployments happen and follow up if there are issues with the release. I cannot stress enough that continuous deployment should not be taken lightly. It *will* come back and bit you on the ass if you are not well prepared.</p>  <p>Imagine my surprise when I read on twitter during the (azure announcement name hashtag) that the new version of TFS will support continuously deploying applications to the new azure portal [THIS NEEDS CHECKED FOR ACCURACY]. Firstly, I was surprised that this feature was added to TFS over something more useful, e.g. DVCS style version control. The lack of the good version control is a major downfall in TFS for me. Secondly, I think that this new feature will inspire a new breed of false bravery. I understand that it is very good to be brave. Nothing is braver than finishing development fast and pushing straight to production. There needs to be a process around these deployments – are they dark deployments, canary releases, have A/B testing etc.? Have you got the performance test analysis incase your feature causes an issue in production that costs the company money. Have you got monitoring around the system to spot potential issues early. There are many things I have set up around my continuous deployment sites.I don’t believe that all software developers give enough thought to what they are doing and will fix it later. Continuous deployment may not be good for these types of developer. A small issue unnoticed, e.g. a missing ‘checkout’ button on the site, can cause the company a lot of money. </p>  <p>I am by no way trying to say my setup is better than other developer setups, I am merely pointing out that a good support network around a deployment is needed. Maybe azure has this good support network but a developer should definitely know how to use it if they are to take advantage of this feature. If you are working on a personal project that doesn’t affect too much then continuously deploy until your heart is content. If wanting to take the giant leap to this in a company with legacy code then think twice. don’t f**k with your users. They potentially pay your salary. I think TFS should focus on making the tool easier to use for developers rather than worry about continuous deployment just yet</p>  <p>&lt;/TFSRant&gt;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-07T00:00:00+01:00" pubdate data-updated="true">Jun 7<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I always had the idea that the term &lsquo;burnout&rsquo; had a pretty standard meaning in software development. I&rsquo;m sure each developer have their own way of phrasing it but in essence, I was always of the idea that it meant &lsquo;over working leading to exhaustion and lack of motivation&rsquo;.</p>
-<p>I wanted to see what the exact thoughts of my peers was so asked on twitter &ldquo;what does burnout meant to you?&rdquo;. I got a list of varied responses:</p>
-<p><a href="http://www.twitter.com/tomasmcguinness" target="_blank">@tomasmcguinness</a>: <em>Burnout in terms of software development? For me, it means losing the ability to concentrate and focus,combined with mental fatigue</em></p>
-<p><a href="http://www.twitter.com/mbrit" target="_blank">@mbrit</a>: <em>For me, it&#8217;s about ending up at a dead end in terms of stimulation/career progress.</em></p>
-<p><a href="http://www.twitter.com/kristofclaes" target="_blank">@kristofclaes</a>: <em>&#8220;I should have kept this as a hobby&#8230;&#8221; or something like that. Not sure how to put it into words.</em></p>
-<p><a href="http://www.twitter.com/jcmm33" target="_blank">@jcmm33</a>: <em>whatever the cause, its a lack of focus/motivation/drive/engagement within an employee when there used to be</em></p>
-<p><a href="http://www.twitter.com/nathangloyn" target="_blank">@NathanGloyn</a>: <em>burnout = not able to work any more, nervous breakdown, catastrophic event</em></p>
-<p>These are only a few of the responses, but as you can see the vary a lot. The reason I asked this question is that whilst on a trip to San Francisco recently, I was able to catch a company organised talk from <a href="http://www.facebook.com/jayp" target="_blank">Jay Parikh</a>, the VP of Infrastructure at Facebook. I don&rsquo;t need to tell you who Facebook are therefore you can imagine I was very interested to hear his thoughts on the subject. Whilst talking to us, Jay spoke about Facebook hack-a-thons. Basically their entire team (product owners, devs, IT guys etc.) get together on a night of the week in the Facebook campus and work on something they don&#8217;t normally work on.</p>
-<p>One of our developers asked the question, &ldquo;how do your devs avoid burnout when approaching hack-a-thons in the middle of a work week?&rdquo;. Jay discussed that development at Facebook wasn&rsquo;t a strict 9 &ndash; 5 culture and that developers would work the hours that they felt quite at home with. He said the developers at Facebook don&rsquo;t suffer burnout as <em>&ldquo;burnout is loosing interest in a project or piece of work&rdquo;</em> and their developers work for a maximum of 12 months in a team before moving to another.</p>
-<p>I can see Jay&rsquo;s point but I don&rsquo;t feel that working too much and losing interest on a project are mutually exclusive. I think if you work too much then you can become bogged down in feeling a bit frustrated in your work. This can create boredom and make you lose interest and (or) focus. This is where I think burnout creeps in. This is what we need to make sure we avoid when we plan work. I usually associate burnout with long waterfall projects.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-21T00:00:00+01:00" pubdate data-updated="true">May 21<span>st</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Whilst upgrading our TeamCity server from 6.5 to 7.x, I encountered an error:</p>
-<p><em>Unexpected error occurred inside Alarm task: java.lang.OutOfMemoryError: GC overhead limit exceeded</em></p>
-<p>After a bit of looking around and sifting through some very weird articles I was able to find some good information on this. Basically, the JVM starts by default with 512mb of memory and it was struggling to process our 300+ build configurations with this. In order to fix it I had to do the following:</p>
-<ul>
-<li>Go to TeamCity webserver</li>
-<li>Open CMD</li>
-<li>cd &lt;TeamCity root dir&gt;</li>
-<li>cd bin</li>
-<li>teamcity7w.exe //ES//TeamCity
-<ul>
-<li>If you are on TeamCity 6.x then you need to run teamcity6w.exe rather than ..7w</li>
-</ul>
-</li>
-This will open the following dialog:</ul>
-<p><a href="http://paulstack.co.uk/blog/images/image_51.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_49.png" alt="image" width="244" height="233" border="0" /></a></p>
-<p>Go to the Java tab and change the maximum memory pool entry to something other than 512mb</p>
-<p align="center"><a href="http://paulstack.co.uk/blog/images/image_52.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_50.png" alt="image" width="244" height="233" border="0" /></a></p>
-<p>Restart the service and all should be well with the application start-up.</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -532,6 +398,146 @@ This will open the following dialog:</ul>
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/08/teamcitysharp-now-builds-with-mono/">TeamCitySharp Now Builds With Mono</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-08T00:00:00+00:00" pubdate data-updated="true">Feb 8<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I am pleased to be able to say that <a href="http://github.com/stack72/TeamCitySharp" target="_blank">TeamCitySharp</a> is now supports <a href="http://www.mono-project.com/" target="_blank">mono</a>. In order to get the project supported I had to change a few parts of the system.</p>
+<p>Up until now, each project within the solution has a &ldquo;BeforeBuild&rdquo; event that downloaded the nuget packages needed to build the solution. This was in place to keep the github repository small enough to facilitate a fast download for people who fork it. <a href="http://www.nuget.org" target="_blank">Nuget</a> doesn&rsquo;t work with mono so there was a trade off I had to make. In this instance I chose supporting mono over the &ldquo;BeforeBuild&rdquo; event. This does mean that once the repository is cloned or forked. then it will work instantly. I hope to revisit this if / when someone manages to get nuget working with mono.</p>
+<p>The sample build monitor was a standard ASP.NET MVC 3 project. I found that this didn&rsquo;t build with mono out of the box. It was throwing errors due to the references contained. The following references were present:</p>
+<p><a href="http://paulstack.co.uk/blog/images/before.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="before" src="http://paulstack.co.uk/blog/images/before_thumb.gif" alt="before" width="189" height="317" border="0" /></a></p>
+<p>On running a reference analysis, I was able to see that the following references were not used:</p>
+<p><a href="http://paulstack.co.uk/blog/images/ToRemove.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="ToRemove" src="http://paulstack.co.uk/blog/images/ToRemove_thumb.gif" alt="ToRemove" width="240" height="227" border="0" /></a></p>
+<p>This meant that only the core references were left behind. This meant that the entire solution was able to build under mono.</p>
+<p>In order to build the project with mono, you can run the following command: <br /><strong>xbuild TeamCitySharp.sln</strong></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/31/installing-mono-on-windows/">Installing Mono on Windows</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-31T00:00:00+00:00" pubdate data-updated="true">Jan 31<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have recently been thinking about making <a href="http://github.com/stack72/TeamCitySharp">TeamCitySharp</a> supported on <a href="http://www.mono-project.com/Main_Page">mono</a>. This would require me to either run a VM (that you can download form the mono project site) or install mono on Windows. As I would continue to develop TeamCitySharp in VS2010, I thought it would be better to install mono on windows.</p>
+<p>When trying to install mono, I went to the mono project download page and was presented with 3 options for windows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_39.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_37.png" alt="image" width="368" height="288" border="0" /></a></p>
+<p>I had no idea what to install &amp; tweeted to that effect. Almost immediately, <a href="http://twitter.com/ferventcoder">Rob Reynolds</a> tweeted this back:</p>
+<p><strong>cinst mono</strong></p>
+<p>This is a reference to chocolatey which I have used before. <a href="http://chocolatey.org/">Chocolatey</a> is described as &ldquo;apt-get for windows&rdquo;. In order to install mono I had a number of steps to follow:</p>
+<p>1. Set the execution policy of PowerShell to unrestricted</p>
+<p><a href="http://paulstack.co.uk/blog/images/execution-policy.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="execution-policy" src="http://paulstack.co.uk/blog/images/execution-policy_thumb.png" alt="execution-policy" width="308" height="159" border="0" /></a></p>
+<p>2. Install chocolatey</p>
+<p><a href="http://paulstack.co.uk/blog/images/chocolatey-install.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="chocolatey-install" src="http://paulstack.co.uk/blog/images/chocolatey-install_thumb.png" alt="chocolatey-install" width="313" height="173" border="0" /></a></p>
+<p>3. cinst mono</p>
+<p><a href="http://paulstack.co.uk/blog/images/mono-install-1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="mono-install-1" src="http://paulstack.co.uk/blog/images/mono-install-1_thumb.png" alt="mono-install-1" width="313" height="173" border="0" /></a></p>
+<p>which, when downloaded triggers the install</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/mono-install-2.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="mono-install-2" src="http://paulstack.co.uk/blog/images/mono-install-2_thumb.png" alt="mono-install-2" width="283" height="220" border="0" /></a></p>
+<p>Mono is now installed and ready to be used. This was extremely easy using chocolatey. I have used it before to install <a href="http://nodejs.org/">nodejs</a> but I have to admit I didn&#8217;t really pay attention to what packages it contained. I will be doing so from now on. If you have not checked out chocolatey then please do so &ndash; it rocks!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/17/how-nuget-could-improve/">How Nuget Could Improve</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-17T00:00:00+00:00" pubdate data-updated="true">Jan 17<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Late in December 2011, I stuck my oar into a conversation on twitter (as I usually do) between <a href="http://twitter.com/lazycoder">Scott Koon</a>, <a href="http://twitter.com/davidebbo">David Ebbo</a>, <a href="http://twitter.com/sumitkm">Sumit Maitra</a>&nbsp; and <a href="http://twitter.com/Ang3lFir3">Eric Ridgeway</a>. This conversation was about why <a href="http://nuget.org">Nuget.org</a> was not the best place for a <a href="http://nuget.org/packages/Northwind.Db">Northwind DB Sample</a> package. My comment was as follows:</p>
+<p align="center"><em>@lazycoder @davidebbo @sumitkm @Ang3lFir3 maybe have the ability for codeplex to have a nuget style feed of its own for sample libraries?</em></p>
+<p align="left">I thought I should clarify my thoughts further. Nuget (and <a href="http://www.openwrap.org/">OpenWrap</a>) have set the .net world into a new era for dependency management but there are not many enforced rules or moderation of the packages you can upload. For example, I <strong>maintain</strong> the NUnit package. This means I submit updates to the package when a new version is released by NUnit. I once received a comment on how I should split the package up into just a dll package and then have a full package.I really had to think hard about why I should do this. Who am I to change the way the guys who create NUnit distribute the package. All I do is to get the contents of their .zip and redistribute that &ndash; and I do struggle to think how I have the authority to do that sometimes. This led me to a very prudent question:</p>
+<p><strong><em>Is Nuget.org a site that should have strict regulations about the packages that get uploaded there?</em></strong></p>
+<p>I have heard about a few broken packages and actually sample applications. Is this the correct place for these packages to go to?Has it become a dumping ground for software. Sites like <a href="http://www.codeplex.com">codeplex</a>, <a href="http://www.github.com">github</a> and <a href="http://www.bitbucket.org">bitbucket</a> are used more frequently for source control. Are these sites the correct areas for the sample applications? I would argue yes. I feel that Nuget should contain only packages that I can download and use immediately. I don&rsquo;t want to have to download a 12mb sample application when I could view the source in github or codeplex. Maybe a way to take this further would be to set up the ability for nuget to hook into these types of systems:</p>
+<p><strong>nuget install-sample &lt;path to codeplex&gt; </strong></p>
+<p>This would keep the nuget library free of the packages not deemed useful. Who can classify a package as useful in this theory I hear you say? Well the users of the site, via a stackoverflow style voting system. A broken package gets a downvote, then any packages below &ndash;4 (for example) would get archived by the system and the package owner to get notified. There would have to be some sort of moderation of this though or people with rival packages could eliminate the competition <img class="wlEmoticon wlEmoticon-devil" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-devil.png" alt="Devil" /></p>
+<p>I do believe that uploads to the nuget library should be regulated. There are more than enough people in the .net community that would spend a few minutes a day clearing out / verifying packages. If we regulate the packages then developers will continue to use for nuget. If it continues with the following types of packages then this may not be the case:</p>
+<p><a href="http://paulstack.co.uk/blog/images/NuGet%20Gallery.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="NuGet Gallery" src="http://paulstack.co.uk/blog/images/NuGet%20Gallery_thumb.png" alt="NuGet Gallery" width="500" height="528" border="0" /></a></p>
+<p>The naming conventions of these packages contain the letters &lsquo;&ndash;ci&rsquo;. How on earth can I work out what the different between MvcContrib.MVC3-ci is? Is it a special kind of package for CI use only or was it built with a CI system? This is exactly the issue. Some kind of visual check around this would have stopped &ndash; for the record I actually installed MvcContrib before I realised it was not compatible with MVC3 &ndash; this should have been noted in the description, in my opinion.</p>
+<p>I enjoy using nuget and I really want to continue enjoying it. All we (as a community) need to do is to be respectful of other developers when we create a package. When delivering software to paying customers, do we release potentially untested applications or do we make sure that they work?</p>
+<p>$0.02</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -556,23 +562,23 @@ This will open the following dialog:</ul>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/05/14/test-post/">Test Post</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/22/configuration-management-for-laptop-and-desktops/">Configuration Management for Laptop and Desktops</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/22/is-immutability-the-evolution-of-infrastructure-management/">Is Immutability the Evolution of Infrastructure Management?</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>

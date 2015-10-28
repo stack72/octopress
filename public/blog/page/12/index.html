@@ -9,7 +9,9 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="iPhone OS 4 released today - lots of lovely features that would really entice me to get one after my blackberry storm. Then i was pointed out an &hellip;">
+  <meta name="description" content="Needed to blog about this fantastic tool addin for VS2008 that gives intellisense for .feature files
+http://github.com/henritersteeg/cuke4vs
+This &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,181 +81,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/04/08/iphone-40-announcement/">iPhone 4.0 Announcement</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-08T00:00:00+01:00" pubdate data-updated="true">Apr 8<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>iPhone OS 4 released today - lots of lovely features that would really entice me to get one after my blackberry storm. Then i was pointed out an extract from the SDK licence agreement</h2>
-<p><img src="/blog/images/2010/4/onlyc.GIF" alt="" /></p>
-<p>ok so what does this mean? c# developers can currently use an application called <a href="http://monotouch.net/" target="_blank">Monotouch</a> and this was fantastic. it was pricey but it was very worth it. i had even started using this myself for apps at work</p>
-<p>then this bombshell!! There was no news of this announcement today - this was discovered by people downloading the SDK</p>
-<p>ok so i think that what has happened is as follows:</p>
-<p>&nbsp;</p>
-<ul>
-<li>iPhone versions 1 -3 very successful</li>
-<li>Microsoft release news of Win 7 Phone</li>
-<li>News of free developer software for Win 7 Phone released</li>
-<li>Apple release news of iPhone 4.0</li>
-</ul>
-<h3>Now what does this tells us?</h3>
-<p>in my eyes this seems like Apple have laid down the law that their apps will only really be developed using their products and their specs. No more MonoTouch? What about those who were creating apps using c#?</p>
-<p>I think more will come of this and i really do think that this will loose Apple a huge amount of followers in the development community.</p>
-<p>Let the war begin!</p>
-<p><img src="/blog/images/2010/4/battle.png" alt="" /></p>
-<p>More details and posts will be added as soon as i see them!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/04/07/what-is-microsoftcshaprdll-in-vs2010-rc/">What Is Microsoft.cshapr.dll in VS2010 RC?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-07T00:00:00+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A heads up really but I used the Dynamic keyword this weekend past in .Net 4. I noticed that after doing it a new reference was added to my solution &ndash; Microsoft.csharp.dll</p>
-<p>I didn&#8217;t know what this was so referred to good old Stackoverflow and here&#8217;s what it is</p>
-<p><a href="http://stackoverflow.com/questions/2460883/what-is-microsoft-csharp-dll-in-net-4-0">http://stackoverflow.com/questions/2460883/what-is-microsoft-csharp-dll-in-net-4-0</a></p>
-<p>just quite interesting &ndash; not sure if this will be in the RTM version of VS2010 though</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/04/07/logging-exceptions-via-exceptioneer/">Logging Exceptions via Exceptioneer as Well as Ent Lib 3.1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-07T00:00:00+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I currently use Enterprise Logging 3.1 and i know it can be configured to do what i want with it but it still has horrible log files that no-one likes to review.&nbsp;Over the past few months i have been looking at Exceptioneer - <a href="http://exceptioneer.com/Public/Demonstration.aspx" target="_blank">use this link to find out more</a>. I would continue to use exceptioneer in tandem with enterprise logging as it is a 3rd party service [and my boss would never let me move solely to exceptioneer :)].&nbsp;</p>
-<p>I followed the steps to integrate exceptioneer from their site - addition of the .dll file and addition of the sections inside web.config. But this didnt work with Enterprise logging as the exceptions were not unhandled - i have customer code in order to handle the exceptions</p>
-<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
-{
-	UIExceptionHandler.HandleException(Server.GetLastError(), true);
-}
-</pre>
-<p>Pretty simple i know! so i took advantage of this method were all my UI exceptions were being routed to - therefore i was able to call the Exceptioneer client straight from here. i added a reference to Exceptioneer.WebClient.dll and added in a little custom code [i have changed my APIKey and application name to a config property so they can be managed without a redeployment]</p>
-<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
-{
-         var wc = new Client
-                            {
-                              ApiKey = Config.Settings.ExceptioneerApiKey,
-                              ApplicationName = Config.Settings.ExceptioneerApplicationName,
-                              CurrentException = Server.GetLastError()
-                            };
-          wc.Submit(); 
-         UIExceptionHandler.HandleException(Server.GetLastError(), true);
-}
-</pre>
-<p>Then worried about what would happen if i couldnt connect to Exceptioneer, so i added a try catch to it and also i didnt want to log local exceptions to exceptioneer. Therefore my final method was as follows:</p>
-<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
-{
-            try
-            {
-                if (Config.Settings.EnableExceptioneerLogging)
-                {
-                    var wc = new Client
-                                 {
-                                     ApiKey = Config.Settings.ExceptioneerApiKey,
-                                     ApplicationName =               Config.Settings.ExceptioneerApplicationName,
-                                     CurrentException = Server.GetLastError()
-                                 };
-                    wc.Submit(); 
-                }
-            }
-            catch (Exception)
-            {
-                Logger.Write("Cannot connect to Exceptioneer", "Admin Exceptions");
-            }
-            finally
-            {
-                UIExceptionHandler.HandleException(Server.GetLastError(), true);
-            }
-}
-</pre>
-<p>Im seriously chuffed with this product and would recommend this to anyone! <strong><span style="text-decoration: underline;">They even give you a free version that lets you log 2000 exceptions a month via 3 applications</span></strong>. As soon as i can ill be upgrading to the next account level to get more of our work stuff in here!</p>
-<p>Thanks again Exceptioneer!</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -647,6 +474,193 @@ public void ShouldAuthenticateUsersSuccessfully()
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/09/automated-ui-testing-part-2-installing-cucumber/">Automated UI Testing - Part 2 - Installing Cucumber</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-09T00:00:00+00:00" pubdate data-updated="true">Feb 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>OK, so after my foraging into WatiN, I really wanted to push things a bit further and begin to look at other ways of automating UI testing. This is when I was pointed in the direction of <a href="http://cukes.info/">Cucumber</a>.</p>
+<p>Cucumber lets software development teams describe how software should behave in plain text. The text is written in <a href="http://www.martinfowler.com/bliki/BusinessReadableDSL.html">business-readable domain-specific language</a> and serves as documentation, automated tests and development-aid - all rolled into one format. [Thanks to cukes.info for the blurb :)]</p>
+<p>To install Cucumber i have had a nightmare following many many different guides. the way i installed it works as follows:</p>
+<ol>
+<li>Download the one click ruby installer from <a href="http://www.rubyinstaller.org/download.html">here</a> [I installed the 1.91 version]</li>
+<li>install Ruby [the path I installed to was c:/ruby19] as this does not come with the new installer</li>
+<li>Download the Ruby Development kit from <a href="http://wiki.github.com/oneclick/rubyinstaller/development-kit">here</a></li>
+<li>Extract the location of the Ruby development kit to the ruby install path [for me c:/ruby19]</li>
+<li>The last change i had to make was to update the Ruby development kit to show the path for my ruby installation</li>
+<li>C:\Ruby19\devkit\msys\1.0.11\etc\fstab</li>
+<li>This just required changing c:\ruby to c:\ruby19 in the paths</li>
+<li>Start &gt; All Programs &gt; Ruby 1.9.1-p243 &gt; Start Ruby With Console to open the command line tool</li>
+<li>We need to add gemcutter.org to our list of Ruby Gem sources                
+<ul>
+<li>Do this by typing</li>
+<li>gem sources -a http://gemcutter.org/</li>
+</ul>
+</li>
+<li>Install Cuke4Nuke gem              
+<ul>
+<li>Do this by typing</li>
+<li>gem install cuke4nuke</li>
+</ul>
+</li>
+<li>Install the Win32Console gem to get colour reports in the windows console window              
+<ul>
+<li>Do this by typing</li>
+<li>gem install win32console</li>
+</ul>
+</li>
+<li>Save a copy of WAC to work out console colour problems. Download it <a href="http://github.com/aslakhellesoy/wac/raw/master/wac.exe">here</a> 
+<ul>
+<li>I saved this to an easy path - c:/wac.exe</li>
+</ul>
+</li>
+</ol>
+<p>To check all is working, open a command line and type</p>
+<p>Cuke4Nuke</p>
+<p>If all is working well then you will see a list of help commands</p>
+<p>My product didn&#8217;t install correctly at this point due to location of ruby files. So i had to make a few changes as detailed. Please note that this is my installation paths and the paths should be changed to your versions:</p>
+<ul>
+<li>My console ANSI file was not reporting the correct encoding            
+<ul>
+<li>C:\Ruby19\lib\ruby\gems\1.9.1\gems\win32console-1.2.0-x86-mingw32\lib\Win32\Console\ANSI.rb</li>
+<li>I added the following to the first line of this file           
+<ul>
+<li># encoding: ISO-8859-1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The change detailed above then reports an error in a ruby18.dll     
+<ul>
+<li>removing this files solves this error     
+<ul>
+<li>C:\Ruby19\lib\ruby\gems\1.9.1\gems\win32console-1.2.0-x86-mingw32\lib\Win32\console.so</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Hopefully when you run a command line and type Cuke4Nuke the help options will show</p>
+<p>Next post will be a sample application that can be run via Cuke4Nuke</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/05/automated-ui-testing-part-1-watin/">Automated UI Testing - Part 1 - WatiN</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-05T00:00:00+00:00" pubdate data-updated="true">Feb 5<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Its been an absolute age since i last blogged so i thought my recent experience was worth talking about.</p>
+<p>A few months back I discovered a tool called <a href="http://watin.sourceforge.net/" target="_blank">WaiN</a>. This is based on WatiR and is a web application testing tool for Dot Net developers. After doing a few little test applications i started to see the benefit of using this application in my development. The best thing i could see it could do for me was making sure my pre testing cycle smoke checks were all run and passing. This would save time in fixing little UI bugs spotted by QA testers.</p>
+<p>For those who don&#8217;t know what WatiN does then look at the following code:</p>
+<pre class="brush:csharp">[Test]
+public void SearchForWatiNOnGoofle()
+{
+    using(IE browser = new IE("http://www.google.com"))
+    {
+        browser.TextField(Find.ByName("q")).TypeText("WatiN");
+        browser.Button(Find.ByName("btnG")).Click();
+        Assert.IsTrue(browser.ContainsText("WatiN"));
+    }
+}
+</pre>
+<p>Within the class add a reference to WatiN.Core.dll and Nutit.framework.dll and then run this little test app. What will happen is a new instance of IE will spin up [other browsers can be run if necessary using further references]. It will search teh page for the textbox with the name &#8216;q&#8217; and enter the text &#8216;WatiN&#8217;. It will then find the button called &#8216;btnG&#8217; and click it.</p>
+<p>This will then give us the results and it checks to make sure that the results include the term &#8216;WatiN&#8217;. Pretty easy &nbsp;to follow eh?</p>
+<p>I could really see the potential of how this could be used to see how a site behaves when certain things are done e.g. logging in as a user and making sure that user has the correct options available to them etc.</p>
+<p>This was my first forage into the world of what i now know as BDD (behavioural driven development) and automated UI testing.&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/08/06/windows-7/">Windows 7</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-06T00:00:00+01:00" pubdate data-updated="true">Aug 6<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><span style="font-family: Verdana, Arial, sans-serif; font-size: 13px; color: #333333; line-height: 16px;">Ok was given the go-ahead from my boss to dual boot and have Windows 7. It was a bit of hassle getting the second hard-drive bootable.<br /><br />From moving to XP to Windows 7 is a major user experience change - but for all the right reasons!<br /><br />there are so many features i missed out on by not going to Vista - the snipping tool, the great search functionality, user access control (?) ha ha, but as they were on Vista, they were on a buggy O/S.<br /><br />They billed Windows 7 as a fixed up Vista and it certainly is that! I love it and will be spending the weekend working out a full list of tools and hacks etc from my XP machine to install on Windows 7 the minute it hits full release! MSDN license is ready, machine is ready, Windows 7 is almost here!!<br /><br />Try it and i promise you will like it<br /><br />EDIT: Windows 7 RTM hit MSDN yesterday - already migrated to it!</span></p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -671,23 +685,23 @@ public void ShouldAuthenticateUsersSuccessfully()
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/05/14/test-post/">Test Post</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/22/configuration-management-for-laptop-and-desktops/">Configuration Management for Laptop and Desktops</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/22/is-immutability-the-evolution-of-infrastructure-management/">Is Immutability the Evolution of Infrastructure Management?</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>
