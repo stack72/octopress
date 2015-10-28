@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Today, I got an email to say that my session on “SpecFlow – functional testing made easy” was selected for DDD Scotland. I’m really pleased at this &hellip;">
+  <meta name="description" content="When installing Teamcity plug-ins, you need to find out what version of TeamCity the plugin was designed for. This will more than likely be stated on &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,72 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/13/how-to-install-teamcity-6x-plugins/">How to Install TeamCity 6.x Plug-in</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-13T00:00:00+00:00" pubdate data-updated="true">Mar 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When installing Teamcity plug-ins, you need to find out what version of TeamCity the plugin was designed for. This will more than likely be stated on the supporting documentation on the TeamCity confluence site. Lets use the <a href="http://confluence.jetbrains.net/display/TW/PowerShell" target="_blank">Powershell plugin</a> as an example as that is designed for Teamcity 6.x</p>
+<p>In order to install this plugin:</p>
+<ul>
+<li>Download the .zip </li>
+<li>
+<div>Open a command line and go to TeamCity bin folder</div>
+<ul>
+<li>
+<div>(C:\Program Files (x86)\JetBrains\TeamCity\bin)</div>
+</li>
+</ul>
+</li>
+<li>
+<div>Run the command: runAll.bat stop</div>
+</li>
+<li>
+<div>Go to the build server plug-ins folder</div>
+<ul>
+<li>
+<div>(C:\Program Files (x86)\JetBrains\TeamCity\buildServer\plugins)</div>
+</li>
+</ul>
+</li>
+<li>
+<div>Drop the .zip file into the folder</div>
+</li>
+<li>
+<div>Go back to the command line and restart the TeamCity build server: runAll.bat start</div>
+</li>
+</ul>
+<p>The build agent will then load the plugin. Hope it helps :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -473,50 +539,6 @@ I&rsquo;d then like to be able to take this xml file and import it to a new exte
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/22/error-in-android-21/">Error in Android 2.1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-22T00:00:00+00:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I have today just set up a Google Apps account to replace my old email addresses as they have started spamming consistently. So I wanted to add my Google apps account to my Samsung Galaxy S but when going to Gmail and trying to add an account it was telling me:</p><pre>"Signing in... 
-Your phone is communicating with Google servers and setting up your 
-account. This may take up to five minutes."</pre><pre>&nbsp;</pre>
-<p>This was then followed by the message:</p><pre>"Can't establish a reliable data connection to the server.
-This could be a temporary problem or your SIM card may not be provisioned 
-for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
-<p>I&#8217;ve been racking my brains all day on how to fix this. I have Googled it and read all sorts of articles that suggest a factory reset will help. I really didn&#8217;t want to do that. I tried using Google talk and trying that – still nothing</p>
-<p>I finally read that if i tried to sign into the build in YouTube application on my phone then it would work! I tried it – success!</p>
-<p>What a ridiculous bug – in order to add a second Google mail account to my phone I had to sign into YouTube? This is the type of thing that will ruin an OS as its been a bug since early 2010. I&#8217;m sure i wouldn&#8217;t have had this trouble with a WP7</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -541,6 +563,10 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
@@ -554,10 +580,6 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
     
       <li class="post">
         <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>

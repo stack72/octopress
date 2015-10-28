@@ -9,7 +9,8 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="After my foray into the work of the TeamCity API, Gary Park and I have written a WP7 app. We are pleased to announce that this app is now available &hellip;">
+  <meta name="description" content="Whilst upgrading our TeamCity server from 6.5 to 7.x, I encountered an error:
+Unexpected error occurred inside Alarm task: java.lang.OutOfMemoryError &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +80,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/21/teamcity-outofmemoryerror/">TeamCity - OutOfMemoryError</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-21T00:00:00+01:00" pubdate data-updated="true">May 21<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Whilst upgrading our TeamCity server from 6.5 to 7.x, I encountered an error:</p>
+<p><em>Unexpected error occurred inside Alarm task: java.lang.OutOfMemoryError: GC overhead limit exceeded</em></p>
+<p>After a bit of looking around and sifting through some very weird articles I was able to find some good information on this. Basically, the JVM starts by default with 512mb of memory and it was struggling to process our 300+ build configurations with this. In order to fix it I had to do the following:</p>
+<ul>
+<li>Go to TeamCity webserver</li>
+<li>Open CMD</li>
+<li>cd &lt;TeamCity root dir&gt;</li>
+<li>cd bin</li>
+<li>teamcity7w.exe //ES//TeamCity
+<ul>
+<li>If you are on TeamCity 6.x then you need to run teamcity6w.exe rather than ..7w</li>
+</ul>
+</li>
+This will open the following dialog:</ul>
+<p><a href="http://paulstack.co.uk/blog/images/image_51.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_49.png" alt="image" width="244" height="233" border="0" /></a></p>
+<p>Go to the Java tab and change the maximum memory pool entry to something other than 512mb</p>
+<p align="center"><a href="http://paulstack.co.uk/blog/images/image_52.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_50.png" alt="image" width="244" height="233" border="0" /></a></p>
+<p>Restart the service and all should be well with the application start-up.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -491,53 +545,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/17/how-nuget-could-improve/">How Nuget Could Improve</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-17T00:00:00+00:00" pubdate data-updated="true">Jan 17<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Late in December 2011, I stuck my oar into a conversation on twitter (as I usually do) between <a href="http://twitter.com/lazycoder">Scott Koon</a>, <a href="http://twitter.com/davidebbo">David Ebbo</a>, <a href="http://twitter.com/sumitkm">Sumit Maitra</a>&nbsp; and <a href="http://twitter.com/Ang3lFir3">Eric Ridgeway</a>. This conversation was about why <a href="http://nuget.org">Nuget.org</a> was not the best place for a <a href="http://nuget.org/packages/Northwind.Db">Northwind DB Sample</a> package. My comment was as follows:</p>
-<p align="center"><em>@lazycoder @davidebbo @sumitkm @Ang3lFir3 maybe have the ability for codeplex to have a nuget style feed of its own for sample libraries?</em></p>
-<p align="left">I thought I should clarify my thoughts further. Nuget (and <a href="http://www.openwrap.org/">OpenWrap</a>) have set the .net world into a new era for dependency management but there are not many enforced rules or moderation of the packages you can upload. For example, I <strong>maintain</strong> the NUnit package. This means I submit updates to the package when a new version is released by NUnit. I once received a comment on how I should split the package up into just a dll package and then have a full package.I really had to think hard about why I should do this. Who am I to change the way the guys who create NUnit distribute the package. All I do is to get the contents of their .zip and redistribute that &ndash; and I do struggle to think how I have the authority to do that sometimes. This led me to a very prudent question:</p>
-<p><strong><em>Is Nuget.org a site that should have strict regulations about the packages that get uploaded there?</em></strong></p>
-<p>I have heard about a few broken packages and actually sample applications. Is this the correct place for these packages to go to?Has it become a dumping ground for software. Sites like <a href="http://www.codeplex.com">codeplex</a>, <a href="http://www.github.com">github</a> and <a href="http://www.bitbucket.org">bitbucket</a> are used more frequently for source control. Are these sites the correct areas for the sample applications? I would argue yes. I feel that Nuget should contain only packages that I can download and use immediately. I don&rsquo;t want to have to download a 12mb sample application when I could view the source in github or codeplex. Maybe a way to take this further would be to set up the ability for nuget to hook into these types of systems:</p>
-<p><strong>nuget install-sample &lt;path to codeplex&gt; </strong></p>
-<p>This would keep the nuget library free of the packages not deemed useful. Who can classify a package as useful in this theory I hear you say? Well the users of the site, via a stackoverflow style voting system. A broken package gets a downvote, then any packages below &ndash;4 (for example) would get archived by the system and the package owner to get notified. There would have to be some sort of moderation of this though or people with rival packages could eliminate the competition <img class="wlEmoticon wlEmoticon-devil" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-devil.png" alt="Devil" /></p>
-<p>I do believe that uploads to the nuget library should be regulated. There are more than enough people in the .net community that would spend a few minutes a day clearing out / verifying packages. If we regulate the packages then developers will continue to use for nuget. If it continues with the following types of packages then this may not be the case:</p>
-<p><a href="http://paulstack.co.uk/blog/images/NuGet%20Gallery.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="NuGet Gallery" src="http://paulstack.co.uk/blog/images/NuGet%20Gallery_thumb.png" alt="NuGet Gallery" width="500" height="528" border="0" /></a></p>
-<p>The naming conventions of these packages contain the letters &lsquo;&ndash;ci&rsquo;. How on earth can I work out what the different between MvcContrib.MVC3-ci is? Is it a special kind of package for CI use only or was it built with a CI system? This is exactly the issue. Some kind of visual check around this would have stopped &ndash; for the record I actually installed MvcContrib before I realised it was not compatible with MVC3 &ndash; this should have been noted in the description, in my opinion.</p>
-<p>I enjoy using nuget and I really want to continue enjoying it. All we (as a community) need to do is to be respectful of other developers when we create a package. When delivering software to paying customers, do we release potentially untested applications or do we make sure that they work?</p>
-<p>$0.02</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -562,6 +569,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
@@ -575,10 +586,6 @@
     
       <li class="post">
         <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>

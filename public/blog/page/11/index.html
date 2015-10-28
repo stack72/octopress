@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="One of the first things i had to do when i got to my new company was to build an application that would allow the remote restart of a web application &hellip;">
+  <meta name="description" content="After beginning to read &#8220;Working Effectively with Legacy Code&#8221; by Michael Feathers&nbsp;I learned a lot about how i should actually &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,117 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/08/09/breaking-the-dependency/">Breaking the Dependency</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-09T00:00:00+01:00" pubdate data-updated="true">Aug 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After beginning to read <a href="http://www.amazon.co.uk/Working-Effectively-Legacy-Robert-Martin/dp/0131177052" target="_blank">&#8220;Working Effectively with Legacy Code&#8221; by Michael Feathers</a>&nbsp;I learned a lot about how i should actually approach code i have never worked with before and that is classed as <strong>legacy.</strong></p>
+<p>&nbsp;</p>
+<h3><span style="text-decoration: underline;">What is Legacy Code?</span></h3>
+<p>Feathers quite simply states that code is legacy when it is &#8220;&#8230;..without tests&#8221;. He said that no matter how well the code is written, according to whatever patterns you like and as readable as it can be that if it is not tested then it is bad/ legacy code.</p>
+<p>&nbsp;</p>
+<h3><span style="text-decoration: underline;">How do we Eliminate Legacy Code?</span></h3>
+<p>This book has a legacy code change algorithim.</p>
+<p><img src="/blog/images/2010/8/breakingthedependency.gif" alt="" /></p>
+<p>So what has made me change? When i started a new job recently i seen a lot of legacy code. I had to immediately try and tackle the issue as i am very passionate about good, clean, well tested code. In order to make the code changes necessary i had to break a lot of dependencies.</p>
+<p>On working with an &nbsp;API i was presented with the following public method. This was consumed by 2 webservices and it is used to track the use of the site by a user.</p>
+<p>&nbsp;</p>
+<pre class="brush:csharp">private ITrackingPixel ReplacePlaceholders(ITrackingPixel tp)
+{
+    //If there is no HTMl code then don't do the replace and return
+    if (tp == null || string.IsNullOrEmpty(tp.HTMLCode)) return tp;
+
+    string htmlCode = tp.HTMLCode;
+
+
+    string pixel_placeholders = ConfigurationManager.AppSettings["TrackingPixelPlaceHolders"];
+    if (string.IsNullOrEmpty(pixel_placeholders))
+    {
+    	//Log
+	_log.Warn("TrackingPixel's placeholders do not exist in the configuration.");
+	return tp;
+    }
+
+    string[] placeholders = pixel_placeholders.Split(new char[]{','});
+
+
+    if (TrackingPixel.UserID != null &amp;&amp; placeholders.Contains("USERID"))
+    {
+	htmlCode = htmlCode.Replace(MakePlaceholder("USERID"), TrackingPixel.UserID.ToString());
+    }
+    if (TrackingPixel.VisitID != null &amp;&amp; placeholders.Contains("VISITID"))
+    {
+	htmlCode = htmlCode.Replace(MakePlaceholder("VISITID"),        TrackingPixel.VisitID.ToString());
+     }
+
+     tp.HTMLCode = htmlCode;
+     return tp;
+}
+</pre>
+<p>Now this is what i would call pretty nasty code. I couldn&#8217;t test it as it had a dependency on ConfigurationManager and getting appSettings from it. I had 2 ideas about how i could break the configuration manager dependency:</p>
+<p>&nbsp;</p>
+<ol>
+<li>Inject the required config value into the public method that called this private method.</li>
+</ol>
+<div>This wouldn&#8217;t work as i would have to make sure that i changed <strong>everywhere</strong>&nbsp;this method was used. I was bound to miss one as i&#8217;m sure the documentation doesnt exist to find all references as most of the code was outsources</div>
+<div><br /></div>
+<div>2. Interface out the configuration manager</div>
+<div>I immediately thought this would be very difficult to do but then had a bit of a brain wave where we had a helper class that would have a method to get the appSetting from the web.config but that this class would be interfaced out for Mocking and thus testing</div>
+<div><br /></div>
+<pre class="brush:csharp">public class ConfigurationManager: IConfigurationManager
+{
+	public string GetAppSettingsPropertyValue(string configurationParameter)
+	{
+		return System.Configuration.ConfigurationManager.AppSettings[configurationParameter];
+	}
+}
+</pre>
+<p>this may not be the best way of doing this but its currently effective and means that the segment of code concerned is fully tested.</p>
+<pre class="brush:csharp">private IConfigurationManager _CONFIG;
+
+........
+string pixel_placeholders = _CONFIG.GetAppSettingsPropertyValue("TrackingPixelPlaceHolders");
+            if (string.IsNullOrEmpty(pixel_placeholders))
+            {
+                //Log
+                _log.Warn("TrackingPixel's placeholders do not exist in the configuration.");
+                return tp;
+            }
+</pre>
+<p>It may not be &#8220;clean&#8221; or efficient but its a first step for me in this. I am now confident of making changes to this method without breaking anything</p>
+<p>&nbsp;</p>
+<p>this was a real breakthrough moment for me &amp; has really helped me develop my unit testing skills</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -689,89 +800,6 @@ w3svc.Invoke(command, null);
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/04/07/logging-exceptions-via-exceptioneer/">Logging Exceptions via Exceptioneer as Well as Ent Lib 3.1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-07T00:00:00+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I currently use Enterprise Logging 3.1 and i know it can be configured to do what i want with it but it still has horrible log files that no-one likes to review.&nbsp;Over the past few months i have been looking at Exceptioneer - <a href="http://exceptioneer.com/Public/Demonstration.aspx" target="_blank">use this link to find out more</a>. I would continue to use exceptioneer in tandem with enterprise logging as it is a 3rd party service [and my boss would never let me move solely to exceptioneer :)].&nbsp;</p>
-<p>I followed the steps to integrate exceptioneer from their site - addition of the .dll file and addition of the sections inside web.config. But this didnt work with Enterprise logging as the exceptions were not unhandled - i have customer code in order to handle the exceptions</p>
-<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
-{
-	UIExceptionHandler.HandleException(Server.GetLastError(), true);
-}
-</pre>
-<p>Pretty simple i know! so i took advantage of this method were all my UI exceptions were being routed to - therefore i was able to call the Exceptioneer client straight from here. i added a reference to Exceptioneer.WebClient.dll and added in a little custom code [i have changed my APIKey and application name to a config property so they can be managed without a redeployment]</p>
-<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
-{
-         var wc = new Client
-                            {
-                              ApiKey = Config.Settings.ExceptioneerApiKey,
-                              ApplicationName = Config.Settings.ExceptioneerApplicationName,
-                              CurrentException = Server.GetLastError()
-                            };
-          wc.Submit(); 
-         UIExceptionHandler.HandleException(Server.GetLastError(), true);
-}
-</pre>
-<p>Then worried about what would happen if i couldnt connect to Exceptioneer, so i added a try catch to it and also i didnt want to log local exceptions to exceptioneer. Therefore my final method was as follows:</p>
-<pre class="brush: csharp">protected void Application_Error(Object sender, EventArgs e)
-{
-            try
-            {
-                if (Config.Settings.EnableExceptioneerLogging)
-                {
-                    var wc = new Client
-                                 {
-                                     ApiKey = Config.Settings.ExceptioneerApiKey,
-                                     ApplicationName =               Config.Settings.ExceptioneerApplicationName,
-                                     CurrentException = Server.GetLastError()
-                                 };
-                    wc.Submit(); 
-                }
-            }
-            catch (Exception)
-            {
-                Logger.Write("Cannot connect to Exceptioneer", "Admin Exceptions");
-            }
-            finally
-            {
-                UIExceptionHandler.HandleException(Server.GetLastError(), true);
-            }
-}
-</pre>
-<p>Im seriously chuffed with this product and would recommend this to anyone! <strong><span style="text-decoration: underline;">They even give you a free version that lets you log 2000 exceptions a month via 3 applications</span></strong>. As soon as i can ill be upgrading to the next account level to get more of our work stuff in here!</p>
-<p>Thanks again Exceptioneer!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -796,6 +824,10 @@ w3svc.Invoke(command, null);
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
@@ -809,10 +841,6 @@ w3svc.Invoke(command, null);
     
       <li class="post">
         <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="This post denotes the attributes needed in order to help form an effective team. They are attributes that I have worked to bring to my current team &hellip;">
+  <meta name="description" content="There seems to be a lack of understanding about what continuous delivery is. I feel that continuous delivery has an ambiguous meaning to continuous &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/20/continuous-delivery-is-not-continuous-deployment/">Continuous Delivery Is Not Continuous Deployment</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-20T00:00:00+01:00" pubdate data-updated="true">Jun 20<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There seems to be a lack of understanding about what continuous delivery is. I feel that continuous delivery has an ambiguous meaning to continuous deployment. This post will help to explain my understanding of both terms in relation to my experience of both.</p>
+<h4>What is continuous delivery?</h4>
+<p>Continuous delivery is the process of having a shippable product/ piece of software after each check in to source control. At work I work on an up and coming quiz site. On&nbsp; successful check in, i have a <a href="http://www.jetbrains.com/teamcity/" target="_blank">TeamCity</a> that fires and my web application is build in release mode, is packaged with the correct 3rd party dependencies and correct web.config transformations.</p>
+<p>This application is then a potentially shippable product. In theory, I could open an FTP client and push the package to the correct web server and it would work as expected.</p>
+<h4>What is continuous deployment?</h4>
+<p>This is the process of shipping your product after every check in to source control. When starting out it is a very scary thought and really should not be implemented without real thought. In order to implement this in a team, you need to be 100% confident that the work they are checking in is fully tested and works 100% as expected. Unit tests, integration tests and other types of testing will help to ensure this confidence.</p>
+<p>GiveCamp UK, a site i look after, is setup in a continuous deployment manner. I have a local git repository and I can check in freely to that repository. When i push to github, my CI server triggers a release build and then actually pushes the changes to the live site automatically.I can make 3 or 4 deliveries a day in this format. I have heard of teams who can do this up to <a href="http://timothyfitz.wordpress.com/2009/02/10/continuous-deployment-at-imvu-doing-the-impossible-fifty-times-a-day/" target="_blank">50 times a day</a>.</p>
+<p>In my opinion, continuous deployment is not a natural progression from CI. It will take time for a CI process to mature and help the development team to be more effective in their work. For example, a developer continually forgets to check in files when he checks in, release script fires, files are missing therefore site could not work correctly. Successful deployments would suffer and errors recorded on site may increase. A good CI process will help the developers to stop these types of mistakes.</p>
+<p>For me, the natural progression after CI, is continuous delivery. The potential for your application to be in a shippable state after every check in <strong>is</strong> an achievable goal. Once you deploy these &lsquo;packages&rsquo; and the confidence in the process increases could you then progress to automatically deployment as part of the process. For me, its the holy grail of dev ops work although I have read that it isn&rsquo;t for others. My argument to them would be a quote I once read:</p>
+<p><em>A bad developer will manually carry out the same tasks repeatedly, a good developer will automate the task, a great developer will make the task obsolete.&rdquo;</em></p>
+<p>I will let you draw your own conclusions as to which of the 3 types of developer in the quote related to CI, continuous delivery and continuous deployment. :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -476,65 +522,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/04/14/sql-ce-4-database-scripting/">SQL CE 4 Database Difference Scripting With SqlCEDiffer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-14T00:00:00+01:00" pubdate data-updated="true">Apr 14<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I wrote some posts on how to take two different SQL CE 4 db files (.sdf) and how to compare them to create a SQL change script. The general flow was as follows:</p>
-<ul>
-<li>Generate Sql Schema File from SDF files </li>
-<li>Compare the SDF files to generate a change script </li>
-</ul>
-<ul>
-I started using this at work and it was noticed that the sql change script that was produced wasn&rsquo;t fantastic. What it was doing was completely creating a new table, dropping the old table and then renaming that newly created table. We were worried that this would cause an issue with our database on our live server.
-</ul>
-<ul>
-After speaking with <a href="https://twitter.com/erikej">Erik Ejlskov Jensen</a>, a SQL Server Compact MVP, I was pointed in the direction of the API that he wrote in order to make his Sql Compact 4 toolbox. This API allowed me to write my own little command line tool (as simple as it gets) that takes 2 .sdf files and generates a sql diff file.&nbsp; I have called this, inspirationally, SqlCEDiffer.
-</ul>
-<ul>
-In order to use this tool you can do it from the command line or you can hook it into your MSBuild scripts as follows:
-</ul>
-<ul>
-<strong>Command Line</strong>
-</ul>
-<p>sqlcediffer.exe    <br />&nbsp;&nbsp;&nbsp; -source:{path to latest schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -target:{path to old schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -outputPath:{path to save the diff script to&gt;.sql</p>
-<p>It&rsquo;s a very simple explanation really. Source is the latest sdf file created, this has all the new changes in it. The target is the source that we wish (eventually) to update. The output path is the path we want the resulting .sql file saved to.</p>
-<p>&nbsp;</p>
-<p><strong>Running from MSBuild</strong></p>
-<p>&lt;Target Name=&#8221;Build&#8221;&gt;   <br />&nbsp;&nbsp;&nbsp; &lt;Message Text=&#8221;Starting Sql Differencing&#8221; /&gt;    <br />&nbsp;&nbsp;&nbsp; &lt;Exec Command=&#8221;sqlcediffer.exe -source:{new sdf file} -target:{old sdf file} -outputPath:{save path}.sql&#8221; /&gt;    <br />&lt;/Target&gt;</p>
-<p>It works exactly the same as from command line <strong>but</strong> being able to use the MSBuild exec command means that we can hook this into a build script. This now opens up the opportunity for its use in automation of sql differencing and potentially continuous database deployment.</p>
-<p>The code is very simple and does exactly what it says on the tin. It has been created as a wrapper around the code that Erik already created for his tools already available on <a href="http://exportsqlce.codeplex.com/" target="_blank">codeplex</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -559,6 +546,10 @@ In order to use this tool you can do it from the command line or you can hook it
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
@@ -572,10 +563,6 @@ In order to use this tool you can do it from the command line or you can hook it
     
       <li class="post">
         <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>

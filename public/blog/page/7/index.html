@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I found out that my session on &ldquo;SpecFlow - functional testing made easy&rdquo; was selected for inclusion on the DDD Southwest agenda for June &hellip;">
+  <meta name="description" content="I wrote some posts on how to take two different SQL CE 4 db files (.sdf) and how to compare them to create a SQL change script. The general flow was &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,65 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/14/sql-ce-4-database-scripting/">SQL CE 4 Database Difference Scripting With SqlCEDiffer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-14T00:00:00+01:00" pubdate data-updated="true">Apr 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I wrote some posts on how to take two different SQL CE 4 db files (.sdf) and how to compare them to create a SQL change script. The general flow was as follows:</p>
+<ul>
+<li>Generate Sql Schema File from SDF files </li>
+<li>Compare the SDF files to generate a change script </li>
+</ul>
+<ul>
+I started using this at work and it was noticed that the sql change script that was produced wasn&rsquo;t fantastic. What it was doing was completely creating a new table, dropping the old table and then renaming that newly created table. We were worried that this would cause an issue with our database on our live server.
+</ul>
+<ul>
+After speaking with <a href="https://twitter.com/erikej">Erik Ejlskov Jensen</a>, a SQL Server Compact MVP, I was pointed in the direction of the API that he wrote in order to make his Sql Compact 4 toolbox. This API allowed me to write my own little command line tool (as simple as it gets) that takes 2 .sdf files and generates a sql diff file.&nbsp; I have called this, inspirationally, SqlCEDiffer.
+</ul>
+<ul>
+In order to use this tool you can do it from the command line or you can hook it into your MSBuild scripts as follows:
+</ul>
+<ul>
+<strong>Command Line</strong>
+</ul>
+<p>sqlcediffer.exe    <br />&nbsp;&nbsp;&nbsp; -source:{path to latest schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -target:{path to old schema file}.sdf    <br />&nbsp;&nbsp;&nbsp; -outputPath:{path to save the diff script to&gt;.sql</p>
+<p>It&rsquo;s a very simple explanation really. Source is the latest sdf file created, this has all the new changes in it. The target is the source that we wish (eventually) to update. The output path is the path we want the resulting .sql file saved to.</p>
+<p>&nbsp;</p>
+<p><strong>Running from MSBuild</strong></p>
+<p>&lt;Target Name=&#8221;Build&#8221;&gt;   <br />&nbsp;&nbsp;&nbsp; &lt;Message Text=&#8221;Starting Sql Differencing&#8221; /&gt;    <br />&nbsp;&nbsp;&nbsp; &lt;Exec Command=&#8221;sqlcediffer.exe -source:{new sdf file} -target:{old sdf file} -outputPath:{save path}.sql&#8221; /&gt;    <br />&lt;/Target&gt;</p>
+<p>It works exactly the same as from command line <strong>but</strong> being able to use the MSBuild exec command means that we can hook this into a build script. This now opens up the opportunity for its use in automation of sql differencing and potentially continuous database deployment.</p>
+<p>The code is very simple and does exactly what it says on the tin. It has been created as a wrapper around the code that Erik already created for his tools already available on <a href="http://exportsqlce.codeplex.com/" target="_blank">codeplex</a>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -471,72 +530,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/03/13/how-to-install-teamcity-6x-plugins/">How to Install TeamCity 6.x Plug-in</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-13T00:00:00+00:00" pubdate data-updated="true">Mar 13<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When installing Teamcity plug-ins, you need to find out what version of TeamCity the plugin was designed for. This will more than likely be stated on the supporting documentation on the TeamCity confluence site. Lets use the <a href="http://confluence.jetbrains.net/display/TW/PowerShell" target="_blank">Powershell plugin</a> as an example as that is designed for Teamcity 6.x</p>
-<p>In order to install this plugin:</p>
-<ul>
-<li>Download the .zip </li>
-<li>
-<div>Open a command line and go to TeamCity bin folder</div>
-<ul>
-<li>
-<div>(C:\Program Files (x86)\JetBrains\TeamCity\bin)</div>
-</li>
-</ul>
-</li>
-<li>
-<div>Run the command: runAll.bat stop</div>
-</li>
-<li>
-<div>Go to the build server plug-ins folder</div>
-<ul>
-<li>
-<div>(C:\Program Files (x86)\JetBrains\TeamCity\buildServer\plugins)</div>
-</li>
-</ul>
-</li>
-<li>
-<div>Drop the .zip file into the folder</div>
-</li>
-<li>
-<div>Go back to the command line and restart the TeamCity build server: runAll.bat start</div>
-</li>
-</ul>
-<p>The build agent will then load the plugin. Hope it helps :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -561,6 +554,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
@@ -574,10 +571,6 @@
     
       <li class="post">
         <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>

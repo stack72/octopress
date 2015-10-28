@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="This past weekend (January 10th &ndash; 14th 2012) CodeMash was held in the Kalahari resort in Sandusky, OH. Yes I know &ndash; Ohio in January!! I &hellip;">
+  <meta name="description" content="Late in December 2011, I stuck my oar into a conversation on twitter (as I usually do) between Scott Koon, David Ebbo, Sumit Maitra&nbsp; and Eric &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/17/how-nuget-could-improve/">How Nuget Could Improve</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-17T00:00:00+00:00" pubdate data-updated="true">Jan 17<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Late in December 2011, I stuck my oar into a conversation on twitter (as I usually do) between <a href="http://twitter.com/lazycoder">Scott Koon</a>, <a href="http://twitter.com/davidebbo">David Ebbo</a>, <a href="http://twitter.com/sumitkm">Sumit Maitra</a>&nbsp; and <a href="http://twitter.com/Ang3lFir3">Eric Ridgeway</a>. This conversation was about why <a href="http://nuget.org">Nuget.org</a> was not the best place for a <a href="http://nuget.org/packages/Northwind.Db">Northwind DB Sample</a> package. My comment was as follows:</p>
+<p align="center"><em>@lazycoder @davidebbo @sumitkm @Ang3lFir3 maybe have the ability for codeplex to have a nuget style feed of its own for sample libraries?</em></p>
+<p align="left">I thought I should clarify my thoughts further. Nuget (and <a href="http://www.openwrap.org/">OpenWrap</a>) have set the .net world into a new era for dependency management but there are not many enforced rules or moderation of the packages you can upload. For example, I <strong>maintain</strong> the NUnit package. This means I submit updates to the package when a new version is released by NUnit. I once received a comment on how I should split the package up into just a dll package and then have a full package.I really had to think hard about why I should do this. Who am I to change the way the guys who create NUnit distribute the package. All I do is to get the contents of their .zip and redistribute that &ndash; and I do struggle to think how I have the authority to do that sometimes. This led me to a very prudent question:</p>
+<p><strong><em>Is Nuget.org a site that should have strict regulations about the packages that get uploaded there?</em></strong></p>
+<p>I have heard about a few broken packages and actually sample applications. Is this the correct place for these packages to go to?Has it become a dumping ground for software. Sites like <a href="http://www.codeplex.com">codeplex</a>, <a href="http://www.github.com">github</a> and <a href="http://www.bitbucket.org">bitbucket</a> are used more frequently for source control. Are these sites the correct areas for the sample applications? I would argue yes. I feel that Nuget should contain only packages that I can download and use immediately. I don&rsquo;t want to have to download a 12mb sample application when I could view the source in github or codeplex. Maybe a way to take this further would be to set up the ability for nuget to hook into these types of systems:</p>
+<p><strong>nuget install-sample &lt;path to codeplex&gt; </strong></p>
+<p>This would keep the nuget library free of the packages not deemed useful. Who can classify a package as useful in this theory I hear you say? Well the users of the site, via a stackoverflow style voting system. A broken package gets a downvote, then any packages below &ndash;4 (for example) would get archived by the system and the package owner to get notified. There would have to be some sort of moderation of this though or people with rival packages could eliminate the competition <img class="wlEmoticon wlEmoticon-devil" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-devil.png" alt="Devil" /></p>
+<p>I do believe that uploads to the nuget library should be regulated. There are more than enough people in the .net community that would spend a few minutes a day clearing out / verifying packages. If we regulate the packages then developers will continue to use for nuget. If it continues with the following types of packages then this may not be the case:</p>
+<p><a href="http://paulstack.co.uk/blog/images/NuGet%20Gallery.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="NuGet Gallery" src="http://paulstack.co.uk/blog/images/NuGet%20Gallery_thumb.png" alt="NuGet Gallery" width="500" height="528" border="0" /></a></p>
+<p>The naming conventions of these packages contain the letters &lsquo;&ndash;ci&rsquo;. How on earth can I work out what the different between MvcContrib.MVC3-ci is? Is it a special kind of package for CI use only or was it built with a CI system? This is exactly the issue. Some kind of visual check around this would have stopped &ndash; for the record I actually installed MvcContrib before I realised it was not compatible with MVC3 &ndash; this should have been noted in the description, in my opinion.</p>
+<p>I enjoy using nuget and I really want to continue enjoying it. All we (as a community) need to do is to be respectful of other developers when we create a package. When delivering software to paying customers, do we release potentially untested applications or do we make sure that they work?</p>
+<p>$0.02</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -493,61 +540,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/16/controlling-iis7-programmatically/">Controlling IIS7 Programmatically</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-16T00:00:00+01:00" pubdate data-updated="true">Oct 16<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I am a huge advocate of automation and the automation of as much of a system as can be implemented. I like to make sure than non-developer members of staff can work effectively and try to do as much as possible to minimise the blockers in their way. IIS can be one of those blockers. When it comes to staff creating new sites and application pools, they can sometimes get it wrong. To make sure all members of my team have the <strong>exact same</strong> setup &ndash; I script the set-up.</p>
-<p>A CI tool should be able to handle the automated rollout of configuration management to systems. This is just another example of making sure all parts of the environment have the correct set-up. Automating this rollout means a smaller chance of human error. Being able to interact with IIS means a simple script could be run to create the required setup &ndash; both locally and on a build environment.</p>
-<p>I was able to create the following Powershell script.</p>
-<script type="text/javascript" src="https://gist.github.com/157876c2e6ca7518c290.js"></script>
-<p>The script basically automates a way of creating a new application pool, a new site and then assigning that application pool to that site</p>
-<p>This script was easily able to run from either powershell or via cmd line (which invokes powershell). It&rsquo;s a script that works perfectly well assuming you only need to run it once as it doesn&rsquo;t take into account the site or the application pool existing. It needed a lot of refactoring. the script that was produced can be found below. It is a lot more useful as it takes parameters for setup.</p>
-<script type="text/javascript" src="https://gist.github.com/f204abb6862bcf34f113.js"></script>
-<p>The trouble I had with this script started when running in different versions of the OS. X64 machines call the X64 powershell by default (as you would expect). When using X64 powershell the following error was encountered:</p>
-<p><a href="http://www.paulstack.co.uk/blog/images/image_36.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://www.paulstack.co.uk/blog/images/image_thumb_34.png" alt="image" width="564" height="107" border="0" /></a></p>
-<p>This of course worked perfectly in X86 version of powershell. Weirdly, a different error was encountered in X86 powershell. The line</p>
-<p>Test-Path IIS:\AppPools\</p>
-<p>command didnt like working. It threw the following error:</p>
-<p><a href="http://www.paulstack.co.uk/blog/images/image_37.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://www.paulstack.co.uk/blog/images/image_thumb_35.png" alt="image" width="529" height="227" border="0" /></a></p>
-<p>I was faced with the dilemma of fixing something I know relatively little about (powershell scripts) or continue to use the simple script and manually manipulate IIS after the initial set-up.</p>
-<p>Strangely, I chose to ditch both methods and wrote a C# console application to manipulate IIS. It took me half the time and was very easy. <a href="http://twitter.com/apwestgarth">Andrew Westgarth, IIS MVP</a>, replied to me on twitter after I said I had done this</p>
-<blockquote>
-<p align="center">I could have told you that :-) the .net APIs rock :-)</p>
-<p align="center">It was as simple as referencing Microsoft.Web.Administration and writing code against that API. As it was a console application, it created an executible that I could call easily from TeamCity or via a batch script for local machine automation. I don&rsquo;t have to worry about ExecutionPolicy either, which is a real bonus.</p>
-<p align="center">The source code for the console application is available on my github site. Feel free to take it and change pieces of it to suit you. I have also included both powershell scripts as listed above.</p>
-</blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -572,6 +564,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
@@ -585,10 +581,6 @@
     
       <li class="post">
         <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a>
       </li>
     
   </ul>
