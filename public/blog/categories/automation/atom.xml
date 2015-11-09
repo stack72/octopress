@@ -4,7 +4,7 @@
   <title><![CDATA[Category: automation | Adventures of a wannabe geek!]]></title>
   <link href="http://paulstack.co.uk/blog/categories/automation/atom.xml" rel="self"/>
   <link href="http://paulstack.co.uk/"/>
-  <updated>2015-11-09T18:28:21+00:00</updated>
+  <updated>2015-11-09T18:30:02+00:00</updated>
   <id>http://paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -36,7 +36,7 @@
 
 <h3>Isn&rsquo;t this just &lsquo;Golden Images&rsquo;?</h3>
 
-<p>Technically, yes. But the important for me is being able to roll out a fully tested AMI and then not making any additional changes to it in production. I would like to say that my infrastructure is 100% immutable, but after reading a <a href="https://medium.com/@elijahz/what-version-is-your-infrastructure-3a61fe804d0e">recent article</a> by [<a href="https://twitter.com/emmajanehw">https://twitter.com/emmajanehw</a>]@emmajanehw, I now realise that can never be the case. Each of my AMIs are versioned and I have a nightly Rundeck job that tells me what version of an AMI a system is built / released with.</p>
+<p>Technically, yes. But the important for me is being able to roll out a fully tested AMI and then not making any additional changes to it in production. I would like to say that my infrastructure is 100% immutable, but after reading a <a href="https://medium.com/@elijahz/what-version-is-your-infrastructure-3a61fe804d0e">recent article</a> by <a href="https://twitter.com/emmajanehw">@emmajanehw</a>, I now realise that can never be the case. Each of my AMIs are versioned and I have a nightly Rundeck job that tells me what version of an AMI a system is built / released with.</p>
 
 <h3>Do I Consider Configuration Management Dead?</h3>
 
