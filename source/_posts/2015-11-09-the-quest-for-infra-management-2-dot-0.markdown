@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Living in a Post Configuration Management Tooling World"
+title: "The Quest for Infrastructure Management 2.0"
 date: 2015-11-09 10:50
 comments: true
 categories: ["devops", "automation"]
