@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="There seems to be a lack of understanding about what continuous delivery is. I feel that continuous delivery has an ambiguous meaning to continuous &hellip;">
+  <meta name="description" content="About a year ago (July 2010), I started working with my current company. When I started the team were lacking in process and the process they had was &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/28/how-to-get-started-with-ci/">How to Get Started With CI - Series</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-28T00:00:00+01:00" pubdate data-updated="true">Jun 28<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>About a year ago (July 2010), I started working with my current company. When I started the team were lacking in process and the process they had was not as useful as it could be for developers. The first thing I done in that team was to restructure the VCS and introduce continuous integration (CI).</p>
+<p>The reason I chose these 2 practices first was that the team were not working as productively as they could be. There were no VCS regular check-ins and merging was hell. A good set of practices in VCS and a CI server to help spot merge issues up front was my idea of a step forward.</p>
+<p>CI was a tough sell to the team. They didn&#8217;t like the fact that it took time to introduce, they didn&#8217;t like the fact that people could see everyone&#8217;s mistakes and the company wasn&#8217;t sure of the cost of the products and infrastructure needed. Originally, it was not fully understood why CI would be good for us and what it would help. I examined the current state of development and concluded that due to bad VCS practices it was becoming more and more difficult to &lsquo;ship&rsquo; a version of the site. The points were how i eventually sold it:</p>
+<ul>
+<li>earlier notification of integration errors</li>
+<li>elimination of bad reference and dependency management</li>
+<li>raising the confidence of developers</li>
+</ul>
+<p>The team had a very bad management of references and dependencies in our visual studio solutions. There were GAC references and files missing everywhere. There was no standardisation of 3rd party tool storage. This led to deployment nightmares as there was a <strong>post release</strong> scramble to find missing dlls &amp; files and FTP them to the live server. I was able to point out that&nbsp; CI system meant we could find dependency issues and missing files faster (on every check in as it happens).</p>
+<p>After a few weeks in place the developer confidence got higher. They were more confident of deployments and the team went from deploying once every few months to weekly then to twice weekly and then 3 times weekly. It became more of a lean production line as something was working on &ndash; checked into VCS and then the following day (or 2 days) it went live.</p>
+<p>IF you are struggling with selling CI to your company or even if you are trying to introduce your company to CI then the following posts are a summary of the steps I had to go through to get CI integrated into our working practices. It started as a proof of concept, to demonstrate the benefits and it has grown exponentially for me. The posts are:</p>
+<ol>
+<li><a href="http://paulstack.co.uk/blog/post/considerations-when-choosing-hardware-for-ci.aspx" target="_blank">Choosing the hardware requirements</a></li>
+<li><a href="http://paulstack.co.uk/blog/post/choosing-the-correct-ci-tool.aspx">Choosing the correct tool</a></li>
+<li><a href="http://paulstack.co.uk/blog/post/implementing-your-first-project-into-a-ci-system.aspx">How to integrate CI into your first project</a></li>
+<li>Making the Build Self Testing</li>
+<li>What is the potential of CI tools</li>
+</ol>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -483,45 +536,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/08/ddd-scotland-2011/">DDD Scotland 2011</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-08T00:00:00+01:00" pubdate data-updated="true">May 8<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Saturday 7th May was <a href="http://developerdeveloperdeveloper.com/scotland2011/">DDD Scotland</a> in Glasgow. I was fortunate enough to be speaking at the event so obviously had to travel up there for the weekend :)</p>
-<p>There were a range of good tracks available &ndash; <a href="http://scottishdevelopers.com/2011/03/14/ddd-scotland-2011-agenda/">agenda is here</a> &ndash; and I started the day going to see <a href="http://twitter.com/kendallmiller">Kendall Miller</a> talking about How to Grow Your Own Software Company. Kendall is a very good speaker and delivered a very useful session. I really enjoyed the fact that he was able to relate his talk to his own experiences. If you can get a chance to see this session then I would recommend it &ndash; especially if you are thinking about setting up your own company!</p>
-<p>I flitted in and out of a few other sessions throughout the day and really enjoyed the day as a hole. Got some great feedback on my session and <a href="https://twitter.com/#!/guysmithferrier">Guy Smith-Ferrier</a> very kindly critiqued my session for me so I can improve my delivery of my session.</p>
-<p>Had a great day, met some great people and enjoyed having a day of being a geek. Thanks to the organisers &ndash; <a href="https://twitter.com/#!/ColinMackay">Colin MacKay</a>, <a href="http://twitter.com/camurphy">Craig Murphy</a>, <a href="https://twitter.com/#!/ARGibson">Andy Gibson</a> and <a href="http://twitter.com/barrycarr">Barry Carr</a>. Thanks again!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -546,6 +560,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/11/09/living-in-a-post-cm-world/">Living in a Post Configuration Management Tooling World</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
       </li>
     
@@ -559,10 +577,6 @@
     
       <li class="post">
         <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
       </li>
     
   </ul>

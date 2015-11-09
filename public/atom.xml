@@ -4,7 +4,7 @@
   <title><![CDATA[Adventures of a wannabe geek!]]></title>
   <link href="http://paulstack.co.uk/atom.xml" rel="self"/>
   <link href="http://paulstack.co.uk/"/>
-  <updated>2015-10-28T13:08:59+00:00</updated>
+  <updated>2015-11-09T18:15:45+00:00</updated>
   <id>http://paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Living in a Post Configuration Management Tooling World]]></title>
+    <link href="http://paulstack.co.uk/blog/2015/11/09/living-in-a-post-cm-world/"/>
+    <updated>2015-11-09T10:50:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2015/11/09/living-in-a-post-cm-world</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve long been a configuration management tool fan. I have blogged, spoken at conferences and used <a href="https://puppetlabs.com/">Puppet</a> as well as <a href="https://www.chef.io/">Chef</a> and <a href="http://www.ansible.com/">Ansible</a>. The more I use these tools now, the more I realise I&rsquo;m actually not making my life any easier</p>
+
+<p>Currently, the infrastructure I manage is 100% AWS Cloud based. This has actually changed how I work:</p>
+
+<ol>
+<li><p>I have learned to always expect problems so I therefore should have <em>everything</em> 100% automated.</p></li>
+<li><p>No server is kept in production for more than 2 weeks</p></li>
+</ol>
+
+
+<p>By combining these 2 ways of working, I can easily recover from outages. The speed of recovery is down to being able to provision the pieces of my system as fast as possible. The simplist way to be able to provision instances fast is to build my own AMIs with <a href="https://packer.io/">Packer</a>. I have come to the realisation that when I boot an instance, I don&rsquo;t <em>really</em> want to wait for a configuration management tool to run. I have also begun to realise that having a tool change my systems in production can introduce unneeded risk. The Packer templates to build the AMI have <a href="http://serverspec.org/">serverspec</a> tests built into them. This means that at build time, I know if an AMI has been built correctly.</p>
+
+<p>The AWS infrastructure itself is managed by <a href="https://terraform.io/">Terraform</a>. I tend to use AutoScalingGroups and LaunchConfig for the instances and when Terraform is checking the state of the infrastructure, it will look up the latest AMI ID and make sure that it is part of the Launch Configuration. If it isn&rsquo;t, Terraform will update the Launch Config so that the next machine will be booted from the new AMI.</p>
+
+<p>I use <a href="http://rundeck.org/">Rundeck</a> for orchestrating changes to the infrastructure. I have a job in Rundeck that allows me to recycle <em>all</em> instances in an AutoScalingGroup one at a time and in a HA manner. From building a new AMI, to fully recycling an AutoScalingGroup is about 20 minutes (the packer build itself takes about 12 minutes). So, in theory, it takes me about 20 minutes to release new security patches to all instances in an AutoScalingGroup.</p>
+
+<h3>Isn&rsquo;t this just &lsquo;Golden Images&rsquo;?</h3>
+
+<p>Technically, yes. But the important for me is being able to roll out a fully tested AMI and then not making any additional changes to it in production. I would like to say that my infrastructure is 100% immutable, but after reading a <a href="">recent article</a> by &lt;>, I now realise that can never be the case. Each of my AMIs are versioned and I have a nightly Rundeck job that tells me what version of an AMI a system is built / released with.</p>
+
+<h3>Do I Consider Configuration Management Dead?</h3>
+
+<p>Not at all. I simply do not want to make additional changes to my environments when I know they are working. Right now, I use Ansible to provision my AMI as part of my Packer scripts. So I do believe these tools still need to be part of our eco-system. I could substitute in any configuration management tool to help build my AMIs. The purists could even use bash / shell scripts to do the same job</p>
+
+<h3>Can I only do this if I use *nix / AWS?</h3>
+
+<p>Not at all. At $JOB[-1], we actually were changing our provisioning to allow us to spin up images much faster. We were using a mix of AMIs and VMWare templates for Windows and Ubuntu. By moving in that direction, it would reduce the time taken to provision a box from maybe an hour to minutes.</p>
+
+<p>In my opinion, moving to a more immutable style of infrastructure is the next phase of infra management for me. I believe the learnings from using config management tools in production across 1000s of nodes has helped me move in this direction but YMMV.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[DevOps and .Net Conference]]></title>
@@ -64,7 +101,7 @@
 
 <p>TL;DR: I am looking for a new role. I am an infrastructure developer who has a passion for metrics, monitoring and alerting. If you feel that you are interested in me coming to help your engineering team, then get in contact with me</p>
 
-<p><a href="public@paulstack.co.uk"><a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#112;&#117;&#98;&#x6c;&#105;&#x63;&#x40;&#x70;&#97;&#117;&#x6c;&#115;&#x74;&#x61;&#x63;&#x6b;&#46;&#x63;&#x6f;&#46;&#117;&#107;">&#x70;&#117;&#98;&#108;&#105;&#99;&#x40;&#x70;&#x61;&#x75;&#108;&#x73;&#116;&#97;&#99;&#107;&#x2e;&#99;&#111;&#x2e;&#x75;&#107;</a></a></p>
+<p><a href="public@paulstack.co.uk"><a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#112;&#x75;&#98;&#x6c;&#x69;&#x63;&#x40;&#x70;&#97;&#117;&#108;&#115;&#116;&#x61;&#99;&#107;&#x2e;&#99;&#x6f;&#46;&#117;&#107;">&#112;&#x75;&#98;&#108;&#105;&#x63;&#x40;&#x70;&#97;&#x75;&#108;&#115;&#116;&#x61;&#99;&#107;&#46;&#99;&#111;&#46;&#117;&#107;</a></a></p>
 
 <h3>I love working on infrastructure!</h3>
 
@@ -92,7 +129,7 @@
 
 <p>If your company is looking for passionate infrastructure developers who always want to improve or If your company has a need (and the willingness) to drive their infrastructure forward and improve then I could be the right person for you.</p>
 
-<p><a href="public@paulstack.co.uk"><a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#112;&#117;&#98;&#108;&#105;&#99;&#64;&#112;&#97;&#117;&#x6c;&#x73;&#116;&#x61;&#99;&#107;&#x2e;&#99;&#x6f;&#46;&#117;&#107;">&#x70;&#117;&#x62;&#x6c;&#x69;&#99;&#x40;&#x70;&#x61;&#x75;&#x6c;&#x73;&#116;&#97;&#99;&#107;&#46;&#99;&#111;&#46;&#x75;&#107;</a></a></p>
+<p><a href="public@paulstack.co.uk"><a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#112;&#x75;&#x62;&#x6c;&#x69;&#x63;&#x40;&#x70;&#x61;&#117;&#x6c;&#115;&#116;&#x61;&#x63;&#x6b;&#x2e;&#x63;&#x6f;&#x2e;&#x75;&#107;">&#112;&#x75;&#x62;&#108;&#x69;&#99;&#x40;&#x70;&#x61;&#x75;&#108;&#115;&#x74;&#97;&#x63;&#107;&#x2e;&#99;&#x6f;&#46;&#x75;&#x6b;</a></a></p>
 ]]></content>
   </entry>
   
@@ -122,7 +159,7 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
 * Buzzword 2<br/>
 * etc.</p>
 
-<p>If interested, then please contact, <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#109;&#101;&#x40;&#x62;&#117;&#122;&#122;&#119;&#x6f;&#114;&#100;&#114;&#101;&#x63;&#x72;&#117;&#105;&#116;&#x65;&#114;&#46;&#x63;&#x6f;&#x2e;&#x75;&#x6b;">&#109;&#x65;&#64;&#x62;&#x75;&#x7a;&#x7a;&#119;&#111;&#x72;&#x64;&#x72;&#101;&#99;&#x72;&#117;&#x69;&#x74;&#x65;&#114;&#46;&#x63;&#111;&#x2e;&#x75;&#107;</a></p>
+<p>If interested, then please contact, <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#x3a;&#109;&#101;&#x40;&#x62;&#117;&#x7a;&#122;&#x77;&#111;&#x72;&#x64;&#x72;&#101;&#x63;&#114;&#117;&#x69;&#116;&#101;&#114;&#x2e;&#x63;&#x6f;&#46;&#x75;&#107;">&#109;&#x65;&#x40;&#98;&#117;&#x7a;&#122;&#x77;&#111;&#114;&#100;&#114;&#x65;&#99;&#114;&#117;&#x69;&#116;&#101;&#114;&#46;&#x63;&#111;&#x2e;&#x75;&#x6b;</a></p>
 
 <hr />
 
@@ -445,29 +482,6 @@ This will open the following dialog:</ul>
 <p><a href="http://paulstack.co.uk/blog/images/ToRemove.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="ToRemove" src="http://paulstack.co.uk/blog/images/ToRemove_thumb.gif" alt="ToRemove" width="240" height="227" border="0" /></a></p>
 <p>This meant that only the core references were left behind. This meant that the entire solution was able to build under mono.</p>
 <p>In order to build the project with mono, you can run the following command: <br /><strong>xbuild TeamCitySharp.sln</strong></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Installing Mono on Windows]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/01/31/installing-mono-on-windows/"/>
-    <updated>2012-01-31T00:00:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/01/31/installing-mono-on-windows</id>
-    <content type="html"><![CDATA[<p>I have recently been thinking about making <a href="http://github.com/stack72/TeamCitySharp">TeamCitySharp</a> supported on <a href="http://www.mono-project.com/Main_Page">mono</a>. This would require me to either run a VM (that you can download form the mono project site) or install mono on Windows. As I would continue to develop TeamCitySharp in VS2010, I thought it would be better to install mono on windows.</p>
-<p>When trying to install mono, I went to the mono project download page and was presented with 3 options for windows:</p>
-<p><a href="http://paulstack.co.uk/blog/images/image_39.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_37.png" alt="image" width="368" height="288" border="0" /></a></p>
-<p>I had no idea what to install &amp; tweeted to that effect. Almost immediately, <a href="http://twitter.com/ferventcoder">Rob Reynolds</a> tweeted this back:</p>
-<p><strong>cinst mono</strong></p>
-<p>This is a reference to chocolatey which I have used before. <a href="http://chocolatey.org/">Chocolatey</a> is described as &ldquo;apt-get for windows&rdquo;. In order to install mono I had a number of steps to follow:</p>
-<p>1. Set the execution policy of PowerShell to unrestricted</p>
-<p><a href="http://paulstack.co.uk/blog/images/execution-policy.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="execution-policy" src="http://paulstack.co.uk/blog/images/execution-policy_thumb.png" alt="execution-policy" width="308" height="159" border="0" /></a></p>
-<p>2. Install chocolatey</p>
-<p><a href="http://paulstack.co.uk/blog/images/chocolatey-install.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="chocolatey-install" src="http://paulstack.co.uk/blog/images/chocolatey-install_thumb.png" alt="chocolatey-install" width="313" height="173" border="0" /></a></p>
-<p>3. cinst mono</p>
-<p><a href="http://paulstack.co.uk/blog/images/mono-install-1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="mono-install-1" src="http://paulstack.co.uk/blog/images/mono-install-1_thumb.png" alt="mono-install-1" width="313" height="173" border="0" /></a></p>
-<p>which, when downloaded triggers the install</p>
-<p align="center"><a href="http://paulstack.co.uk/blog/images/mono-install-2.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="mono-install-2" src="http://paulstack.co.uk/blog/images/mono-install-2_thumb.png" alt="mono-install-2" width="283" height="220" border="0" /></a></p>
-<p>Mono is now installed and ready to be used. This was extremely easy using chocolatey. I have used it before to install <a href="http://nodejs.org/">nodejs</a> but I have to admit I didn&#8217;t really pay attention to what packages it contained. I will be doing so from now on. If you have not checked out chocolatey then please do so &ndash; it rocks!</p>
 ]]></content>
   </entry>
   

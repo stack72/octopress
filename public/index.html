@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="So I just tweeted the following, Firstly, I&rsquo;d like to say that this is not about naming and shaming. Secondly, I am not annoyed with the &hellip;">
+  <meta name="description" content="I&rsquo;ve long been a configuration management tool fan. I have blogged, spoken at conferences and used Puppet as well as Chef and Ansible. The more &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,70 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/11/09/living-in-a-post-cm-world/">Living in a Post Configuration Management Tooling World</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-09T10:50:00+00:00" pubdate data-updated="true">Nov 9<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve long been a configuration management tool fan. I have blogged, spoken at conferences and used <a href="https://puppetlabs.com/">Puppet</a> as well as <a href="https://www.chef.io/">Chef</a> and <a href="http://www.ansible.com/">Ansible</a>. The more I use these tools now, the more I realise I&rsquo;m actually not making my life any easier</p>
+
+<p>Currently, the infrastructure I manage is 100% AWS Cloud based. This has actually changed how I work:</p>
+
+<ol>
+<li><p>I have learned to always expect problems so I therefore should have <em>everything</em> 100% automated.</p></li>
+<li><p>No server is kept in production for more than 2 weeks</p></li>
+</ol>
+
+
+<p>By combining these 2 ways of working, I can easily recover from outages. The speed of recovery is down to being able to provision the pieces of my system as fast as possible. The simplist way to be able to provision instances fast is to build my own AMIs with <a href="https://packer.io/">Packer</a>. I have come to the realisation that when I boot an instance, I don&rsquo;t <em>really</em> want to wait for a configuration management tool to run. I have also begun to realise that having a tool change my systems in production can introduce unneeded risk. The Packer templates to build the AMI have <a href="http://serverspec.org/">serverspec</a> tests built into them. This means that at build time, I know if an AMI has been built correctly.</p>
+
+<p>The AWS infrastructure itself is managed by <a href="https://terraform.io/">Terraform</a>. I tend to use AutoScalingGroups and LaunchConfig for the instances and when Terraform is checking the state of the infrastructure, it will look up the latest AMI ID and make sure that it is part of the Launch Configuration. If it isn&rsquo;t, Terraform will update the Launch Config so that the next machine will be booted from the new AMI.</p>
+
+<p>I use <a href="http://rundeck.org/">Rundeck</a> for orchestrating changes to the infrastructure. I have a job in Rundeck that allows me to recycle <em>all</em> instances in an AutoScalingGroup one at a time and in a HA manner. From building a new AMI, to fully recycling an AutoScalingGroup is about 20 minutes (the packer build itself takes about 12 minutes). So, in theory, it takes me about 20 minutes to release new security patches to all instances in an AutoScalingGroup.</p>
+
+<h3>Isn&rsquo;t this just &lsquo;Golden Images&rsquo;?</h3>
+
+<p>Technically, yes. But the important for me is being able to roll out a fully tested AMI and then not making any additional changes to it in production. I would like to say that my infrastructure is 100% immutable, but after reading a <a href="">recent article</a> by &lt;>, I now realise that can never be the case. Each of my AMIs are versioned and I have a nightly Rundeck job that tells me what version of an AMI a system is built / released with.</p>
+
+<h3>Do I Consider Configuration Management Dead?</h3>
+
+<p>Not at all. I simply do not want to make additional changes to my environments when I know they are working. Right now, I use Ansible to provision my AMI as part of my Packer scripts. So I do believe these tools still need to be part of our eco-system. I could substitute in any configuration management tool to help build my AMIs. The purists could even use bash / shell scripts to do the same job</p>
+
+<h3>Can I only do this if I use *nix / AWS?</h3>
+
+<p>Not at all. At $JOB[-1], we actually were changing our provisioning to allow us to spin up images much faster. We were using a mix of AMIs and VMWare templates for Windows and Ubuntu. By moving in that direction, it would reduce the time taken to provision a box from maybe an hour to minutes.</p>
+
+<p>In my opinion, moving to a more immutable style of infrastructure is the next phase of infra management for me. I believe the learnings from using config management tools in production across 1000s of nodes has helped me move in this direction but YMMV.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -208,7 +272,7 @@
 
 <p>TL;DR: I am looking for a new role. I am an infrastructure developer who has a passion for metrics, monitoring and alerting. If you feel that you are interested in me coming to help your engineering team, then get in contact with me</p>
 
-<p><a href="public@paulstack.co.uk"><a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#112;&#117;&#98;&#x6c;&#105;&#x63;&#x40;&#x70;&#97;&#117;&#x6c;&#115;&#x74;&#x61;&#x63;&#x6b;&#46;&#x63;&#x6f;&#46;&#117;&#107;">&#x70;&#117;&#98;&#108;&#105;&#99;&#x40;&#x70;&#x61;&#x75;&#108;&#x73;&#116;&#97;&#99;&#107;&#x2e;&#99;&#111;&#x2e;&#x75;&#107;</a></a></p>
+<p><a href="public@paulstack.co.uk"><a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#112;&#x75;&#98;&#x6c;&#x69;&#x63;&#x40;&#x70;&#97;&#117;&#108;&#115;&#116;&#x61;&#99;&#107;&#x2e;&#99;&#x6f;&#46;&#117;&#107;">&#112;&#x75;&#98;&#108;&#105;&#x63;&#x40;&#x70;&#97;&#x75;&#108;&#115;&#116;&#x61;&#99;&#107;&#46;&#99;&#111;&#46;&#117;&#107;</a></a></p>
 
 <h3>I love working on infrastructure!</h3>
 
@@ -236,7 +300,7 @@
 
 <p>If your company is looking for passionate infrastructure developers who always want to improve or If your company has a need (and the willingness) to drive their infrastructure forward and improve then I could be the right person for you.</p>
 
-<p><a href="public@paulstack.co.uk"><a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#112;&#117;&#98;&#108;&#105;&#99;&#64;&#112;&#97;&#117;&#x6c;&#x73;&#116;&#x61;&#99;&#107;&#x2e;&#99;&#x6f;&#46;&#117;&#107;">&#x70;&#117;&#x62;&#x6c;&#x69;&#99;&#x40;&#x70;&#x61;&#x75;&#x6c;&#x73;&#116;&#97;&#99;&#107;&#46;&#99;&#111;&#46;&#x75;&#107;</a></a></p>
+<p><a href="public@paulstack.co.uk"><a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#112;&#x75;&#x62;&#x6c;&#x69;&#x63;&#x40;&#x70;&#x61;&#117;&#x6c;&#115;&#116;&#x61;&#x63;&#x6b;&#x2e;&#x63;&#x6f;&#x2e;&#x75;&#107;">&#112;&#x75;&#x62;&#108;&#x69;&#99;&#x40;&#x70;&#x61;&#x75;&#108;&#115;&#x74;&#97;&#x63;&#107;&#x2e;&#99;&#x6f;&#46;&#x75;&#x6b;</a></a></p>
 </div>
   
   
@@ -293,7 +357,7 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
 * Buzzword 2<br/>
 * etc.</p>
 
-<p>If interested, then please contact, <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#109;&#101;&#x40;&#x62;&#117;&#122;&#122;&#119;&#x6f;&#114;&#100;&#114;&#101;&#x63;&#x72;&#117;&#105;&#116;&#x65;&#114;&#46;&#x63;&#x6f;&#x2e;&#x75;&#x6b;">&#109;&#x65;&#64;&#x62;&#x75;&#x7a;&#x7a;&#119;&#111;&#x72;&#x64;&#x72;&#101;&#99;&#x72;&#117;&#x69;&#x74;&#x65;&#114;&#46;&#x63;&#111;&#x2e;&#x75;&#107;</a></p>
+<p>If interested, then please contact, <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#x3a;&#109;&#101;&#x40;&#x62;&#117;&#x7a;&#122;&#x77;&#111;&#x72;&#x64;&#x72;&#101;&#x63;&#114;&#117;&#x69;&#116;&#101;&#114;&#x2e;&#x63;&#x6f;&#46;&#x75;&#107;">&#109;&#x65;&#x40;&#98;&#117;&#x7a;&#122;&#x77;&#111;&#114;&#100;&#114;&#x65;&#99;&#114;&#117;&#x69;&#116;&#101;&#114;&#46;&#x63;&#111;&#x2e;&#x75;&#x6b;</a></p>
 
 <hr />
 
@@ -569,51 +633,6 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-07T00:00:00+01:00" pubdate data-updated="true">Jun 7<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I always had the idea that the term &lsquo;burnout&rsquo; had a pretty standard meaning in software development. I&rsquo;m sure each developer have their own way of phrasing it but in essence, I was always of the idea that it meant &lsquo;over working leading to exhaustion and lack of motivation&rsquo;.</p>
-<p>I wanted to see what the exact thoughts of my peers was so asked on twitter &ldquo;what does burnout meant to you?&rdquo;. I got a list of varied responses:</p>
-<p><a href="http://www.twitter.com/tomasmcguinness" target="_blank">@tomasmcguinness</a>: <em>Burnout in terms of software development? For me, it means losing the ability to concentrate and focus,combined with mental fatigue</em></p>
-<p><a href="http://www.twitter.com/mbrit" target="_blank">@mbrit</a>: <em>For me, it&#8217;s about ending up at a dead end in terms of stimulation/career progress.</em></p>
-<p><a href="http://www.twitter.com/kristofclaes" target="_blank">@kristofclaes</a>: <em>&#8220;I should have kept this as a hobby&#8230;&#8221; or something like that. Not sure how to put it into words.</em></p>
-<p><a href="http://www.twitter.com/jcmm33" target="_blank">@jcmm33</a>: <em>whatever the cause, its a lack of focus/motivation/drive/engagement within an employee when there used to be</em></p>
-<p><a href="http://www.twitter.com/nathangloyn" target="_blank">@NathanGloyn</a>: <em>burnout = not able to work any more, nervous breakdown, catastrophic event</em></p>
-<p>These are only a few of the responses, but as you can see the vary a lot. The reason I asked this question is that whilst on a trip to San Francisco recently, I was able to catch a company organised talk from <a href="http://www.facebook.com/jayp" target="_blank">Jay Parikh</a>, the VP of Infrastructure at Facebook. I don&rsquo;t need to tell you who Facebook are therefore you can imagine I was very interested to hear his thoughts on the subject. Whilst talking to us, Jay spoke about Facebook hack-a-thons. Basically their entire team (product owners, devs, IT guys etc.) get together on a night of the week in the Facebook campus and work on something they don&#8217;t normally work on.</p>
-<p>One of our developers asked the question, &ldquo;how do your devs avoid burnout when approaching hack-a-thons in the middle of a work week?&rdquo;. Jay discussed that development at Facebook wasn&rsquo;t a strict 9 &ndash; 5 culture and that developers would work the hours that they felt quite at home with. He said the developers at Facebook don&rsquo;t suffer burnout as <em>&ldquo;burnout is loosing interest in a project or piece of work&rdquo;</em> and their developers work for a maximum of 12 months in a team before moving to another.</p>
-<p>I can see Jay&rsquo;s point but I don&rsquo;t feel that working too much and losing interest on a project are mutually exclusive. I think if you work too much then you can become bogged down in feeling a bit frustrated in your work. This can create boredom and make you lose interest and (or) focus. This is where I think burnout creeps in. This is what we need to make sure we avoid when we plan work. I usually associate burnout with long waterfall projects.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -636,6 +655,10 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/11/09/living-in-a-post-cm-world/">Living in a Post Configuration Management Tooling World</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
       </li>
     
@@ -649,10 +672,6 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
     
       <li class="post">
         <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
       </li>
     
   </ul>
