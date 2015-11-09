@@ -22,7 +22,7 @@ I use [Rundeck](http://rundeck.org/) for orchestrating changes to the infrastruc
 
 ###Isn't this just 'Golden Images'?
 
-Technically, yes. But the important for me is being able to roll out a fully tested AMI and then not making any additional changes to it in production. I would like to say that my infrastructure is 100% immutable, but after reading a [recent article]() by <>, I now realise that can never be the case. Each of my AMIs are versioned and I have a nightly Rundeck job that tells me what version of an AMI a system is built / released with.
+Technically, yes. But the important for me is being able to roll out a fully tested AMI and then not making any additional changes to it in production. I would like to say that my infrastructure is 100% immutable, but after reading a [recent article](https://medium.com/@elijahz/what-version-is-your-infrastructure-3a61fe804d0e) by [https://twitter.com/emmajanehw]@emmajanehw, I now realise that can never be the case. Each of my AMIs are versioned and I have a nightly Rundeck job that tells me what version of an AMI a system is built / released with.
 
 ###Do I Consider Configuration Management Dead?
 
