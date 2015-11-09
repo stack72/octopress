@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I currently use Enterprise Logging 3.1 and i know it can be configured to do what i want with it but it still has horrible log files that no-one &hellip;">
+  <meta name="description" content="A heads up really but I used the Dynamic keyword this weekend past in .Net 4. I noticed that after doing it a new reference was added to my solution &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,45 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/04/07/what-is-microsoftcshaprdll-in-vs2010-rc/">What Is Microsoft.cshapr.dll in VS2010 RC?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-07T00:00:00+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A heads up really but I used the Dynamic keyword this weekend past in .Net 4. I noticed that after doing it a new reference was added to my solution &ndash; Microsoft.csharp.dll</p>
+<p>I didn&#8217;t know what this was so referred to good old Stackoverflow and here&#8217;s what it is</p>
+<p><a href="http://stackoverflow.com/questions/2460883/what-is-microsoft-csharp-dll-in-net-4-0">http://stackoverflow.com/questions/2460883/what-is-microsoft-csharp-dll-in-net-4-0</a></p>
+<p>just quite interesting &ndash; not sure if this will be in the RTM version of VS2010 though</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -653,59 +692,6 @@ public void ShouldAuthenticateUsersSuccessfully()
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/02/05/automated-ui-testing-part-1-watin/">Automated UI Testing - Part 1 - WatiN</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-02-05T00:00:00+00:00" pubdate data-updated="true">Feb 5<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Its been an absolute age since i last blogged so i thought my recent experience was worth talking about.</p>
-<p>A few months back I discovered a tool called <a href="http://watin.sourceforge.net/" target="_blank">WaiN</a>. This is based on WatiR and is a web application testing tool for Dot Net developers. After doing a few little test applications i started to see the benefit of using this application in my development. The best thing i could see it could do for me was making sure my pre testing cycle smoke checks were all run and passing. This would save time in fixing little UI bugs spotted by QA testers.</p>
-<p>For those who don&#8217;t know what WatiN does then look at the following code:</p>
-<pre class="brush:csharp">[Test]
-public void SearchForWatiNOnGoofle()
-{
-    using(IE browser = new IE("http://www.google.com"))
-    {
-        browser.TextField(Find.ByName("q")).TypeText("WatiN");
-        browser.Button(Find.ByName("btnG")).Click();
-        Assert.IsTrue(browser.ContainsText("WatiN"));
-    }
-}
-</pre>
-<p>Within the class add a reference to WatiN.Core.dll and Nutit.framework.dll and then run this little test app. What will happen is a new instance of IE will spin up [other browsers can be run if necessary using further references]. It will search teh page for the textbox with the name &#8216;q&#8217; and enter the text &#8216;WatiN&#8217;. It will then find the button called &#8216;btnG&#8217; and click it.</p>
-<p>This will then give us the results and it checks to make sure that the results include the term &#8216;WatiN&#8217;. Pretty easy &nbsp;to follow eh?</p>
-<p>I could really see the potential of how this could be used to see how a site behaves when certain things are done e.g. logging in as a user and making sure that user has the correct options available to them etc.</p>
-<p>This was my first forage into the world of what i now know as BDD (behavioural driven development) and automated UI testing.&nbsp;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -730,6 +716,10 @@ public void SearchForWatiNOnGoofle()
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/11/09/living-in-a-post-cm-world/">Living in a Post Configuration Management Tooling World</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
       </li>
     
@@ -743,10 +733,6 @@ public void SearchForWatiNOnGoofle()
     
       <li class="post">
         <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
       </li>
     
   </ul>

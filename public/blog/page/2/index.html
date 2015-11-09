@@ -9,8 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Whilst upgrading our TeamCity server from 6.5 to 7.x, I encountered an error:
-Unexpected error occurred inside Alarm task: java.lang.OutOfMemoryError &hellip;">
+  <meta name="description" content="I always had the idea that the term &lsquo;burnout&rsquo; had a pretty standard meaning in software development. I&rsquo;m sure each developer have &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +79,51 @@ Unexpected error occurred inside Alarm task: java.lang.OutOfMemoryError &hellip;
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/06/07/what-is-your-interpretation-of-burnout/">What Is Your Interpretation of Burnout?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-07T00:00:00+01:00" pubdate data-updated="true">Jun 7<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I always had the idea that the term &lsquo;burnout&rsquo; had a pretty standard meaning in software development. I&rsquo;m sure each developer have their own way of phrasing it but in essence, I was always of the idea that it meant &lsquo;over working leading to exhaustion and lack of motivation&rsquo;.</p>
+<p>I wanted to see what the exact thoughts of my peers was so asked on twitter &ldquo;what does burnout meant to you?&rdquo;. I got a list of varied responses:</p>
+<p><a href="http://www.twitter.com/tomasmcguinness" target="_blank">@tomasmcguinness</a>: <em>Burnout in terms of software development? For me, it means losing the ability to concentrate and focus,combined with mental fatigue</em></p>
+<p><a href="http://www.twitter.com/mbrit" target="_blank">@mbrit</a>: <em>For me, it&#8217;s about ending up at a dead end in terms of stimulation/career progress.</em></p>
+<p><a href="http://www.twitter.com/kristofclaes" target="_blank">@kristofclaes</a>: <em>&#8220;I should have kept this as a hobby&#8230;&#8221; or something like that. Not sure how to put it into words.</em></p>
+<p><a href="http://www.twitter.com/jcmm33" target="_blank">@jcmm33</a>: <em>whatever the cause, its a lack of focus/motivation/drive/engagement within an employee when there used to be</em></p>
+<p><a href="http://www.twitter.com/nathangloyn" target="_blank">@NathanGloyn</a>: <em>burnout = not able to work any more, nervous breakdown, catastrophic event</em></p>
+<p>These are only a few of the responses, but as you can see the vary a lot. The reason I asked this question is that whilst on a trip to San Francisco recently, I was able to catch a company organised talk from <a href="http://www.facebook.com/jayp" target="_blank">Jay Parikh</a>, the VP of Infrastructure at Facebook. I don&rsquo;t need to tell you who Facebook are therefore you can imagine I was very interested to hear his thoughts on the subject. Whilst talking to us, Jay spoke about Facebook hack-a-thons. Basically their entire team (product owners, devs, IT guys etc.) get together on a night of the week in the Facebook campus and work on something they don&#8217;t normally work on.</p>
+<p>One of our developers asked the question, &ldquo;how do your devs avoid burnout when approaching hack-a-thons in the middle of a work week?&rdquo;. Jay discussed that development at Facebook wasn&rsquo;t a strict 9 &ndash; 5 culture and that developers would work the hours that they felt quite at home with. He said the developers at Facebook don&rsquo;t suffer burnout as <em>&ldquo;burnout is loosing interest in a project or piece of work&rdquo;</em> and their developers work for a maximum of 12 months in a team before moving to another.</p>
+<p>I can see Jay&rsquo;s point but I don&rsquo;t feel that working too much and losing interest on a project are mutually exclusive. I think if you work too much then you can become bogged down in feeling a bit frustrated in your work. This can create boredom and make you lose interest and (or) focus. This is where I think burnout creeps in. This is what we need to make sure we avoid when we plan work. I usually associate burnout with long waterfall projects.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -495,56 +539,6 @@ This will open the following dialog:</ul>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/31/installing-mono-on-windows/">Installing Mono on Windows</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-31T00:00:00+00:00" pubdate data-updated="true">Jan 31<span>st</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I have recently been thinking about making <a href="http://github.com/stack72/TeamCitySharp">TeamCitySharp</a> supported on <a href="http://www.mono-project.com/Main_Page">mono</a>. This would require me to either run a VM (that you can download form the mono project site) or install mono on Windows. As I would continue to develop TeamCitySharp in VS2010, I thought it would be better to install mono on windows.</p>
-<p>When trying to install mono, I went to the mono project download page and was presented with 3 options for windows:</p>
-<p><a href="http://paulstack.co.uk/blog/images/image_39.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_37.png" alt="image" width="368" height="288" border="0" /></a></p>
-<p>I had no idea what to install &amp; tweeted to that effect. Almost immediately, <a href="http://twitter.com/ferventcoder">Rob Reynolds</a> tweeted this back:</p>
-<p><strong>cinst mono</strong></p>
-<p>This is a reference to chocolatey which I have used before. <a href="http://chocolatey.org/">Chocolatey</a> is described as &ldquo;apt-get for windows&rdquo;. In order to install mono I had a number of steps to follow:</p>
-<p>1. Set the execution policy of PowerShell to unrestricted</p>
-<p><a href="http://paulstack.co.uk/blog/images/execution-policy.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="execution-policy" src="http://paulstack.co.uk/blog/images/execution-policy_thumb.png" alt="execution-policy" width="308" height="159" border="0" /></a></p>
-<p>2. Install chocolatey</p>
-<p><a href="http://paulstack.co.uk/blog/images/chocolatey-install.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="chocolatey-install" src="http://paulstack.co.uk/blog/images/chocolatey-install_thumb.png" alt="chocolatey-install" width="313" height="173" border="0" /></a></p>
-<p>3. cinst mono</p>
-<p><a href="http://paulstack.co.uk/blog/images/mono-install-1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="mono-install-1" src="http://paulstack.co.uk/blog/images/mono-install-1_thumb.png" alt="mono-install-1" width="313" height="173" border="0" /></a></p>
-<p>which, when downloaded triggers the install</p>
-<p align="center"><a href="http://paulstack.co.uk/blog/images/mono-install-2.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="mono-install-2" src="http://paulstack.co.uk/blog/images/mono-install-2_thumb.png" alt="mono-install-2" width="283" height="220" border="0" /></a></p>
-<p>Mono is now installed and ready to be used. This was extremely easy using chocolatey. I have used it before to install <a href="http://nodejs.org/">nodejs</a> but I have to admit I didn&#8217;t really pay attention to what packages it contained. I will be doing so from now on. If you have not checked out chocolatey then please do so &ndash; it rocks!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -569,6 +563,10 @@ This will open the following dialog:</ul>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/11/09/living-in-a-post-cm-world/">Living in a Post Configuration Management Tooling World</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
       </li>
     
@@ -582,10 +580,6 @@ This will open the following dialog:</ul>
     
       <li class="post">
         <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a>
       </li>
     
   </ul>

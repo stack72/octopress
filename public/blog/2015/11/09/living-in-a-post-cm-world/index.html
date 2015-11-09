@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Living in a Post Configuration Management Tooling World - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="I&rsquo;ve long been a configuration management tool fan. I have blogged, spoken at conferences and used Puppet as well as Chef and Ansible. The more &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2015/11/09/living-in-a-post-cm-world">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-13083957-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Living in a Post Configuration Management Tooling World</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-09T10:50:00+00:00" pubdate data-updated="true">Nov 9<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&rsquo;ve long been a configuration management tool fan. I have blogged, spoken at conferences and used <a href="https://puppetlabs.com/">Puppet</a> as well as <a href="https://www.chef.io/">Chef</a> and <a href="http://www.ansible.com/">Ansible</a>. The more I use these tools now, the more I realise I&rsquo;m actually not making my life any easier</p>
+
+<p>Currently, the infrastructure I manage is 100% AWS Cloud based. This has actually changed how I work:</p>
+
+<ol>
+<li><p>I have learned to always expect problems so I therefore should have <em>everything</em> 100% automated.</p></li>
+<li><p>No server is kept in production for more than 2 weeks</p></li>
+</ol>
+
+
+<p>By combining these 2 ways of working, I can easily recover from outages. The speed of recovery is down to being able to provision the pieces of my system as fast as possible. The simplist way to be able to provision instances fast is to build my own AMIs with <a href="https://packer.io/">Packer</a>. I have come to the realisation that when I boot an instance, I don&rsquo;t <em>really</em> want to wait for a configuration management tool to run. I have also begun to realise that having a tool change my systems in production can introduce unneeded risk. The Packer templates to build the AMI have <a href="http://serverspec.org/">serverspec</a> tests built into them. This means that at build time, I know if an AMI has been built correctly.</p>
+
+<p>The AWS infrastructure itself is managed by <a href="https://terraform.io/">Terraform</a>. I tend to use AutoScalingGroups and LaunchConfig for the instances and when Terraform is checking the state of the infrastructure, it will look up the latest AMI ID and make sure that it is part of the Launch Configuration. If it isn&rsquo;t, Terraform will update the Launch Config so that the next machine will be booted from the new AMI.</p>
+
+<p>I use <a href="http://rundeck.org/">Rundeck</a> for orchestrating changes to the infrastructure. I have a job in Rundeck that allows me to recycle <em>all</em> instances in an AutoScalingGroup one at a time and in a HA manner. From building a new AMI, to fully recycling an AutoScalingGroup is about 20 minutes (the packer build itself takes about 12 minutes). So, in theory, it takes me about 20 minutes to release new security patches to all instances in an AutoScalingGroup.</p>
+
+<h3>Isn&rsquo;t this just &lsquo;Golden Images&rsquo;?</h3>
+
+<p>Technically, yes. But the important for me is being able to roll out a fully tested AMI and then not making any additional changes to it in production. I would like to say that my infrastructure is 100% immutable, but after reading a <a href="">recent article</a> by &lt;>, I now realise that can never be the case. Each of my AMIs are versioned and I have a nightly Rundeck job that tells me what version of an AMI a system is built / released with.</p>
+
+<h3>Do I Consider Configuration Management Dead?</h3>
+
+<p>Not at all. I simply do not want to make additional changes to my environments when I know they are working. Right now, I use Ansible to provision my AMI as part of my Packer scripts. So I do believe these tools still need to be part of our eco-system. I could substitute in any configuration management tool to help build my AMIs. The purists could even use bash / shell scripts to do the same job</p>
+
+<h3>Can I only do this if I use *nix / AWS?</h3>
+
+<p>Not at all. At $JOB[-1], we actually were changing our provisioning to allow us to spin up images much faster. We were using a mix of AMIs and VMWare templates for Windows and Ubuntu. By moving in that direction, it would reduce the time taken to provision a box from maybe an hour to minutes.</p>
+
+<p>In my opinion, moving to a more immutable style of infrastructure is the next phase of infra management for me. I believe the learnings from using config management tools in production across 1000s of nodes has helped me move in this direction but YMMV.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-09T10:50:00+00:00" pubdate data-updated="true">Nov 9<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/automation/'>automation</a>, <a class='category' href='/blog/categories/devops/'>devops</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2015/11/09/living-in-a-post-cm-world/" data-via="" data-counturl="http://paulstack.co.uk/blog/2015/11/09/living-in-a-post-cm-world/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/10/28/devops-and-net-conference/" title="Previous Post: DevOps and .Net Conference">&laquo; DevOps and .Net Conference</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+<h1>Follow me on Twitter</h1>
+<a href="https://twitter.com/stack72" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @stack72</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/11/09/living-in-a-post-cm-world/">Living in a Post Configuration Management Tooling World</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
