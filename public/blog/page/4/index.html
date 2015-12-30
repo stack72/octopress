@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I have recently started looking into the new html specification (HTML5) and have noticed that benefits of this new specification include improved &hellip;">
+  <meta name="description" content="&ldquo;Until your pretty code is in production, making money, or doing whatever it does, you&#8217;ve just wasted your time&rdquo; - Chris Read &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/10/is-implementing-continuous-delivery-the-key-to-success/">Is Implementing Continuous Delivery the Key to Success?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-10T00:00:00+00:00" pubdate data-updated="true">Nov 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote>
+<p><em>&ldquo;Until your pretty code is in production, making money, or doing whatever it does, you&#8217;ve just wasted your time&rdquo; -</em><a href="http://blog.chris-read.net/"><em> Chris Read</em></a><em> whilst at London CI.</em></p>
+<p>In my opinion, this quote really sums up software development. Process and red tape are becoming an obstacle to more and more developers from doing what they are paid to do &ndash; create software.</p>
+<p>I attended a talk by<a href="http://twitter.com/kendallmiller"> Kendall Miller</a> whilst at<a href="http://developerdeveloperdeveloper.com/scotland2011"> DDDScotland</a> entitled &ldquo;<a href="http://developerdeveloperdeveloper.com/scotland2011/ViewSession.aspx?SessionID=676">Creating your own software company: A survival guide</a>&rdquo;. I am a huge supporter of continuous delivery and have attended many sessions but this session was extremely useful to me. It was really the first time that the reasoning and importance of continuous delivery for developers really hit home with me. I knew the benefits and drawbacks but hearing someone actually demonstrate their experience really helped me. The most important thing I learned in this session was that you have got to get your software out early, this is particularly important when you are starting up a software company. Shipping software early will not only give you a source of much needed income, but can provide potentially useful feedback that can help shape the project before too much investment, both in terms of development time and money, is wasted. This goes hand in hand with the opening quote of this blog post.</p>
+<p>I am a huge fan of clean, SOLID, DRY code and I cannot emphasise enough about why developers should write code in this fashion. I do understand that I may be giving a mixed message here. Is it possible to create software in a clean, SOLID and DRY way and in a fast time? Could we be sacrificing quality for delivery? In my opinion, this is simply not the case. There are some fantastic guide lines laid down by<a href="http://twitter.com/unclebobmartin"> Robert &lsquo;unclebob&rsquo; Martin</a> in his book,<a href="http://www.amazon.co.uk/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/ref=sr_1_1?ie=UTF8&amp;qid=1320920781&amp;sr=8-1"> Clean Code</a>. These guide lines do not take extra time to implement &ndash; they are baked in to how we write the code. As developers they should be second nature to us. If they aren&rsquo;t then you should address this as soon as you can.</p>
+<p>Fast delivery can, however, affect architecture. Architecture is one of those areas of development that really does demonstrate a lot of ways to do achieve a single task. For example there are many different frameworks, tools, code layout etc. and these are another area to be concerned with. You can implement a solution to a problem that is clean &amp; efficient but that may not prove to be the best architecture. You could continue to work on this solution and refactor it to the nth degree until you come up with an architecture that you like.&nbsp; You may feel that you have used your development time wisely to improve your solution, when in actual fact, what you may have done is to waste your development resources refactoring when other solutions may be available to you.</p>
+<p>I would argue that release fast, fail fast is a good way to develop. Get the code out there, let some decent A/B testing give feedback on its fit for purpose and let that shape the architecture. I understand this may be easier for start-up based systems as their customer base can initially be small. But I do not think it is only targeted towards them. Lets look at Google Chrome or Firefox as an example of this philosophy in practice. Changes to Chrome and Firefox are happening on a regular basis now. This means the companies can create a new piece of functionality, release it to users and collect feedback and know that feedback is targeted towards the last small release. This means they are letting the user feedback help drive the system. Firefox takes a lot of grief about how resource hungry it is. Releasing smaller code changes more often will help them see if they are addressing the issue.</p>
+<p>Releasing a solution early can also bring problems of it&rsquo;s own. There are some companies out there that are of the opinion &ndash; if it has shipped and it works then why should we spend any more money on code improvements. This falls into the argument about Technical Debt which I will not cover in this post.</p>
+<p>In summary, I believe software should be delivered in small, continual chunks. This helps create an efficient delivery mechanism that will give us a chance to collect useful feedback in a much more structured and continual way. We can use this feedback to deliver software that is better suited for its purpose and become better at what we are paid to do!</p>
+</blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -536,53 +581,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/13/have-orms-introduced-extra-complexity-into-our-codebase/">Have ORMs Introduced Extra Complexity Into Our Codebase?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-08-13T00:00:00+01:00" pubdate data-updated="true">Aug 13<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Whilst at <a href="http://www.dddsouthwest.com" target="_blank">DDDSouthWest 2011</a>, I was speaking to <a href="http://twitter.com/chrishayuk">Chris Hay</a> about his scalability session. One of the areas we touched upon was the issues that ORMs have introduced into code.</p>
-<p>ORMs have become very widely used. In my most recent work project we started using Entity Framework 4, we then migrated to Entity Framework Code First, when that was not working for us we moved away from Code First and stuck with EF4. We have had serious issues with our ORMs. Firstly, we found that our repository layer was causing CPU usage to spike to over 80%. This was due to queries being compiled on the fly each time the query was called. Secondly, when we removed our web service calls (to be replaced by a service layer), we found that the object hierarchy was causing all sorts of issues. Many of these were down to lazy design. The entities have the following look to them:</p>
-<p><a href="http://paulstack.co.uk/blog/images/Drawing1.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="Drawing1" src="http://paulstack.co.uk/blog/images/Drawing1_thumb.gif" alt="Drawing1" width="310" height="203" border="0" /></a></p>
-<p>This meant that we had some hideous queries being created due to some navigation properties of the objects we were using. This is, of course, not just something found in EF4 but can be found in any ORM that is misused. The trouble with this type of scenario is that in order to fine tune the SQL that we (via the ORM) are producing via the ORM requires a change to the entities or their navigational properties. This means a lot of testing, recompilation and a redeploy.</p>
-<p>What would be the alternative to an ORM? A DAL layer that called stored procedures and passed parameters to get data back? That felt very old school to me. I think that&rsquo;s what drove me to start using ORMs initially.</p>
-<p>So, if we cannot change the sql being produced easily, why do we use ORMs? It was described to me, by <a href="http://twitter.com/thecodejunkie">Andreas H&aring;kansson</a> (better known as TheCodeJunkie) as follows:</p>
-<p><em>&ldquo;DAL was born as a reaction to SQL, ORMs is an attempt to provide a DSL for writing DALs&rdquo;</em></p>
-<p><em><a href="http://twitter.com/#!/markrendle/status/102152507706454016">Mark Rendle suggested it was because of the need for intellisense.</a> </em></p>
-<p>To my mind, both are correct. This is clearly a way that enables developers to not have to deal with writing SQL. Now, old person hat on, in the olden days, a developer would have to be proficient in SQL if there were no DBAs around to take care of those things. This meant that a developer knew what was being done &ldquo;under the hood&rdquo;. Now, would it be fair to say that newer developers, born into a world of ORMs, actually don&rsquo;t understand the SQL that they are producing?</p>
-<p>Let&rsquo;s think again about dealing with stored procedures. What would we do if we had to fine tune a stored procedure? Well if we are lucky, then we may not have to change input and output parameters and just change the logic of the procedure itself. This would mean that we could work on it without a recompilation and deployment. But if we have to change the inputs and outputs then we would need to change one layer, the DAL. This seems a lot more desirable to me. I am changing my code in one place which means I am a lot more confident.</p>
-<p>Returning to Chris, he said he needs his SQL to be so finely tuned that it runs in milliseconds rather than seconds and the only way he can achieve this is to use stored procedures. This would allow the stored procedure to be worked on without the application being changed. This begs the questions: has the introduction of ORMs made developers lazy in their DAL layers? And: have they been <strong>too</strong> widely adopted &ndash; were they ever really meant for enterprise applications?</p>
-<p>I can have a simple application up and running with a simple data structure and an ORM in a very short amount of time. If I take the same amount of time when setting up a so-called enterprise application, then my entities will have such bad relationships between them that the SQL produced is very bad. Oh wait &ndash; that&rsquo;s<a name="_GoBack"></a> the issue that has happened to me already&hellip;&hellip;&hellip;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -607,6 +605,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
       </li>
     
@@ -620,10 +622,6 @@
     
       <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
       </li>
     
   </ul>

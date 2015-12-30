@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="About a year ago (July 2010), I started working with my current company. When I started the team were lacking in process and the process they had was &hellip;">
+  <meta name="description" content="One of my favourite new tools to come across in 2011 is NSubstitute. This a is friendly substitution framework for .net. This will allow me to use &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/30/mocks-stubs-a-thing-of-the-past/">Mocks & Stubs–a Thing of the Past?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-30T00:00:00+01:00" pubdate data-updated="true">Jun 30<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of my favourite new tools to come across in 2011 is <a href="http://nsubstitute.github.com/" target="_blank">NSubstitute</a>. This a is friendly substitution framework for .net. This will allow me to use these substitutes in place of mocks and stubs. Traditionally I use a mocking framework that requires the use of mocks and stubs. Unfortunately, this type of tool has now become a bit of a hindrance for me. The code that is written to assert behaviour has happened seems complex and is not instantly readable for junior developers. Now this isn&rsquo;t a tool bashing exercise &ndash; this post is to demonstrate that this tool (NSubstitute) has effectively made me see the complexity of my tests. It has made me think about being more expressive in my intent. Its not about the tool itself &ndash; its about the concept behind it.</p>
+<p>On the commencement of a new project, i tried to show some developers NSubstitute. They liked it &ndash; they said on first look it was easy to read test code. I suggested they try it for the new project as it was brand new and had 0 test count. I was immediately shot down due to an apparent &ldquo;learning curve&rdquo; and &ldquo;sticking with what they know&rdquo;. I understand the learning curve part &ndash; learning a new tool is potentially tough as its a real shift in what they know. The apathy of sticking with what they knew really saddens me. If I had this level of apathy, I&rsquo;d still be working with ASP.NET webforms 2.0 and still not unit testing like I was doing 7 years ago. We should all want to push ourselves a little and move outside our comfort zone in order to mature as professionals. Its effectively how we grow, learn and get better at what we do.</p>
+<p>I can understand why a developer would not what to change to a new tool when working in an established project. It would be like a rewrite of a section of the project. It would also take time and money to change. But when it is a brand new project with no current toolset what is the issue? Seems a little strange to me.</p>
+<p>From my investigations about this topic of mocks and stubs vs. fakes / substitutes, I have seen that there is a real lack of understanding of the differences between mocks and stubs. This article will not talk about the differences &ndash; <a href="http://martinfowler.com/aboutMe.html" target="_blank">Martin Fowler</a> has already done this in his article <a href="http://martinfowler.com/articles/mocksArentStubs.html" target="_blank">Mocks aren&rsquo;t stubs</a> and there is no way I could do it the justice he has. This has really led me to the question <em>do we really need to care about the differences of mocks and stubs when we have this level of complexity in our tests?.</em> As a developer who tries to push testing to a team, all I want to do is to take an object or a class and test that some logic or behaviour has happened and I get the correct result. We <span style="text-decoration: line-through;">don&rsquo;t want to</span> shouldn&rsquo;t make this difficult for ourselves by trying to decide if the object or class that we want should be a mock or a stub.</p>
+<p>I have heard of people who get this concept so mixed up that they try and verify all expectations against stubs so they get passing unit tests when this is of course not correct. This is to show sample of implementation of that test.</p>
+<script src="http://gist.github.com/a618e24f7a6967b730e2.js"></script>
+<p>This shows a test with mocking and stubbing to check that specific behaviour has happened</p>
+<script src="http://gist.github.com/192394caae6914998a12.js"></script>
+<p>The same behaviour using substitutes / fakes to demonstrate how much easier it can be without the layer of complexity (written by <a href="http://twitter.com/davetchepak">Dave Tchepak</a> from NSubstitute). Dave did point out that other tools can drive this expressive type of test and also he could write complex looking tests with NSubstitute as well.</p>
+<script src="https://gist.github.com/1056347.js"></script>
+<p>I&rsquo;m not the first developer to talk about this topic and I&rsquo;m certainly not the last. I think it&rsquo;s a topic that requires buy in/ backing from a host of developers who lead the way. When talking about this on twitter, <a href="http://hadihariri.com/" target="_blank">Hadi Hariri</a> said the following:</p>
+<p><em>&ldquo;People need to understand the difference between state and interaction testing, not stubs/mocks/fakes/dupes/blabla&rdquo;</em></p>
+<p>This is very true! Let&rsquo;s remove this barrier of complexity in our tests and learn how to write better tests. It doesn&#8217;t matter which tool we use to do it. Join me in trying to get developers to take the plunge!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -491,51 +539,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/09/free-speaker-training-day/">Free Speaker Training Day - 27th May 2011</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-09T00:00:00+01:00" pubdate data-updated="true">May 9<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>It was announced last week that Guy Smith-Ferrier will be providing a free speaker training day in the UK on May 27th 2011. The details of the free training are located on <a href="http://guysmithferrier.com/post/2011/05/DDD-Speaker-Training-Day-on-Friday-27th-May-2011.aspx" target="_blank">Guy&rsquo;s blog</a>. I believe that this is a very popular event so if you are interested then please get in contact using the contact details on Guy&rsquo;s blog post. In summary the day will cover the following details:</p>
-<ul>
-<li>How To Explain Absolutely Anything </li>
-<li>Planning Your Presentation </li>
-<li>How To Give Great Demos </li>
-<li>Getting Your Laptop Ready For Your Presentation </li>
-<li>Presenting Your Presentation</li>
-</ul>
-<p>The training will be lead by some very well known speakers in the UK community &ndash; Steve Sanderson, Dave McMahon, Ross Scott and Chris Myhill. This is a <strong>FREE event</strong> so please do try and take advantage of this if you can and are interested in speaking at user groups or regional events in the UK.</p>
-<p>If you are like me, however, and cannot make that speaker training day then Guy has released speaker training videos. They are available on the <a href="https://www.technicalcommunity.com/InfoCenter/Pages/Speaker-Training.aspx" target="_blank">technical community site</a>. After speaking with Guy about this he has suggested that you would not need to watch the videos if you are going to the training day as they cover the same topics.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -560,6 +563,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
       </li>
     
@@ -573,10 +580,6 @@
     
       <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
       </li>
     
   </ul>

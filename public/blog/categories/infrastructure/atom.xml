@@ -4,7 +4,7 @@
   <title><![CDATA[Category: infrastructure | Adventures of a wannabe geek!]]></title>
   <link href="http://paulstack.co.uk/blog/categories/infrastructure/atom.xml" rel="self"/>
   <link href="http://paulstack.co.uk/"/>
-  <updated>2015-11-09T18:33:18+00:00</updated>
+  <updated>2015-12-30T17:20:40+00:00</updated>
   <id>http://paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -12,6 +12,168 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Autoscaling Group Notifications with Terraform and AWS Lambda]]></title>
+    <link href="http://paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/"/>
+    <updated>2015-12-30T13:51:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda</id>
+    <content type="html"><![CDATA[<p>I use Autoscaling Groups in AWS for all of my systems. The main benefit for me here was to make sure that when a node died in AWS, the Autoscaling Group policy made sure that the node was replaced. I wanted to get some visibility of when the Autoscaling Group was launching and terminating nodes and decided that posting notifications to <a href="https://slack.com/">Slack</a> would be a good way of getting this. With <a href="https://terraform.io/">Terraform</a> and <a href="http://docs.aws.amazon.com/lambda/latest/dg/welcome.html">AWS Lambda</a>, I was able to make this happen.</p>
+
+<p><strong>This post assumes that you are already setup and running with Terraform</strong></p>
+
+<p>Create an IAM Role that allows access to AWS Lambda:</p>
+
+<p>```
+resource &ldquo;aws_iam_role&rdquo; &ldquo;slack_iam_lambda&rdquo; {</p>
+
+<pre><code>name = "slack-iam-lambda"
+assume_role_policy = &lt;&lt;EOF
+</code></pre>
+
+<p>{
+  &ldquo;Version&rdquo;: &ldquo;2012-10-17&rdquo;,
+  &ldquo;Statement&rdquo;: [</p>
+
+<pre><code>{
+  "Action": "sts:AssumeRole",
+  "Principal": {
+    "Service": "lambda.amazonaws.com"
+  },
+  "Effect": "Allow",
+  "Sid": ""
+}
+</code></pre>
+
+<p>  ]
+}
+EOF
+}
+```</p>
+
+<p>Create a <a href="GIST%20GOES%20HERE">lambda function</a> as follows:</p>
+
+<p><code>
+resource "aws_lambda_function" "slack_notify" {
+  filename = "slackNotify.zip"
+  function_name = "slackNotify"
+  role = "${aws_iam_role.slack_iam_lambda.arn}"
+  handler = "slackNotify.handler"
+}
+</code></p>
+
+<p>We assume here, that you have already created a Slack Integration. The hook URL from that integration is required for the lambda contents.</p>
+
+<p>The filename <code>slackNotify.zip</code> is a zip of a file called <code>slackNotify.js</code>. The contents of that js file are <a href="https://gist.github.com/stack72/ad97da2df376754e413a">available</a></p>
+
+<p>Terraform currently does not support hooking AWS Lambda up to SNS Event Sources. Therefore, unfortunately, there is a manual step required to configure the Lambda to talk to the SNS Topic. There is a PR in Terraform to allow this to be automated as well.</p>
+
+<p>In the AWS Console, go to Lambda and then chose the Lambda function.</p>
+
+<p><img src="/images/lambda_function.png" alt="Image" /></p>
+
+<p>Go to the <code>Event Sources</code> tab:</p>
+
+<p><img src="/images/lambda_function_event_sources.png" alt="Image" /></p>
+
+<p>Click on <code>Add Event Source</code> and then choose <code>SNS</code> from the dropdown and then make sure you chose the correct SNS Topic name:</p>
+
+<p><img src="/images/lambda_function_sns_topic.png" alt="Image" /></p>
+
+<p>We then use another Terraform resource to attach the Autoscale Groups to the Lambda as follows:</p>
+
+<p>```
+resource &ldquo;aws_autoscaling_notification&rdquo; &ldquo;slack_notifications&rdquo; {
+  group_names = [</p>
+
+<pre><code>"admin-api-autoscale-group",
+"rundeck-autoscale-group",
+</code></pre>
+
+<p>  ]
+  notifications  = [</p>
+
+<pre><code>"autoscaling:EC2_INSTANCE_LAUNCH",
+"autoscaling:EC2_INSTANCE_TERMINATE",
+"autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
+"autoscaling:EC2_INSTANCE_TERMINATE_ERROR",
+"autoscaling:TEST_NOTIFICATION"
+</code></pre>
+
+<p>  ]
+  topic_arn = &ldquo;${aws_sns_topic.asg_slack_notifications.arn}&rdquo;
+}
+```</p>
+
+<p>As we have configured notifications for autoscaling:TEST_NOTIFICATION, when you apply this configuration with Terraform, you will see something similar to the following in Slack:</p>
+
+<p><img src="/images/slack_test_notification.png" alt="Image" /></p>
+
+<p>In the current infrastructure I manage, there are 27 Autoscale groups. I don&rsquo;t really want to add 27 hardcoded group_names in the aws_autoscaling_notifcation in Terraform.</p>
+
+<p>I wanted to take advantage of a <a href="https://www.terraform.io/docs/modules/usage.html">Terraform module</a>. In a nutshell, the module does a lookup of all the Autoscaling Groups in a region and then passes that list into the Terraform resource.</p>
+
+<p>The output of the <a href="https://github.com/stack72/tf_aws_autoscalegroup_names">module</a> looks as follows:</p>
+
+<p>```
+{
+  &ldquo;variable&rdquo;: {</p>
+
+<pre><code>"autoscalegroup_names": {
+  "description": "List of autoscalegroup names for a region",
+  "default": {
+    "eu-west-1": "admin-api-autoscale-group,dash-autoscale-group,demo-autoscale-group,docker-v2-autoscale-group,elasticsearch-autoscale-group,faces-autoscale-group,internal-api-autoscale-group,jenkins-master-autoscale-group,kafka-autoscale-group,landscapes-autoscale-group",
+    "ap-southeast-1": "",
+    "ap-southeast-2": "",
+    "eu-central-1": "",
+    "ap-northeast-1": "",
+    "us-east-1": "",
+    "sa-east-1": "",
+    "us-west-1": "",
+    "us-west-2": ""
+  }
+}
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>I then pass this into the Terraform resource as follows:</p>
+
+<p>```
+module &ldquo;autoscalegroups&rdquo; {
+  source = &ldquo;github.com/stack72/tf_aws_autoscalegroup_names&rdquo;
+  region = &ldquo;${var.aws_region}&rdquo;
+}</p>
+
+<p>resource &ldquo;aws_autoscaling_notification&rdquo; &ldquo;slack_notifications&rdquo; {
+  group_names = [</p>
+
+<pre><code>"${split(",", module.autoscalegroups.asg_names)}",
+</code></pre>
+
+<p>  ]
+  notifications  = [</p>
+
+<pre><code>"autoscaling:EC2_INSTANCE_LAUNCH",
+"autoscaling:EC2_INSTANCE_TERMINATE",
+"autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
+"autoscaling:EC2_INSTANCE_TERMINATE_ERROR",
+"autoscaling:TEST_NOTIFICATION"
+</code></pre>
+
+<p>  ]
+  topic_arn = &ldquo;${aws_sns_topic.asg_slack_notifications.arn}&rdquo;
+}
+```</p>
+
+<p>When anything happens within an Autoscaling Group, I now get notifications as follows:</p>
+
+<p><img src="/images/termination_notification.png" alt="Image" />
+<img src="/images/launch_notification.png" alt="Image" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Changing my focus]]></title>

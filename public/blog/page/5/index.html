@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Thanks to Skillsmatter, I have been given some tickets to give away to the Progressive.Net tutorials at Skillsmatter, London between September 5th &hellip;">
+  <meta name="description" content="Whilst at DDDSouthWest 2011, I was speaking to Chris Hay about his scalability session. One of the areas we touched upon was the issues that ORMs &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/13/have-orms-introduced-extra-complexity-into-our-codebase/">Have ORMs Introduced Extra Complexity Into Our Codebase?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-13T00:00:00+01:00" pubdate data-updated="true">Aug 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Whilst at <a href="http://www.dddsouthwest.com" target="_blank">DDDSouthWest 2011</a>, I was speaking to <a href="http://twitter.com/chrishayuk">Chris Hay</a> about his scalability session. One of the areas we touched upon was the issues that ORMs have introduced into code.</p>
+<p>ORMs have become very widely used. In my most recent work project we started using Entity Framework 4, we then migrated to Entity Framework Code First, when that was not working for us we moved away from Code First and stuck with EF4. We have had serious issues with our ORMs. Firstly, we found that our repository layer was causing CPU usage to spike to over 80%. This was due to queries being compiled on the fly each time the query was called. Secondly, when we removed our web service calls (to be replaced by a service layer), we found that the object hierarchy was causing all sorts of issues. Many of these were down to lazy design. The entities have the following look to them:</p>
+<p><a href="http://paulstack.co.uk/blog/images/Drawing1.gif"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="Drawing1" src="http://paulstack.co.uk/blog/images/Drawing1_thumb.gif" alt="Drawing1" width="310" height="203" border="0" /></a></p>
+<p>This meant that we had some hideous queries being created due to some navigation properties of the objects we were using. This is, of course, not just something found in EF4 but can be found in any ORM that is misused. The trouble with this type of scenario is that in order to fine tune the SQL that we (via the ORM) are producing via the ORM requires a change to the entities or their navigational properties. This means a lot of testing, recompilation and a redeploy.</p>
+<p>What would be the alternative to an ORM? A DAL layer that called stored procedures and passed parameters to get data back? That felt very old school to me. I think that&rsquo;s what drove me to start using ORMs initially.</p>
+<p>So, if we cannot change the sql being produced easily, why do we use ORMs? It was described to me, by <a href="http://twitter.com/thecodejunkie">Andreas H&aring;kansson</a> (better known as TheCodeJunkie) as follows:</p>
+<p><em>&ldquo;DAL was born as a reaction to SQL, ORMs is an attempt to provide a DSL for writing DALs&rdquo;</em></p>
+<p><em><a href="http://twitter.com/#!/markrendle/status/102152507706454016">Mark Rendle suggested it was because of the need for intellisense.</a> </em></p>
+<p>To my mind, both are correct. This is clearly a way that enables developers to not have to deal with writing SQL. Now, old person hat on, in the olden days, a developer would have to be proficient in SQL if there were no DBAs around to take care of those things. This meant that a developer knew what was being done &ldquo;under the hood&rdquo;. Now, would it be fair to say that newer developers, born into a world of ORMs, actually don&rsquo;t understand the SQL that they are producing?</p>
+<p>Let&rsquo;s think again about dealing with stored procedures. What would we do if we had to fine tune a stored procedure? Well if we are lucky, then we may not have to change input and output parameters and just change the logic of the procedure itself. This would mean that we could work on it without a recompilation and deployment. But if we have to change the inputs and outputs then we would need to change one layer, the DAL. This seems a lot more desirable to me. I am changing my code in one place which means I am a lot more confident.</p>
+<p>Returning to Chris, he said he needs his SQL to be so finely tuned that it runs in milliseconds rather than seconds and the only way he can achieve this is to use stored procedures. This would allow the stored procedure to be worked on without the application being changed. This begs the questions: has the introduction of ORMs made developers lazy in their DAL layers? And: have they been <strong>too</strong> widely adopted &ndash; were they ever really meant for enterprise applications?</p>
+<p>I can have a simple application up and running with a simple data structure and an ORM in a very short amount of time. If I take the same amount of time when setting up a so-called enterprise application, then my entities will have such bad relationships between them that the SQL produced is very bad. Oh wait &ndash; that&rsquo;s<a name="_GoBack"></a> the issue that has happened to me already&hellip;&hellip;&hellip;</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -514,54 +561,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/06/30/mocks-stubs-a-thing-of-the-past/">Mocks & Stubs–a Thing of the Past?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-30T00:00:00+01:00" pubdate data-updated="true">Jun 30<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>One of my favourite new tools to come across in 2011 is <a href="http://nsubstitute.github.com/" target="_blank">NSubstitute</a>. This a is friendly substitution framework for .net. This will allow me to use these substitutes in place of mocks and stubs. Traditionally I use a mocking framework that requires the use of mocks and stubs. Unfortunately, this type of tool has now become a bit of a hindrance for me. The code that is written to assert behaviour has happened seems complex and is not instantly readable for junior developers. Now this isn&rsquo;t a tool bashing exercise &ndash; this post is to demonstrate that this tool (NSubstitute) has effectively made me see the complexity of my tests. It has made me think about being more expressive in my intent. Its not about the tool itself &ndash; its about the concept behind it.</p>
-<p>On the commencement of a new project, i tried to show some developers NSubstitute. They liked it &ndash; they said on first look it was easy to read test code. I suggested they try it for the new project as it was brand new and had 0 test count. I was immediately shot down due to an apparent &ldquo;learning curve&rdquo; and &ldquo;sticking with what they know&rdquo;. I understand the learning curve part &ndash; learning a new tool is potentially tough as its a real shift in what they know. The apathy of sticking with what they knew really saddens me. If I had this level of apathy, I&rsquo;d still be working with ASP.NET webforms 2.0 and still not unit testing like I was doing 7 years ago. We should all want to push ourselves a little and move outside our comfort zone in order to mature as professionals. Its effectively how we grow, learn and get better at what we do.</p>
-<p>I can understand why a developer would not what to change to a new tool when working in an established project. It would be like a rewrite of a section of the project. It would also take time and money to change. But when it is a brand new project with no current toolset what is the issue? Seems a little strange to me.</p>
-<p>From my investigations about this topic of mocks and stubs vs. fakes / substitutes, I have seen that there is a real lack of understanding of the differences between mocks and stubs. This article will not talk about the differences &ndash; <a href="http://martinfowler.com/aboutMe.html" target="_blank">Martin Fowler</a> has already done this in his article <a href="http://martinfowler.com/articles/mocksArentStubs.html" target="_blank">Mocks aren&rsquo;t stubs</a> and there is no way I could do it the justice he has. This has really led me to the question <em>do we really need to care about the differences of mocks and stubs when we have this level of complexity in our tests?.</em> As a developer who tries to push testing to a team, all I want to do is to take an object or a class and test that some logic or behaviour has happened and I get the correct result. We <span style="text-decoration: line-through;">don&rsquo;t want to</span> shouldn&rsquo;t make this difficult for ourselves by trying to decide if the object or class that we want should be a mock or a stub.</p>
-<p>I have heard of people who get this concept so mixed up that they try and verify all expectations against stubs so they get passing unit tests when this is of course not correct. This is to show sample of implementation of that test.</p>
-<script src="http://gist.github.com/a618e24f7a6967b730e2.js"></script>
-<p>This shows a test with mocking and stubbing to check that specific behaviour has happened</p>
-<script src="http://gist.github.com/192394caae6914998a12.js"></script>
-<p>The same behaviour using substitutes / fakes to demonstrate how much easier it can be without the layer of complexity (written by <a href="http://twitter.com/davetchepak">Dave Tchepak</a> from NSubstitute). Dave did point out that other tools can drive this expressive type of test and also he could write complex looking tests with NSubstitute as well.</p>
-<script src="https://gist.github.com/1056347.js"></script>
-<p>I&rsquo;m not the first developer to talk about this topic and I&rsquo;m certainly not the last. I think it&rsquo;s a topic that requires buy in/ backing from a host of developers who lead the way. When talking about this on twitter, <a href="http://hadihariri.com/" target="_blank">Hadi Hariri</a> said the following:</p>
-<p><em>&ldquo;People need to understand the difference between state and interaction testing, not stubs/mocks/fakes/dupes/blabla&rdquo;</em></p>
-<p>This is very true! Let&rsquo;s remove this barrier of complexity in our tests and learn how to write better tests. It doesn&#8217;t matter which tool we use to do it. Join me in trying to get developers to take the plunge!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -586,6 +585,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
       </li>
     
@@ -599,10 +602,6 @@
     
       <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Yesterday [13th August 2010] was the Guathon&nbsp;and i was lucky to get a ticket to it as they usually get all booked out after minutes of opening &hellip;">
+  <meta name="description" content="Seen an advert on Twitter that asked for people to volunteer to review Continuous Integration in .Net by Craig Berntson and Marcin Kawalerowicz and i &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,99 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/08/31/review-continuous-integration-in-net/">Review: Continuous Integration in .Net</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-31T00:00:00+01:00" pubdate data-updated="true">Aug 31<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Seen an advert on Twitter that asked for people to volunteer to review Continuous Integration in .Net by Craig Berntson and Marcin Kawalerowicz and i jumped at the chance. I was send the eBook and started reading. I noticed that the structure of the book was well setup to &ldquo;Making It Happen&rdquo;, &ldquo;Extend It&rdquo; and &#8216;&rdquo;Smoothen and Polish It&rdquo;. This structure was able to make a smooth transition to CI and then how to extend it for more important use.</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 1: Understanding Continuous Integration</span></em></p>
+<p>This chapter talks about what exactly continuous integration [CI] is and how this actually differs from build automation as this is a common misconception. I had this misconception myself and I still meet people who do. The chapter discusses the benefits of CI and how we introduce CI to a team. No doubt it will be a rocky road introducing it, as with any new technology, but the authors discuss ways in which to overcome this resistance. The chapter then talks about the basic requirements for a CI environment [each of these gets elaborated later].</p>
+<p>&nbsp;</p>
+<p>Overall this was a very good chapter to give a user a real good grounding on CI and how important that CI is in a software development team. As someone who has been using CI tools for a while I was still able to pick up a few tips from this chapter so I was pleased with that.</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 2: Setting Up a source control System</span></em></p>
+<p>If you are already familiar with source control then potentially I&#8217;d skip this chapter as its a real basic introduction. The primary focus of the chapter is that a CI tool needs to check out code from somewhere in order to build it and a version control system [VCS] is the place that should happen from. The best part of the chapter was the discussion on the differences between centralised version control system [VCS], e.g. Subversion, and distributed version control systems [DVCS]. Users who are new to version control systems would then be shown how to setup a subversion and a Team Foundation System repository.</p>
+<p>&nbsp;</p>
+<p>Overall this was targeted to those who are completely new to version control. Infact my thoughts are those who are familiar with the concept can skip it completely and move to the next chapter.</p>
+<p>&nbsp;</p>
+<p><span style="text-decoration: underline;"><em>Chapter 3: Automating the Build Process</em></span></p>
+<p>The chapter talks about why a build should be automated and that is demonstrated by the point that if someone had to continually merge our code by hand each time a change was made then it would take an entire developers day to do and to constantly be built. There was an introduction to NUnit and MSBuild and how these tools originated which was interesting. But here the authors decided that the tool of choice for the book was MSBuild as this was distributed with the .Net Framework and this is our targeted framework.</p>
+<p>&nbsp;</p>
+<p>This chapter was a great introduction to MSBuild and demonstrated how a build using MSBuild can quickly become to deployment &amp; execution and then how to extend MSBuild using the community tasks in order to do more complex operations like communication with SVN etc. Since reading this chapter, I have really seen the power of MSBuild and am now using it daily for my work with my CI tool. The only possible drawback of using MSBuild is the fact that its XML based and, lets face it, who likes XML these days ;). This is a vital chapter for any developer or team who doesn&#8217;t currently automate their builds [whether they have a CI server or not].</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 4: Choosing the Right CI Server</span></em></p>
+<p>The chapter starts by discussing that there are 2 ways to do things at this point: choose an off the shelf CI tool or develop your own. Developing your own will put you years behind so its best to stick to tried and tested in the authors&rsquo; opinion. Where should we keep a CI server? Local machine, VM, spare machine or a dedicated server are the possible answers and considerations given to all in this chapter. But the authors main point about a CI server is that it should be as clear of dependencies as possible &ndash; it shouldn&rsquo;t have all the <span style="text-decoration: line-through;">crap</span> software installed on it like you do on your local machine. It should have as few dependencies as possible as builds can be made in isolation and regularly. If possible the CI server should really replicate the production environment as closely as possible in order to make sure things work.</p>
+<p>&nbsp;</p>
+<p>The authors then go on to talk about different types of CI tools but for the purposes of the book CCNET, TeamCity &amp; TFS would be used for example configurations. I was pleased with this as I use TeamCity :). This demonstrates the free, medium cost and higher end of tools as well. The chapter as very useful as it introduced the tools and basic configurations for some of them. Well worth reading alone for the hardware selection criteria</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 5: Continuous Feedback</span></em></p>
+<p>Simple point of the chapter &ndash; you must have a feedback mechanism to let you know how the merging/ integration of code is going when developers check their code to VCS. The feedback mechanism will also let you see the state of the &ldquo;build&rdquo;. If you use TeamCity there is a UI built in, CCNET needs a new module added on to show the feedback and TFS can be used to extend the build alerts process if necessary by sending Skype alerts, emails, SMS etc.</p>
+<p>&nbsp;</p>
+<p>In my opinion there was a lot of time dedicated to setting up the feedback mechanism. As I use TeamCity then maybe I don&rsquo;t appreciate the time that this chapter should dedicate to it but then again I hate XML so wouldn&rsquo;t choose to use CCNET unless forced to at gunpoint :)</p>
+<p>&nbsp;</p>
+<p><span style="text-decoration: underline;"><em>Chapter 6: Unit testing the continuously integrated code</em></span></p>
+<p>If we have code being integrated then how do we know if merging is effective? The answer here is that we need to have unit tests to back this up. The chapter discusses Unit Testing as a concept of &ldquo;Testing&rdquo; and that its not the only part involved. The Unit Tests should be automated after each build is successful to make sure the code works. Tests need to run in isolation and need to be fast to run &ndash; the chapter then talks about keeping unit tests free of dependencies and the use of mocking frameworks in order to do this.</p>
+<p>&nbsp;</p>
+<p>The discussion on breaking the dependency and mocking frameworks were very basic so I&rsquo;d suggest reading further on these before trying to do much work on them, but the basic concept is there. I was glad that the chapter highlighted the need for code coverage as a tool to measure how effective our unit tests are</p>
+<p>&nbsp;</p>
+<p><strong>Remember:</strong> 10000 unit tests doesn&rsquo;t mean code is well tests if 6000 of them is in 1 class :)</p>
+<p>&nbsp;</p>
+<p><span style="text-decoration: underline;"><em>Chapter 7: Performing integration, system and acceptance</em></span></p>
+<p>I very pro different types of testing, but I was horrified to see that 3 new types of tests were given 30 or so pages of a book in order to discuss them and show how to implement them as part of a CI build. I think these are huge areas of their own and therefore need a dedicated amount of care to show them in the correct light. I am very glad that the authors demonstrated that Unit Tests are not the only types of test that can &amp; should be carried out on our applications.&nbsp; There was time given to introduce the tools that could be used to carry out the different types of tests but I&rsquo;d suggest reading some work by Robert C. Martin and Goyko Adzic for help in what you should test above unit level.</p>
+<p>&nbsp;</p>
+<p>For me this was a disappointing chapter as there was not enough balance struck between describing when or why to carry out these types of test rather than how to just integrate them into our CI script. I showed this chapter to someone who has never done UI testing before and knows little about it and them came away with the idea that if they wrote lots of UI tests then their application would be fully tested. :(</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 8: Analyzing the Code</span></em></p>
+<p><strong>Code Coverage! </strong>What an awesome chapter! I have only used StyleCop or FXCop in evaluation and have never really seen the benefit, until now :) This was like a 101: StyleCop and FXCop and I took a lot away from this. Infact, I have been using TeamCity for a while now and I didn&rsquo;t know about the duplicates finder build script.</p>
+<p>&nbsp;</p>
+<p>A great discussion from the authors on why its imperative to keep you code &ldquo;clean&rdquo;.&nbsp; This was a great balance of introduction to new concepts and the tools needed to maintain them. Very simple, but effective, demos were shown on how FXCop and StyleCop can be used and extended for our own use.</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 9: Generating Documentation</span></em></p>
+<p>This chapter done exactly what it said on the tin &ndash; generate documentation and how to do that from within a CI tool. In my mind the jury is out on whether I agree with documentation having time spent on it as I&rsquo;m very pr-AGILE and that only says minimal documentation is needed so I was pleased to see there was a way to automatically generate it with Sandcastle. The problem with auto generating documentation is that methods and classes need to have correct comments written for them and personally I don&rsquo;t think any developer who inherits a codebase can ever fully rely on these comments and thus the documentation.</p>
+<p>&nbsp;</p>
+<p>The author has really made me think about it though, so this book has challenged my thoughts which was very good :)</p>
+<p>&nbsp;</p>
+<p><em><span style="text-decoration: underline;">Chapter 10: Deployment and Delivery</span></em></p>
+<p>Ah we are now in the realms of continuous delivery! This chapter talks about how we can deploy applications using WiX. With the use of MSBuild, we can package work and then force it to a remote host in order for it to be deployed. I&rsquo;m not going to give too much away here but this is all about how we really push CI to that last level and how we can push a button and an application is deployed &ndash; <strong>THIS IS A MUST READ CHAPTER!</strong></p>
+<p><em>&nbsp;</em></p>
+<p><em><span style="text-decoration: underline;">Chapter 11: Continuous Database Integration</span></em></p>
+<p>What if I need to deploy an application that requires a change to a stored procedure or DB schema? Well that is really the last part of the puzzle in my opinion. We all have a lot of builds for bug fixes and refactoring, but what about that new feature? This chapter talks about the need for a vanilla database on the CI server so that MSBuild can interact with it in order to run SQL change scripts. This will allow our integration tests to run against that database and thus our work to be fully tested.</p>
+<p>&nbsp;</p>
+<p>I was very happy with this book as the authors took us on a tour of having nothing to making sure our site works and is always available to be put to live. I would definitely recommend purchasing this book if you have wanted to start CI but didn&#8217;t know how. It gets a 4 out of 5 for me and I have been doing CI for quite a while now</p>
+<p>&nbsp;</p>
+<p>Thanks to Manning Books and the authors [Craig Berntson and Marcin Kawalerowicz] for a great product!!!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -777,59 +870,6 @@ w3svc.Invoke(command, null);
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/04/08/iphone-40-announcement/">iPhone 4.0 Announcement</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-08T00:00:00+01:00" pubdate data-updated="true">Apr 8<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>iPhone OS 4 released today - lots of lovely features that would really entice me to get one after my blackberry storm. Then i was pointed out an extract from the SDK licence agreement</h2>
-<p><img src="/blog/images/2010/4/onlyc.GIF" alt="" /></p>
-<p>ok so what does this mean? c# developers can currently use an application called <a href="http://monotouch.net/" target="_blank">Monotouch</a> and this was fantastic. it was pricey but it was very worth it. i had even started using this myself for apps at work</p>
-<p>then this bombshell!! There was no news of this announcement today - this was discovered by people downloading the SDK</p>
-<p>ok so i think that what has happened is as follows:</p>
-<p>&nbsp;</p>
-<ul>
-<li>iPhone versions 1 -3 very successful</li>
-<li>Microsoft release news of Win 7 Phone</li>
-<li>News of free developer software for Win 7 Phone released</li>
-<li>Apple release news of iPhone 4.0</li>
-</ul>
-<h3>Now what does this tells us?</h3>
-<p>in my eyes this seems like Apple have laid down the law that their apps will only really be developed using their products and their specs. No more MonoTouch? What about those who were creating apps using c#?</p>
-<p>I think more will come of this and i really do think that this will loose Apple a huge amount of followers in the development community.</p>
-<p>Let the war begin!</p>
-<p><img src="/blog/images/2010/4/battle.png" alt="" /></p>
-<p>More details and posts will be added as soon as i see them!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -854,6 +894,10 @@ w3svc.Invoke(command, null);
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
       </li>
     
@@ -867,10 +911,6 @@ w3svc.Invoke(command, null);
     
       <li class="post">
         <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/28/it-recruitment-is-f-star-star-ked/">IT Recruitment Is F**ked</a>
       </li>
     
   </ul>

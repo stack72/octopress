@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Autoscaling Group Notifications with Terraform and AWS Lambda - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="I use Autoscaling Groups in AWS for all of my systems. The main benefit for me here was to make sure that when a node died in AWS, the Autoscaling &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-13083957-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Autoscaling Group Notifications With Terraform and AWS Lambda</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-12-30T13:51:00+00:00" pubdate data-updated="true">Dec 30<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I use Autoscaling Groups in AWS for all of my systems. The main benefit for me here was to make sure that when a node died in AWS, the Autoscaling Group policy made sure that the node was replaced. I wanted to get some visibility of when the Autoscaling Group was launching and terminating nodes and decided that posting notifications to <a href="https://slack.com/">Slack</a> would be a good way of getting this. With <a href="https://terraform.io/">Terraform</a> and <a href="http://docs.aws.amazon.com/lambda/latest/dg/welcome.html">AWS Lambda</a>, I was able to make this happen.</p>
+
+<p><strong>This post assumes that you are already setup and running with Terraform</strong></p>
+
+<p>Create an IAM Role that allows access to AWS Lambda:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>resource "aws_iam_role" "slack_iam_lambda" {
+</span><span class='line'>    name = "slack-iam-lambda"
+</span><span class='line'>    assume_role_policy = &lt;&lt;EOF
+</span><span class='line'>{
+</span><span class='line'>  "Version": "2012-10-17",
+</span><span class='line'>  "Statement": [
+</span><span class='line'>    {
+</span><span class='line'>      "Action": "sts:AssumeRole",
+</span><span class='line'>      "Principal": {
+</span><span class='line'>        "Service": "lambda.amazonaws.com"
+</span><span class='line'>      },
+</span><span class='line'>      "Effect": "Allow",
+</span><span class='line'>      "Sid": ""
+</span><span class='line'>    }
+</span><span class='line'>  ]
+</span><span class='line'>}
+</span><span class='line'>EOF
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Create a <a href="GIST%20GOES%20HERE">lambda function</a> as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>resource "aws_lambda_function" "slack_notify" {
+</span><span class='line'>  filename = "slackNotify.zip"
+</span><span class='line'>  function_name = "slackNotify"
+</span><span class='line'>  role = "${aws_iam_role.slack_iam_lambda.arn}"
+</span><span class='line'>  handler = "slackNotify.handler"
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We assume here, that you have already created a Slack Integration. The hook URL from that integration is required for the lambda contents.</p>
+
+<p>The filename <code>slackNotify.zip</code> is a zip of a file called <code>slackNotify.js</code>. The contents of that js file are <a href="https://gist.github.com/stack72/ad97da2df376754e413a">available</a></p>
+
+<p>Terraform currently does not support hooking AWS Lambda up to SNS Event Sources. Therefore, unfortunately, there is a manual step required to configure the Lambda to talk to the SNS Topic. There is a PR in Terraform to allow this to be automated as well.</p>
+
+<p>In the AWS Console, go to Lambda and then chose the Lambda function.</p>
+
+<p><img src="/images/lambda_function.png" alt="Image" /></p>
+
+<p>Go to the <code>Event Sources</code> tab:</p>
+
+<p><img src="/images/lambda_function_event_sources.png" alt="Image" /></p>
+
+<p>Click on <code>Add Event Source</code> and then choose <code>SNS</code> from the dropdown and then make sure you chose the correct SNS Topic name:</p>
+
+<p><img src="/images/lambda_function_sns_topic.png" alt="Image" /></p>
+
+<p>We then use another Terraform resource to attach the Autoscale Groups to the Lambda as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>resource "aws_autoscaling_notification" "slack_notifications" {
+</span><span class='line'>  group_names = [
+</span><span class='line'>    "admin-api-autoscale-group",
+</span><span class='line'>    "rundeck-autoscale-group",
+</span><span class='line'>  ]
+</span><span class='line'>  notifications  = [
+</span><span class='line'>    "autoscaling:EC2_INSTANCE_LAUNCH",
+</span><span class='line'>    "autoscaling:EC2_INSTANCE_TERMINATE",
+</span><span class='line'>    "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
+</span><span class='line'>    "autoscaling:EC2_INSTANCE_TERMINATE_ERROR",
+</span><span class='line'>    "autoscaling:TEST_NOTIFICATION"
+</span><span class='line'>  ]
+</span><span class='line'>  topic_arn = "${aws_sns_topic.asg_slack_notifications.arn}"
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As we have configured notifications for autoscaling:TEST_NOTIFICATION, when you apply this configuration with Terraform, you will see something similar to the following in Slack:</p>
+
+<p><img src="/images/slack_test_notification.png" alt="Image" /></p>
+
+<p>In the current infrastructure I manage, there are 27 Autoscale groups. I don&rsquo;t really want to add 27 hardcoded group_names in the aws_autoscaling_notifcation in Terraform.</p>
+
+<p>I wanted to take advantage of a <a href="https://www.terraform.io/docs/modules/usage.html">Terraform module</a>. In a nutshell, the module does a lookup of all the Autoscaling Groups in a region and then passes that list into the Terraform resource.</p>
+
+<p>The output of the <a href="https://github.com/stack72/tf_aws_autoscalegroup_names">module</a> looks as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{
+</span><span class='line'>  "variable": {
+</span><span class='line'>    "autoscalegroup_names": {
+</span><span class='line'>      "description": "List of autoscalegroup names for a region",
+</span><span class='line'>      "default": {
+</span><span class='line'>        "eu-west-1": "admin-api-autoscale-group,dash-autoscale-group,demo-autoscale-group,docker-v2-autoscale-group,elasticsearch-autoscale-group,faces-autoscale-group,internal-api-autoscale-group,jenkins-master-autoscale-group,kafka-autoscale-group,landscapes-autoscale-group",
+</span><span class='line'>        "ap-southeast-1": "",
+</span><span class='line'>        "ap-southeast-2": "",
+</span><span class='line'>        "eu-central-1": "",
+</span><span class='line'>        "ap-northeast-1": "",
+</span><span class='line'>        "us-east-1": "",
+</span><span class='line'>        "sa-east-1": "",
+</span><span class='line'>        "us-west-1": "",
+</span><span class='line'>        "us-west-2": ""
+</span><span class='line'>      }
+</span><span class='line'>    }
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I then pass this into the Terraform resource as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>module "autoscalegroups" {
+</span><span class='line'>  source = "github.com/stack72/tf_aws_autoscalegroup_names"
+</span><span class='line'>  region = "${var.aws_region}"
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>resource "aws_autoscaling_notification" "slack_notifications" {
+</span><span class='line'>  group_names = [
+</span><span class='line'>    "${split(",", module.autoscalegroups.asg_names)}",
+</span><span class='line'>  ]
+</span><span class='line'>  notifications  = [
+</span><span class='line'>    "autoscaling:EC2_INSTANCE_LAUNCH",
+</span><span class='line'>    "autoscaling:EC2_INSTANCE_TERMINATE",
+</span><span class='line'>    "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
+</span><span class='line'>    "autoscaling:EC2_INSTANCE_TERMINATE_ERROR",
+</span><span class='line'>    "autoscaling:TEST_NOTIFICATION"
+</span><span class='line'>  ]
+</span><span class='line'>  topic_arn = "${aws_sns_topic.asg_slack_notifications.arn}"
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When anything happens within an Autoscaling Group, I now get notifications as follows:</p>
+
+<p><img src="/images/termination_notification.png" alt="Image" />
+<img src="/images/launch_notification.png" alt="Image" /></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-12-30T13:51:00+00:00" pubdate data-updated="true">Dec 30<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/aws/'>AWS</a>, <a class='category' href='/blog/categories/terraform/'>Terraform</a>, <a class='category' href='/blog/categories/automation/'>automation</a>, <a class='category' href='/blog/categories/infrastructure/'>infrastructure</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/" data-via="" data-counturl="http://paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/" title="Previous Post: The Quest for Infrastructure Management 2.0">&laquo; The Quest for Infrastructure Management 2.0</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+<h1>Follow me on Twitter</h1>
+<a href="https://twitter.com/stack72" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @stack72</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
