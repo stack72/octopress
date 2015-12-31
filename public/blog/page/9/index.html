@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="So Saturday past, 29th January 2011, was DDD9, Organised by Craig Murphy, Phil Winstanley and Dave Sussman et all. All I can say is what a thoroughly &hellip;">
+  <meta name="description" content="I have just installed a new extension to Visual Studio 2010 using the Extension manager and then realised I&rsquo;d have to do the same at home. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/04/visual-studio-2010-extension-required/">Visual Studio 2010 Extension Required</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-04T00:00:00+00:00" pubdate data-updated="true">Feb 4<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have just installed a new extension to Visual Studio 2010 using the Extension manager and then realised I&rsquo;d have to do the same at home. Seems very laborious doesn&rsquo;t it!! Why isn&rsquo;t there a way to be able to get an output of the installations you have installed and their download links (maybe in an xml type format) that I could then export and store in dropbox.</p>
+<p>Format could have the following information:</p>
+<ul>
+<li>Extension Name</li>
+<li>Version</li>
+<li>Download location/ online gallery location</li>
+<li>Publisher</li>
+</ul>
+<ul>
+I&rsquo;d then like to be able to take this xml file and import it to a new extension manager of my choice and then tell visual studio to go off and download the required extensions. In the era of cloud computing I really thought this would be possible I think its even more important when developers are switching between machines. 
+</ul>
+<p>Do we ever think something like this will be developed? Is anyone interested in a product like this &ndash; lets try and get it implemented! Its only the same functionality they have when you can export bookmarks and ftp locations from other tools.&nbsp;<img class="wlEmoticon wlEmoticon-smile" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-smile_4.png" alt="Smile" /></p>
+<p>&nbsp;</p>
+<p>EDIT: There is currently the ability to have a personal Nuget repository so this &#8216;extension repository&#8217; would be great for sharing in a team as well!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -473,42 +522,6 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/12/14/upgrading-from-teamcity-5x-to-60/">Upgrading From TeamCity 5.x to 6.0</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-12-14T00:00:00+00:00" pubdate data-updated="true">Dec 14<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I have recently upgraded my <a href="http://www.jetbrains.com/teamcity/" target="_blank">TeamCity</a> installation 5.1 to 6.0 and found when I was upgrading that the <a href="http://confluence.jetbrains.net/display/TCD6/Upgrade" target="_blank">documentation</a> supplied by JetBrains was very sketchy. After seeing some peoples upgrades go a bit wrong, I thought a blog post on how to do this would help.</p>  <p><strong><u>This post assumes that you have 5.x version of TeamCity installed. The version I specifically have is 5.1.5</u></strong></p>  <p>1. Download the <a href="http://download.jetbrains.com/teamcity/TeamCity-6.0.exe" target="_blank">latest version</a> of TeamCity windows installer</p>  <p>2. Log into your TeamCity dashboard as an administrator. Click on ‘Administration’</p>  <p><a href="http://paulstack.co.uk/blog/images/image.png"><img style="border-right-width: 0px; display: block; float: none; border-top-width: 0px; border-bottom-width: 0px; margin-left: auto; border-left-width: 0px; margin-right: auto" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb.png" width="383" height="156" /></a> </p>  <p>3. In the administration screen click on ‘Backup Data’ on the right hand column</p>  <p><a href="http://paulstack.co.uk/blog/images/image_1.png"><img style="border-right-width: 0px; display: block; float: none; border-top-width: 0px; border-bottom-width: 0px; margin-left: auto; border-left-width: 0px; margin-right: auto" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_1.png" width="213" height="268" /></a></p>  <p>4. We now need to actually backup our data. In order to do this we will, by default, be in the ‘Settings’ Tab. In this tab you will see where TeamCity wants to backup the data by default. You will also be given the options of what to backup. The settings I use are as follows:</p>  <p><a href="http://paulstack.co.uk/blog/images/image_2.png"><img style="border-right-width: 0px; display: block; float: none; border-top-width: 0px; border-bottom-width: 0px; margin-left: auto; border-left-width: 0px; margin-right: auto" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_2.png" width="318" height="153" /></a> </p>  <p>Once I save the settings I can then go to ‘Backup Process’ and click on ‘Start Backup’. This gives me something that looks like this</p>  <p><a href="http://paulstack.co.uk/blog/images/image_3.png"><img style="border-right-width: 0px; display: block; float: none; border-top-width: 0px; border-bottom-width: 0px; margin-left: auto; border-left-width: 0px; margin-right: auto" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_3.png" width="446" height="280" /></a> </p>  <p align="left">(Please ignore the numbers as I am running an empty version of TeamCity for this demonstration)</p>  <p align="left">5. Go to the location where point 1 downloaded TeamCity to and run TeamCity.exe</p>  <p align="left">6. Follow the standard installation instructions and make sure you:</p>  <ul>   <li>     <div align="left">install to the same directory location as before (C:\Program Files (x86)\JetBrains\TeamCity for me)</div>   </li>    <li>     <div align="left">uninstall the previous version when asked</div>   </li>    <li>     <div align="left">I tend to only uninstall the build agents log files</div>   </li>    <li>     <div align="left">use the same buildserver directory as before (C:\Program Files (x86)\JetBrains\TeamCity\BuildServer for me)</div>   </li> </ul>  <p align="left">7. Start the TeamCity dashboard after the installer finishes. Gives us this page:</p>  <p align="left"><a href="http://paulstack.co.uk/blog/images/image_4.png"><img style="border-right-width: 0px; display: block; float: none; border-top-width: 0px; border-bottom-width: 0px; margin-left: auto; border-left-width: 0px; margin-right: auto" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_4.png" width="497" height="185" /></a> </p>  <p align="left">Go to your installation directory (C:\Program Files (x86)\JetBrains\TeamCity\Logs\) then find <strong></strong></p>  <p><strong>teamcity-server.log</strong></p>  <p align="left">8. Open this .log file in notepad or a similar text editor and scroll right to the end and find </p>  <p><strong>Administrator login is required from web UI using authentication token: &lt;token here&gt;</strong></p>  <p>9. Take the token and paste it into the web browser and ‘Confirm’</p>  <p>10. You will be presented with an upgrade screen which gives details of the product and installation paths. If you are happy then click ‘Upgrade’</p>  <p>11. The upgrade will kick into action as follows:</p>  <p><a href="http://paulstack.co.uk/blog/images/image_5.png"><img style="border-right-width: 0px; display: block; float: none; border-top-width: 0px; border-bottom-width: 0px; margin-left: auto; border-left-width: 0px; margin-right: auto" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_5.png" width="244" height="85" /></a></p>  <p>When the upgrade is done you will be shown the login screen. Login as an administrator and make sure you can see all your projects, some history and some changes for some projects</p>  <p>This is a very short process as JetBrains has thankfully made it easy. Hopefully this guide will help</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -533,6 +546,10 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
       </li>
     
@@ -548,10 +565,6 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -565,7 +578,7 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - Paul Stack (@stack72) -
+  Copyright &copy; 2016 - Paul Stack (@stack72) -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

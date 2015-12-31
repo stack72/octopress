@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="It was announced last week that Guy Smith-Ferrier will be providing a free speaker training day in the UK on May 27th 2011. The details of the free &hellip;">
+  <meta name="description" content="I&rsquo;ve been meaning to write this post for months now to talk about my work with PostSharp and Attribute Based Caching. PostSharp is an AOP tool &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/10/attribute-based-caching-with-postsharp/">Attribute Based Caching With PostSharp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-10T00:00:00+01:00" pubdate data-updated="true">May 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve been meaning to write this post for months now to talk about my work with PostSharp and Attribute Based Caching. PostSharp is an AOP tool &ndash; I won&rsquo;t get into too much detail about <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming" target="_blank">AOP</a> and <a href="http://www.sharpcrafters.com/" target="_blank">PostSharp</a> as I have provided links to them</p>
+<p>I used PostSharp to remove the amount of code required for the caching of my calls in a legacy application. Traditionally I would have had to write code such as this:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_21.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_21.png" border="0" alt="image" width="609" height="259" /></a></p>
+<p>I was able to change the way this was done with AOP. This makes the code snippet look as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_22.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_22.png" border="0" alt="image" width="609" height="177" /></a></p>
+<p>I have effectively removed 2 lines of code from EVERY method call and replaced it with an attribute over the method declaration. In order for this to build, I had to either install PostSharp or run it as an import target manually in my .csproj file. So what does the output of the IL look like when decompiled?</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_23.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_23.png" border="0" alt="image" width="615" height="210" /></a></p>
+<p>You can see that the IL has had Aspects added to it. The 3rd party dll I used (<a href="http://cache.codeplex.com/" target="_blank">CacheAspect</a>) then knows what to add to the code and this is then <a href="http://www.sharpcrafters.com/postsharp/documentation#under-the-hood" target="_blank">IL woven using PostSharp</a>. This means that the results of the MyMethod call will be added to the Cache with the key of StoredProcedureResults.</p>
+<p>This has been majorly useful for me since I can invalidate the Cache on specific method calls</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_24.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_24.png" border="0" alt="image" width="613" height="67" /></a></p>
+<p>This method works by Invalidating the cache (key &ldquo;StoredProcedureResults&rdquo;) when the AddMethod is called. This scenario can be very useful when a list of users are cached and a new user is added to the list. It cuts down the code and is easy to read in my opinion.</p>
+<p>I have posted before about how to hook <a href="http://paulstack.co.uk/blog/post/PostSharp-and-TeamCity-Integration.aspx" target="_blank">PostSharp up to my CI server</a>. AOP is not everyone&#8217;s thing. It has been very useful for me on a small project. It has impacted the build time but I think its worth it for DRY code <img class="wlEmoticon wlEmoticon-smile" style="border-style: none;" src="http://paulstack.co.uk/blog/images/wlEmoticon-smile_6.png" alt="Smile" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -498,42 +545,6 @@ In order to use this tool you can do it from the command line or you can hook it
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/03/20/finally-a-visual-studio-extension-sync-tool/">Finally, a Visual Studio Extension Sync Tool</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-20T00:00:00+00:00" pubdate data-updated="true">Mar 20<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A while back I made a post about an itme I wanted for Visual Studio 2010. The item I wanted was a tool to sync my installed extensions&#8217; between any machines that I used Visual Studio on. This wasn’t available, or so I though, but thanks to Latish Sehgal such a tool now exists. </p>  <p>The post on the tool can be found on his <a href="http://dotnetsurfers.com/blog/2011/03/14/extensionsync-a-visual-studio-extension-to-synchronize-other-extensions/" target="_blank">blog</a>. I think this is a tool that can be utilised from within teams and also for users who use multiple machines and installs of Visual Studio.</p>  <p>I’d like to thank Latish a lot for the tool! It has made the way I use Visual Studio much more uniform and that can only be a good thing!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -558,6 +569,10 @@ In order to use this tool you can do it from the command line or you can hook it
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
       </li>
     
@@ -573,10 +588,6 @@ In order to use this tool you can do it from the command line or you can hook it
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -590,7 +601,7 @@ In order to use this tool you can do it from the command line or you can hook it
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - Paul Stack (@stack72) -
+  Copyright &copy; 2016 - Paul Stack (@stack72) -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

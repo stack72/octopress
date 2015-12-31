@@ -4,7 +4,7 @@
   <title><![CDATA[Adventures of a wannabe geek!]]></title>
   <link href="http://paulstack.co.uk/atom.xml" rel="self"/>
   <link href="http://paulstack.co.uk/"/>
-  <updated>2015-12-30T17:20:40+00:00</updated>
+  <updated>2016-01-02T13:31:31+00:00</updated>
   <id>http://paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -12,6 +12,644 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Building an ElasticSearch cluster in AWS with Packer and Terraform]]></title>
+    <link href="http://paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/"/>
+    <updated>2016-01-02T12:47:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform</id>
+    <content type="html"><![CDATA[<p>As discussed in a <a href="http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">previous post</a>, I like to build separate <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">AMIs</a> for each of my systems. This allows me to scale up and recycle nodes easily. I have been doing this with <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> for a while now. I usually build an AMI with <a href="https://packer.io/">Packer</a> and <a href="http://www.ansible.com/">Ansible</a> and I use <a href="https://terraform.io/">Terraform</a> to roll out the infrastructure</p>
+
+<h3>Building ElasticSearch AMIs with Packer</h3>
+
+<p>The packer template looks as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{
+</span><span class='line'>  "variables": {
+</span><span class='line'>    "ami_id": "",
+</span><span class='line'>    "private_subnet_id": "",
+</span><span class='line'>    "security_group_id": "",
+</span><span class='line'>    "packer_build_number": "",
+</span><span class='line'>  },
+</span><span class='line'>  "description": "ElasticSearch Image",
+</span><span class='line'>  "builders": [
+</span><span class='line'>    {
+</span><span class='line'>      "ami_name": "elasticsearch-",
+</span><span class='line'>      "availability_zone": "eu-west-1a",
+</span><span class='line'>      "iam_instance_profile": "app-server",
+</span><span class='line'>      "instance_type": "t2.small",
+</span><span class='line'>      "region": "eu-west-1",
+</span><span class='line'>      "run_tags": {
+</span><span class='line'>        "role": "packer"
+</span><span class='line'>      },
+</span><span class='line'>      "security_group_ids": [
+</span><span class='line'>        ""
+</span><span class='line'>      ],
+</span><span class='line'>      "source_ami": "",
+</span><span class='line'>      "ssh_timeout": "10m",
+</span><span class='line'>      "ssh_username": "ubuntu",
+</span><span class='line'>      "subnet_id": "",
+</span><span class='line'>      "tags": {
+</span><span class='line'>        "Name": "elasticsearch-packer-image"
+</span><span class='line'>      },
+</span><span class='line'>      "type": "amazon-ebs"
+</span><span class='line'>    }
+</span><span class='line'>  ],
+</span><span class='line'>  "provisioners": [
+</span><span class='line'>    {
+</span><span class='line'>      "type": "shell",
+</span><span class='line'>      "inline": [ "sleep 10" ]
+</span><span class='line'>    },
+</span><span class='line'>    {
+</span><span class='line'>      "type": "shell",
+</span><span class='line'>      "script": "install_dependencies.sh",
+</span><span class='line'>      "execute_command": "echo '' |  sudo -E -S sh ''"
+</span><span class='line'>    },
+</span><span class='line'>    {
+</span><span class='line'>      "type": "ansible-local",
+</span><span class='line'>      "playbook_file": "elasticsearch.yml",
+</span><span class='line'>      "extra_arguments": [
+</span><span class='line'>        "--module-path=./modules"
+</span><span class='line'>      ],
+</span><span class='line'>      "playbook_dir": "../../"
+</span><span class='line'>    }
+</span><span class='line'>  ]
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is essentially a pretty simple script and builds an AWS Instance in a private subnet of my choice in eu-west-1a in AWS.</p>
+
+<h4>install_dependencies.sh</h4>
+
+<p>The first part of the script just installs the dependencies that my system has:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</span><span class='line'>
+</span><span class='line'>apt-get update
+</span><span class='line'>apt-get upgrade -y
+</span><span class='line'>apt-get install -y software-properties-common git
+</span><span class='line'>apt-add-repository -y ppa:ansible/ansible apt-get update
+</span><span class='line'>
+</span><span class='line'># workaround for ubuntu pip bug - https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1306991
+</span><span class='line'>rm -rf /usr/local/lib/python2.7/dist-packages/requests
+</span><span class='line'>apt-get install -y python-dev
+</span><span class='line'>
+</span><span class='line'>ssh-keyscan -H github.com &gt; /etc/ssh/ssh_known_hosts
+</span><span class='line'>
+</span><span class='line'>wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+</span><span class='line'>python get-pip.py
+</span><span class='line'>
+</span><span class='line'>pip install ansible paramiko PyYAML jinja2 httplib2 netifaces boto awscli six
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Ansible playbook for ElasticSearch</h4>
+
+<p>The ElasticSearch playbook looks as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>- hosts: all
+</span><span class='line'>  sudo: yes
+</span><span class='line'>
+</span><span class='line'>  pre_tasks:
+</span><span class='line'>    - ec2_tags:
+</span><span class='line'>    - ec2_facts:
+</span><span class='line'>
+</span><span class='line'>  roles:
+</span><span class='line'>    - base
+</span><span class='line'>    - elasticsearch</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install ElasticSearch.</p>
+
+<p>The ElasticSearch role looks as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>- ec2_facts:
+</span><span class='line'>- ec2_tags:
+</span><span class='line'>
+</span><span class='line'>- name: Add Oracle Java Repository
+</span><span class='line'>  apt_repository: repo='ppa:webupd8team/java'
+</span><span class='line'>
+</span><span class='line'>- name: Accept Java 8 Licence
+</span><span class='line'>  shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | tee /etc/oracle-java-8-licence-acceptance | /usr/bin/debconf-set-selections
+</span><span class='line'>  args:
+</span><span class='line'>    creates: /etc/oracle-java-8-licence-acceptance
+</span><span class='line'>
+</span><span class='line'>- name: Add ElasticSearch repo public signing key
+</span><span class='line'>  apt_key: id=46095ACC8548582C1A2699A9D27D666CD88E42B4 url=https://packages.elastic.co/GPG-KEY-elasticsearch state=present
+</span><span class='line'>
+</span><span class='line'>- name: Add ElasticSearch repository
+</span><span class='line'>  apt_repository:
+</span><span class='line'>    repo: 'deb http://packages.elasticsearch.org/elasticsearch//debian stable main'
+</span><span class='line'>    state: present
+</span><span class='line'>
+</span><span class='line'>- name: Install Oracle Java 8
+</span><span class='line'>  apt: name= state=latest
+</span><span class='line'>  with_items:
+</span><span class='line'>    - oracle-java8-installer
+</span><span class='line'>    - ca-certificates
+</span><span class='line'>    - oracle-java8-set-default
+</span><span class='line'>
+</span><span class='line'>- name: Install ElasticSearch
+</span><span class='line'>  apt: name=elasticsearch= state=present
+</span><span class='line'>  notify: Restart elasticsearch
+</span><span class='line'>
+</span><span class='line'>- name: Copy /etc/default/elasticsearch
+</span><span class='line'>  template: src=elasticsearch dest=/etc/default/elasticsearch
+</span><span class='line'>  notify: Restart elasticsearch
+</span><span class='line'>
+</span><span class='line'>- name: Copy /etc/elasticsearch/elasticsearch.yml
+</span><span class='line'>  template: src=elasticsearch.yml dest=/etc/elasticsearch/elasticsearch.yml
+</span><span class='line'>  notify: Restart elasticsearch
+</span><span class='line'>
+</span><span class='line'>- name: Set elasticsearch service to start on boot
+</span><span class='line'>  service: name=elasticsearch enabled=yes
+</span><span class='line'>
+</span><span class='line'>- name: Install plugins
+</span><span class='line'>  command: bin/plugin --install 
+</span><span class='line'>  args:
+</span><span class='line'>    chdir: ""
+</span><span class='line'>    creates: "/plugins/"
+</span><span class='line'>  with_items: es_plugins
+</span><span class='line'>  notify: Restart elasticsearch
+</span><span class='line'>
+</span><span class='line'>- name: Set elasticsearch to be running
+</span><span class='line'>  service: name=elasticsearch state=running enabled=yes
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is just some basic ansible commands to get the apt-repo, packages and plugins installed in the system. You can find the templates used <a href="https://gist.github.com/stack72/bdef4126ae8b08214bd8">here</a>. The important part to note is that variables are used both in the script <strong>and</strong> in the templates to setup the cluster to the required level.</p>
+
+<p>My variables look as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>es_release: "1.6"
+</span><span class='line'>es_version: ".0"
+</span><span class='line'>es_home: /usr/share/elasticsearch
+</span><span class='line'>es_wait_for_listen: yes
+</span><span class='line'>es_etc:
+</span><span class='line'>  cluster_name: central_logging_cluster
+</span><span class='line'>  discovery.type: ec2
+</span><span class='line'>  discovery.ec2.groups: elasticsearch-sg
+</span><span class='line'>  cloud.aws.region: ""
+</span><span class='line'>es_default_es_heap_size: 4g
+</span><span class='line'>es_plugins:
+</span><span class='line'>  - name: elasticsearch/elasticsearch-cloud-aws/2.6.0
+</span><span class='line'>  - name: elasticsearch/marvel/latest
+</span><span class='line'>  - name: mobz/elasticsearch-head
+</span><span class='line'>es_etc_index_number_of_replicas: 2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As I have specified <code>elasticsearch-sg</code> and installed the <code>elasticsearch-cloud-aws</code> plugin, my nodes can auto-discover each other in the aws region. I can build the packer image as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</span><span class='line'>
+</span><span class='line'>LATEST_UBUNTU_IMAGE=$(curl http://cloud-images.ubuntu.com/locator/ec2/releasesTable | grep eu-west-1 | grep trusty | grep amd64 | grep "\"hvm:ebs\"" | awk -F "[&lt;&gt;]" '{print $3}')
+</span><span class='line'>
+</span><span class='line'>packer build \
+</span><span class='line'>  -var ami_id=$LATEST_UBUNTU_IMAGE \
+</span><span class='line'>  -var security_group_id=MYSGID\
+</span><span class='line'>  -var private_subnet_id=MYSUBNETID \
+</span><span class='line'>  -var packer_build_number=PACKERBUILDNUMBER \
+</span><span class='line'>  elasticsearch.json
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We are now ready to build the infrastructure for the cluster</p>
+
+<h3>Building an ElasticSearch Cluster with Terraform</h3>
+
+<p>The infrastructure of the ElasticSearch cluster is now pretty easy. I deploy my nodes into a <a href="https://aws.amazon.com/vpc/">VPC</a> and onto private subnets so that they are not externally accessible. I have an <a href="https://aws.amazon.com/elasticloadbalancing/">ELB</a> in place across the nodes so that I can easily get to the ElasticSearch plugins like <a href="https://www.elastic.co/guide/en/marvel/current/index.html">Marvel</a> and <a href="https://mobz.github.io/elasticsearch-head/">Head</a>.</p>
+
+<p>The Terraform configuration is as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>resource "aws_security_group" "elasticsearch" {
+</span><span class='line'>  name = "elasticsearch-sg"
+</span><span class='line'>  description = "ElasticSearch Security Group"
+</span><span class='line'>  vpc_id = "${aws_vpc.default.id}"
+</span><span class='line'>
+</span><span class='line'>  ingress {
+</span><span class='line'>    from_port = 9200
+</span><span class='line'>    to_port   = 9400
+</span><span class='line'>    protocol  = "tcp"
+</span><span class='line'>    security_groups = ["${aws_security_group.elasticsearch_elb.id}"]
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  ingress {
+</span><span class='line'>    from_port = 9200
+</span><span class='line'>    to_port   = 9400
+</span><span class='line'>    protocol  = "tcp"
+</span><span class='line'>    security_groups = ["${aws_security_group.node.id}"]
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  egress {
+</span><span class='line'>    from_port = "0"
+</span><span class='line'>    to_port = "0"
+</span><span class='line'>    protocol = "-1"
+</span><span class='line'>    cidr_blocks = ["0.0.0.0/0"]
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  tags {
+</span><span class='line'>    Name = "ElasticSearch Node"
+</span><span class='line'>  }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>resource "aws_security_group" "elasticsearch_elb" {
+</span><span class='line'>  name = "elasticsearch-elb-sg"
+</span><span class='line'>  description = "ElasticSearch Elastic Load Balancer Security Group"
+</span><span class='line'>  vpc_id = "${aws_vpc.default.id}"
+</span><span class='line'>
+</span><span class='line'>  ingress {
+</span><span class='line'>    from_port = 9200
+</span><span class='line'>    to_port   = 9200
+</span><span class='line'>    protocol  = "tcp"
+</span><span class='line'>    security_groups = ["${aws_security_group.node.id}"]
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  egress {
+</span><span class='line'>    from_port = "0"
+</span><span class='line'>    to_port = "0"
+</span><span class='line'>    protocol = "-1"
+</span><span class='line'>    cidr_blocks = ["0.0.0.0/0"]
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  tags {
+</span><span class='line'>    Name = "ElasticSearch Load Balancer"
+</span><span class='line'>  }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>resource "aws_elb" "elasticsearch_elb" {
+</span><span class='line'>  name = "elasticsearch-elb"
+</span><span class='line'>  subnets = ["${aws_subnet.primary-private.id}","${aws_subnet.secondary-private.id}","${aws_subnet.tertiary-private.id}"]
+</span><span class='line'>  security_groups = ["${aws_security_group.elasticsearch_elb.id}"]
+</span><span class='line'>  cross_zone_load_balancing = true
+</span><span class='line'>  connection_draining = true
+</span><span class='line'>  internal = true
+</span><span class='line'>
+</span><span class='line'>  listener {
+</span><span class='line'>    instance_port      = 9200
+</span><span class='line'>    instance_protocol  = "tcp"
+</span><span class='line'>    lb_port            = 9200
+</span><span class='line'>    lb_protocol        = "tcp"
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  health_check {
+</span><span class='line'>    healthy_threshold   = 2
+</span><span class='line'>    unhealthy_threshold = 2
+</span><span class='line'>    interval            = 10
+</span><span class='line'>    target              = "TCP:9200"
+</span><span class='line'>    timeout             = 5
+</span><span class='line'>  }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>resource "aws_autoscaling_group" "elasticsearch_autoscale_group" {
+</span><span class='line'>  name = "elasticsearch-autoscale-group"
+</span><span class='line'>  availability_zones = ["${aws_subnet.primary-private.availability_zone}","${aws_subnet.secondary-private.availability_zone}","${aws_subnet.tertiary-private.availability_zone}"]
+</span><span class='line'>  vpc_zone_identifier = ["${aws_subnet.primary-private.id}","${aws_subnet.secondary-private.id}","${aws_subnet.tertiary-private.id}"]
+</span><span class='line'>  launch_configuration = "${aws_launch_configuration.elasticsearch_launch_config.id}"
+</span><span class='line'>  min_size = 3
+</span><span class='line'>  max_size = 100
+</span><span class='line'>  desired = 3
+</span><span class='line'>  health_check_grace_period = "900"
+</span><span class='line'>  health_check_type = "EC2"
+</span><span class='line'>  load_balancers = ["${aws_elb.elasticsearch_elb.name}"]
+</span><span class='line'>
+</span><span class='line'>  tag {
+</span><span class='line'>    key = "Name"
+</span><span class='line'>    value = "elasticsearch"
+</span><span class='line'>    propagate_at_launch = true
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  tag {
+</span><span class='line'>    key = "role"
+</span><span class='line'>    value = "elasticsearch"
+</span><span class='line'>    propagate_at_launch = true
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  tag {
+</span><span class='line'>    key = "elb_name"
+</span><span class='line'>    value = "${aws_elb.elasticsearch_elb.name}"
+</span><span class='line'>    propagate_at_launch = true
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  tag {
+</span><span class='line'>    key = "elb_region"
+</span><span class='line'>    value = "${var.aws_region}"
+</span><span class='line'>    propagate_at_launch = true
+</span><span class='line'>  }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>resource "aws_launch_configuration" "elasticsearch_launch_config" {
+</span><span class='line'>  image_id = "${var.elasticsearch_ami_id}"
+</span><span class='line'>  instance_type = "${var.elasticsearch_instance_type}"
+</span><span class='line'>  iam_instance_profile = "app-server"
+</span><span class='line'>  key_name = "${aws_key_pair.terraform.key_name}"
+</span><span class='line'>  security_groups = ["${aws_security_group.elasticsearch.id}","${aws_security_group.node.id}"]
+</span><span class='line'>  enable_monitoring = false
+</span><span class='line'>
+</span><span class='line'>  lifecycle {
+</span><span class='line'>    create_before_destroy = true
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  root_block_device {
+</span><span class='line'>    volume_size = "${var.elasticsearch_volume_size}"
+</span><span class='line'>  }
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This allows me to scale my system up or down just by changing the values in my Terraform configuration. When the instances are instantiatied, the ElasticSearch cloud plugin discovers the other members of the cluster and allows the node to join the cluster</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Autoscaling Group Notifications with Terraform and AWS Lambda]]></title>
@@ -311,7 +949,7 @@
 
 <p>TL;DR: I am looking for a new role. I am an infrastructure developer who has a passion for metrics, monitoring and alerting. If you feel that you are interested in me coming to help your engineering team, then get in contact with me</p>
 
-<p><a href="public@paulstack.co.uk"><a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#x70;&#x75;&#98;&#108;&#x69;&#99;&#64;&#x70;&#97;&#117;&#108;&#x73;&#x74;&#x61;&#x63;&#107;&#x2e;&#99;&#111;&#x2e;&#x75;&#107;">&#x70;&#x75;&#98;&#108;&#105;&#99;&#x40;&#112;&#x61;&#117;&#x6c;&#x73;&#x74;&#97;&#x63;&#x6b;&#46;&#x63;&#x6f;&#46;&#117;&#107;</a></a></p>
+<p><a href="public@paulstack.co.uk"><a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#x70;&#x75;&#x62;&#x6c;&#x69;&#99;&#x40;&#x70;&#x61;&#117;&#x6c;&#x73;&#x74;&#x61;&#x63;&#107;&#x2e;&#99;&#x6f;&#46;&#x75;&#107;">&#x70;&#x75;&#98;&#108;&#105;&#x63;&#64;&#x70;&#97;&#117;&#108;&#x73;&#x74;&#x61;&#99;&#107;&#46;&#x63;&#111;&#46;&#117;&#x6b;</a></a></p>
 
 <h3>I love working on infrastructure!</h3>
 
@@ -339,7 +977,7 @@
 
 <p>If your company is looking for passionate infrastructure developers who always want to improve or If your company has a need (and the willingness) to drive their infrastructure forward and improve then I could be the right person for you.</p>
 
-<p><a href="public@paulstack.co.uk"><a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#58;&#x70;&#x75;&#x62;&#x6c;&#x69;&#99;&#x40;&#x70;&#x61;&#x75;&#108;&#x73;&#116;&#x61;&#99;&#x6b;&#46;&#99;&#x6f;&#x2e;&#x75;&#x6b;">&#x70;&#117;&#98;&#x6c;&#105;&#99;&#x40;&#x70;&#97;&#117;&#108;&#115;&#x74;&#x61;&#99;&#x6b;&#46;&#x63;&#111;&#46;&#117;&#x6b;</a></a></p>
+<p><a href="public@paulstack.co.uk"><a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x70;&#117;&#98;&#108;&#105;&#99;&#64;&#x70;&#x61;&#x75;&#x6c;&#x73;&#x74;&#x61;&#99;&#x6b;&#x2e;&#99;&#x6f;&#46;&#117;&#x6b;">&#x70;&#117;&#x62;&#x6c;&#105;&#x63;&#x40;&#x70;&#97;&#117;&#x6c;&#x73;&#116;&#x61;&#x63;&#107;&#x2e;&#99;&#111;&#46;&#x75;&#x6b;</a></a></p>
 ]]></content>
   </entry>
   
@@ -369,7 +1007,7 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
 * Buzzword 2<br/>
 * etc.</p>
 
-<p>If interested, then please contact, <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#109;&#x65;&#x40;&#x62;&#x75;&#122;&#x7a;&#119;&#x6f;&#x72;&#100;&#114;&#101;&#x63;&#114;&#x75;&#x69;&#x74;&#x65;&#114;&#x2e;&#99;&#x6f;&#x2e;&#117;&#x6b;">&#109;&#x65;&#x40;&#x62;&#x75;&#x7a;&#122;&#119;&#111;&#114;&#100;&#x72;&#101;&#x63;&#x72;&#x75;&#x69;&#x74;&#101;&#x72;&#46;&#99;&#x6f;&#x2e;&#117;&#107;</a></p>
+<p>If interested, then please contact, <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#109;&#101;&#64;&#98;&#x75;&#122;&#x7a;&#x77;&#111;&#x72;&#x64;&#x72;&#x65;&#x63;&#114;&#x75;&#105;&#116;&#101;&#x72;&#x2e;&#99;&#x6f;&#x2e;&#117;&#107;">&#x6d;&#x65;&#x40;&#98;&#x75;&#x7a;&#122;&#x77;&#111;&#x72;&#x64;&#x72;&#101;&#x63;&#114;&#117;&#105;&#x74;&#x65;&#114;&#x2e;&#x63;&#x6f;&#x2e;&#x75;&#107;</a></p>
 
 <hr />
 
@@ -667,15 +1305,6 @@ This will open the following dialog:</ul>
 <p>I just had to choose the workflow I had created (stack72-blogging-stateflow) and I could then see the transition screens were working as appropriate:</p>
 <p><a href="http://paulstack.co.uk/blog/images/image_47.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_45.png" alt="image" width="146" height="133" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/image_48.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_46.png" alt="image" width="151" height="133" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/image_49.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_47.png" alt="image" width="153" height="133" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/image_50.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_48.png" alt="image" width="148" height="133" border="0" /></a></p>
 <p>This was very easy. I must pay credit to the Youtrack team for such a simple workflow editor. IT has intellisense and was able to offer me all sorts of options on clicking control + spacebar together. Thanks also to Hadi&rsquo;s post for introducing me to the Workflow editor.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Agile teams and working from home]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/04/03/agile-teams-and-working-from-home/"/>
-    <updated>2012-04-03T00:00:00+01:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/04/03/agile-teams-and-working-from-home</id>
-    <content type="html"><![CDATA[<p>Yesterday (April 2nd 2012), I posed a question on twitter:</p>  <p><strong>Does anyone think that people working from home in an agile team is a bad idea?</strong></p>  <p>This seemed to be quite a controversial question to pose. My favourite response was “isn’t agile – as long as you get the work done, doesn’t matter home, office, card, no-cards, no??” Now, I can see what the author <a href="http://twitter.com/edonsojeva" target="_blank">(@edonsojeva)</a> is trying to say. I agree that one of the main principles of agile is getting work done. But, on the other hand, for me the best principle of agile is the ability to communicate with members of the team <strong>*and*</strong> the business. IM clients (Skype, Lync, MSN etc.) are a great way to keep in touch. But I have never found them to be fantastically efficient at being able to display the entire picture. When speaking to people I want to see them face to face (where possible). this allows us both to focus on the issue at hand.</p>  <p>when working remotely, people can get distracted. That’s just our nature. It doesn’t matter whether we get distracted by emails, twitter, other IM conversations happening at the same time or TV (yes I have seen this happen to some people), it happens. I find that that level of distraction is less in the office. Why email someone when you can get up from your desk, walk 10feet and speak to them and strike up a conversation instead? </p>  <p>I understand that it can sometimes be very important to isolate yourself just to get a few hours of no distraction. Being at home, with no one round can give you this isolation. My thoughts here are that if you do have so much to do that requires you to be isolated from the rest of the team, that you a) haven’t planned very well or b) are not agile. Team is the key word here. For me working from home takes away that sense of being part of the team. It can just make you feel a little isolated. Architecture and code can be a bit of a beast sometimes. It can therefore take other people to wind in crazy ideas. Unless you are this incredibly focused person, you can sometimes go off in a tangent or with an idea that another has already tried. It can also save time. If you run into an issue, a team member who has been in this situation before can point out a fix.</p>  <p>This leads me to the general idea that working from home is the exception rather than the rule. I wouldn’t be fantastically happy with members of the team who constantly worked from home. They would feel more like remote contractors than anything else. I understand there are incredibly focused individuals out there that can block out all these impediments and work from home efficiently. I am in no way saying that it isn’t possible. This post is merely a scratch pad to get feedback on what others have experienced.</p>
 ]]></content>
   </entry>
   

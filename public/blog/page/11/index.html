@@ -9,7 +9,8 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Seen an advert on Twitter that asked for people to volunteer to review Continuous Integration in .Net by Craig Berntson and Marcin Kawalerowicz and i &hellip;">
+  <meta name="description" content="As I&rsquo;m a wannabe Evangelist, then I thought I&rsquo;d add a new feature to my blog.&nbsp;
+Tool Of The Week This is of course something I like &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +80,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/09/13/tool-of-the-week-e28093-programmers-notepad2-e28093-100910/">Tool of the Week – Programmers Notepad2 – 10/09/10</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-13T00:00:00+01:00" pubdate data-updated="true">Sep 13<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As I&rsquo;m a wannabe Evangelist, then I thought I&rsquo;d add a new feature to my blog.&nbsp;</p>
+<p align="center"><strong>Tool Of The Week</strong></p>
+<p align="center"><strong></strong></p>
+<p align="left"><strong></strong></p>
+<p align="left">This is of course something I like doing and nothing that anyone has asked me to do or to promote things. Last week [Week Ending 10th September], there were a few new things I tried out. Most were all around new notepad support as I have grown a little tired to Notepad++ and all the updates it tried to make me install. Therefore my tool of the week was <strong><a href="http://www.pnotepad.org/" target="_blank">Programmers Notepad 2</a>.</strong></p>
+<p align="left"><strong></strong></p>
+<p align="left"><strong></strong></p>
+<p align="left">There are a few reasons why I like this product:</p>
+<ol>
+<li>
+<div>Its free - This makes a huge difference I&rsquo;m afraid as I chop and change my mind over tools all the time about whether I use them of not. I also rebuild my home machine a lot and its less hassle to install OSS than paid for.</div>
+</li>
+<li>
+<div>When I tweeted about it the main creator took the time to actually acknowledge me.</div>
+</li>
+<li>
+<div>Heard about it from a few others about how it has grown from something basic to what it is today</div>
+</li>
+</ol>
+<p align="left">&nbsp;</p>
+<p align="left">The reason I used this was for my MSBuild work for our CI server and I found the tool to be excellent. Have a look at it, its certainly worth that</p>
+<p align="left">&nbsp;</p>
+<p align="left">Thanks to Simon Steele for all the hard work! There are still some things I wish it would do &ndash; Commenting/ uncommenting code is the main one but I&rsquo;m happy with it!</p>
+<p align="left">&nbsp;</p>
+<p align="left">I give this tool 3.5/5 and a thumbs up!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -729,147 +790,6 @@ w3svc.Invoke(command, null);
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/04/21/functional-programming-in-net/">Functional Programming in .Net</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-21T00:00:00+01:00" pubdate data-updated="true">Apr 21<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.oliversturm.com/" target="_blank">Oliver Sturm</a>, formerly of <a href="http://www.devexpress.com/" target="_blank">DevExpress</a>, came to <a href="http://edgeug.net/" target="_blank">Edge UG</a> on Tuesday 13th April at the Vue Cinema in Fulham Broadway. This was of course the Venue for 1 of the Microsoft UK TechDays. Oliver came to talk about what functional programming is and why it is interesting. He also brielfy spoke about F#, LINQ and TPL [although were contrained by time]</p>
-<p>&nbsp;</p>
-<p><strong><span style="text-decoration: underline;">So What Did I Learn About Functional Programming?</span></strong></p>
-<p>Functional Programming:</p>
-<p>&nbsp;</p>
-<ul>
-<li>Avoids state management and mutable data</li>
-<li>Helps to focus on the reduction of side-effects [or tries to]</li>
-</ul>
-<div><br /></div>
-<div><strong><span style="text-decoration: underline;">What Do We Mean By The Reduction of Side-Effects?</span></strong></div>
-<div>When a function/ method replies of global variables then it cannot be determined that that variable has not been changed before the function uses it. Of course you could write a check in the function for the correct type but this seems to be a tight coupling towards that type. Therefore the calling function may fail/ throw an exception&nbsp;</div>
-<pre class="brush: csharp">	Person[] people;
-    const int maxPeople = 10;
-    Person[] displayPeople;
-    int displayCount;
-
-    private void InitData( ) 
-	{
-      people = new Person[maxPeople];
-      people[0] = new Person { Name = "Anna" };
-      people[1] = new Person { Name = "Chris" };
-      people[2] = new Person { Name = "Willy" };
-      people[3] = new Person { Name = "Hugh" };
-      people[4] = new Person { Name = "Steve" };
-      people[5] = new Person { Name = "Betty" };
-      people[6] = new Person { Name = "Carla" };
-      people[7] = new Person { Name = "John" };
-      people[8] = new Person { Name = "Pete" };
-      people[9] = new Person { Name = "Susan" };
-      displayPeople = new Person[maxPeople];
-      UpdateUI( );
-    }
-	
-	private void UpdateUI( ) 
-	{
-      DisplayListBox.Items.Clear( );
-      for (int i = 0; i &lt; displayCount; i++)
-	  {
-        DisplayListBox.Items.Add(displayPeople[i]);
-	  }
-    }
-
-
-</pre>
-<div><br /></div>
-<div>So in order to keep our functions side effect free then we should pass in the variable that the function uses rather than rely on it globally.</div>
-<p>&nbsp;</p>
-<pre class="brush: csharp">const int maxPeople = 10;
-    int displayCount;
-
-    private void InitData( ) 
-	{
-      Person[] people = new Person[maxPeople];
-      people[0] = new Person { Name = "Anna" };
-      people[1] = new Person { Name = "Chris" };
-      people[2] = new Person { Name = "Willy" };
-      people[3] = new Person { Name = "Hugh" };
-      people[4] = new Person { Name = "Steve" };
-      people[5] = new Person { Name = "Betty" };
-      people[6] = new Person { Name = "Carla" };
-      people[7] = new Person { Name = "John" };
-      people[8] = new Person { Name = "Pete" };
-      people[9] = new Person { Name = "Susan" };
-      Person[] displayPeople = new Person[maxPeople];
-      UpdateUI(displayPeople);
-    }
-	
-	private void UpdateUI(Person[] displayPeople) 
-	{
-      DisplayListBox.Items.Clear( );
-      for (int i = 0; i &lt; displayCount; i++)
-	  {
-        DisplayListBox.Items.Add(displayPeople[i]);
-	  }
-    }
-</pre>
-<div>This is because a function is a piece of code that should take parameters, process them and return a result. The parameters or the result can even be functions if necessary. This all accounts for a very <strong>pure</strong>&nbsp;function</div>
-<div><br /></div>
-<div>When at Oliver&#8217;s talk i asked the question:</div>
-<div style="text-align: center;"><em>&#8220;How does functional programming help with unit testing and TDD?&#8221;</em></div>
-<div style="text-align: center;"><br /></div>
-<div style="text-align: left;">Oliver pointed out that this is perfect for unit testing as it has no outside influences, therefore if written correctly, it can be tested easily. This function is what we try to product when we write code via TDD - that pure function - as unit tests shouldn&#8217;t have any dependencies.&nbsp;</div>
-<div style="text-align: left;"><br /></div>
-<div style="text-align: left;"><strong><span style="text-decoration: underline;">How Does a Reduction in Side-Effects Help Us?</span></strong></div>
-<div style="text-align: left;">
-<ul>
-<li>Scalability</li>
-<li>Optimized</li>
-<li>Tested</li>
-<li>Easily Debugged</li>
-</ul>
-<div>our code is modularized and potenailly <strong>clean</strong>&nbsp;and well refactored as the function should be pure.</div>
-</div>
-<div><br /></div>
-<div>Oliver showed coding examples of how you go from a function that has side effects and how this can be refactored or cleaned in order to make that function pure. As time constraints got the better of us there was not a huge amount of time to go into details of F# - we had an overview of what F# was and we seen the code samples in F#. From what I seen of it, it looks like id have to delve into that further to grasp anything firm. A small amount of time was given to Parallel in DotNet 4 - since the demo i have looked into this myself and see its very nice - blog post to follow</div>
-<div><br /></div>
-<div><br /></div>
-<div>This was yet another talk that really helped me to think about my current practices. I would definately recommend seeing this talk if you get the opportunity as Oliver is an excellent presenter. He has very kindly put his slides on <a href="http://www.sturmnet.org/blog/2010/04/14/slides-and-samples-from-my-edgeug-techda" target="_blank">his blog</a>. Thanks to Oliver for Code samples i have used here.</div>
-<div><br /></div>
-<div>Thanks to Oliver and Gavin from Edge UG for a very worthwhile talk</div>
-<div><br /></div>
-<div><strong><span style="text-decoration: underline;"><br /></span></strong></div>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -894,6 +814,10 @@ w3svc.Invoke(command, null);
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
       </li>
     
@@ -909,10 +833,6 @@ w3svc.Invoke(command, null);
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -926,7 +846,7 @@ w3svc.Invoke(command, null);
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - Paul Stack (@stack72) -
+  Copyright &copy; 2016 - Paul Stack (@stack72) -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I am pleased to be able to say that TeamCitySharp is now supports mono. In order to get the project supported I had to change a few parts of the &hellip;">
+  <meta name="description" content="Yesterday (April 2nd 2012), I posed a question on twitter: Does anyone think that people working from home in an agile team is a bad idea? This &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,42 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/03/agile-teams-and-working-from-home/">Agile Teams and Working From Home</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-03T00:00:00+01:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Yesterday (April 2nd 2012), I posed a question on twitter:</p>  <p><strong>Does anyone think that people working from home in an agile team is a bad idea?</strong></p>  <p>This seemed to be quite a controversial question to pose. My favourite response was “isn’t agile – as long as you get the work done, doesn’t matter home, office, card, no-cards, no??” Now, I can see what the author <a href="http://twitter.com/edonsojeva" target="_blank">(@edonsojeva)</a> is trying to say. I agree that one of the main principles of agile is getting work done. But, on the other hand, for me the best principle of agile is the ability to communicate with members of the team <strong>*and*</strong> the business. IM clients (Skype, Lync, MSN etc.) are a great way to keep in touch. But I have never found them to be fantastically efficient at being able to display the entire picture. When speaking to people I want to see them face to face (where possible). this allows us both to focus on the issue at hand.</p>  <p>when working remotely, people can get distracted. That’s just our nature. It doesn’t matter whether we get distracted by emails, twitter, other IM conversations happening at the same time or TV (yes I have seen this happen to some people), it happens. I find that that level of distraction is less in the office. Why email someone when you can get up from your desk, walk 10feet and speak to them and strike up a conversation instead? </p>  <p>I understand that it can sometimes be very important to isolate yourself just to get a few hours of no distraction. Being at home, with no one round can give you this isolation. My thoughts here are that if you do have so much to do that requires you to be isolated from the rest of the team, that you a) haven’t planned very well or b) are not agile. Team is the key word here. For me working from home takes away that sense of being part of the team. It can just make you feel a little isolated. Architecture and code can be a bit of a beast sometimes. It can therefore take other people to wind in crazy ideas. Unless you are this incredibly focused person, you can sometimes go off in a tangent or with an idea that another has already tried. It can also save time. If you run into an issue, a team member who has been in this situation before can point out a fix.</p>  <p>This leads me to the general idea that working from home is the exception rather than the rule. I wouldn’t be fantastically happy with members of the team who constantly worked from home. They would feel more like remote contractors than anything else. I understand there are incredibly focused individuals out there that can block out all these impediments and work from home efficiently. I am in no way saying that it isn’t possible. This post is merely a scratch pad to get feedback on what others have experienced.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -499,51 +535,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/11/24/introducing-teamcitysharp/">TeamCitySharp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-11-24T00:00:00+00:00" pubdate data-updated="true">Nov 24<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://github.com/stack72/TeamCitySharp">TeamCitySharp</a> (TCS) is a simple .net wrapper that will let you interact with a TeamCity server providing you have a login for that system. TeamCity has a REST API but this wrapper will help simplify the calls that that API and deserialize the response for the server into POCOs for you.</p>
-<p>In order to get a list of projects on a TeamCity server you would make the request to the following URL:</p>
-<p><a href="http://&lt;serverurl&gt;/httpAuth/app/rest/projects">http://&lt;serverurl&gt;/httpAuth/app/rest/projects</a></p>
-<p>In order to interact with this, you could use <a href="https://github.com/hhariri/EasyHttp">EasyHTTP</a> or HTTP WebRequest. You would set up a connection, specify a content type, give user credentials and then get a response back that you can use. TeamCitySharp has taken care of this for you. The corresponding code to make the same code using TeamCitySharp would be as follows:</p>
-<script type="text/javascript" src="https://gist.github.com/2a382b5c0699444d8cf4.js"></script>
-<p>There are a number of methods available that will let you get projects, build status&rsquo;, build types, users, agents, user groups and server information. The project cannot be used to create projects or build types. This is due to the absence of the appropriate calls on the TeamCity REST API. A full list of functionality of the TeamCitySharp API calls can be found in the <a href="http://github.com/stack72/TeamCitySharp/blob/master/README.md">documentation</a>.</p>
-<p>I have created a TeamCitySharp <a href="http://nuget.org/List/Packages/TeamCitySharp">nuget package</a> and you can install that from nuget command line using the comment:</p>
-<p><strong>install-package TeamCitySharp</strong></p>
-<p>This is very much an early version of the project in order to get user feedback. If you do try it then please do let me know what you don&rsquo;t like about it and what you feel it would benefit from. Thanks really must go to <a href="http://twitter.com/hhariri">Hadi Hariri</a> for the idea after I saw&nbsp;<a href="https://github.com/JetBrains/YouTrackSharp">YouTrackSharp</a>.</p>
-<p>Please feel free to fork the project and send any requests back you feel the project would benefit from. The project is distributed under the <a href="http://stack72.mit-license.org/">MIT license</a> so please adhere to this when using it.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -568,6 +559,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
       </li>
     
@@ -583,10 +578,6 @@
         <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2015/03/04/looking-for-a-new-role/">Looking for a New Role</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -600,7 +591,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - Paul Stack (@stack72) -
+  Copyright &copy; 2016 - Paul Stack (@stack72) -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
