@@ -4,7 +4,7 @@
   <title><![CDATA[Category: books | Adventures of a wannabe geek!]]></title>
   <link href="http://paulstack.co.uk/blog/categories/books/atom.xml" rel="self"/>
   <link href="http://paulstack.co.uk/"/>
-  <updated>2016-01-02T13:31:31+00:00</updated>
+  <updated>2016-01-03T14:35:12+00:00</updated>
   <id>http://paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -28,7 +28,6 @@
 <li>System Architecture</li>
 <li>Tooling</li>
 </ul>
-
 
 <p>I want this repository to continue to grow with a list of links to books that people would recommend. If you feel you want to make some recommendations, then please feel free to send a PR!</p>
 

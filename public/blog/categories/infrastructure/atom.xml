@@ -4,7 +4,7 @@
   <title><![CDATA[Category: infrastructure | Adventures of a wannabe geek!]]></title>
   <link href="http://paulstack.co.uk/blog/categories/infrastructure/atom.xml" rel="self"/>
   <link href="http://paulstack.co.uk/"/>
-  <updated>2016-01-02T13:31:31+00:00</updated>
+  <updated>2016-01-03T14:35:12+00:00</updated>
   <id>http://paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -24,77 +24,70 @@
 
 <p>The packer template looks as follows:</p>
 
-<p>```
+<p>
+<code>json 
 {
-  &ldquo;variables&rdquo;: {</p>
-
-<pre><code>"ami_id": "",
-"private_subnet_id": "",
-"security_group_id": "",
-"packer_build_number": "",
-</code></pre>
-
-<p>  },
-  &ldquo;description&rdquo;: &ldquo;ElasticSearch Image&rdquo;,
-  &ldquo;builders&rdquo;: [</p>
-
-<pre><code>{
-  "ami_name": "elasticsearch-",
-  "availability_zone": "eu-west-1a",
-  "iam_instance_profile": "app-server",
-  "instance_type": "t2.small",
-  "region": "eu-west-1",
-  "run_tags": {
-    "role": "packer"
+  &quot;variables&quot;: {
+    &quot;ami_id&quot;: &quot;&quot;,
+    &quot;private_subnet_id&quot;: &quot;&quot;,
+    &quot;security_group_id&quot;: &quot;&quot;,
+    &quot;packer_build_number&quot;: &quot;&quot;,
   },
-  "security_group_ids": [
-    ""
+  &quot;description&quot;: &quot;ElasticSearch Image&quot;,
+  &quot;builders&quot;: [
+    {
+      &quot;ami_name&quot;: &quot;elasticsearch-{{user `packer_build_number`}}&quot;,
+      &quot;availability_zone&quot;: &quot;eu-west-1a&quot;,
+      &quot;iam_instance_profile&quot;: &quot;app-server&quot;,
+      &quot;instance_type&quot;: &quot;t2.small&quot;,
+      &quot;region&quot;: &quot;eu-west-1&quot;,
+      &quot;run_tags&quot;: {
+        &quot;role&quot;: &quot;packer&quot;
+      },
+      &quot;security_group_ids&quot;: [
+        &quot;{{user `security_group_id`}}&quot;
+      ],
+      &quot;source_ami&quot;: &quot;{{user `ami_id`}}&quot;,
+      &quot;ssh_timeout&quot;: &quot;10m&quot;,
+      &quot;ssh_username&quot;: &quot;ubuntu&quot;,
+      &quot;subnet_id&quot;: &quot;{{user `private_subnet_id`}}&quot;,
+      &quot;tags&quot;: {
+        &quot;Name&quot;: &quot;elasticsearch-packer-image&quot;
+      },
+      &quot;type&quot;: &quot;amazon-ebs&quot;
+    }
   ],
-  "source_ami": "",
-  "ssh_timeout": "10m",
-  "ssh_username": "ubuntu",
-  "subnet_id": "",
-  "tags": {
-    "Name": "elasticsearch-packer-image"
-  },
-  "type": "amazon-ebs"
+  &quot;provisioners&quot;: [
+    {
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;inline&quot;: [ &quot;sleep 10&quot; ]
+    },
+    {
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;script&quot;: &quot;install_dependencies.sh&quot;,
+      &quot;execute_command&quot;: &quot;echo &#39;&#39; | {{ .Vars }} sudo -E -S sh &#39;{{ .Path }}&#39;&quot;
+    },
+    {
+      &quot;type&quot;: &quot;ansible-local&quot;,
+      &quot;playbook_file&quot;: &quot;elasticsearch.yml&quot;,
+      &quot;extra_arguments&quot;: [
+        &quot;--module-path=./modules&quot;
+      ],
+      &quot;playbook_dir&quot;: &quot;../../&quot;
+    }
+  ]
 }
-</code></pre>
+</code>
+</p>
 
-<p>  ],
-  &ldquo;provisioners&rdquo;: [</p>
-
-<pre><code>{
-  "type": "shell",
-  "inline": [ "sleep 10" ]
-},
-{
-  "type": "shell",
-  "script": "install_dependencies.sh",
-  "execute_command": "echo '' |  sudo -E -S sh ''"
-},
-{
-  "type": "ansible-local",
-  "playbook_file": "elasticsearch.yml",
-  "extra_arguments": [
-    "--module-path=./modules"
-  ],
-  "playbook_dir": "../../"
-}
-</code></pre>
-
-<p>  ]
-}</p>
-
-<p>```</p>
-
-<p>This is essentially a pretty simple script and builds an AWS Instance in a private subnet of my choice in eu-west-1a in AWS.</p>
+<p>This is essentially a pretty simple script and builds an AWS Instance in a private subnet of my choice in eu-west-1a in AWS. </p>
 
 <h4>install_dependencies.sh</h4>
 
 <p>The first part of the script just installs the dependencies that my system has:</p>
 
-<p>```</p>
+<p>
+```bash</p>
 
 <h1>!/bin/bash</h1>
 
@@ -103,75 +96,72 @@ apt-get upgrade -y
 apt-get install -y software-properties-common git
 apt-add-repository -y ppa:ansible/ansible apt-get update</p>
 
-<h1>workaround for ubuntu pip bug &ndash; <a href="https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1306991">https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1306991</a></h1>
+<h1>workaround for ubuntu pip bug - https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1306991</h1>
 
 <p>rm -rf /usr/local/lib/python2.7/dist-packages/requests
 apt-get install -y python-dev</p>
 
-<p>ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts</p>
+<p>ssh-keyscan -H github.com &gt; /etc/ssh/ssh<em>known</em>hosts</p>
 
-<p>wget <a href="https://raw.github.com/pypa/pip/master/contrib/get-pip.py">https://raw.github.com/pypa/pip/master/contrib/get-pip.py</a>
+<p>wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 python get-pip.py</p>
 
-<p>pip install ansible paramiko PyYAML jinja2 httplib2 netifaces boto awscli six</p>
-
-<p>```</p>
+<p>pip install ansible paramiko PyYAML jinja2 httplib2 netifaces boto awscli six
+```
+</p>
 
 <h4>Ansible playbook for ElasticSearch</h4>
 
 <p>The ElasticSearch playbook looks as follows:</p>
 
-<p>```
-&ndash; hosts: all
+<p>
+```YAML<br>
+- hosts: all
   sudo: yes</p>
 
-<p>  pre_tasks:</p>
+<p>pre<em>tasks:
+    - ec2</em>tags:
+    - ec2_facts:</p>
 
-<pre><code>- ec2_tags:
-- ec2_facts:
-</code></pre>
+<p>roles:
+    - base
+    - elasticsearch
+```
+</p>
 
-<p>  roles:</p>
-
-<pre><code>- base
-- elasticsearch
-</code></pre>
-
-<p>```</p>
-
-<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install ElasticSearch.</p>
+<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install ElasticSearch. </p>
 
 <p>The ElasticSearch role looks as follows:</p>
 
-<p>```
-&ndash; ec2_facts:
-&ndash; ec2_tags:</p>
+<p>
+```YAML
+- ec2<em>facts:
+- ec2</em>tags:</p>
 
 <ul>
 <li><p>name: Add Oracle Java Repository
-apt_repository: repo=&lsquo;ppa:webupd8team/java&rsquo;</p></li>
+apt_repository: repo=&#39;ppa:webupd8team/java&#39;</p></li>
 <li><p>name: Accept Java 8 Licence
 shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | tee /etc/oracle-java-8-licence-acceptance | /usr/bin/debconf-set-selections
 args:
-  creates: /etc/oracle-java-8-licence-acceptance</p></li>
+creates: /etc/oracle-java-8-licence-acceptance</p></li>
 <li><p>name: Add ElasticSearch repo public signing key
-apt_key: id=46095ACC8548582C1A2699A9D27D666CD88E42B4 url=<a href="https://packages.elastic.co/GPG-KEY-elasticsearch">https://packages.elastic.co/GPG-KEY-elasticsearch</a> state=present</p></li>
+apt_key: id=46095ACC8548582C1A2699A9D27D666CD88E42B4 url=https://packages.elastic.co/GPG-KEY-elasticsearch state=present</p></li>
 <li><p>name: Add ElasticSearch repository
-apt_repository:
-  repo: &lsquo;deb <a href="http://packages.elasticsearch.org/elasticsearch/">http://packages.elasticsearch.org/elasticsearch/</a>/debian stable main&rsquo;
-  state: present</p></li>
+apt<em>repository:
+repo: &#39;deb http://packages.elasticsearch.org/elasticsearch/{{ es</em>release }}/debian stable main&#39;
+state: present</p></li>
 <li><p>name: Install Oracle Java 8
-apt: name= state=latest
+apt: name={{item}} state=latest
 with_items:</p>
 
 <ul>
 <li>oracle-java8-installer</li>
 <li>ca-certificates</li>
 <li>oracle-java8-set-default</li>
-</ul>
-</li>
+</ul></li>
 <li><p>name: Install ElasticSearch
-apt: name=elasticsearch= state=present
+apt: name=elasticsearch={{ es_version }} state=present
 notify: Restart elasticsearch</p></li>
 <li><p>name: Copy /etc/default/elasticsearch
 template: src=elasticsearch dest=/etc/default/elasticsearch
@@ -182,247 +172,191 @@ notify: Restart elasticsearch</p></li>
 <li><p>name: Set elasticsearch service to start on boot
 service: name=elasticsearch enabled=yes</p></li>
 <li><p>name: Install plugins
-command: bin/plugin &mdash;install 
+command: bin/plugin --install {{item.name}}
 args:
-  chdir: &ldquo;&rdquo;
-  creates: &ldquo;/plugins/&rdquo;
-with_items: es_plugins
+chdir: &quot;{{ es<em>home }}&quot;
+creates: &quot;{{ es</em>home }}/plugins/{{ item.plugin<em>file | default(item.name.split(&#39;/&#39;)[1]) }}&quot;
+with</em>items: es_plugins
 notify: Restart elasticsearch</p></li>
 <li><p>name: Set elasticsearch to be running
 service: name=elasticsearch state=running enabled=yes</p></li>
 </ul>
+<div class="highlight"><pre><code class="text">
 
+This is just some basic ansible commands to get the apt-repo, packages and plugins installed in the system. You can find the templates used [here](https://gist.github.com/stack72/bdef4126ae8b08214bd8). The important part to note is that variables are used both in the script **and** in the templates to setup the cluster to the required level.
 
-<p>```</p>
-
-<p>This is just some basic ansible commands to get the apt-repo, packages and plugins installed in the system. You can find the templates used <a href="https://gist.github.com/stack72/bdef4126ae8b08214bd8">here</a>. The important part to note is that variables are used both in the script <strong>and</strong> in the templates to setup the cluster to the required level.</p>
-
-<p>My variables look as follows:</p>
-
-<p><code>
-es_release: "1.6"
-es_version: ".0"
-es_home: /usr/share/elasticsearch
-es_wait_for_listen: yes
-es_etc:
-  cluster_name: central_logging_cluster
+My variables look as follows:
+</code></pre></div>
+<p>es<em>release: &quot;1.6&quot;
+es</em>version: &quot;.0&quot;
+es</em>home: /usr/share/elasticsearch
+es<em>wait</em>for<em>listen: yes
+es</em>etc:
+  cluster<em>name: central</em>logging<em>cluster
   discovery.type: ec2
   discovery.ec2.groups: elasticsearch-sg
-  cloud.aws.region: ""
-es_default_es_heap_size: 4g
-es_plugins:
+  cloud.aws.region: &quot;&quot;
+es<em>default</em>es<em>heap</em>size: 4g
+es<em>plugins:
   - name: elasticsearch/elasticsearch-cloud-aws/2.6.0
   - name: elasticsearch/marvel/latest
   - name: mobz/elasticsearch-head
-es_etc_index_number_of_replicas: 2
-</code></p>
+es</em>etc<em>index</em>number<em>of</em>replicas: 2
+```</p>
 
 <p>As I have specified <code>elasticsearch-sg</code> and installed the <code>elasticsearch-cloud-aws</code> plugin, my nodes can auto-discover each other in the aws region. I can build the packer image as follows:</p>
+<div class="highlight"><pre><code class="text">#!/bin/bash
 
-<p>```</p>
+LATEST_UBUNTU_IMAGE=$(curl http://cloud-images.ubuntu.com/locator/ec2/releasesTable | grep eu-west-1 | grep trusty | grep amd64 | grep &quot;\&quot;hvm:ebs\&quot;&quot; | awk -F &quot;[&lt;&gt;]&quot; &#39;{print $3}&#39;)
 
-<h1>!/bin/bash</h1>
-
-<p>LATEST_UBUNTU_IMAGE=$(curl <a href="http://cloud-images.ubuntu.com/locator/ec2/releasesTable">http://cloud-images.ubuntu.com/locator/ec2/releasesTable</a> | grep eu-west-1 | grep trusty | grep amd64 | grep &ldquo;\"hvm:ebs\&rdquo;&ldquo; | awk -F &rdquo;[&lt;>]&ldquo; &lsquo;{print $3}&rsquo;)</p>
-
-<p>packer build \
+packer build \
   -var ami_id=$LATEST_UBUNTU_IMAGE \
   -var security_group_id=MYSGID\
   -var private_subnet_id=MYSUBNETID \
   -var packer_build_number=PACKERBUILDNUMBER \
-  elasticsearch.json</p>
-
-<p>```</p>
-
+  elasticsearch.json
+</code></pre></div>
 <p>We are now ready to build the infrastructure for the cluster</p>
 
 <h3>Building an ElasticSearch Cluster with Terraform</h3>
 
 <p>The infrastructure of the ElasticSearch cluster is now pretty easy. I deploy my nodes into a <a href="https://aws.amazon.com/vpc/">VPC</a> and onto private subnets so that they are not externally accessible. I have an <a href="https://aws.amazon.com/elasticloadbalancing/">ELB</a> in place across the nodes so that I can easily get to the ElasticSearch plugins like <a href="https://www.elastic.co/guide/en/marvel/current/index.html">Marvel</a> and <a href="https://mobz.github.io/elasticsearch-head/">Head</a>.</p>
 
-<p>The Terraform configuration is as follows:</p>
+<p>The Terraform configuration is as follows:  </p>
+<div class="highlight"><pre><code class="text">resource &quot;aws_security_group&quot; &quot;elasticsearch&quot; {
+  name = &quot;elasticsearch-sg&quot;
+  description = &quot;ElasticSearch Security Group&quot;
+  vpc_id = &quot;${aws_vpc.default.id}&quot;
 
-<p>```
-resource &ldquo;aws_security_group&rdquo; &ldquo;elasticsearch&rdquo; {
-  name = &ldquo;elasticsearch-sg&rdquo;
-  description = &ldquo;ElasticSearch Security Group&rdquo;
-  vpc_id = &ldquo;${aws_vpc.default.id}&rdquo;</p>
+  ingress {
+    from_port = 9200
+    to_port   = 9400
+    protocol  = &quot;tcp&quot;
+    security_groups = [&quot;${aws_security_group.elasticsearch_elb.id}&quot;]
+  }
 
-<p>  ingress {</p>
+  ingress {
+    from_port = 9200
+    to_port   = 9400
+    protocol  = &quot;tcp&quot;
+    security_groups = [&quot;${aws_security_group.node.id}&quot;]
+  }
 
-<pre><code>from_port = 9200
-to_port   = 9400
-protocol  = "tcp"
-security_groups = ["${aws_security_group.elasticsearch_elb.id}"]
-</code></pre>
+  egress {
+    from_port = &quot;0&quot;
+    to_port = &quot;0&quot;
+    protocol = &quot;-1&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
 
-<p>  }</p>
+  tags {
+    Name = &quot;ElasticSearch Node&quot;
+  }
+}
 
-<p>  ingress {</p>
 
-<pre><code>from_port = 9200
-to_port   = 9400
-protocol  = "tcp"
-security_groups = ["${aws_security_group.node.id}"]
-</code></pre>
+resource &quot;aws_security_group&quot; &quot;elasticsearch_elb&quot; {
+  name = &quot;elasticsearch-elb-sg&quot;
+  description = &quot;ElasticSearch Elastic Load Balancer Security Group&quot;
+  vpc_id = &quot;${aws_vpc.default.id}&quot;
 
-<p>  }</p>
+  ingress {
+    from_port = 9200
+    to_port   = 9200
+    protocol  = &quot;tcp&quot;
+    security_groups = [&quot;${aws_security_group.node.id}&quot;]
+  }
 
-<p>  egress {</p>
+  egress {
+    from_port = &quot;0&quot;
+    to_port = &quot;0&quot;
+    protocol = &quot;-1&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
 
-<pre><code>from_port = "0"
-to_port = "0"
-protocol = "-1"
-cidr_blocks = ["0.0.0.0/0"]
-</code></pre>
+  tags {
+    Name = &quot;ElasticSearch Load Balancer&quot;
+  }
+}
 
-<p>  }</p>
-
-<p>  tags {</p>
-
-<pre><code>Name = "ElasticSearch Node"
-</code></pre>
-
-<p>  }
-}</p>
-
-<p>resource &ldquo;aws_security_group&rdquo; &ldquo;elasticsearch_elb&rdquo; {
-  name = &ldquo;elasticsearch-elb-sg&rdquo;
-  description = &ldquo;ElasticSearch Elastic Load Balancer Security Group&rdquo;
-  vpc_id = &ldquo;${aws_vpc.default.id}&rdquo;</p>
-
-<p>  ingress {</p>
-
-<pre><code>from_port = 9200
-to_port   = 9200
-protocol  = "tcp"
-security_groups = ["${aws_security_group.node.id}"]
-</code></pre>
-
-<p>  }</p>
-
-<p>  egress {</p>
-
-<pre><code>from_port = "0"
-to_port = "0"
-protocol = "-1"
-cidr_blocks = ["0.0.0.0/0"]
-</code></pre>
-
-<p>  }</p>
-
-<p>  tags {</p>
-
-<pre><code>Name = "ElasticSearch Load Balancer"
-</code></pre>
-
-<p>  }
-}</p>
-
-<p>resource &ldquo;aws_elb&rdquo; &ldquo;elasticsearch_elb&rdquo; {
-  name = &ldquo;elasticsearch-elb&rdquo;
-  subnets = [&ldquo;${aws_subnet.primary-private.id}&rdquo;,&ldquo;${aws_subnet.secondary-private.id}&rdquo;,&ldquo;${aws_subnet.tertiary-private.id}&rdquo;]
-  security_groups = [&ldquo;${aws_security_group.elasticsearch_elb.id}&rdquo;]
+resource &quot;aws_elb&quot; &quot;elasticsearch_elb&quot; {
+  name = &quot;elasticsearch-elb&quot;
+  subnets = [&quot;${aws_subnet.primary-private.id}&quot;,&quot;${aws_subnet.secondary-private.id}&quot;,&quot;${aws_subnet.tertiary-private.id}&quot;]
+  security_groups = [&quot;${aws_security_group.elasticsearch_elb.id}&quot;]
   cross_zone_load_balancing = true
   connection_draining = true
-  internal = true</p>
+  internal = true
 
-<p>  listener {</p>
+  listener {
+    instance_port      = 9200
+    instance_protocol  = &quot;tcp&quot;
+    lb_port            = 9200
+    lb_protocol        = &quot;tcp&quot;
+  }
 
-<pre><code>instance_port      = 9200
-instance_protocol  = "tcp"
-lb_port            = 9200
-lb_protocol        = "tcp"
-</code></pre>
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    interval            = 10
+    target              = &quot;TCP:9200&quot;
+    timeout             = 5
+  }
+}
 
-<p>  }</p>
-
-<p>  health_check {</p>
-
-<pre><code>healthy_threshold   = 2
-unhealthy_threshold = 2
-interval            = 10
-target              = "TCP:9200"
-timeout             = 5
-</code></pre>
-
-<p>  }
-}</p>
-
-<p>resource &ldquo;aws_autoscaling_group&rdquo; &ldquo;elasticsearch_autoscale_group&rdquo; {
-  name = &ldquo;elasticsearch-autoscale-group&rdquo;
-  availability_zones = [&ldquo;${aws_subnet.primary-private.availability_zone}&rdquo;,&ldquo;${aws_subnet.secondary-private.availability_zone}&rdquo;,&ldquo;${aws_subnet.tertiary-private.availability_zone}&rdquo;]
-  vpc_zone_identifier = [&ldquo;${aws_subnet.primary-private.id}&rdquo;,&ldquo;${aws_subnet.secondary-private.id}&rdquo;,&ldquo;${aws_subnet.tertiary-private.id}&rdquo;]
-  launch_configuration = &ldquo;${aws_launch_configuration.elasticsearch_launch_config.id}&rdquo;
+resource &quot;aws_autoscaling_group&quot; &quot;elasticsearch_autoscale_group&quot; {
+  name = &quot;elasticsearch-autoscale-group&quot;
+  availability_zones = [&quot;${aws_subnet.primary-private.availability_zone}&quot;,&quot;${aws_subnet.secondary-private.availability_zone}&quot;,&quot;${aws_subnet.tertiary-private.availability_zone}&quot;]
+  vpc_zone_identifier = [&quot;${aws_subnet.primary-private.id}&quot;,&quot;${aws_subnet.secondary-private.id}&quot;,&quot;${aws_subnet.tertiary-private.id}&quot;]
+  launch_configuration = &quot;${aws_launch_configuration.elasticsearch_launch_config.id}&quot;
   min_size = 3
   max_size = 100
   desired = 3
-  health_check_grace_period = &ldquo;900&rdquo;
-  health_check_type = &ldquo;EC2&rdquo;
-  load_balancers = [&ldquo;${aws_elb.elasticsearch_elb.name}&rdquo;]</p>
+  health_check_grace_period = &quot;900&quot;
+  health_check_type = &quot;EC2&quot;
+  load_balancers = [&quot;${aws_elb.elasticsearch_elb.name}&quot;]
 
-<p>  tag {</p>
+  tag {
+    key = &quot;Name&quot;
+    value = &quot;elasticsearch&quot;
+    propagate_at_launch = true
+  }
 
-<pre><code>key = "Name"
-value = "elasticsearch"
-propagate_at_launch = true
-</code></pre>
+  tag {
+    key = &quot;role&quot;
+    value = &quot;elasticsearch&quot;
+    propagate_at_launch = true
+  }
 
-<p>  }</p>
+  tag {
+    key = &quot;elb_name&quot;
+    value = &quot;${aws_elb.elasticsearch_elb.name}&quot;
+    propagate_at_launch = true
+  }
 
-<p>  tag {</p>
+  tag {
+    key = &quot;elb_region&quot;
+    value = &quot;${var.aws_region}&quot;
+    propagate_at_launch = true
+  }
+}
 
-<pre><code>key = "role"
-value = "elasticsearch"
-propagate_at_launch = true
-</code></pre>
+resource &quot;aws_launch_configuration&quot; &quot;elasticsearch_launch_config&quot; {
+  image_id = &quot;${var.elasticsearch_ami_id}&quot;
+  instance_type = &quot;${var.elasticsearch_instance_type}&quot;
+  iam_instance_profile = &quot;app-server&quot;
+  key_name = &quot;${aws_key_pair.terraform.key_name}&quot;
+  security_groups = [&quot;${aws_security_group.elasticsearch.id}&quot;,&quot;${aws_security_group.node.id}&quot;]
+  enable_monitoring = false
 
-<p>  }</p>
+  lifecycle {
+    create_before_destroy = true
+  }
 
-<p>  tag {</p>
-
-<pre><code>key = "elb_name"
-value = "${aws_elb.elasticsearch_elb.name}"
-propagate_at_launch = true
-</code></pre>
-
-<p>  }</p>
-
-<p>  tag {</p>
-
-<pre><code>key = "elb_region"
-value = "${var.aws_region}"
-propagate_at_launch = true
-</code></pre>
-
-<p>  }
-}</p>
-
-<p>resource &ldquo;aws_launch_configuration&rdquo; &ldquo;elasticsearch_launch_config&rdquo; {
-  image_id = &ldquo;${var.elasticsearch_ami_id}&rdquo;
-  instance_type = &ldquo;${var.elasticsearch_instance_type}&rdquo;
-  iam_instance_profile = &ldquo;app-server&rdquo;
-  key_name = &ldquo;${aws_key_pair.terraform.key_name}&rdquo;
-  security_groups = [&ldquo;${aws_security_group.elasticsearch.id}&rdquo;,&ldquo;${aws_security_group.node.id}&rdquo;]
-  enable_monitoring = false</p>
-
-<p>  lifecycle {</p>
-
-<pre><code>create_before_destroy = true
-</code></pre>
-
-<p>  }</p>
-
-<p>  root_block_device {</p>
-
-<pre><code>volume_size = "${var.elasticsearch_volume_size}"
-</code></pre>
-
-<p>  }
-}</p>
-
-<p>```</p>
-
+  root_block_device {
+    volume_size = &quot;${var.elasticsearch_volume_size}&quot;
+  }
+}
+</code></pre></div>
 <p>This allows me to scale my system up or down just by changing the values in my Terraform configuration. When the instances are instantiatied, the ElasticSearch cloud plugin discovers the other members of the cluster and allows the node to join the cluster</p>
 ]]></content>
   </entry>
@@ -437,155 +371,119 @@ propagate_at_launch = true
 <p><strong>This post assumes that you are already setup and running with Terraform</strong></p>
 
 <p>Create an IAM Role that allows access to AWS Lambda:</p>
-
-<p>```
-resource &ldquo;aws_iam_role&rdquo; &ldquo;slack_iam_lambda&rdquo; {</p>
-
-<pre><code>name = "slack-iam-lambda"
-assume_role_policy = &lt;&lt;EOF
-</code></pre>
-
-<p>{
-  &ldquo;Version&rdquo;: &ldquo;2012-10-17&rdquo;,
-  &ldquo;Statement&rdquo;: [</p>
-
-<pre><code>{
-  "Action": "sts:AssumeRole",
-  "Principal": {
-    "Service": "lambda.amazonaws.com"
-  },
-  "Effect": "Allow",
-  "Sid": ""
-}
-</code></pre>
-
-<p>  ]
+<div class="highlight"><pre><code class="text">resource &quot;aws_iam_role&quot; &quot;slack_iam_lambda&quot; {
+    name = &quot;slack-iam-lambda&quot;
+    assume_role_policy = &lt;&lt;EOF
+{
+  &quot;Version&quot;: &quot;2012-10-17&quot;,
+  &quot;Statement&quot;: [
+    {
+      &quot;Action&quot;: &quot;sts:AssumeRole&quot;,
+      &quot;Principal&quot;: {
+        &quot;Service&quot;: &quot;lambda.amazonaws.com&quot;
+      },
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Sid&quot;: &quot;&quot;
+    }
+  ]
 }
 EOF
 }
-```</p>
-
+</code></pre></div>
 <p>Create a <a href="GIST%20GOES%20HERE">lambda function</a> as follows:</p>
-
-<p><code>
-resource "aws_lambda_function" "slack_notify" {
-  filename = "slackNotify.zip"
-  function_name = "slackNotify"
-  role = "${aws_iam_role.slack_iam_lambda.arn}"
-  handler = "slackNotify.handler"
+<div class="highlight"><pre><code class="text">resource &quot;aws_lambda_function&quot; &quot;slack_notify&quot; {
+  filename = &quot;slackNotify.zip&quot;
+  function_name = &quot;slackNotify&quot;
+  role = &quot;${aws_iam_role.slack_iam_lambda.arn}&quot;
+  handler = &quot;slackNotify.handler&quot;
 }
-</code></p>
-
-<p>We assume here, that you have already created a Slack Integration. The hook URL from that integration is required for the lambda contents.</p>
+</code></pre></div>
+<p>We assume here, that you have already created a Slack Integration. The hook URL from that integration is required for the lambda contents. </p>
 
 <p>The filename <code>slackNotify.zip</code> is a zip of a file called <code>slackNotify.js</code>. The contents of that js file are <a href="https://gist.github.com/stack72/ad97da2df376754e413a">available</a></p>
 
 <p>Terraform currently does not support hooking AWS Lambda up to SNS Event Sources. Therefore, unfortunately, there is a manual step required to configure the Lambda to talk to the SNS Topic. There is a PR in Terraform to allow this to be automated as well.</p>
 
-<p>In the AWS Console, go to Lambda and then chose the Lambda function.</p>
+<p>In the AWS Console, go to Lambda and then chose the Lambda function. </p>
 
-<p><img src="/images/lambda_function.png" alt="Image" /></p>
+<p><img src="/images/lambda_function.png" alt="Image"></p>
 
 <p>Go to the <code>Event Sources</code> tab:</p>
 
-<p><img src="/images/lambda_function_event_sources.png" alt="Image" /></p>
+<p><img src="/images/lambda_function_event_sources.png" alt="Image"></p>
 
 <p>Click on <code>Add Event Source</code> and then choose <code>SNS</code> from the dropdown and then make sure you chose the correct SNS Topic name:</p>
 
-<p><img src="/images/lambda_function_sns_topic.png" alt="Image" /></p>
+<p><img src="/images/lambda_function_sns_topic.png" alt="Image"></p>
 
 <p>We then use another Terraform resource to attach the Autoscale Groups to the Lambda as follows:</p>
-
-<p>```
-resource &ldquo;aws_autoscaling_notification&rdquo; &ldquo;slack_notifications&rdquo; {
-  group_names = [</p>
-
-<pre><code>"admin-api-autoscale-group",
-"rundeck-autoscale-group",
-</code></pre>
-
-<p>  ]
-  notifications  = [</p>
-
-<pre><code>"autoscaling:EC2_INSTANCE_LAUNCH",
-"autoscaling:EC2_INSTANCE_TERMINATE",
-"autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
-"autoscaling:EC2_INSTANCE_TERMINATE_ERROR",
-"autoscaling:TEST_NOTIFICATION"
-</code></pre>
-
-<p>  ]
-  topic_arn = &ldquo;${aws_sns_topic.asg_slack_notifications.arn}&rdquo;
+<div class="highlight"><pre><code class="text">resource &quot;aws_autoscaling_notification&quot; &quot;slack_notifications&quot; {
+  group_names = [
+    &quot;admin-api-autoscale-group&quot;,
+    &quot;rundeck-autoscale-group&quot;,
+  ]
+  notifications  = [
+    &quot;autoscaling:EC2_INSTANCE_LAUNCH&quot;,
+    &quot;autoscaling:EC2_INSTANCE_TERMINATE&quot;,
+    &quot;autoscaling:EC2_INSTANCE_LAUNCH_ERROR&quot;,
+    &quot;autoscaling:EC2_INSTANCE_TERMINATE_ERROR&quot;,
+    &quot;autoscaling:TEST_NOTIFICATION&quot;
+  ]
+  topic_arn = &quot;${aws_sns_topic.asg_slack_notifications.arn}&quot;
 }
-```</p>
-
+</code></pre></div>
 <p>As we have configured notifications for autoscaling:TEST_NOTIFICATION, when you apply this configuration with Terraform, you will see something similar to the following in Slack:</p>
 
-<p><img src="/images/slack_test_notification.png" alt="Image" /></p>
+<p><img src="/images/slack_test_notification.png" alt="Image"></p>
 
-<p>In the current infrastructure I manage, there are 27 Autoscale groups. I don&rsquo;t really want to add 27 hardcoded group_names in the aws_autoscaling_notifcation in Terraform.</p>
+<p>In the current infrastructure I manage, there are 27 Autoscale groups. I don&#39;t really want to add 27 hardcoded group<em>names in the aws</em>autoscaling_notifcation in Terraform. </p>
 
 <p>I wanted to take advantage of a <a href="https://www.terraform.io/docs/modules/usage.html">Terraform module</a>. In a nutshell, the module does a lookup of all the Autoscaling Groups in a region and then passes that list into the Terraform resource.</p>
 
 <p>The output of the <a href="https://github.com/stack72/tf_aws_autoscalegroup_names">module</a> looks as follows:</p>
-
-<p>```
-{
-  &ldquo;variable&rdquo;: {</p>
-
-<pre><code>"autoscalegroup_names": {
-  "description": "List of autoscalegroup names for a region",
-  "default": {
-    "eu-west-1": "admin-api-autoscale-group,dash-autoscale-group,demo-autoscale-group,docker-v2-autoscale-group,elasticsearch-autoscale-group,faces-autoscale-group,internal-api-autoscale-group,jenkins-master-autoscale-group,kafka-autoscale-group,landscapes-autoscale-group",
-    "ap-southeast-1": "",
-    "ap-southeast-2": "",
-    "eu-central-1": "",
-    "ap-northeast-1": "",
-    "us-east-1": "",
-    "sa-east-1": "",
-    "us-west-1": "",
-    "us-west-2": ""
+<div class="highlight"><pre><code class="text">{
+  &quot;variable&quot;: {
+    &quot;autoscalegroup_names&quot;: {
+      &quot;description&quot;: &quot;List of autoscalegroup names for a region&quot;,
+      &quot;default&quot;: {
+        &quot;eu-west-1&quot;: &quot;admin-api-autoscale-group,dash-autoscale-group,demo-autoscale-group,docker-v2-autoscale-group,elasticsearch-autoscale-group,faces-autoscale-group,internal-api-autoscale-group,jenkins-master-autoscale-group,kafka-autoscale-group,landscapes-autoscale-group&quot;,
+        &quot;ap-southeast-1&quot;: &quot;&quot;,
+        &quot;ap-southeast-2&quot;: &quot;&quot;,
+        &quot;eu-central-1&quot;: &quot;&quot;,
+        &quot;ap-northeast-1&quot;: &quot;&quot;,
+        &quot;us-east-1&quot;: &quot;&quot;,
+        &quot;sa-east-1&quot;: &quot;&quot;,
+        &quot;us-west-1&quot;: &quot;&quot;,
+        &quot;us-west-2&quot;: &quot;&quot;
+      }
+    }
   }
 }
-</code></pre>
-
-<p>  }
-}
-```</p>
-
+</code></pre></div>
 <p>I then pass this into the Terraform resource as follows:</p>
-
-<p>```
-module &ldquo;autoscalegroups&rdquo; {
-  source = &ldquo;github.com/stack72/tf_aws_autoscalegroup_names&rdquo;
-  region = &ldquo;${var.aws_region}&rdquo;
-}</p>
-
-<p>resource &ldquo;aws_autoscaling_notification&rdquo; &ldquo;slack_notifications&rdquo; {
-  group_names = [</p>
-
-<pre><code>"${split(",", module.autoscalegroups.asg_names)}",
-</code></pre>
-
-<p>  ]
-  notifications  = [</p>
-
-<pre><code>"autoscaling:EC2_INSTANCE_LAUNCH",
-"autoscaling:EC2_INSTANCE_TERMINATE",
-"autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
-"autoscaling:EC2_INSTANCE_TERMINATE_ERROR",
-"autoscaling:TEST_NOTIFICATION"
-</code></pre>
-
-<p>  ]
-  topic_arn = &ldquo;${aws_sns_topic.asg_slack_notifications.arn}&rdquo;
+<div class="highlight"><pre><code class="text">module &quot;autoscalegroups&quot; {
+  source = &quot;github.com/stack72/tf_aws_autoscalegroup_names&quot;
+  region = &quot;${var.aws_region}&quot;
 }
-```</p>
 
+resource &quot;aws_autoscaling_notification&quot; &quot;slack_notifications&quot; {
+  group_names = [
+    &quot;${split(&quot;,&quot;, module.autoscalegroups.asg_names)}&quot;,
+  ]
+  notifications  = [
+    &quot;autoscaling:EC2_INSTANCE_LAUNCH&quot;,
+    &quot;autoscaling:EC2_INSTANCE_TERMINATE&quot;,
+    &quot;autoscaling:EC2_INSTANCE_LAUNCH_ERROR&quot;,
+    &quot;autoscaling:EC2_INSTANCE_TERMINATE_ERROR&quot;,
+    &quot;autoscaling:TEST_NOTIFICATION&quot;
+  ]
+  topic_arn = &quot;${aws_sns_topic.asg_slack_notifications.arn}&quot;
+}
+</code></pre></div>
 <p>When anything happens within an Autoscaling Group, I now get notifications as follows:</p>
 
-<p><img src="/images/termination_notification.png" alt="Image" />
-<img src="/images/launch_notification.png" alt="Image" /></p>
+<p><img src="/images/termination_notification.png" alt="Image">
+<img src="/images/launch_notification.png" alt="Image"></p>
 ]]></content>
   </entry>
   
@@ -594,7 +492,7 @@ module &ldquo;autoscalegroups&rdquo; {
     <link href="http://paulstack.co.uk/blog/2014/01/09/changing-my-focus/"/>
     <updated>2014-01-09T10:11:00+00:00</updated>
     <id>http://paulstack.co.uk/blog/2014/01/09/changing-my-focus</id>
-    <content type="html"><![CDATA[<p>For those that know me, you know that I am very passionate about infrastructure and DevOps. Infrastructure is something that we, as developers, don&rsquo;t really give a lot of thought to. DevOps is something that will make our businesses more successful. So, I am changing the job role that I have.</p>
+    <content type="html"><![CDATA[<p>For those that know me, you know that I am very passionate about infrastructure and DevOps. Infrastructure is something that we, as developers, don&#39;t really give a lot of thought to. DevOps is something that will make our businesses more successful. So, I am changing the job role that I have. </p>
 
 <p>From now, I am no longer focusing on writing application code. Instead I am going to spend my time focusing on the following areas:</p>
 
@@ -604,16 +502,15 @@ module &ldquo;autoscalegroups&rdquo; {
 <li>Learning about the weird and wonderful ways of operations</li>
 </ul>
 
+<p>DevOps is very important to me. When a company has a great culture, things get done. Operations work is smooth, software delivery is smooth and the teams are truly focused on achieving the goals of the business. Without a DevOps culture, things are not as smooth as they could be. In order to allow our developers to more faster, we will be building better systems (e.g. provisioning, configuration management, monitoring, logging etc.) to allow them to really achieve &#39;situational awareness&#39;</p>
 
-<p>DevOps is very important to me. When a company has a great culture, things get done. Operations work is smooth, software delivery is smooth and the teams are truly focused on achieving the goals of the business. Without a DevOps culture, things are not as smooth as they could be. In order to allow our developers to more faster, we will be building better systems (e.g. provisioning, configuration management, monitoring, logging etc.) to allow them to really achieve &lsquo;situational awareness&rsquo;</p>
+<p>I heard the term &#39;situational awareness&#39; just over a year ago. It was defined as &#39;knowing what is going on around you&#39;. Putting this into context, do you know what is going on with your applications in production? I certainly didn&#39;t. This is essential to understand how your software is performing. I will be trying to help our engineers to try and solve this issue by helping them build better infrastructure management systems.</p>
 
-<p>I heard the term &lsquo;situational awareness&rsquo; just over a year ago. It was defined as &lsquo;knowing what is going on around you&rsquo;. Putting this into context, do you know what is going on with your applications in production? I certainly didn&rsquo;t. This is essential to understand how your software is performing. I will be trying to help our engineers to try and solve this issue by helping them build better infrastructure management systems.</p>
+<p>Operations is something that I know very little about. By exposing myself to this world, I feel it will help me understand the continual frustrations that operations and development staff have towards each other. </p>
 
-<p>Operations is something that I know very little about. By exposing myself to this world, I feel it will help me understand the continual frustrations that operations and development staff have towards each other.</p>
+<p>As you can see, I am truly trying to be a DevOps advocate. I want to be the person that helps the teams talk to each other and help each other rather than (traditionally) having silos. I will still be trying to talk at developer events / conferences. I feel that I can really help developers understand more about DevOps and how it can be successful. </p>
 
-<p>As you can see, I am truly trying to be a DevOps advocate. I want to be the person that helps the teams talk to each other and help each other rather than (traditionally) having silos. I will still be trying to talk at developer events / conferences. I feel that I can really help developers understand more about DevOps and how it can be successful.</p>
-
-<p>This is a very exciting change for me! Let&rsquo;s see how it goes&hellip;.</p>
+<p>This is a very exciting change for me! Let&#39;s see how it goes....</p>
 ]]></content>
   </entry>
   

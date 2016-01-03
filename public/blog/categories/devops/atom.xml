@@ -4,7 +4,7 @@
   <title><![CDATA[Category: DevOps | Adventures of a wannabe geek!]]></title>
   <link href="http://paulstack.co.uk/blog/categories/devops/atom.xml" rel="self"/>
   <link href="http://paulstack.co.uk/"/>
-  <updated>2016-01-02T13:31:31+00:00</updated>
+  <updated>2016-01-03T14:35:12+00:00</updated>
   <id>http://paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -20,9 +20,9 @@
     <id>http://paulstack.co.uk/blog/2015/10/28/devops-and-net-conference</id>
     <content type="html"><![CDATA[<p>So I just tweeted the following,</p>
 
-<p><img src="/images/DevOpsTweet.png" alt="Image" /></p>
+<p><img src="/images/DevOpsTweet.png" alt="Image"></p>
 
-<p>Firstly, I&rsquo;d like to say that this is <em>not</em> about naming and shaming. Secondly, I am not annoyed with the conference at all about the response. The conference I spoke to advertises itself as “engineering talks only” so I wanted to post a few things about that.</p>
+<p>Firstly, I&#39;d like to say that this is <em>not</em> about naming and shaming. Secondly, I am not annoyed with the conference at all about the response. The conference I spoke to advertises itself as “engineering talks only” so I wanted to post a few things about that.</p>
 
 <p>In my opinion, the writing of code and the ecosystem of a specific platform is only 10% (or rather a small portion) of what we need to be aware of as software engineers. I am a software developer who works in the infrastructure / ops world now. When I was writing application only code, I was not involved in understanding the entire ecosystem of the software I was working on. In hindsight, I really feel I missed out by not being part of it. Since being part of the infrastructure world, I feel it has actually helped me develop better &amp; more robust software.</p>
 

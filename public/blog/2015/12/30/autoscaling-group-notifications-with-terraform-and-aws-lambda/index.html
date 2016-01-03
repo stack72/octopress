@@ -148,7 +148,6 @@
 </span><span class='line'>EOF
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-
 <p>Create a <a href="GIST%20GOES%20HERE">lambda function</a> as follows:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -164,24 +163,23 @@
 </span><span class='line'>  handler = "slackNotify.handler"
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-
-<p>We assume here, that you have already created a Slack Integration. The hook URL from that integration is required for the lambda contents.</p>
+<p>We assume here, that you have already created a Slack Integration. The hook URL from that integration is required for the lambda contents. </p>
 
 <p>The filename <code>slackNotify.zip</code> is a zip of a file called <code>slackNotify.js</code>. The contents of that js file are <a href="https://gist.github.com/stack72/ad97da2df376754e413a">available</a></p>
 
 <p>Terraform currently does not support hooking AWS Lambda up to SNS Event Sources. Therefore, unfortunately, there is a manual step required to configure the Lambda to talk to the SNS Topic. There is a PR in Terraform to allow this to be automated as well.</p>
 
-<p>In the AWS Console, go to Lambda and then chose the Lambda function.</p>
+<p>In the AWS Console, go to Lambda and then chose the Lambda function. </p>
 
-<p><img src="/images/lambda_function.png" alt="Image" /></p>
+<p><img src="/images/lambda_function.png" alt="Image"></p>
 
 <p>Go to the <code>Event Sources</code> tab:</p>
 
-<p><img src="/images/lambda_function_event_sources.png" alt="Image" /></p>
+<p><img src="/images/lambda_function_event_sources.png" alt="Image"></p>
 
 <p>Click on <code>Add Event Source</code> and then choose <code>SNS</code> from the dropdown and then make sure you chose the correct SNS Topic name:</p>
 
-<p><img src="/images/lambda_function_sns_topic.png" alt="Image" /></p>
+<p><img src="/images/lambda_function_sns_topic.png" alt="Image"></p>
 
 <p>We then use another Terraform resource to attach the Autoscale Groups to the Lambda as follows:</p>
 
@@ -214,12 +212,11 @@
 </span><span class='line'>  topic_arn = "${aws_sns_topic.asg_slack_notifications.arn}"
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-
 <p>As we have configured notifications for autoscaling:TEST_NOTIFICATION, when you apply this configuration with Terraform, you will see something similar to the following in Slack:</p>
 
-<p><img src="/images/slack_test_notification.png" alt="Image" /></p>
+<p><img src="/images/slack_test_notification.png" alt="Image"></p>
 
-<p>In the current infrastructure I manage, there are 27 Autoscale groups. I don&rsquo;t really want to add 27 hardcoded group_names in the aws_autoscaling_notifcation in Terraform.</p>
+<p>In the current infrastructure I manage, there are 27 Autoscale groups. I don&#39;t really want to add 27 hardcoded group<em>names in the aws</em>autoscaling_notifcation in Terraform. </p>
 
 <p>I wanted to take advantage of a <a href="https://www.terraform.io/docs/modules/usage.html">Terraform module</a>. In a nutshell, the module does a lookup of all the Autoscaling Groups in a region and then passes that list into the Terraform resource.</p>
 
@@ -262,7 +259,6 @@
 </span><span class='line'>  }
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-
 <p>I then pass this into the Terraform resource as follows:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -302,11 +298,10 @@
 </span><span class='line'>  topic_arn = "${aws_sns_topic.asg_slack_notifications.arn}"
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-
 <p>When anything happens within an Autoscaling Group, I now get notifications as follows:</p>
 
-<p><img src="/images/termination_notification.png" alt="Image" />
-<img src="/images/launch_notification.png" alt="Image" /></p>
+<p><img src="/images/termination_notification.png" alt="Image">
+<img src="/images/launch_notification.png" alt="Image"></p>
 </div>
 
 

@@ -11,7 +11,8 @@ As discussed in a [previous post](http://www.paulstack.co.uk/blog/2015/11/09/the
 
 The packer template looks as follows:
 
-```
+{% raw %}
+```json 
 {
   "variables": {
     "ami_id": "",
@@ -63,8 +64,8 @@ The packer template looks as follows:
     }
   ]
 }
-
 ```
+{% endraw %}
 
 This is essentially a pretty simple script and builds an AWS Instance in a private subnet of my choice in eu-west-1a in AWS. 
 
@@ -72,7 +73,8 @@ This is essentially a pretty simple script and builds an AWS Instance in a priva
 
 The first part of the script just installs the dependencies that my system has:
 
-```
+{% raw %}
+```bash
 #!/bin/bash
 
 apt-get update
@@ -90,14 +92,15 @@ wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 python get-pip.py
 
 pip install ansible paramiko PyYAML jinja2 httplib2 netifaces boto awscli six
-
 ```
+{% endraw %}
 
 ####Ansible playbook for ElasticSearch
 
 The ElasticSearch playbook looks as follows:
 
-```
+{% raw %}
+```YAML  
 - hosts: all
   sudo: yes
 
@@ -109,12 +112,14 @@ The ElasticSearch playbook looks as follows:
     - base
     - elasticsearch
 ```
+{% endraw %}
 
 The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install ElasticSearch. 
 
 The ElasticSearch role looks as follows:
 
-```
+{% raw %}
+```YAML
 - ec2_facts:
 - ec2_tags:
 
@@ -168,6 +173,7 @@ The ElasticSearch role looks as follows:
   service: name=elasticsearch state=running enabled=yes
 
 ```
+{% endraw %}
 
 This is just some basic ansible commands to get the apt-repo, packages and plugins installed in the system. You can find the templates used [here](https://gist.github.com/stack72/bdef4126ae8b08214bd8). The important part to note is that variables are used both in the script **and** in the templates to setup the cluster to the required level.
 

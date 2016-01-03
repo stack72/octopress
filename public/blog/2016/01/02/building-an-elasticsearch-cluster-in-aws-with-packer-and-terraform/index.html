@@ -111,7 +111,7 @@
 
 <p>The packer template looks as follows:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -162,67 +162,66 @@
 <span class='line-number'>49</span>
 <span class='line-number'>50</span>
 <span class='line-number'>51</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{
-</span><span class='line'>  "variables": {
-</span><span class='line'>    "ami_id": "",
-</span><span class='line'>    "private_subnet_id": "",
-</span><span class='line'>    "security_group_id": "",
-</span><span class='line'>    "packer_build_number": "",
-</span><span class='line'>  },
-</span><span class='line'>  "description": "ElasticSearch Image",
-</span><span class='line'>  "builders": [
-</span><span class='line'>    {
-</span><span class='line'>      "ami_name": "elasticsearch-",
-</span><span class='line'>      "availability_zone": "eu-west-1a",
-</span><span class='line'>      "iam_instance_profile": "app-server",
-</span><span class='line'>      "instance_type": "t2.small",
-</span><span class='line'>      "region": "eu-west-1",
-</span><span class='line'>      "run_tags": {
-</span><span class='line'>        "role": "packer"
-</span><span class='line'>      },
-</span><span class='line'>      "security_group_ids": [
-</span><span class='line'>        ""
-</span><span class='line'>      ],
-</span><span class='line'>      "source_ami": "",
-</span><span class='line'>      "ssh_timeout": "10m",
-</span><span class='line'>      "ssh_username": "ubuntu",
-</span><span class='line'>      "subnet_id": "",
-</span><span class='line'>      "tags": {
-</span><span class='line'>        "Name": "elasticsearch-packer-image"
-</span><span class='line'>      },
-</span><span class='line'>      "type": "amazon-ebs"
-</span><span class='line'>    }
-</span><span class='line'>  ],
-</span><span class='line'>  "provisioners": [
-</span><span class='line'>    {
-</span><span class='line'>      "type": "shell",
-</span><span class='line'>      "inline": [ "sleep 10" ]
-</span><span class='line'>    },
-</span><span class='line'>    {
-</span><span class='line'>      "type": "shell",
-</span><span class='line'>      "script": "install_dependencies.sh",
-</span><span class='line'>      "execute_command": "echo '' |  sudo -E -S sh ''"
-</span><span class='line'>    },
-</span><span class='line'>    {
-</span><span class='line'>      "type": "ansible-local",
-</span><span class='line'>      "playbook_file": "elasticsearch.yml",
-</span><span class='line'>      "extra_arguments": [
-</span><span class='line'>        "--module-path=./modules"
-</span><span class='line'>      ],
-</span><span class='line'>      "playbook_dir": "../../"
-</span><span class='line'>    }
-</span><span class='line'>  ]
-</span><span class='line'>}
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nt">&quot;variables&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nt">&quot;ami_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nt">&quot;private_subnet_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nt">&quot;security_group_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nt">&quot;packer_build_number&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;ElasticSearch Image&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nt">&quot;builders&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;ami_name&quot;</span><span class="p">:</span> <span class="s2">&quot;elasticsearch-{{user `packer_build_number`}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;availability_zone&quot;</span><span class="p">:</span> <span class="s2">&quot;eu-west-1a&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;iam_instance_profile&quot;</span><span class="p">:</span> <span class="s2">&quot;app-server&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;instance_type&quot;</span><span class="p">:</span> <span class="s2">&quot;t2.small&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;region&quot;</span><span class="p">:</span> <span class="s2">&quot;eu-west-1&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;run_tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nt">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;packer&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nt">&quot;security_group_ids&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;{{user `security_group_id`}}&quot;</span>
+</span><span class='line'>      <span class="p">],</span>
+</span><span class='line'>      <span class="nt">&quot;source_ami&quot;</span><span class="p">:</span> <span class="s2">&quot;{{user `ami_id`}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;ssh_timeout&quot;</span><span class="p">:</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;ssh_username&quot;</span><span class="p">:</span> <span class="s2">&quot;ubuntu&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;subnet_id&quot;</span><span class="p">:</span> <span class="s2">&quot;{{user `private_subnet_id`}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;elasticsearch-packer-image&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;amazon-ebs&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">],</span>
+</span><span class='line'>  <span class="nt">&quot;provisioners&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;inline&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;sleep 10&quot;</span> <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;script&quot;</span><span class="p">:</span> <span class="s2">&quot;install_dependencies.sh&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;execute_command&quot;</span><span class="p">:</span> <span class="s2">&quot;echo &#39;&#39; | {{ .Vars }} sudo -E -S sh &#39;{{ .Path }}&#39;&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ansible-local&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;playbook_file&quot;</span><span class="p">:</span> <span class="s2">&quot;elasticsearch.yml&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;extra_arguments&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;--module-path=./modules&quot;</span>
+</span><span class='line'>      <span class="p">],</span>
+</span><span class='line'>      <span class="nt">&quot;playbook_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;../../&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-
-<p>This is essentially a pretty simple script and builds an AWS Instance in a private subnet of my choice in eu-west-1a in AWS.</p>
+<p>This is essentially a pretty simple script and builds an AWS Instance in a private subnet of my choice in eu-west-1a in AWS. </p>
 
 <h4>install_dependencies.sh</h4>
 
 <p>The first part of the script just installs the dependencies that my system has:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -239,14 +238,14 @@
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
 </span><span class='line'>
 </span><span class='line'>apt-get update
 </span><span class='line'>apt-get upgrade -y
 </span><span class='line'>apt-get install -y software-properties-common git
 </span><span class='line'>apt-add-repository -y ppa:ansible/ansible apt-get update
 </span><span class='line'>
-</span><span class='line'># workaround for ubuntu pip bug - https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1306991
+</span><span class='line'><span class="c"># workaround for ubuntu pip bug - https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1306991</span>
 </span><span class='line'>rm -rf /usr/local/lib/python2.7/dist-packages/requests
 </span><span class='line'>apt-get install -y python-dev
 </span><span class='line'>
@@ -258,12 +257,11 @@
 </span><span class='line'>pip install ansible paramiko PyYAML jinja2 httplib2 netifaces boto awscli six
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h4>Ansible playbook for ElasticSearch</h4>
 
 <p>The ElasticSearch playbook looks as follows:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -273,23 +271,23 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>- hosts: all
-</span><span class='line'>  sudo: yes
+</pre></td><td class='code'><pre><code class='YAML'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">all</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">sudo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
 </span><span class='line'>
-</span><span class='line'>  pre_tasks:
-</span><span class='line'>    - ec2_tags:
-</span><span class='line'>    - ec2_facts:
+</span><span class='line'>  <span class="l-Scalar-Plain">pre_tasks</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ec2_tags</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ec2_facts</span><span class="p-Indicator">:</span>
 </span><span class='line'>
-</span><span class='line'>  roles:
-</span><span class='line'>    - base
-</span><span class='line'>    - elasticsearch</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>  <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">base</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">elasticsearch</span>
+</span></code></pre></td></tr></table></div></figure>
 
-
-<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install ElasticSearch.</p>
+<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install ElasticSearch. </p>
 
 <p>The ElasticSearch role looks as follows:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -340,65 +338,64 @@
 <span class='line-number'>49</span>
 <span class='line-number'>50</span>
 <span class='line-number'>51</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>- ec2_facts:
-</span><span class='line'>- ec2_tags:
+</pre></td><td class='code'><pre><code class='YAML'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ec2_facts</span><span class="p-Indicator">:</span>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ec2_tags</span><span class="p-Indicator">:</span>
 </span><span class='line'>
-</span><span class='line'>- name: Add Oracle Java Repository
-</span><span class='line'>  apt_repository: repo='ppa:webupd8team/java'
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Add Oracle Java Repository</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">apt_repository</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">repo=&#39;ppa:webupd8team/java&#39;</span>
 </span><span class='line'>
-</span><span class='line'>- name: Accept Java 8 Licence
-</span><span class='line'>  shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | tee /etc/oracle-java-8-licence-acceptance | /usr/bin/debconf-set-selections
-</span><span class='line'>  args:
-</span><span class='line'>    creates: /etc/oracle-java-8-licence-acceptance
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Accept Java 8 Licence</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">shell</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | tee /etc/oracle-java-8-licence-acceptance | /usr/bin/debconf-set-selections</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">args</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">creates</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/oracle-java-8-licence-acceptance</span>
 </span><span class='line'>
-</span><span class='line'>- name: Add ElasticSearch repo public signing key
-</span><span class='line'>  apt_key: id=46095ACC8548582C1A2699A9D27D666CD88E42B4 url=https://packages.elastic.co/GPG-KEY-elasticsearch state=present
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Add ElasticSearch repo public signing key</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">apt_key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">id=46095ACC8548582C1A2699A9D27D666CD88E42B4 url=https://packages.elastic.co/GPG-KEY-elasticsearch state=present</span>
 </span><span class='line'>
-</span><span class='line'>- name: Add ElasticSearch repository
-</span><span class='line'>  apt_repository:
-</span><span class='line'>    repo: 'deb http://packages.elasticsearch.org/elasticsearch//debian stable main'
-</span><span class='line'>    state: present
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Add ElasticSearch repository</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">apt_repository</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">repo</span><span class="p-Indicator">:</span> <span class="s">&#39;deb</span><span class="nv"> </span><span class="s">http://packages.elasticsearch.org/elasticsearch/{{</span><span class="nv"> </span><span class="s">es_release</span><span class="nv"> </span><span class="s">}}/debian</span><span class="nv"> </span><span class="s">stable</span><span class="nv"> </span><span class="s">main&#39;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">state</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">present</span>
 </span><span class='line'>
-</span><span class='line'>- name: Install Oracle Java 8
-</span><span class='line'>  apt: name= state=latest
-</span><span class='line'>  with_items:
-</span><span class='line'>    - oracle-java8-installer
-</span><span class='line'>    - ca-certificates
-</span><span class='line'>    - oracle-java8-set-default
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Install Oracle Java 8</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">apt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name={{item}} state=latest</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">with_items</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">oracle-java8-installer</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ca-certificates</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">oracle-java8-set-default</span>
 </span><span class='line'>
-</span><span class='line'>- name: Install ElasticSearch
-</span><span class='line'>  apt: name=elasticsearch= state=present
-</span><span class='line'>  notify: Restart elasticsearch
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Install ElasticSearch</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">apt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name=elasticsearch={{ es_version }} state=present</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">notify</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Restart elasticsearch</span>
 </span><span class='line'>
-</span><span class='line'>- name: Copy /etc/default/elasticsearch
-</span><span class='line'>  template: src=elasticsearch dest=/etc/default/elasticsearch
-</span><span class='line'>  notify: Restart elasticsearch
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Copy /etc/default/elasticsearch</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">src=elasticsearch dest=/etc/default/elasticsearch</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">notify</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Restart elasticsearch</span>
 </span><span class='line'>
-</span><span class='line'>- name: Copy /etc/elasticsearch/elasticsearch.yml
-</span><span class='line'>  template: src=elasticsearch.yml dest=/etc/elasticsearch/elasticsearch.yml
-</span><span class='line'>  notify: Restart elasticsearch
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Copy /etc/elasticsearch/elasticsearch.yml</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">src=elasticsearch.yml dest=/etc/elasticsearch/elasticsearch.yml</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">notify</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Restart elasticsearch</span>
 </span><span class='line'>
-</span><span class='line'>- name: Set elasticsearch service to start on boot
-</span><span class='line'>  service: name=elasticsearch enabled=yes
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Set elasticsearch service to start on boot</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name=elasticsearch enabled=yes</span>
 </span><span class='line'>
-</span><span class='line'>- name: Install plugins
-</span><span class='line'>  command: bin/plugin --install 
-</span><span class='line'>  args:
-</span><span class='line'>    chdir: ""
-</span><span class='line'>    creates: "/plugins/"
-</span><span class='line'>  with_items: es_plugins
-</span><span class='line'>  notify: Restart elasticsearch
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Install plugins</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">command</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bin/plugin --install {{item.name}}</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">args</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">chdir</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">es_home</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">creates</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">es_home</span><span class="nv"> </span><span class="s">}}/plugins/{{</span><span class="nv"> </span><span class="s">item.plugin_file</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">default(item.name.split(&#39;/&#39;)[1])</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">with_items</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">es_plugins</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">notify</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Restart elasticsearch</span>
 </span><span class='line'>
-</span><span class='line'>- name: Set elasticsearch to be running
-</span><span class='line'>  service: name=elasticsearch state=running enabled=yes
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Set elasticsearch to be running</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name=elasticsearch state=running enabled=yes</span>
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>This is just some basic ansible commands to get the apt-repo, packages and plugins installed in the system. You can find the templates used <a href="https://gist.github.com/stack72/bdef4126ae8b08214bd8">here</a>. The important part to note is that variables are used both in the script <strong>and</strong> in the templates to setup the cluster to the required level.</p>
 
 <p>My variables look as follows:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -413,26 +410,26 @@
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>es_release: "1.6"
-</span><span class='line'>es_version: ".0"
-</span><span class='line'>es_home: /usr/share/elasticsearch
-</span><span class='line'>es_wait_for_listen: yes
-</span><span class='line'>es_etc:
-</span><span class='line'>  cluster_name: central_logging_cluster
-</span><span class='line'>  discovery.type: ec2
-</span><span class='line'>  discovery.ec2.groups: elasticsearch-sg
-</span><span class='line'>  cloud.aws.region: ""
-</span><span class='line'>es_default_es_heap_size: 4g
-</span><span class='line'>es_plugins:
-</span><span class='line'>  - name: elasticsearch/elasticsearch-cloud-aws/2.6.0
-</span><span class='line'>  - name: elasticsearch/marvel/latest
-</span><span class='line'>  - name: mobz/elasticsearch-head
-</span><span class='line'>es_etc_index_number_of_replicas: 2</span></code></pre></td></tr></table></div></figure>
-
+</pre></td><td class='code'><pre><code class='YAML'><span class='line'><span class="l-Scalar-Plain">es_release</span><span class="p-Indicator">:</span> <span class="s">&quot;1.6&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">es_version</span><span class="p-Indicator">:</span> <span class="s">&quot;.0&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">es_home</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/usr/share/elasticsearch</span>
+</span><span class='line'><span class="l-Scalar-Plain">es_wait_for_listen</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+</span><span class='line'><span class="l-Scalar-Plain">es_etc</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">cluster_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">central_logging_cluster</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">discovery.type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">discovery.ec2.groups</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">elasticsearch-sg</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">cloud.aws.region</span><span class="p-Indicator">:</span> <span class="s">&quot;&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">es_default_es_heap_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4g</span>
+</span><span class='line'><span class="l-Scalar-Plain">es_plugins</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">elasticsearch/elasticsearch-cloud-aws/2.6.0</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">elasticsearch/marvel/latest</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mobz/elasticsearch-head</span>
+</span><span class='line'><span class="l-Scalar-Plain">es_etc_index_number_of_replicas</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>As I have specified <code>elasticsearch-sg</code> and installed the <code>elasticsearch-cloud-aws</code> plugin, my nodes can auto-discover each other in the aws region. I can build the packer image as follows:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -442,20 +439,17 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</pre></td><td class='code'><pre><code class='YAML'><span class='line'><span class="c1">#!/bin/bash</span>
 </span><span class='line'>
-</span><span class='line'>LATEST_UBUNTU_IMAGE=$(curl http://cloud-images.ubuntu.com/locator/ec2/releasesTable | grep eu-west-1 | grep trusty | grep amd64 | grep "\"hvm:ebs\"" | awk -F "[&lt;&gt;]" '{print $3}')
+</span><span class='line'><span class="l-Scalar-Plain">LATEST_UBUNTU_IMAGE=$(curl http://cloud-images.ubuntu.com/locator/ec2/releasesTable | grep eu-west-1 | grep trusty | grep amd64 | grep &quot;\&quot;hvm:ebs\&quot;&quot; | awk -F &quot;[&lt;&gt;]&quot; &#39;{print $3}&#39;)</span>
 </span><span class='line'>
-</span><span class='line'>packer build \
-</span><span class='line'>  -var ami_id=$LATEST_UBUNTU_IMAGE \
-</span><span class='line'>  -var security_group_id=MYSGID\
-</span><span class='line'>  -var private_subnet_id=MYSUBNETID \
-</span><span class='line'>  -var packer_build_number=PACKERBUILDNUMBER \
-</span><span class='line'>  elasticsearch.json
-</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">packer build \</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">-var ami_id=$LATEST_UBUNTU_IMAGE \</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">-var security_group_id=MYSGID\</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">-var private_subnet_id=MYSUBNETID \</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">-var packer_build_number=PACKERBUILDNUMBER \</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">elasticsearch.json</span>
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>We are now ready to build the infrastructure for the cluster</p>
 
@@ -463,9 +457,9 @@
 
 <p>The infrastructure of the ElasticSearch cluster is now pretty easy. I deploy my nodes into a <a href="https://aws.amazon.com/vpc/">VPC</a> and onto private subnets so that they are not externally accessible. I have an <a href="https://aws.amazon.com/elasticloadbalancing/">ELB</a> in place across the nodes so that I can easily get to the ElasticSearch plugins like <a href="https://www.elastic.co/guide/en/marvel/current/index.html">Marvel</a> and <a href="https://mobz.github.io/elasticsearch-head/">Head</a>.</p>
 
-<p>The Terraform configuration is as follows:</p>
+<p>The Terraform configuration is as follows:  </p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -598,141 +592,140 @@
 <span class='line-number'>131</span>
 <span class='line-number'>132</span>
 <span class='line-number'>133</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>resource "aws_security_group" "elasticsearch" {
-</span><span class='line'>  name = "elasticsearch-sg"
-</span><span class='line'>  description = "ElasticSearch Security Group"
-</span><span class='line'>  vpc_id = "${aws_vpc.default.id}"
+</pre></td><td class='code'><pre><code class='YAML'><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_security_group&quot; &quot;elasticsearch&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">name = &quot;elasticsearch-sg&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">description = &quot;ElasticSearch Security Group&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">vpc_id = &quot;${aws_vpc.default.id}&quot;</span>
 </span><span class='line'>
-</span><span class='line'>  ingress {
-</span><span class='line'>    from_port = 9200
-</span><span class='line'>    to_port   = 9400
-</span><span class='line'>    protocol  = "tcp"
-</span><span class='line'>    security_groups = ["${aws_security_group.elasticsearch_elb.id}"]
-</span><span class='line'>  }
+</span><span class='line'>  <span class="l-Scalar-Plain">ingress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 9200</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port   = 9400</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.elasticsearch_elb.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>  ingress {
-</span><span class='line'>    from_port = 9200
-</span><span class='line'>    to_port   = 9400
-</span><span class='line'>    protocol  = "tcp"
-</span><span class='line'>    security_groups = ["${aws_security_group.node.id}"]
-</span><span class='line'>  }
+</span><span class='line'>  <span class="l-Scalar-Plain">ingress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 9200</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port   = 9400</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.node.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>  egress {
-</span><span class='line'>    from_port = "0"
-</span><span class='line'>    to_port = "0"
-</span><span class='line'>    protocol = "-1"
-</span><span class='line'>    cidr_blocks = ["0.0.0.0/0"]
-</span><span class='line'>  }
+</span><span class='line'>  <span class="l-Scalar-Plain">egress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = &quot;0&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port = &quot;0&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol = &quot;-1&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">cidr_blocks = [&quot;0.0.0.0/0&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>  tags {
-</span><span class='line'>    Name = "ElasticSearch Node"
-</span><span class='line'>  }
-</span><span class='line'>}
+</span><span class='line'>  <span class="l-Scalar-Plain">tags {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">Name = &quot;ElasticSearch Node&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
 </span><span class='line'>
-</span><span class='line'>resource "aws_security_group" "elasticsearch_elb" {
-</span><span class='line'>  name = "elasticsearch-elb-sg"
-</span><span class='line'>  description = "ElasticSearch Elastic Load Balancer Security Group"
-</span><span class='line'>  vpc_id = "${aws_vpc.default.id}"
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_security_group&quot; &quot;elasticsearch_elb&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">name = &quot;elasticsearch-elb-sg&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">description = &quot;ElasticSearch Elastic Load Balancer Security Group&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">vpc_id = &quot;${aws_vpc.default.id}&quot;</span>
 </span><span class='line'>
-</span><span class='line'>  ingress {
-</span><span class='line'>    from_port = 9200
-</span><span class='line'>    to_port   = 9200
-</span><span class='line'>    protocol  = "tcp"
-</span><span class='line'>    security_groups = ["${aws_security_group.node.id}"]
-</span><span class='line'>  }
+</span><span class='line'>  <span class="l-Scalar-Plain">ingress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 9200</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port   = 9200</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.node.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>  egress {
-</span><span class='line'>    from_port = "0"
-</span><span class='line'>    to_port = "0"
-</span><span class='line'>    protocol = "-1"
-</span><span class='line'>    cidr_blocks = ["0.0.0.0/0"]
-</span><span class='line'>  }
+</span><span class='line'>  <span class="l-Scalar-Plain">egress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = &quot;0&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port = &quot;0&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol = &quot;-1&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">cidr_blocks = [&quot;0.0.0.0/0&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>  tags {
-</span><span class='line'>    Name = "ElasticSearch Load Balancer"
-</span><span class='line'>  }
-</span><span class='line'>}
+</span><span class='line'>  <span class="l-Scalar-Plain">tags {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">Name = &quot;ElasticSearch Load Balancer&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>resource "aws_elb" "elasticsearch_elb" {
-</span><span class='line'>  name = "elasticsearch-elb"
-</span><span class='line'>  subnets = ["${aws_subnet.primary-private.id}","${aws_subnet.secondary-private.id}","${aws_subnet.tertiary-private.id}"]
-</span><span class='line'>  security_groups = ["${aws_security_group.elasticsearch_elb.id}"]
-</span><span class='line'>  cross_zone_load_balancing = true
-</span><span class='line'>  connection_draining = true
-</span><span class='line'>  internal = true
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_elb&quot; &quot;elasticsearch_elb&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">name = &quot;elasticsearch-elb&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">subnets = [&quot;${aws_subnet.primary-private.id}&quot;,&quot;${aws_subnet.secondary-private.id}&quot;,&quot;${aws_subnet.tertiary-private.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.elasticsearch_elb.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">cross_zone_load_balancing = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">connection_draining = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">internal = true</span>
 </span><span class='line'>
-</span><span class='line'>  listener {
-</span><span class='line'>    instance_port      = 9200
-</span><span class='line'>    instance_protocol  = "tcp"
-</span><span class='line'>    lb_port            = 9200
-</span><span class='line'>    lb_protocol        = "tcp"
-</span><span class='line'>  }
+</span><span class='line'>  <span class="l-Scalar-Plain">listener {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">instance_port      = 9200</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">instance_protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">lb_port            = 9200</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">lb_protocol        = &quot;tcp&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>  health_check {
-</span><span class='line'>    healthy_threshold   = 2
-</span><span class='line'>    unhealthy_threshold = 2
-</span><span class='line'>    interval            = 10
-</span><span class='line'>    target              = "TCP:9200"
-</span><span class='line'>    timeout             = 5
-</span><span class='line'>  }
-</span><span class='line'>}
+</span><span class='line'>  <span class="l-Scalar-Plain">health_check {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">healthy_threshold   = 2</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">unhealthy_threshold = 2</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">interval            = 10</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">target              = &quot;TCP:9200&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">timeout             = 5</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>resource "aws_autoscaling_group" "elasticsearch_autoscale_group" {
-</span><span class='line'>  name = "elasticsearch-autoscale-group"
-</span><span class='line'>  availability_zones = ["${aws_subnet.primary-private.availability_zone}","${aws_subnet.secondary-private.availability_zone}","${aws_subnet.tertiary-private.availability_zone}"]
-</span><span class='line'>  vpc_zone_identifier = ["${aws_subnet.primary-private.id}","${aws_subnet.secondary-private.id}","${aws_subnet.tertiary-private.id}"]
-</span><span class='line'>  launch_configuration = "${aws_launch_configuration.elasticsearch_launch_config.id}"
-</span><span class='line'>  min_size = 3
-</span><span class='line'>  max_size = 100
-</span><span class='line'>  desired = 3
-</span><span class='line'>  health_check_grace_period = "900"
-</span><span class='line'>  health_check_type = "EC2"
-</span><span class='line'>  load_balancers = ["${aws_elb.elasticsearch_elb.name}"]
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_autoscaling_group&quot; &quot;elasticsearch_autoscale_group&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">name = &quot;elasticsearch-autoscale-group&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">availability_zones = [&quot;${aws_subnet.primary-private.availability_zone}&quot;,&quot;${aws_subnet.secondary-private.availability_zone}&quot;,&quot;${aws_subnet.tertiary-private.availability_zone}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">vpc_zone_identifier = [&quot;${aws_subnet.primary-private.id}&quot;,&quot;${aws_subnet.secondary-private.id}&quot;,&quot;${aws_subnet.tertiary-private.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">launch_configuration = &quot;${aws_launch_configuration.elasticsearch_launch_config.id}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">min_size = 3</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">max_size = 100</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">desired = 3</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">health_check_grace_period = &quot;900&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">health_check_type = &quot;EC2&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">load_balancers = [&quot;${aws_elb.elasticsearch_elb.name}&quot;]</span>
 </span><span class='line'>
-</span><span class='line'>  tag {
-</span><span class='line'>    key = "Name"
-</span><span class='line'>    value = "elasticsearch"
-</span><span class='line'>    propagate_at_launch = true
-</span><span class='line'>  }
+</span><span class='line'>  <span class="l-Scalar-Plain">tag {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">key = &quot;Name&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">value = &quot;elasticsearch&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">propagate_at_launch = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>  tag {
-</span><span class='line'>    key = "role"
-</span><span class='line'>    value = "elasticsearch"
-</span><span class='line'>    propagate_at_launch = true
-</span><span class='line'>  }
+</span><span class='line'>  <span class="l-Scalar-Plain">tag {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">key = &quot;role&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">value = &quot;elasticsearch&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">propagate_at_launch = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>  tag {
-</span><span class='line'>    key = "elb_name"
-</span><span class='line'>    value = "${aws_elb.elasticsearch_elb.name}"
-</span><span class='line'>    propagate_at_launch = true
-</span><span class='line'>  }
+</span><span class='line'>  <span class="l-Scalar-Plain">tag {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">key = &quot;elb_name&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">value = &quot;${aws_elb.elasticsearch_elb.name}&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">propagate_at_launch = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>  tag {
-</span><span class='line'>    key = "elb_region"
-</span><span class='line'>    value = "${var.aws_region}"
-</span><span class='line'>    propagate_at_launch = true
-</span><span class='line'>  }
-</span><span class='line'>}
+</span><span class='line'>  <span class="l-Scalar-Plain">tag {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">key = &quot;elb_region&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">value = &quot;${var.aws_region}&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">propagate_at_launch = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>resource "aws_launch_configuration" "elasticsearch_launch_config" {
-</span><span class='line'>  image_id = "${var.elasticsearch_ami_id}"
-</span><span class='line'>  instance_type = "${var.elasticsearch_instance_type}"
-</span><span class='line'>  iam_instance_profile = "app-server"
-</span><span class='line'>  key_name = "${aws_key_pair.terraform.key_name}"
-</span><span class='line'>  security_groups = ["${aws_security_group.elasticsearch.id}","${aws_security_group.node.id}"]
-</span><span class='line'>  enable_monitoring = false
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_launch_configuration&quot; &quot;elasticsearch_launch_config&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">image_id = &quot;${var.elasticsearch_ami_id}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">instance_type = &quot;${var.elasticsearch_instance_type}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">iam_instance_profile = &quot;app-server&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">key_name = &quot;${aws_key_pair.terraform.key_name}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.elasticsearch.id}&quot;,&quot;${aws_security_group.node.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">enable_monitoring = false</span>
 </span><span class='line'>
-</span><span class='line'>  lifecycle {
-</span><span class='line'>    create_before_destroy = true
-</span><span class='line'>  }
+</span><span class='line'>  <span class="l-Scalar-Plain">lifecycle {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">create_before_destroy = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
 </span><span class='line'>
-</span><span class='line'>  root_block_device {
-</span><span class='line'>    volume_size = "${var.elasticsearch_volume_size}"
-</span><span class='line'>  }
-</span><span class='line'>}
+</span><span class='line'>  <span class="l-Scalar-Plain">root_block_device {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">volume_size = &quot;${var.elasticsearch_volume_size}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>This allows me to scale my system up or down just by changing the values in my Terraform configuration. When the instances are instantiatied, the ElasticSearch cloud plugin discovers the other members of the cluster and allows the node to join the cluster</p>
 </div>

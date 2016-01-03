@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I&rsquo;ve long been a configuration management tool fan. I have blogged, spoken at conferences and used Puppet as well as Chef and Ansible. The more &hellip;">
+  <meta name="description" content="I&#39;ve long been a configuration management tool fan. I have blogged, spoken at conferences and used Puppet as well as Chef and Ansible. The more I &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,7 +105,7 @@
   </header>
 
 
-<div class="entry-content"><p>I&rsquo;ve long been a configuration management tool fan. I have blogged, spoken at conferences and used <a href="https://puppetlabs.com/">Puppet</a> as well as <a href="https://www.chef.io/">Chef</a> and <a href="http://www.ansible.com/">Ansible</a>. The more I use these tools now, the more I realise I&rsquo;m actually not making my life any easier</p>
+<div class="entry-content"><p>I&#39;ve long been a configuration management tool fan. I have blogged, spoken at conferences and used <a href="https://puppetlabs.com/">Puppet</a> as well as <a href="https://www.chef.io/">Chef</a> and <a href="http://www.ansible.com/">Ansible</a>. The more I use these tools now, the more I realise I&#39;m actually not making my life any easier</p>
 
 <p>Currently, the infrastructure I manage is 100% AWS Cloud based. This has actually changed how I work:</p>
 
@@ -114,14 +114,13 @@
 <li><p>No server is kept in production for more than 2 weeks</p></li>
 </ol>
 
+<p>By combining these 2 ways of working, I can easily recover from outages. The speed of recovery is down to being able to provision the pieces of my system as fast as possible. The simplist way to be able to provision instances fast is to build my own AMIs with <a href="https://packer.io/">Packer</a>. I have come to the realisation that when I boot an instance, I don&#39;t <em>really</em> want to wait for a configuration management tool to run. I have also begun to realise that having a tool change my systems in production can introduce unneeded risk. The Packer templates to build the AMI have <a href="http://serverspec.org/">serverspec</a> tests built into them. This means that at build time, I know if an AMI has been built correctly.</p>
 
-<p>By combining these 2 ways of working, I can easily recover from outages. The speed of recovery is down to being able to provision the pieces of my system as fast as possible. The simplist way to be able to provision instances fast is to build my own AMIs with <a href="https://packer.io/">Packer</a>. I have come to the realisation that when I boot an instance, I don&rsquo;t <em>really</em> want to wait for a configuration management tool to run. I have also begun to realise that having a tool change my systems in production can introduce unneeded risk. The Packer templates to build the AMI have <a href="http://serverspec.org/">serverspec</a> tests built into them. This means that at build time, I know if an AMI has been built correctly.</p>
-
-<p>The AWS infrastructure itself is managed by <a href="https://terraform.io/">Terraform</a>. I tend to use AutoScalingGroups and LaunchConfig for the instances and when Terraform is checking the state of the infrastructure, it will look up the latest AMI ID and make sure that it is part of the Launch Configuration. If it isn&rsquo;t, Terraform will update the Launch Config so that the next machine will be booted from the new AMI.</p>
+<p>The AWS infrastructure itself is managed by <a href="https://terraform.io/">Terraform</a>. I tend to use AutoScalingGroups and LaunchConfig for the instances and when Terraform is checking the state of the infrastructure, it will look up the latest AMI ID and make sure that it is part of the Launch Configuration. If it isn&#39;t, Terraform will update the Launch Config so that the next machine will be booted from the new AMI.</p>
 
 <p>I use <a href="http://rundeck.org/">Rundeck</a> for orchestrating changes to the infrastructure. I have a job in Rundeck that allows me to recycle <em>all</em> instances in an AutoScalingGroup one at a time and in a HA manner. From building a new AMI, to fully recycling an AutoScalingGroup is about 20 minutes (the packer build itself takes about 12 minutes). So, in theory, it takes me about 20 minutes to release new security patches to all instances in an AutoScalingGroup.</p>
 
-<h3>Isn&rsquo;t this just &lsquo;Golden Images&rsquo;?</h3>
+<h3>Isn&#39;t this just &#39;Golden Images&#39;?</h3>
 
 <p>Technically, yes. But the important for me is being able to roll out a fully tested AMI and then not making any additional changes to it in production. I would like to say that my infrastructure is 100% immutable, but after reading a <a href="https://medium.com/@elijahz/what-version-is-your-infrastructure-3a61fe804d0e">recent article</a> by <a href="https://twitter.com/emmajanehw">@emmajanehw</a>, I now realise that can never be the case. Each of my AMIs are versioned and I have a nightly Rundeck job that tells me what version of an AMI a system is built / released with.</p>
 
