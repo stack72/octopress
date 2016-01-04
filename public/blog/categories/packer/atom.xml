@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: packer | Adventures of a wannabe geek!]]></title>
+  <link href="http://paulstack.co.uk/blog/categories/packer/atom.xml" rel="self"/>
+  <link href="http://paulstack.co.uk/"/>
+  <updated>2016-01-04T16:27:53+00:00</updated>
+  <id>http://paulstack.co.uk/</id>
+  <author>
+    <name><![CDATA[Paul Stack (@stack72)]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Deploying Kibana Using Nginx as an SSL Proxy]]></title>
+    <link href="http://paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/"/>
+    <updated>2016-01-03T01:16:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy</id>
+    <content type="html"><![CDATA[<p>In my last <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">post</a>, I described how I use <a href="https://packer.io/">Packer</a> and <a href="https://terraform.io/">Terraform</a> to deploy an <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> cluster. In order to make the logs stored in ElasticSearch searchable, I use <a href="https://www.elastic.co/products/kibana">Kibana</a>. I follow the previous pattern and deploy Kibana using Packer to build an <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.htm">AMI</a> and then create the infrastructure using Terraform. The Packer template has already taken into account that I want to use <a href="https://www.nginx.com/">nginx</a> as a proxy. </p>
+
+<h3>Building Kibana AMIs with Packer and Ansible</h3>
+
+<p>The template looks as follows:</p>
+
+<p>
+<code>json 
+{
+  &quot;variables&quot;: {
+    &quot;ami_id&quot;: &quot;&quot;,
+    &quot;private_subnet_id&quot;: &quot;&quot;,
+    &quot;security_group_id&quot;: &quot;&quot;,
+    &quot;packer_build_number&quot;: &quot;&quot;,
+  },
+  &quot;description&quot;: &quot;Kibana Image&quot;,
+  &quot;builders&quot;: [
+    {
+      &quot;ami_name&quot;: &quot;kibana-{{user `packer_build_number`}}&quot;,
+      &quot;availability_zone&quot;: &quot;eu-west-1a&quot;,
+      &quot;iam_instance_profile&quot;: &quot;app-server&quot;,
+      &quot;instance_type&quot;: &quot;t2.small&quot;,
+      &quot;region&quot;: &quot;eu-west-1&quot;,
+      &quot;run_tags&quot;: {
+        &quot;role&quot;: &quot;packer&quot;
+      },
+      &quot;security_group_ids&quot;: [
+        &quot;{{user `security_group_id`}}&quot;
+      ],
+      &quot;source_ami&quot;: &quot;{{user `ami_id`}}&quot;,
+      &quot;ssh_timeout&quot;: &quot;10m&quot;,
+      &quot;ssh_username&quot;: &quot;ubuntu&quot;,
+      &quot;subnet_id&quot;: &quot;{{user `private_subnet_id`}}&quot;,
+      &quot;tags&quot;: {
+        &quot;Name&quot;: &quot;kibana-packer-image&quot;
+      },
+      &quot;type&quot;: &quot;amazon-ebs&quot;
+    }
+  ],
+  &quot;provisioners&quot;: [
+    {
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;inline&quot;: [ &quot;sleep 10&quot; ]
+    },
+    {
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;script&quot;: &quot;install_dependencies.sh&quot;,
+      &quot;execute_command&quot;: &quot;echo &#39;&#39; | {{ .Vars }} sudo -E -S sh &#39;{{ .Path }}&#39;&quot;
+    },
+    {
+      &quot;type&quot;: &quot;ansible-local&quot;,
+      &quot;playbook_file&quot;: &quot;kibana.yml&quot;,
+      &quot;extra_arguments&quot;: [
+        &quot;--module-path=./modules&quot;
+      ],
+      &quot;playbook_dir&quot;: &quot;../../&quot;
+    }
+  ]
+}
+</code>
+ </p>
+
+<p>The install_dependencies.sh script is as described <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">previously</a></p>
+
+<p>The ansible playbook for Kibana looks as follows:  </p>
+
+<p>
+```yaml
+- hosts: all
+  sudo: yes</p>
+
+<p>pre<em>tasks:
+    - ec2</em>tags:
+    - ec2_facts:</p>
+
+<p>roles:
+    - base
+    - kibana
+    - reverse_proxied
+```
+</p>
+
+<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install ElasticSearch.</p>
+
+<p>The Kibana role looks as follows:</p>
+
+<p><br>
+```yaml<br>
+- name: Download Kibana
+  get<em>url: url=https://download.elasticsearch.org/kibana/kibana/kibana-{{ kibana</em>version }}-linux-x64.tar.gz dest=/tmp/kibana-{{ kibana_version }}-linux-x64.tar.gz mode=0440</p>
+
+<ul>
+<li><p>name: Untar Kibana
+command: tar xzf /tmp/kibana-{{ kibana<em>version }}-linux-x64.tar.gz -C /opt creates=/opt/kibana-{{ kibana</em>version }}-linux-x64.tar.gz</p></li>
+<li><p>name: Link to Kibana Directory
+file: src=/opt/kibana-{{ kibana_version }}-linux-x64
+    dest=/opt/kibana
+    state=link
+    force=yes</p></li>
+<li><p>name: Link Kibana to ElasticSearch
+lineinfile: &gt;
+dest=/opt/kibana/config/kibana.yml
+regexp=&quot;^elasticsearch<em>url:&quot;
+line=&#39;elasticsearch</em>url: &quot;{{ elasticsearch_url }}&quot;&#39;</p></li>
+<li><p>name: Create Kibana Init Script
+copy: src=initd.conf dest=/etc/init.d/kibana mode=755 owner=root</p></li>
+<li><p>name: Ensure Kibana is running
+service: name=kibana state=started
+```
+</p></li>
+</ul>
+
+<p>The reverse_proxied ansible role looks as follows:</p>
+
+<p>
+```yaml
+- name: download private key file
+  command: aws s3 cp {{ reverse<em>proxy</em>private<em>key</em>s3<em>path }} /etc/ssl/private/{{ reverse</em>proxy<em>private</em>key }}</p>
+
+<ul>
+<li><p>name: private key permissions
+file: path=/etc/ssl/private/{{ reverse<em>proxy</em>private_key }} mode=600</p></li>
+<li><p>name: download certificate file
+command: aws s3 cp {{ reverse<em>proxy</em>cert<em>s3</em>path }} /etc/ssl/certs/{{ reverse<em>proxy</em>cert }}</p></li>
+<li><p>name: download DH 2048bit encryption
+command: aws s3 cp {{ reverse<em>proxy</em>dh<em>pem</em>s3<em>path }} /etc/ssl/{{ reverse</em>proxy<em>dh</em>pem }}</p></li>
+<li><p>name: certificate permissions
+file: path=/etc/ssl/certs/{{ reverse<em>proxy</em>cert }} mode=644</p></li>
+<li><p>apt: pkg=nginx</p></li>
+<li><p>name: remove default nginx site from sites-emabled
+file: path=/etc/nginx/sites-enabled/default state=absent</p></li>
+<li><p>template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf mode=644 owner=root group=root</p></li>
+<li><p>service: name=nginx state=restarted</p></li>
+<li><p>file: path=/var/log/nginx
+    mode=0755
+    state=directory
+```
+</p></li>
+</ul>
+
+<p>This role downloads a private SSL Key and a Certificate from a <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html">S3 bucket</a> that is security controlled through <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html">IAM</a>. This allows us to configure nginx to act as a proxy. The nginx proxy template is available to <a href="https://gist.github.com/stack72/1d76839c6783bd7eea33">view</a>.</p>
+
+<p>We can then pass a number of variables to our role for use within ansible:</p>
+
+<p>
+<code>yaml
+reverse_proxy_private_key: mydomain.key
+reverse_proxy_private_key_s3_path: s3://my-bucket/certs/mydomain/mydomain.key
+reverse_proxy_cert: mydomain.crt
+reverse_proxy_cert_s3_path: s3://my-bucket/certs/mydomain/mydomain.crt
+reverse_proxy_dh_pem_s3_path: s3://my-bucket/certs/dhparams.pem
+reverse_proxy_dh_pem: dhparams.pem
+proxy_urls:
+  - reverse_proxy_url: /
+    reverse_proxy_upstream_port: 3000
+kibana_version: 4.1.0
+elasticsearch_url: http://myes.com:9200
+</code>
+</p>
+
+<p>This allows me to easily change the configuration of nginx to patch security vulnerabilities easily.</p>
+
+<h3>Deploying Kibana with Terraform</h3>
+
+<p>The infrastructure of the Kibana cluster is now pretty easy. The Terraform script now looks as follows:</p>
+<div class="highlight"><pre><code class="text">resource &quot;aws_security_group&quot; &quot;kibana&quot; {
+  name = &quot;kibana-sg&quot;
+  description = &quot;Kibana Security Group&quot;
+  vpc_id = &quot;${aws_vpc.default.id}&quot;
+
+  ingress {
+    from_port = 443
+    to_port   = 443
+    protocol  = &quot;tcp&quot;
+    security_groups = [&quot;${aws_security_group.kibana_elb.id}&quot;]
+  }
+
+  ingress {
+    from_port = 80
+    to_port   = 80
+    protocol  = &quot;tcp&quot;
+    security_groups = [&quot;${aws_security_group.kibana_elb.id}&quot;]
+  }
+
+  egress {
+    from_port = &quot;0&quot;
+    to_port = &quot;0&quot;
+    protocol = &quot;-1&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
+
+  tags {
+    Name = &quot;Kibana Node&quot;
+  }
+}
+
+resource &quot;aws_security_group&quot; &quot;kibana_elb&quot; {
+  name = &quot;kibana-elb-sg&quot;
+  description = &quot;Kibana Elastic Load Balancer Security Group&quot;
+  vpc_id = &quot;${aws_vpc.default.id}&quot;
+
+  ingress {
+    from_port = 443
+    to_port   = 443
+    protocol  = &quot;tcp&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
+
+  ingress {
+    from_port = 80
+    to_port   = 80
+    protocol  = &quot;tcp&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
+
+  egress {
+    from_port = &quot;0&quot;
+    to_port = &quot;0&quot;
+    protocol = &quot;-1&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
+
+  tags {
+    Name = &quot;Kibana Load Balancer&quot;
+  }
+}
+
+resource &quot;aws_elb&quot; &quot;kibana_elb&quot; {
+  name = &quot;kibana-elb&quot;
+  subnets = [&quot;${aws_subnet.primary-private.id}&quot;,&quot;${aws_subnet.secondary-private.id}&quot;,&quot;${aws_subnet.tertiary-private.id}&quot;]
+  security_groups = [&quot;${aws_security_group.kibana_elb.id}&quot;]
+  cross_zone_load_balancing = true
+  connection_draining = true
+  internal = true
+
+  listener {
+    instance_port      = 443
+    instance_protocol  = &quot;tcp&quot;
+    lb_port            = 443
+    lb_protocol        = &quot;tcp&quot;
+  }
+
+  listener {
+    instance_port      = 80
+    instance_protocol  = &quot;tcp&quot;
+    lb_port            = 80
+    lb_protocol        = &quot;tcp&quot;
+  }
+
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    interval            = 10
+    target              = &quot;TCP:443&quot;
+    timeout             = 5
+  }
+}
+
+resource &quot;aws_launch_configuration&quot; &quot;kibana_launch_config&quot; {
+  image_id = &quot;${var.kibana_ami_id}&quot;
+  instance_type = &quot;${var.kibana_instance_type}&quot;
+  iam_instance_profile = &quot;app-server&quot;
+  key_name = &quot;${aws_key_pair.terraform.key_name}&quot;
+  security_groups = [&quot;${aws_security_group.kibana.id}&quot;,&quot;${aws_security_group.node.id}&quot;]
+  enable_monitoring = false
+
+  root_block_device {
+    volume_size = &quot;${var.kibana_volume_size}&quot;
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource &quot;aws_autoscaling_group&quot; &quot;kibana_autoscale_group&quot; {
+  name = &quot;kibana-autoscale-group&quot;
+  availability_zones = [&quot;${aws_subnet.primary-private.availability_zone}&quot;,&quot;${aws_subnet.secondary-private.availability_zone}&quot;,&quot;${aws_subnet.tertiary-private.availability_zone}&quot;]
+  vpc_zone_identifier = [&quot;${aws_subnet.primary-private.id}&quot;,&quot;${aws_subnet.secondary-private.id}&quot;,&quot;${aws_subnet.tertiary-private.id}&quot;]
+  launch_configuration = &quot;${aws_launch_configuration.kibana_launch_config.id}&quot;
+  min_size = 2
+  max_size = 100
+  health_check_type = &quot;EC2&quot;
+  load_balancers = [&quot;${aws_elb.kibana_elb.name}&quot;]
+
+  tag {
+    key = &quot;Name&quot;
+    value = &quot;kibana&quot;
+    propagate_at_launch = true
+  }
+
+  tag {
+    key = &quot;role&quot;
+    value = &quot;kibana&quot;
+    propagate_at_launch = true
+  }
+
+  tag {
+    key = &quot;elb_name&quot;
+    value = &quot;${aws_elb.kibana_elb.name}&quot;
+    propagate_at_launch = true
+  }
+
+  tag {
+    key = &quot;elb_region&quot;
+    value = &quot;${var.aws_region}&quot;
+    propagate_at_launch = true
+  }
+}
+</code></pre></div>
+<p>This allows me to scale my system up or down just by changing the values in my Terraform configuration. When the instances are instantiated, the Kibana instances are added to the ELB and they are then available to serve traffic</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Building an ElasticSearch cluster in AWS with Packer and Terraform]]></title>
+    <link href="http://paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/"/>
+    <updated>2016-01-02T12:47:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform</id>
+    <content type="html"><![CDATA[<p>As discussed in a <a href="http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">previous post</a>, I like to build separate <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">AMIs</a> for each of my systems. This allows me to scale up and recycle nodes easily. I have been doing this with <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> for a while now. I usually build an AMI with <a href="https://packer.io/">Packer</a> and <a href="http://www.ansible.com/">Ansible</a> and I use <a href="https://terraform.io/">Terraform</a> to roll out the infrastructure</p>
+
+<h3>Building ElasticSearch AMIs with Packer</h3>
+
+<p>The packer template looks as follows:</p>
+
+<p>
+<code>json 
+{
+  &quot;variables&quot;: {
+    &quot;ami_id&quot;: &quot;&quot;,
+    &quot;private_subnet_id&quot;: &quot;&quot;,
+    &quot;security_group_id&quot;: &quot;&quot;,
+    &quot;packer_build_number&quot;: &quot;&quot;,
+  },
+  &quot;description&quot;: &quot;ElasticSearch Image&quot;,
+  &quot;builders&quot;: [
+    {
+      &quot;ami_name&quot;: &quot;elasticsearch-{{user `packer_build_number`}}&quot;,
+      &quot;availability_zone&quot;: &quot;eu-west-1a&quot;,
+      &quot;iam_instance_profile&quot;: &quot;app-server&quot;,
+      &quot;instance_type&quot;: &quot;t2.small&quot;,
+      &quot;region&quot;: &quot;eu-west-1&quot;,
+      &quot;run_tags&quot;: {
+        &quot;role&quot;: &quot;packer&quot;
+      },
+      &quot;security_group_ids&quot;: [
+        &quot;{{user `security_group_id`}}&quot;
+      ],
+      &quot;source_ami&quot;: &quot;{{user `ami_id`}}&quot;,
+      &quot;ssh_timeout&quot;: &quot;10m&quot;,
+      &quot;ssh_username&quot;: &quot;ubuntu&quot;,
+      &quot;subnet_id&quot;: &quot;{{user `private_subnet_id`}}&quot;,
+      &quot;tags&quot;: {
+        &quot;Name&quot;: &quot;elasticsearch-packer-image&quot;
+      },
+      &quot;type&quot;: &quot;amazon-ebs&quot;
+    }
+  ],
+  &quot;provisioners&quot;: [
+    {
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;inline&quot;: [ &quot;sleep 10&quot; ]
+    },
+    {
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;script&quot;: &quot;install_dependencies.sh&quot;,
+      &quot;execute_command&quot;: &quot;echo &#39;&#39; | {{ .Vars }} sudo -E -S sh &#39;{{ .Path }}&#39;&quot;
+    },
+    {
+      &quot;type&quot;: &quot;ansible-local&quot;,
+      &quot;playbook_file&quot;: &quot;elasticsearch.yml&quot;,
+      &quot;extra_arguments&quot;: [
+        &quot;--module-path=./modules&quot;
+      ],
+      &quot;playbook_dir&quot;: &quot;../../&quot;
+    }
+  ]
+}
+</code>
+</p>
+
+<p>This is essentially a pretty simple script and builds an AWS Instance in a private subnet of my choice in eu-west-1a in AWS. </p>
+
+<h4>install_dependencies.sh</h4>
+
+<p>The first part of the script just installs the dependencies that my system has:</p>
+
+<p>
+```bash</p>
+
+<h1>!/bin/bash</h1>
+
+<p>apt-get update
+apt-get upgrade -y
+apt-get install -y software-properties-common git
+apt-add-repository -y ppa:ansible/ansible apt-get update</p>
+
+<h1>workaround for ubuntu pip bug - https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1306991</h1>
+
+<p>rm -rf /usr/local/lib/python2.7/dist-packages/requests
+apt-get install -y python-dev</p>
+
+<p>ssh-keyscan -H github.com &gt; /etc/ssh/ssh<em>known</em>hosts</p>
+
+<p>wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+python get-pip.py</p>
+
+<p>pip install ansible paramiko PyYAML jinja2 httplib2 netifaces boto awscli six
+```
+</p>
+
+<h4>Ansible playbook for ElasticSearch</h4>
+
+<p>The ElasticSearch playbook looks as follows:</p>
+
+<p>
+```YAML<br>
+- hosts: all
+  sudo: yes</p>
+
+<p>pre<em>tasks:
+    - ec2</em>tags:
+    - ec2_facts:</p>
+
+<p>roles:
+    - base
+    - elasticsearch
+```
+</p>
+
+<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install ElasticSearch. </p>
+
+<p>The ElasticSearch role looks as follows:</p>
+
+<p>
+```YAML
+- ec2<em>facts:
+- ec2</em>tags:</p>
+
+<ul>
+<li><p>name: Add Oracle Java Repository
+apt_repository: repo=&#39;ppa:webupd8team/java&#39;</p></li>
+<li><p>name: Accept Java 8 Licence
+shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | tee /etc/oracle-java-8-licence-acceptance | /usr/bin/debconf-set-selections
+args:
+creates: /etc/oracle-java-8-licence-acceptance</p></li>
+<li><p>name: Add ElasticSearch repo public signing key
+apt_key: id=46095ACC8548582C1A2699A9D27D666CD88E42B4 url=https://packages.elastic.co/GPG-KEY-elasticsearch state=present</p></li>
+<li><p>name: Add ElasticSearch repository
+apt<em>repository:
+repo: &#39;deb http://packages.elasticsearch.org/elasticsearch/{{ es</em>release }}/debian stable main&#39;
+state: present</p></li>
+<li><p>name: Install Oracle Java 8
+apt: name={{item}} state=latest
+with_items:</p>
+
+<ul>
+<li>oracle-java8-installer</li>
+<li>ca-certificates</li>
+<li>oracle-java8-set-default</li>
+</ul></li>
+<li><p>name: Install ElasticSearch
+apt: name=elasticsearch={{ es_version }} state=present
+notify: Restart elasticsearch</p></li>
+<li><p>name: Copy /etc/default/elasticsearch
+template: src=elasticsearch dest=/etc/default/elasticsearch
+notify: Restart elasticsearch</p></li>
+<li><p>name: Copy /etc/elasticsearch/elasticsearch.yml
+template: src=elasticsearch.yml dest=/etc/elasticsearch/elasticsearch.yml
+notify: Restart elasticsearch</p></li>
+<li><p>name: Set elasticsearch service to start on boot
+service: name=elasticsearch enabled=yes</p></li>
+<li><p>name: Install plugins
+command: bin/plugin --install {{item.name}}
+args:
+chdir: &quot;{{ es<em>home }}&quot;
+creates: &quot;{{ es</em>home }}/plugins/{{ item.plugin<em>file | default(item.name.split(&#39;/&#39;)[1]) }}&quot;
+with</em>items: es_plugins
+notify: Restart elasticsearch</p></li>
+<li><p>name: Set elasticsearch to be running
+service: name=elasticsearch state=running enabled=yes</p></li>
+</ul>
+<div class="highlight"><pre><code class="text">
+
+This is just some basic ansible commands to get the apt-repo, packages and plugins installed in the system. You can find the templates used [here](https://gist.github.com/stack72/bdef4126ae8b08214bd8). The important part to note is that variables are used both in the script **and** in the templates to setup the cluster to the required level.
+
+My variables look as follows:
+</code></pre></div>
+<p>es<em>release: &quot;1.6&quot;
+es</em>version: &quot;.0&quot;
+es</em>home: /usr/share/elasticsearch
+es<em>wait</em>for<em>listen: yes
+es</em>etc:
+  cluster<em>name: central</em>logging<em>cluster
+  discovery.type: ec2
+  discovery.ec2.groups: elasticsearch-sg
+  cloud.aws.region: &quot;&quot;
+es<em>default</em>es<em>heap</em>size: 4g
+es<em>plugins:
+  - name: elasticsearch/elasticsearch-cloud-aws/2.6.0
+  - name: elasticsearch/marvel/latest
+  - name: mobz/elasticsearch-head
+es</em>etc<em>index</em>number<em>of</em>replicas: 2
+```</p>
+
+<p>As I have specified <code>elasticsearch-sg</code> and installed the <code>elasticsearch-cloud-aws</code> plugin, my nodes can auto-discover each other in the aws region. I can build the packer image as follows:</p>
+<div class="highlight"><pre><code class="text">#!/bin/bash
+
+LATEST_UBUNTU_IMAGE=$(curl http://cloud-images.ubuntu.com/locator/ec2/releasesTable | grep eu-west-1 | grep trusty | grep amd64 | grep &quot;\&quot;hvm:ebs\&quot;&quot; | awk -F &quot;[&lt;&gt;]&quot; &#39;{print $3}&#39;)
+
+packer build \
+  -var ami_id=$LATEST_UBUNTU_IMAGE \
+  -var security_group_id=MYSGID\
+  -var private_subnet_id=MYSUBNETID \
+  -var packer_build_number=PACKERBUILDNUMBER \
+  elasticsearch.json
+</code></pre></div>
+<p>We are now ready to build the infrastructure for the cluster</p>
+
+<h3>Building an ElasticSearch Cluster with Terraform</h3>
+
+<p>The infrastructure of the ElasticSearch cluster is now pretty easy. I deploy my nodes into a <a href="https://aws.amazon.com/vpc/">VPC</a> and onto private subnets so that they are not externally accessible. I have an <a href="https://aws.amazon.com/elasticloadbalancing/">ELB</a> in place across the nodes so that I can easily get to the ElasticSearch plugins like <a href="https://www.elastic.co/guide/en/marvel/current/index.html">Marvel</a> and <a href="https://mobz.github.io/elasticsearch-head/">Head</a>.</p>
+
+<p>The Terraform configuration is as follows:  </p>
+<div class="highlight"><pre><code class="text">resource &quot;aws_security_group&quot; &quot;elasticsearch&quot; {
+  name = &quot;elasticsearch-sg&quot;
+  description = &quot;ElasticSearch Security Group&quot;
+  vpc_id = &quot;${aws_vpc.default.id}&quot;
+
+  ingress {
+    from_port = 9200
+    to_port   = 9400
+    protocol  = &quot;tcp&quot;
+    security_groups = [&quot;${aws_security_group.elasticsearch_elb.id}&quot;]
+  }
+
+  ingress {
+    from_port = 9200
+    to_port   = 9400
+    protocol  = &quot;tcp&quot;
+    security_groups = [&quot;${aws_security_group.node.id}&quot;]
+  }
+
+  egress {
+    from_port = &quot;0&quot;
+    to_port = &quot;0&quot;
+    protocol = &quot;-1&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
+
+  tags {
+    Name = &quot;ElasticSearch Node&quot;
+  }
+}
+
+
+resource &quot;aws_security_group&quot; &quot;elasticsearch_elb&quot; {
+  name = &quot;elasticsearch-elb-sg&quot;
+  description = &quot;ElasticSearch Elastic Load Balancer Security Group&quot;
+  vpc_id = &quot;${aws_vpc.default.id}&quot;
+
+  ingress {
+    from_port = 9200
+    to_port   = 9200
+    protocol  = &quot;tcp&quot;
+    security_groups = [&quot;${aws_security_group.node.id}&quot;]
+  }
+
+  egress {
+    from_port = &quot;0&quot;
+    to_port = &quot;0&quot;
+    protocol = &quot;-1&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
+
+  tags {
+    Name = &quot;ElasticSearch Load Balancer&quot;
+  }
+}
+
+resource &quot;aws_elb&quot; &quot;elasticsearch_elb&quot; {
+  name = &quot;elasticsearch-elb&quot;
+  subnets = [&quot;${aws_subnet.primary-private.id}&quot;,&quot;${aws_subnet.secondary-private.id}&quot;,&quot;${aws_subnet.tertiary-private.id}&quot;]
+  security_groups = [&quot;${aws_security_group.elasticsearch_elb.id}&quot;]
+  cross_zone_load_balancing = true
+  connection_draining = true
+  internal = true
+
+  listener {
+    instance_port      = 9200
+    instance_protocol  = &quot;tcp&quot;
+    lb_port            = 9200
+    lb_protocol        = &quot;tcp&quot;
+  }
+
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    interval            = 10
+    target              = &quot;TCP:9200&quot;
+    timeout             = 5
+  }
+}
+
+resource &quot;aws_autoscaling_group&quot; &quot;elasticsearch_autoscale_group&quot; {
+  name = &quot;elasticsearch-autoscale-group&quot;
+  availability_zones = [&quot;${aws_subnet.primary-private.availability_zone}&quot;,&quot;${aws_subnet.secondary-private.availability_zone}&quot;,&quot;${aws_subnet.tertiary-private.availability_zone}&quot;]
+  vpc_zone_identifier = [&quot;${aws_subnet.primary-private.id}&quot;,&quot;${aws_subnet.secondary-private.id}&quot;,&quot;${aws_subnet.tertiary-private.id}&quot;]
+  launch_configuration = &quot;${aws_launch_configuration.elasticsearch_launch_config.id}&quot;
+  min_size = 3
+  max_size = 100
+  desired = 3
+  health_check_grace_period = &quot;900&quot;
+  health_check_type = &quot;EC2&quot;
+  load_balancers = [&quot;${aws_elb.elasticsearch_elb.name}&quot;]
+
+  tag {
+    key = &quot;Name&quot;
+    value = &quot;elasticsearch&quot;
+    propagate_at_launch = true
+  }
+
+  tag {
+    key = &quot;role&quot;
+    value = &quot;elasticsearch&quot;
+    propagate_at_launch = true
+  }
+
+  tag {
+    key = &quot;elb_name&quot;
+    value = &quot;${aws_elb.elasticsearch_elb.name}&quot;
+    propagate_at_launch = true
+  }
+
+  tag {
+    key = &quot;elb_region&quot;
+    value = &quot;${var.aws_region}&quot;
+    propagate_at_launch = true
+  }
+}
+
+resource &quot;aws_launch_configuration&quot; &quot;elasticsearch_launch_config&quot; {
+  image_id = &quot;${var.elasticsearch_ami_id}&quot;
+  instance_type = &quot;${var.elasticsearch_instance_type}&quot;
+  iam_instance_profile = &quot;app-server&quot;
+  key_name = &quot;${aws_key_pair.terraform.key_name}&quot;
+  security_groups = [&quot;${aws_security_group.elasticsearch.id}&quot;,&quot;${aws_security_group.node.id}&quot;]
+  enable_monitoring = false
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  root_block_device {
+    volume_size = &quot;${var.elasticsearch_volume_size}&quot;
+  }
+}
+</code></pre></div>
+<p>This allows me to scale my system up or down just by changing the values in my Terraform configuration. When the instances are instantiatied, the ElasticSearch cloud plugin discovers the other members of the cluster and allows the node to join the cluster</p>
+]]></content>
+  </entry>
+  
+</feed>

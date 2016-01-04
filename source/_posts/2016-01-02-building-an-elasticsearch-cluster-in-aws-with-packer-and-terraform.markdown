@@ -3,7 +3,7 @@ layout: post
 title: "Building an ElasticSearch cluster in AWS with Packer and Terraform"
 date: 2016-01-02 12:47
 comments: true
-categories: [aws,automation,elasticsearch,terraform,infrastructure]
+categories: [aws,automation,elasticsearch,terraform,infrastructure,packer]
 ---
 As discussed in a [previous post](http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/), I like to build separate [AMIs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html) for each of my systems. This allows me to scale up and recycle nodes easily. I have been doing this with [ElasticSearch](https://www.elastic.co/products/elasticsearch) for a while now. I usually build an AMI with [Packer](https://packer.io/) and [Ansible](http://www.ansible.com/) and I use [Terraform](https://terraform.io/) to roll out the infrastructure
 

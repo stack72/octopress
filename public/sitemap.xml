@@ -576,13 +576,19 @@
         <loc>
             http://paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/
         </loc>
-        <lastmod>2015-12-31T11:34:42+00:00</lastmod>
+        <lastmod>2016-01-04T16:25:05+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/
         </loc>
-        <lastmod>2016-01-03T14:35:12+00:00</lastmod>
+        <lastmod>2016-01-04T16:27:23+00:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/
+        </loc>
+        <lastmod>2016-01-04T16:27:41+00:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/about-me/</loc>
@@ -590,7 +596,7 @@
     </url>
     <url>
         <loc>http://paulstack.co.uk/blog/archives/</loc>
-        <lastmod>2016-01-03T14:35:12+00:00</lastmod>
+        <lastmod>2016-01-04T16:27:41+00:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/contact/</loc>
@@ -598,7 +604,7 @@
     </url>
     <url>
         <loc>http://paulstack.co.uk/</loc>
-        <lastmod>2016-01-03T14:35:12+00:00</lastmod>
+        <lastmod>2016-01-04T16:27:41+00:00</lastmod>
     </url>
     <url>
         <loc>http://paulstack.co.uk/robots.txt</loc>

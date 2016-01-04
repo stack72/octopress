@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Yesterday (April 2nd 2012), I posed a question on twitter: Does anyone think that people working from home in an agile team is a bad idea? This &hellip;">
+  <meta name="description" content="In the past week, I have started using YouTrack&nbsp;3.0 in the cloud as a think tank of blog posts that I want to write. Previously I had used &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/09/custom-blogging-workflow-with-youtrack/">Custom Blogging Workflow With YouTrack</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-09T00:00:00+01:00" pubdate data-updated="true">Apr 9<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In the past week, I have started using <a href="http://www.jetbrains.com/youtrack" target="_blank">YouTrack</a>&nbsp;3.0 in the cloud as a think tank of blog posts that I want to write. Previously I had used Trello. there was no particular reason for moving away from <a href="http://trello.com">Trello</a> other than curiosity about what YouTrack could offer me. On setting up YouTrack I added a project to start the tracking of the blog posts. On adding the first post, I was given the following state workflow:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_41.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_39.png" alt="image" width="419" height="227" border="0" /></a></p>
+<p>As you can see, you can pretty much change the state to be any other out of the box. I wanted to use this as the opportunity to create a custom workflow for YouTrack. I was able to download the <a href="http://www.jetbrains.com/youtrack/download/" target="_blank">YouTrack Workflow Editor</a> and start the editor. <a href="http://twitter.com/hhariri" target="_blank">Hadi Hariri</a> has created a post on the basics of the workflow editor on <a href="http://hadihariri.com/2012/02/15/spicing-up-youtrack-with-workflows/" target="_blank">his blog</a> but this was only to create a stateless rule. I wanted to create a &lsquo;statemachine&rsquo; rule. Basically the flow was to be as follows:</p>
+<p>- Initially the issue created would be assigned to &lsquo;To Write&rsquo;</p>
+<p>- Issues in &lsquo;To Write&rsquo; could be changed to &lsquo;In Draft&rsquo;</p>
+<p>- Issues in &lsquo;In Draft&rsquo; could be changed to &lsquo;In Review&rsquo; when complete or &lsquo;To Write&rsquo; when paused</p>
+<p>- Issues in &lsquo;In Review- can be changed to &lsquo;Published&rsquo; when closed or &lsquo;In Draft&rsquo; when failed review</p>
+<p>I immediately got to work and created a new rule as in Hadi&rsquo;s post but this time I chose a statemachine rule. This gave me the following template:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_42.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_40.png" alt="image" width="447" height="240" border="0" /></a></p>
+<p>I had to add the first transition. That when initially opened the state would be &lsquo;To Write&rsquo;:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_43.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_41.png" alt="image" width="447" height="240" border="0" /></a></p>
+<p>I then had to implement the changes allowed to State from &lsquo;To Write&rsquo;. This says that when an issue in To Write, the only state it can move to is &lsquo;In Draft&rsquo;. As you can see, there is a stub of the state for In Draft created now by the Editor. I was then able to say that when the post is In Draft, it can move to In Review when finished writing or To Write when paused:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_44.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_42.png" alt="image" width="427" height="230" border="0" /></a></p>
+<p>I was then able to implement that when the post is In Review, it could change to Published when verified or In Draft when it didn&rsquo;t pass review. This gave us the stub for Published. As there were no state changes allowed when published, I just had to leave the Published state empty as shown:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_45.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_43.png" alt="image" width="425" height="229" border="0" /></a></p>
+<p>After uploading the workflow to the server, as per Hadi&rsquo;s instructions, I then had to attached the workflow to my project. I went to administration and chose the project type and then the workflow tab, I clicked the button &lsquo;Attach workflow&rsquo;. This game me the following:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_46.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_44.png" alt="image" width="422" height="229" border="0" /></a></p>
+<p>I just had to choose the workflow I had created (stack72-blogging-stateflow) and I could then see the transition screens were working as appropriate:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_47.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_45.png" alt="image" width="146" height="133" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/image_48.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_46.png" alt="image" width="151" height="133" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/image_49.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_47.png" alt="image" width="153" height="133" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/image_50.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_48.png" alt="image" width="148" height="133" border="0" /></a></p>
+<p>This was very easy. I must pay credit to the Youtrack team for such a simple workflow editor. IT has intellisense and was able to offer me all sorts of options on clicking control + spacebar together. Thanks also to Hadi&rsquo;s post for introducing me to the Workflow editor.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -492,49 +547,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/11/29/teamcity-pricing-model-discussion/">TeamCity Pricing Model Discussion</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-11-29T00:00:00+00:00" pubdate data-updated="true">Nov 29<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I have heard people talking for a while on the TeamCity pricing strategy and thought I&rsquo;d write a post to start to get some opinions on what you think it should be changed to.</p>
-<p>TeamCity users are very lucky that we have a free, without restriction, version of the software to use. It comes with 20 build configurations and 3 build agents. Unfortunately, people still do not find this adequate for their needs. The enterprise version has unlimited build configurations and 3 build agents and is approx. &pound;1600. So the question here is:</p>
-<h4>What do you think the pricing model of TeamCity should be?</h4>
-<p>&nbsp;</p>
-<p>If we can get good feedback, we can give this to Jetbrains in order to let them see what their customers feel they need. This post, or discussion, does not in any way guarantee that the pricing of the tool will change.</p>
-<p>I have heard the following suggestions:</p>
-<p>- Make the enterprise version come with 5 build agents <br />- Have a version between Free and Enterprise that allows like 70 build configurations <br />- Give the ability to buy package extras e.g. 20 build configurations for $500 etc.</p>
-<p>What do you think? Comments required please!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -559,6 +571,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/">Deploying Kibana Using Nginx as an SSL Proxy</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
       </li>
     
@@ -572,10 +588,6 @@
     
       <li class="post">
         <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
   </ul>

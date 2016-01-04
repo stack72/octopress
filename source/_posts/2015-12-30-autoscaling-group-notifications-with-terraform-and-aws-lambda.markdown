@@ -3,7 +3,7 @@ layout: post
 title: "Autoscaling Group Notifications with Terraform and AWS Lambda"
 date: 2015-12-30 13:51
 comments: true
-categories: [AWS,Terraform,automation,infrastructure]
+categories: [aws,terraform,automation,infrastructure]
 ---
 I use Autoscaling Groups in AWS for all of my systems. The main benefit for me here was to make sure that when a node died in AWS, the Autoscaling Group policy made sure that the node was replaced. I wanted to get some visibility of when the Autoscaling Group was launching and terminating nodes and decided that posting notifications to [Slack](https://slack.com/) would be a good way of getting this. With [Terraform](https://terraform.io/) and [AWS Lambda](http://docs.aws.amazon.com/lambda/latest/dg/welcome.html), I was able to make this happen.
 

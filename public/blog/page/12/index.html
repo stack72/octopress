@@ -9,7 +9,8 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Oliver Sturm, formerly of DevExpress, came to Edge UG on Tuesday 13th April at the Vue Cinema in Fulham Broadway. This was of course the Venue for 1 &hellip;">
+  <meta name="description" content="&nbsp;
+There seems to be a misunderstanding between continuous integration (CI) and build automation. I was confused with this until recently when i &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +80,65 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/06/01/differences-between-build-automation-and-continuous-integration/">Differences Between Build Automation and Continuous Integration</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-01T00:00:00+01:00" pubdate data-updated="true">Jun 1<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>&nbsp;</p>
+<p>There seems to be a misunderstanding between continuous integration (CI) and build automation. I was confused with this until recently when i looked deeper into the concept.</p>
+<p><strong>Build Automation:</strong> The process of automating a build process, on a nightly bases for example, as well as doing it manually when writing an application.</p>
+<p>There tools that i use commonly for this are as follows:</p>
+<ul>
+<li>NAnt </li>
+<li>MSBuild </li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Continuous Integration:</strong> This is the process of using &ldquo;triggers&rdquo; to listen to various events in order to perform some tasks. e.g. a developer checks into SVN CAUSING A TRIGGER to fire that will run a build of the solution and also will run the unit tests or automated acceptance tests.</p>
+<p>The confusion seems to occur when CI tools are used for build automation but are not configured to use triggers to perform events</p>
+<p>CI Tools:</p>
+<ul>
+<li><a href="http://www.jetbrains.com/teamcity/" target="_blank">TeamCity </a></li>
+<li><a href="http://cruisecontrol.sourceforge.net/" target="_blank">CruiseControl.NET </a></li>
+</ul>
+<p>&nbsp;</p>
+<p>TeamCity is not one i have used but it seems to be easier to configure tasks than CCNET as CCNET requires everything to be configured via huge XML files .</p>
+<p>This is apparent in my current employment setup :    <br />On a nightly basis we schedule CCNET to automate builds via NAnt scripts. These are performed via NAnt scheduling and<strong> NOT </strong>via triggers. These CCNET scripts are pretty awful as they require configuration without a UI.</p>
+<p>&nbsp;</p>
+<p>This has lead me to understand now that i currently perform build automation and <strong>NOT</strong>&nbsp; continuous integration. I guess the next step for me now is to start to use TeamCity in order to understand CI better and potentially use it on a small project at work</p>
+<p>&nbsp;</p>
+<p>Received some great feedback/ advice for this:</p>
+<p>&#8220;There is confusion, I would advise people to get to grips with nant first and when they have the build script working then try cc.net after. Trying to do both together before you understand the theory and technology can be very confusing and strange.&#8221;<br /><a href="http://www.paulthor.co.uk/" target="_blank"> Paul Thorrington</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -659,99 +719,6 @@ early</li>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/02/16/what-happens-to-watin-tests-when-containers-change/">What Happens to WatiN Tests When Containers Change?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-02-16T00:00:00+00:00" pubdate data-updated="true">Feb 16<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>My venturing into Automated Acceptance Testing has improved again thanks to a fantastic article on <a href="http://www.richardlawrence.info/2009/10/30/watin-patterns-3-dont-over-specify/" target="_blank">Simplifying WatiN tests by not over specifying</a>&nbsp;- thanks to Richard Lawrence for this blog post.</p>
-<p>if we have code as follows:</p>
-<pre class="brush: csharp">[Test]
-public void ShouldAuthenticateUsersSuccessfully()
-{
-	using (IE ie = new IE())
-	{
-		ie.GoTo("http://testsite.com/");
-		ie.TextField("ctl1001_Content_Content_txtUsername").TypeText("Owain");
-		ie.TextField("ctl1001_Content_Content_txtPassword").TypeText("Hughes");
-		ie.Button("ctl1001_Content_Content_btnLogin").Click();
-		Assert.IsTrue(ie.ContainsText("Welcome, Owain!"));
-	}
-}
-</pre>
-<p>if the container divs change from &#8216;content&#8217; to &#8216;login&#8217; then this test will break as its very brittle as its looking for &#8216;content&#8217;. It will not be able to dine the textfields or the button. We would then have to change our test to code as follows:</p>
-<pre class="brush: csharp">[Test]
-public void ShouldAuthenticateUsersSuccessfully()
-{
-	using (IE ie = new IE())
-	{
-		ie.GoTo("http://testsite.com/");
-		ie.TextField("ctl1001_Content_Login_txtUsername").TypeText("Owain");
-		ie.TextField("ctl1001_Content_Login_txtPassword").TypeText("Hughes");
-		ie.Button("ctl1001_Content_Login_btnLogin").Click();
-		Assert.IsTrue(ie.ContainsText("Welcome, Owain!"));
-	}
-}
-</pre>
-<p>We can stop this from happening by the use of Regular Expressions in our WatiN tests. This Regex will find the correct id of the control and then it will not depend on the parent divs. Of course the tests will still fail if we change the control names themselves - but we know that by changing the control names that we have to change the test. The new code will be as follows:</p>
-<pre class="brush: csharp">[Test]
-public void ShouldAuthenticateUsersSuccessfully()
-{
-	using (IE ie = new IE())
-	{
-		ie.GoTo("http://testsite.com/");
-		ie.TextField(new Regex("txtUsername$")).TypeText("Owain");
-		ie.TextField(new Regex("txtPassword$")).TypeText("Hughes");
-		ie.Button(new Regex("btnLogin$")).Click();
-		Assert.IsTrue(ie.ContainsText("Welcome, Owain!"));
-	}
-}
-</pre>
-<p>This will tell the Watin dll to look for the control that ends in the text expressed within the regex. This is very useful for me as i have previously hard coded the control ids into a constants file as follows:</p>
-<pre class="brush: csharp">[Test]
-public void ShouldAuthenticateUsersSuccessfully()
-{
-	using (IE ie = new IE())
-	{
-		ie.GoTo("http://testsite.com/");
-		ie.TextField(Find.ById(Constants.Login_Firstname)).TypeText("Owain");
-		ie.TextField(Find.ById(Constants.Login_Surname)).TypeText("Hughes");
-		ie.Button(Find.ById(Constants.LoginButton)).Click();
-		Assert.IsTrue(ie.ContainsText("Welcome, Owain!"));
-	}
-}
-</pre>
-<p>My testing foraging now continues! :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -776,6 +743,10 @@ public void ShouldAuthenticateUsersSuccessfully()
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/">Deploying Kibana Using Nginx as an SSL Proxy</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
       </li>
     
@@ -789,10 +760,6 @@ public void ShouldAuthenticateUsersSuccessfully()
     
       <li class="post">
         <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
   </ul>

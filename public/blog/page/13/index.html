@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="The VS2010 release candidate has been made available to all MSDN subscribers [in case you have missed all the posts]. 2 days later its going to be &hellip;">
+  <meta name="description" content="My venturing into Automated Acceptance Testing has improved again thanks to a fantastic article on Simplifying WatiN tests by not over specifying& &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,99 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/16/what-happens-to-watin-tests-when-containers-change/">What Happens to WatiN Tests When Containers Change?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-16T00:00:00+00:00" pubdate data-updated="true">Feb 16<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>My venturing into Automated Acceptance Testing has improved again thanks to a fantastic article on <a href="http://www.richardlawrence.info/2009/10/30/watin-patterns-3-dont-over-specify/" target="_blank">Simplifying WatiN tests by not over specifying</a>&nbsp;- thanks to Richard Lawrence for this blog post.</p>
+<p>if we have code as follows:</p>
+<pre class="brush: csharp">[Test]
+public void ShouldAuthenticateUsersSuccessfully()
+{
+	using (IE ie = new IE())
+	{
+		ie.GoTo("http://testsite.com/");
+		ie.TextField("ctl1001_Content_Content_txtUsername").TypeText("Owain");
+		ie.TextField("ctl1001_Content_Content_txtPassword").TypeText("Hughes");
+		ie.Button("ctl1001_Content_Content_btnLogin").Click();
+		Assert.IsTrue(ie.ContainsText("Welcome, Owain!"));
+	}
+}
+</pre>
+<p>if the container divs change from &#8216;content&#8217; to &#8216;login&#8217; then this test will break as its very brittle as its looking for &#8216;content&#8217;. It will not be able to dine the textfields or the button. We would then have to change our test to code as follows:</p>
+<pre class="brush: csharp">[Test]
+public void ShouldAuthenticateUsersSuccessfully()
+{
+	using (IE ie = new IE())
+	{
+		ie.GoTo("http://testsite.com/");
+		ie.TextField("ctl1001_Content_Login_txtUsername").TypeText("Owain");
+		ie.TextField("ctl1001_Content_Login_txtPassword").TypeText("Hughes");
+		ie.Button("ctl1001_Content_Login_btnLogin").Click();
+		Assert.IsTrue(ie.ContainsText("Welcome, Owain!"));
+	}
+}
+</pre>
+<p>We can stop this from happening by the use of Regular Expressions in our WatiN tests. This Regex will find the correct id of the control and then it will not depend on the parent divs. Of course the tests will still fail if we change the control names themselves - but we know that by changing the control names that we have to change the test. The new code will be as follows:</p>
+<pre class="brush: csharp">[Test]
+public void ShouldAuthenticateUsersSuccessfully()
+{
+	using (IE ie = new IE())
+	{
+		ie.GoTo("http://testsite.com/");
+		ie.TextField(new Regex("txtUsername$")).TypeText("Owain");
+		ie.TextField(new Regex("txtPassword$")).TypeText("Hughes");
+		ie.Button(new Regex("btnLogin$")).Click();
+		Assert.IsTrue(ie.ContainsText("Welcome, Owain!"));
+	}
+}
+</pre>
+<p>This will tell the Watin dll to look for the control that ends in the text expressed within the regex. This is very useful for me as i have previously hard coded the control ids into a constants file as follows:</p>
+<pre class="brush: csharp">[Test]
+public void ShouldAuthenticateUsersSuccessfully()
+{
+	using (IE ie = new IE())
+	{
+		ie.GoTo("http://testsite.com/");
+		ie.TextField(Find.ById(Constants.Login_Firstname)).TypeText("Owain");
+		ie.TextField(Find.ById(Constants.Login_Surname)).TypeText("Hughes");
+		ie.Button(Find.ById(Constants.LoginButton)).Click();
+		Assert.IsTrue(ie.ContainsText("Welcome, Owain!"));
+	}
+}
+</pre>
+<p>My testing foraging now continues! :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -436,6 +529,10 @@ public void SearchForWatiNOnGoofle()
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/">Deploying Kibana Using Nginx as an SSL Proxy</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
       </li>
     
@@ -449,10 +546,6 @@ public void SearchForWatiNOnGoofle()
     
       <li class="post">
         <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/09/recommended-ops-books/">Recommended Ops Books</a>
       </li>
     
   </ul>
