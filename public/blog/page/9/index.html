@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="This post is not in any way going to tell you what PostSharp is &ndash; you will need to check their website for a full explanation of what it is and &hellip;">
+  <meta name="description" content="A few weeks back, Craig Bernston posted a link about how MSBuild files can be debugged! I wasn&#8217;t sure if this was possible so I followed the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,42 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/19/how-to-debug-msbuild-files-in-vs2010/">How to Debug MSBuild Files in VS2010</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-19T00:00:00+00:00" pubdate data-updated="true">Feb 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A few weeks back, <a href="http://twitter.com/craigber" target="_blank">Craig Bernston</a> posted a link about how MSBuild files can be debugged! I wasn&#8217;t sure if this was possible so I followed the guide to get it going. I hit a few snags with trying to get msbuild working (or so I thought) but it was down to x86 and x64 versions. </p>  <p>It has taken me a while to post this so that I can actually try this out and make sure that it works – i can’t be responsible for passing around a link that causes harm ;) The guide is here - <a title="http://stack72.me/gfGTse" href="http://stack72.me/gfGTse">http://stack72.me/gfGTse</a></p>  <p>The start of the guide talks about how to add the registry information to allow this to happen. Please note the following caveat to that information:</p>  <p>If you are on a x64 system – then you will usually start the cmd.exe in x64 version. Therefore when you are actually starting the msbuild version you have just edited it will usually be on the following path</p>  <p>C:\Windows\Microsoft.NET\Framework64\v4.0.30319</p>  <p>so when you are trying to debug a msbuild file open a command prompt and run a command similar to as follows:</p>  <p>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe /t:rebuild /debug &lt;project or solution path here&gt;</p>  <p>This will then allow you to proceed and debug the file as necessary. This has brought me a lot of happiness as it has helped me create killer build scripts.</p>  <p>Happy building!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -502,42 +538,6 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/11/review-soa-patterns/">Review: SOA Patterns</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-11T00:00:00+00:00" pubdate data-updated="true">Jan 11<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I started reading the SOA Patterns book by Manning and was very pleased with it so I thought i&rsquo;d blog my thoughts on it.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -562,6 +562,10 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/">Deploying Kibana Using Nginx as an SSL Proxy</a>
       </li>
     
@@ -575,10 +579,6 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
     
       <li class="post">
         <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
       </li>
     
   </ul>

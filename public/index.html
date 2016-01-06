@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="In my last post, I described how I use Packer and Terraform to deploy an ElasticSearch cluster. In order to make the logs stored in ElasticSearch &hellip;">
+  <meta name="description" content="In a previous post, I talked about how I have tended towards the philosophy of &#39;Immutable Infrastructure&#39;. As part of that philospohy, when a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,163 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-01-04T17:01:00+00:00" pubdate data-updated="true">Jan 4<span>th</span>, 2016</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In a <a href="http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">previous post</a>, I talked about how I have tended towards the philosophy of &#39;Immutable Infrastructure&#39;. As part of that philospohy, when a box is created in my environment, it has a lifespan of 14 days. On the 14th day, I get a notification to tell me that the box is due for renewal. When it comes to <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> nodes, there is a process I follow to renew a box. </p>
+
+<p>I have an example 3 nodes cluster of ElasticSearch up and running to test this on:</p>
+
+<p><img src="/images/aws_elasticsearch_cluster.png" alt="Image"></p>
+
+<p>Let&#39;s assume that instance <em>i-</em> was due for renewal. Firstly, I would usually disable shard reallocation. This will stop unnecessary data transfer between nodes and minimise the wastage of I/O.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XPUT localhost:9200/_cluster/settings -d '{
+</span><span class='line'>                "transient" : {
+</span><span class='line'>                    "cluster.routing.allocation.enable" : "none"
+</span><span class='line'>                }
+</span><span class='line'>        }'</span></code></pre></td></tr></table></div></figure>
+
+<p>As these shard allocation is now disabled, I can continue with the node replacement. There are a few ways to do this. Previously to ElasticSearch 2.0, we could do it with the ElasticSearch API:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XPOST 'http://localhost:9200/_cluster/nodes/MYNODEIP/_shutdown'</span></code></pre></td></tr></table></div></figure>
+
+<p>If you are using ElasticSearch 2.0, you are more than likely running ElasticSearch as a service. To shutdown the node, stop the service.</p>
+
+<p>By looking at the status of the cluster now, I can see the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XGET 'http://localhost:9200/_cluster/health?pretty=true'
+</span><span class='line'>{
+</span><span class='line'>  "cluster_name" : "elasticsearch",
+</span><span class='line'>  "status" : "yellow",
+</span><span class='line'>  "timed_out" : false,
+</span><span class='line'>  "number_of_nodes" : 2,
+</span><span class='line'>  "number_of_data_nodes" : 2,
+</span><span class='line'>  "active_primary_shards" : 160,
+</span><span class='line'>  "active_shards" : 317,
+</span><span class='line'>  "relocating_shards" : 0,
+</span><span class='line'>  "initializing_shards" : 2,
+</span><span class='line'>  "unassigned_shards" : 151,
+</span><span class='line'>  "number_of_pending_tasks" : 0,
+</span><span class='line'>  "number_of_in_flight_fetch" : 0
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+<p>I can see that it tells me the cluster is yellow and that I have 2 nodes in it. I can proceed with the instance termination.</p>
+
+<p><img src="/images/aws_elasticsearch_instance_terminated.png" alt="Image"></p>
+
+<p>I have an AWS <a href="https://aws.amazon.com/autoscaling/">Autoscale Group</a> configured for ElasticSearch to keep 3 instances running. Therefore, the node that I destroyed will fail the Autoscale Group Healthcheck and a new instance will be spawned to replace it.</p>
+
+<p>Using the ElasticSearch <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html">Cluster Health API</a>, I can determine when the new node is in place:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XGET 'http://localhost:9200/_cluster/health?wait_for_nodes=3&timeout=100s'</span></code></pre></td></tr></table></div></figure> 
+
+<p>The command will continue running until the cluster has 3 nodes in it. If you want to replace more nodes in the cluster, then repeat the steps above. If you are finished, then it is important to re-enable the shard reallocation:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XPUT localhost:9200/_cluster/settings -d '{
+</span><span class='line'>                "transient" : {
+</span><span class='line'>                    "cluster.routing.allocation.enable" : "all"
+</span><span class='line'>                }
+</span><span class='line'>        }'</span></code></pre></td></tr></table></div></figure>
+
+<p>The time taken to rebalance the cluster will depend on the number and size of the shards.</p>
+
+<p>You can monitor the health of the cluster until it turns green:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XGET 'http://localhost:9200/_cluster/health?wait_for_status=green&timeout=100s'</span></code></pre></td></tr></table></div></figure>
+
+<p>The cluster is now green and all is working as expected again:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XGET 'http://localhost:9200/_cluster/health?pretty=true'
+</span><span class='line'>{
+</span><span class='line'>  "cluster_name" : "elasticsearch",
+</span><span class='line'>  "status" : "green",
+</span><span class='line'>  "timed_out" : false,
+</span><span class='line'>  "number_of_nodes" : 3,
+</span><span class='line'>  "number_of_data_nodes" : 3,
+</span><span class='line'>  "active_primary_shards" : 160,
+</span><span class='line'>  "active_shards" : 470,
+</span><span class='line'>  "relocating_shards" : 1,
+</span><span class='line'>  "initializing_shards" : 0,
+</span><span class='line'>  "unassigned_shards" : 0,
+</span><span class='line'>  "number_of_pending_tasks" : 0,
+</span><span class='line'>  "number_of_in_flight_fetch" : 0
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1950,60 +2107,6 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-09T10:11:00+00:00" pubdate data-updated="true">Jan 9<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>For those that know me, you know that I am very passionate about infrastructure and DevOps. Infrastructure is something that we, as developers, don&#39;t really give a lot of thought to. DevOps is something that will make our businesses more successful. So, I am changing the job role that I have. </p>
-
-<p>From now, I am no longer focusing on writing application code. Instead I am going to spend my time focusing on the following areas:</p>
-
-<ul>
-<li>Be the facilitator to help our engineering team be much better by creating a DevOps culture</li>
-<li>Writing code to control our infrastructure</li>
-<li>Learning about the weird and wonderful ways of operations</li>
-</ul>
-
-<p>DevOps is very important to me. When a company has a great culture, things get done. Operations work is smooth, software delivery is smooth and the teams are truly focused on achieving the goals of the business. Without a DevOps culture, things are not as smooth as they could be. In order to allow our developers to more faster, we will be building better systems (e.g. provisioning, configuration management, monitoring, logging etc.) to allow them to really achieve &#39;situational awareness&#39;</p>
-
-<p>I heard the term &#39;situational awareness&#39; just over a year ago. It was defined as &#39;knowing what is going on around you&#39;. Putting this into context, do you know what is going on with your applications in production? I certainly didn&#39;t. This is essential to understand how your software is performing. I will be trying to help our engineers to try and solve this issue by helping them build better infrastructure management systems.</p>
-
-<p>Operations is something that I know very little about. By exposing myself to this world, I feel it will help me understand the continual frustrations that operations and development staff have towards each other. </p>
-
-<p>As you can see, I am truly trying to be a DevOps advocate. I want to be the person that helps the teams talk to each other and help each other rather than (traditionally) having silos. I will still be trying to talk at developer events / conferences. I feel that I can really help developers understand more about DevOps and how it can be successful. </p>
-
-<p>This is a very exciting change for me! Let&#39;s see how it goes&#8230;.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -2026,6 +2129,10 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/">Deploying Kibana Using Nginx as an SSL Proxy</a>
       </li>
     
@@ -2039,10 +2146,6 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
     
       <li class="post">
         <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
       </li>
     
   </ul>

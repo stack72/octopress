@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="The date is 1st August 2012. Developers have been wondering for weeks when the release of VS2012 and ASP.NET 4.5 will happen. Somasegar, cvp of dev &hellip;">
+  <meta name="description" content="For those that know me, you know that I am very passionate about infrastructure and DevOps. Infrastructure is something that we, as developers, don&# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,60 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/09/changing-my-focus/">Changing My Focus</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-09T10:11:00+00:00" pubdate data-updated="true">Jan 9<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For those that know me, you know that I am very passionate about infrastructure and DevOps. Infrastructure is something that we, as developers, don&#39;t really give a lot of thought to. DevOps is something that will make our businesses more successful. So, I am changing the job role that I have. </p>
+
+<p>From now, I am no longer focusing on writing application code. Instead I am going to spend my time focusing on the following areas:</p>
+
+<ul>
+<li>Be the facilitator to help our engineering team be much better by creating a DevOps culture</li>
+<li>Writing code to control our infrastructure</li>
+<li>Learning about the weird and wonderful ways of operations</li>
+</ul>
+
+<p>DevOps is very important to me. When a company has a great culture, things get done. Operations work is smooth, software delivery is smooth and the teams are truly focused on achieving the goals of the business. Without a DevOps culture, things are not as smooth as they could be. In order to allow our developers to more faster, we will be building better systems (e.g. provisioning, configuration management, monitoring, logging etc.) to allow them to really achieve &#39;situational awareness&#39;</p>
+
+<p>I heard the term &#39;situational awareness&#39; just over a year ago. It was defined as &#39;knowing what is going on around you&#39;. Putting this into context, do you know what is going on with your applications in production? I certainly didn&#39;t. This is essential to understand how your software is performing. I will be trying to help our engineers to try and solve this issue by helping them build better infrastructure management systems.</p>
+
+<p>Operations is something that I know very little about. By exposing myself to this world, I feel it will help me understand the continual frustrations that operations and development staff have towards each other. </p>
+
+<p>As you can see, I am truly trying to be a DevOps advocate. I want to be the person that helps the teams talk to each other and help each other rather than (traditionally) having silos. I will still be trying to talk at developer events / conferences. I feel that I can really help developers understand more about DevOps and how it can be successful. </p>
+
+<p>This is a very exciting change for me! Let&#39;s see how it goes&#8230;.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -486,50 +540,6 @@ This will open the following dialog:</ul>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/15/my-approach-to-refactoring-a-monster-switch-statement/">My Approach to Refactoring a Monster Switch Statement</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-15T00:00:00+01:00" pubdate data-updated="true">Apr 15<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I had to refactor some very old code a while back. The code looked similar to this:</p>
-<script type="text/javascript" src="https://gist.github.com/02f6a05870b5b2dd277f.js"></script>
-<p>I had to refactor it so that I could add more parts to it. There was no way I could add in more case statements so it all had to go. I took a cautious approach to the refactoring as it was pretty brittle and quite important code. The first step in refactoring made the code look as follows:</p>
-<script type="text/javascript" src="https://gist.github.com/e263574855d5dc9b19fd.js"></script>
-<p>This mean that I could make sure that the function of the code didn&rsquo;t change but that it was easier to read. This still couldn&rsquo;t be unit tested though as there was no way to mock the behaviour of the case statements &ndash; it was all still in the same class. The next refactoring step was to allow some unit tests to be written. I was able to separate the behaviours into their own class and made the code look as follows:</p>
-<script type="text/javascript" src="https://gist.github.com/ce53ce246dcf5f9bcaaa.js"></script>
-<p>This wasn&rsquo;t enough for me. I still had this huge switch statement that was breaking the <a href="http://www.objectmentor.com/resources/articles/ocp.pdf" target="_blank">Open / Closed principle</a>. This meant that in order to add more functionality to the switch, I had to change the switch and risk breaking it. This couldn&rsquo;t happen. This made my final part of the code look as similar:</p>
-<script type="text/javascript" src="https://gist.github.com/843ed2eeaf5fab2e3c7f.js"></script>
-<p>With this code I could make sure that I could write some unit tests around the behaviour of the class. This post only talks about going this far. I have since refactored the TaskRunner class much more as it was doing a lot more than 1 thing and thus breaking <a href="http://www.objectmentor.com/resources/articles/srp.pdf" target="_blank">SRP</a>. How would you have handled the same refactoring?</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -554,6 +564,10 @@ This will open the following dialog:</ul>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/">Deploying Kibana Using Nginx as an SSL Proxy</a>
       </li>
     
@@ -567,10 +581,6 @@ This will open the following dialog:</ul>
     
       <li class="post">
         <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
       </li>
     
   </ul>

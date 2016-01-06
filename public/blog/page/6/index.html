@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="This post is the second post in a series on how CI will help a development team. The first post talks about the benefits that CI will bring to the &hellip;">
+  <meta name="description" content="I had a real pain point with the IIS Rewrite tool today. I wanted to take an out of the box canonical rewrite rule and then modify it slightly to fit &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/11/iis-rewrite-tool-the-pain-of-a-simple-rule-change/">IIS Rewrite Tool – the Pain of a Simple Rule Change</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-11T00:00:00+01:00" pubdate data-updated="true">Jul 11<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I had a real pain point with the <a href="http://www.iis.net/download/urlrewrite" target="_blank">IIS Rewrite tool</a> today. I wanted to take an out of the box canonical rewrite rule and then modify it slightly to fit my own scenario. This tool is very easy to setup simple, out of the box rules &ndash; e.g. in order to get a simple canonical url rewrite (<a href="http://test.com">http://test.com</a> to redirect to <a href="http://www.test.com">http://www.test.com</a> then we would do as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_27.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_25.png" border="0" alt="image" width="250" height="168" /></a></p>
+<p>You then enter the primary host name &ndash; in my case it is <a href="http://www.test.com">www.test.com</a><a href="http://paulstack.co.uk/blog/images/image_28.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_26.png" border="0" alt="image" width="244" height="153" /></a></p>
+<p>That is it! The rule is now set up &ndash; pretty easy eh! This will redirect any request that isn&#8217;t http://www.test.com to become http://www.test.com. The following code is added to the web.config file in order to make this work:</p>
+<script src="https://gist.github.com/479580648e7a468780f7.js"></script>
+<p>So this wasn&rsquo;t quite right for my setup. I have a main URL that sits with the load balancer &ndash; lets say that is <a href="http://www.test.com">www.test.com</a> <strong>but</strong> I have individual URLs associated with the individual servers lets say an example is <a href="http://server1.internal-test.com">http://server1.internal-test.com</a>. I use individual server URLs for server monitoring &ndash; <a href="http://www.pingdom.com/" target="_blank">Pingdom</a> will constantly hit a specific page on the individual server to test for uptime. The canonical rule I have listed above will redirect the individual URL to the load balanced URL so I had to try and change the built in rule. Firstly I tried to do this via the web.config and adding my own lines. <strong>This did not work at all</strong>. I could find little documentation about how the rule is constructed so I was basically just &#8220;hacking&#8221; the rule to try to get it to work.</p>
+<p>Then I went and used the built-in editor for the IIS rewrite tool. When I seen the list of rules I double clicked on the rule and got the following screen:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_29.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_27.png" border="0" alt="image" width="224" height="244" /></a></p>
+<p>This is where I finally got my editing correct. I had to add a condition to list -</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_30.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_28.png" border="0" alt="image" width="244" height="162" /></a></p>
+<p>This did not offer my any type of drop down list for the different options I had for condition input &ndash; as you can see it is currently selected as {QUERY_STRING}. I didn&rsquo;t realise I had to change this. But once I had figured this out I changed it to look as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_31.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_29.png" border="0" alt="image" width="244" height="162" /></a></p>
+<p>This was the correct rule &ndash; it says in pseudo terms &ndash; if the URL does not match this format then perform the redirect to the canonical host. This left me with the following web.config entry</p>
+<script src="https://gist.github.com/0b44fed10f6ad782fd76.js"></script>
+<p>&nbsp;</p>
+<p>This was way too easy to mess up. I would love there to be a way to test my rules in an actual scenario &ndash; a sample application that I could pass requests to and see what the response would be. I hope you don&rsquo;t fall into this rewrite rule trap! Please, IIS team, make it easier to test the rules that I have created.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -478,49 +529,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/25/best-recruitment-drive-ever%21/">Best Recruitment Drive – EVER!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-25T00:00:00+01:00" pubdate data-updated="true">May 25<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I have seen a lot of job adverts in the past few months. I have even written a few myself for some roles at my current company. As we know job adverts tend to be boring! They suggest the things that the developer needs to be to work in a company.</p>
-<p>As a potential employee I sometimes don&rsquo;t think that&rsquo;s a great way to attract me to your company. I could pass the interview and take the job then after a few months feel as though the environment doesn&rsquo;t suit me. What do I do then?</p>
-<p>I have just today seen a new recruitment drive by <a href="http://www.thesitedoctor.co.uk/" target="_blank">The Site Doctor</a> which aims to cure that exact issue. They have released a new site to help them attract new employees &ndash; this is a chance for them to sell their company to you rather than the traditional what can you do for us!</p>
-<blockquote>
-<h3><a href="http://stack72.me/mHfyd5"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_25.png" border="0" alt="image" width="433" height="258" /></a></h3>
-</blockquote>
-<p>&nbsp;</p>
-<p>I wish more companies done things like this &ndash; its a great way for them to show they are head and shoulders above the rest! Please have a look at the site &ndash; I was truly impressed by their attitude!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -545,6 +553,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/">Deploying Kibana Using Nginx as an SSL Proxy</a>
       </li>
     
@@ -558,10 +570,6 @@
     
       <li class="post">
         <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
       </li>
     
   </ul>

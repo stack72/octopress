@@ -9,8 +9,8 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="&nbsp;
-There seems to be a misunderstanding between continuous integration (CI) and build automation. I was confused with this until recently when i &hellip;">
+  <meta name="description" content="Very simple tip i found at DevEvening tonight from Mark Rendle
+To create a new IEnumerable&lt;string&gt; and add items to that IEnumerable&lt;string& &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,76 @@ There seems to be a misunderstanding between continuous integration (CI) and bui
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/06/04/how-to-create-and-fill-and-ienumerable3cstring3e/">How-to-Create-and-Fill-and-IEnumerable<string></a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-04T00:00:00+01:00" pubdate data-updated="true">Jun 4<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Very simple tip i found at <a href="http://www.devevening.co.uk" target="_blank">DevEvening</a> tonight from <a href="http://blog.markrendle.net/" target="_blank">Mark Rendle</a></p>
+<p>To create a new IEnumerable&lt;string&gt; and add items to that IEnumerable&lt;string&gt; then something very small along the lines of:</p>
+<pre class="brush: csharp">        private static IEnumerable GetStrings()
+        {
+            yield return "a";
+            yield return "b";
+            yield return "c";
+            yield return "d";
+            yield return "e";
+            yield return "f";
+            yield return "g";
+            yield return "h";
+            yield return "i";
+            yield return "j";
+            yield return "k";
+            yield return "l";
+            yield return "m";
+            yield return "n";
+        }
+</pre>
+<p>I&#8217;m sure most of you knew this but it was never something i knew how to do. i usually ended up doing something along the lines of</p>
+<pre class="brush: csharp">        private static IEnumerable ConvertListToIEnumberable()
+        {
+            var&gt; listStrings = new List();
+            listStrings.Add("a");
+            listStrings.Add("b");
+            listStrings.Add("c");
+            listStrings.Add("d");
+            listStrings.Add("e");
+
+            IEnumerable ienumString = listStrings;
+            return ienumString;
+        }
+</pre>
+<p>Possibly useful to you, possibly not as you may already know it :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -682,43 +752,6 @@ early</li>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/02/18/welcome-to-my-new-blog/">Welcome to My New Blog</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-02-18T00:00:00+00:00" pubdate data-updated="true">Feb 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Well if you made it here then you have seen i have moved blog. i felt it was important to have my own control over the blog rather than just go with blogger.com features</p>
-<p>if theres anything you would like to see or if you want added to my blogroll then please contact me or post a comment below</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -743,6 +776,10 @@ early</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/">Deploying Kibana Using Nginx as an SSL Proxy</a>
       </li>
     
@@ -756,10 +793,6 @@ early</li>
     
       <li class="post">
         <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/28/devops-and-net-conference/">DevOps and .Net Conference</a>
       </li>
     
   </ul>

@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Replacing the Nodes in an AWS ElasticSearch Cluster - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="In a previous post, I talked about how I have tended towards the philosophy of &#39;Immutable Infrastructure&#39;. As part of that philospohy, when a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-13083957-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Replacing the Nodes in an AWS ElasticSearch Cluster</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-01-04T17:01:00+00:00" pubdate data-updated="true">Jan 4<span>th</span>, 2016</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In a <a href="http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">previous post</a>, I talked about how I have tended towards the philosophy of &#39;Immutable Infrastructure&#39;. As part of that philospohy, when a box is created in my environment, it has a lifespan of 14 days. On the 14th day, I get a notification to tell me that the box is due for renewal. When it comes to <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> nodes, there is a process I follow to renew a box. </p>
+
+<p>I have an example 3 nodes cluster of ElasticSearch up and running to test this on:</p>
+
+<p><img src="/images/aws_elasticsearch_cluster.png" alt="Image"></p>
+
+<p>Let&#39;s assume that instance <em>i-</em> was due for renewal. Firstly, I would usually disable shard reallocation. This will stop unnecessary data transfer between nodes and minimise the wastage of I/O.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XPUT localhost:9200/_cluster/settings -d '{
+</span><span class='line'>                "transient" : {
+</span><span class='line'>                    "cluster.routing.allocation.enable" : "none"
+</span><span class='line'>                }
+</span><span class='line'>        }'</span></code></pre></td></tr></table></div></figure>
+
+<p>As these shard allocation is now disabled, I can continue with the node replacement. There are a few ways to do this. Previously to ElasticSearch 2.0, we could do it with the ElasticSearch API:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XPOST 'http://localhost:9200/_cluster/nodes/MYNODEIP/_shutdown'</span></code></pre></td></tr></table></div></figure>
+
+<p>If you are using ElasticSearch 2.0, you are more than likely running ElasticSearch as a service. To shutdown the node, stop the service.</p>
+
+<p>By looking at the status of the cluster now, I can see the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XGET 'http://localhost:9200/_cluster/health?pretty=true'
+</span><span class='line'>{
+</span><span class='line'>  "cluster_name" : "elasticsearch",
+</span><span class='line'>  "status" : "yellow",
+</span><span class='line'>  "timed_out" : false,
+</span><span class='line'>  "number_of_nodes" : 2,
+</span><span class='line'>  "number_of_data_nodes" : 2,
+</span><span class='line'>  "active_primary_shards" : 160,
+</span><span class='line'>  "active_shards" : 317,
+</span><span class='line'>  "relocating_shards" : 0,
+</span><span class='line'>  "initializing_shards" : 2,
+</span><span class='line'>  "unassigned_shards" : 151,
+</span><span class='line'>  "number_of_pending_tasks" : 0,
+</span><span class='line'>  "number_of_in_flight_fetch" : 0
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+<p>I can see that it tells me the cluster is yellow and that I have 2 nodes in it. I can proceed with the instance termination.</p>
+
+<p><img src="/images/aws_elasticsearch_instance_terminated.png" alt="Image"></p>
+
+<p>I have an AWS <a href="https://aws.amazon.com/autoscaling/">Autoscale Group</a> configured for ElasticSearch to keep 3 instances running. Therefore, the node that I destroyed will fail the Autoscale Group Healthcheck and a new instance will be spawned to replace it.</p>
+
+<p>Using the ElasticSearch <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html">Cluster Health API</a>, I can determine when the new node is in place:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XGET 'http://localhost:9200/_cluster/health?wait_for_nodes=3&timeout=100s'</span></code></pre></td></tr></table></div></figure> 
+
+<p>The command will continue running until the cluster has 3 nodes in it. If you want to replace more nodes in the cluster, then repeat the steps above. If you are finished, then it is important to re-enable the shard reallocation:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XPUT localhost:9200/_cluster/settings -d '{
+</span><span class='line'>                "transient" : {
+</span><span class='line'>                    "cluster.routing.allocation.enable" : "all"
+</span><span class='line'>                }
+</span><span class='line'>        }'</span></code></pre></td></tr></table></div></figure>
+
+<p>The time taken to rebalance the cluster will depend on the number and size of the shards.</p>
+
+<p>You can monitor the health of the cluster until it turns green:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XGET 'http://localhost:9200/_cluster/health?wait_for_status=green&timeout=100s'</span></code></pre></td></tr></table></div></figure>
+
+<p>The cluster is now green and all is working as expected again:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -XGET 'http://localhost:9200/_cluster/health?pretty=true'
+</span><span class='line'>{
+</span><span class='line'>  "cluster_name" : "elasticsearch",
+</span><span class='line'>  "status" : "green",
+</span><span class='line'>  "timed_out" : false,
+</span><span class='line'>  "number_of_nodes" : 3,
+</span><span class='line'>  "number_of_data_nodes" : 3,
+</span><span class='line'>  "active_primary_shards" : 160,
+</span><span class='line'>  "active_shards" : 470,
+</span><span class='line'>  "relocating_shards" : 1,
+</span><span class='line'>  "initializing_shards" : 0,
+</span><span class='line'>  "unassigned_shards" : 0,
+</span><span class='line'>  "number_of_pending_tasks" : 0,
+</span><span class='line'>  "number_of_in_flight_fetch" : 0
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-01-04T17:01:00+00:00" pubdate data-updated="true">Jan 4<span>th</span>, 2016</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/automation/'>automation</a>, <a class='category' href='/blog/categories/aws/'>aws</a>, <a class='category' href='/blog/categories/elasticsearch/'>elasticsearch</a>, <a class='category' href='/blog/categories/infrastructure/'>infrastructure</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/" data-via="" data-counturl="http://paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/" title="Previous Post: Deploying Kibana Using Nginx as an SSL Proxy">&laquo; Deploying Kibana Using Nginx as an SSL Proxy</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+<h1>Follow me on Twitter</h1>
+<a href="https://twitter.com/stack72" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @stack72</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/">Deploying Kibana Using Nginx as an SSL Proxy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: aws | Adventures of a wannabe geek!]]></title>
   <link href="http://paulstack.co.uk/blog/categories/aws/atom.xml" rel="self"/>
   <link href="http://paulstack.co.uk/"/>
-  <updated>2016-01-04T16:27:53+00:00</updated>
+  <updated>2016-01-06T12:57:48+00:00</updated>
   <id>http://paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -12,6 +12,86 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Replacing the Nodes in an AWS ElasticSearch Cluster]]></title>
+    <link href="http://paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/"/>
+    <updated>2016-01-04T17:01:00+00:00</updated>
+    <id>http://paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster</id>
+    <content type="html"><![CDATA[<p>In a <a href="http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">previous post</a>, I talked about how I have tended towards the philosophy of &#39;Immutable Infrastructure&#39;. As part of that philospohy, when a box is created in my environment, it has a lifespan of 14 days. On the 14th day, I get a notification to tell me that the box is due for renewal. When it comes to <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> nodes, there is a process I follow to renew a box. </p>
+
+<p>I have an example 3 nodes cluster of ElasticSearch up and running to test this on:</p>
+
+<p><img src="/images/aws_elasticsearch_cluster.png" alt="Image"></p>
+
+<p>Let&#39;s assume that instance <em>i-</em> was due for renewal. Firstly, I would usually disable shard reallocation. This will stop unnecessary data transfer between nodes and minimise the wastage of I/O.</p>
+<div class="highlight"><pre><code class="text">curl -XPUT localhost:9200/_cluster/settings -d &#39;{
+                &quot;transient&quot; : {
+                    &quot;cluster.routing.allocation.enable&quot; : &quot;none&quot;
+                }
+        }&#39;
+</code></pre></div>
+<p>As these shard allocation is now disabled, I can continue with the node replacement. There are a few ways to do this. Previously to ElasticSearch 2.0, we could do it with the ElasticSearch API:</p>
+<div class="highlight"><pre><code class="text">curl -XPOST &#39;http://localhost:9200/_cluster/nodes/MYNODEIP/_shutdown&#39;
+</code></pre></div>
+<p>If you are using ElasticSearch 2.0, you are more than likely running ElasticSearch as a service. To shutdown the node, stop the service.</p>
+
+<p>By looking at the status of the cluster now, I can see the following:</p>
+<div class="highlight"><pre><code class="text">curl -XGET &#39;http://localhost:9200/_cluster/health?pretty=true&#39;
+{
+  &quot;cluster_name&quot; : &quot;elasticsearch&quot;,
+  &quot;status&quot; : &quot;yellow&quot;,
+  &quot;timed_out&quot; : false,
+  &quot;number_of_nodes&quot; : 2,
+  &quot;number_of_data_nodes&quot; : 2,
+  &quot;active_primary_shards&quot; : 160,
+  &quot;active_shards&quot; : 317,
+  &quot;relocating_shards&quot; : 0,
+  &quot;initializing_shards&quot; : 2,
+  &quot;unassigned_shards&quot; : 151,
+  &quot;number_of_pending_tasks&quot; : 0,
+  &quot;number_of_in_flight_fetch&quot; : 0
+}
+</code></pre></div>
+<p>I can see that it tells me the cluster is yellow and that I have 2 nodes in it. I can proceed with the instance termination.</p>
+
+<p><img src="/images/aws_elasticsearch_instance_terminated.png" alt="Image"></p>
+
+<p>I have an AWS <a href="https://aws.amazon.com/autoscaling/">Autoscale Group</a> configured for ElasticSearch to keep 3 instances running. Therefore, the node that I destroyed will fail the Autoscale Group Healthcheck and a new instance will be spawned to replace it.</p>
+
+<p>Using the ElasticSearch <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html">Cluster Health API</a>, I can determine when the new node is in place:</p>
+<div class="highlight"><pre><code class="text">curl -XGET &#39;http://localhost:9200/_cluster/health?wait_for_nodes=3&amp;timeout=100s&#39;
+</code></pre></div>
+<p>The command will continue running until the cluster has 3 nodes in it. If you want to replace more nodes in the cluster, then repeat the steps above. If you are finished, then it is important to re-enable the shard reallocation:</p>
+<div class="highlight"><pre><code class="text">curl -XPUT localhost:9200/_cluster/settings -d &#39;{
+                &quot;transient&quot; : {
+                    &quot;cluster.routing.allocation.enable&quot; : &quot;all&quot;
+                }
+        }&#39;
+</code></pre></div>
+<p>The time taken to rebalance the cluster will depend on the number and size of the shards.</p>
+
+<p>You can monitor the health of the cluster until it turns green:</p>
+<div class="highlight"><pre><code class="text">curl -XGET &#39;http://localhost:9200/_cluster/health?wait_for_status=green&amp;timeout=100s&#39;
+</code></pre></div>
+<p>The cluster is now green and all is working as expected again:</p>
+<div class="highlight"><pre><code class="text">curl -XGET &#39;http://localhost:9200/_cluster/health?pretty=true&#39;
+{
+  &quot;cluster_name&quot; : &quot;elasticsearch&quot;,
+  &quot;status&quot; : &quot;green&quot;,
+  &quot;timed_out&quot; : false,
+  &quot;number_of_nodes&quot; : 3,
+  &quot;number_of_data_nodes&quot; : 3,
+  &quot;active_primary_shards&quot; : 160,
+  &quot;active_shards&quot; : 470,
+  &quot;relocating_shards&quot; : 1,
+  &quot;initializing_shards&quot; : 0,
+  &quot;unassigned_shards&quot; : 0,
+  &quot;number_of_pending_tasks&quot; : 0,
+  &quot;number_of_in_flight_fetch&quot; : 0
+}
+</code></pre></div>]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Deploying Kibana Using Nginx as an SSL Proxy]]></title>
