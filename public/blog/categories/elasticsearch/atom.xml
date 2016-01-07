@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: elasticsearch | Adventures of a wannabe geek!]]></title>
-  <link href="http://paulstack.co.uk/blog/categories/elasticsearch/atom.xml" rel="self"/>
-  <link href="http://paulstack.co.uk/"/>
-  <updated>2016-01-06T12:57:48+00:00</updated>
-  <id>http://paulstack.co.uk/</id>
+  <link href="http://www.paulstack.co.uk/blog/categories/elasticsearch/atom.xml" rel="self"/>
+  <link href="http://www.paulstack.co.uk/"/>
+  <updated>2016-01-07T16:36:07+00:00</updated>
+  <id>http://www.paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Replacing the Nodes in an AWS ElasticSearch Cluster]]></title>
-    <link href="http://paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/"/>
+    <link href="http://www.paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/"/>
     <updated>2016-01-04T17:01:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster</id>
+    <id>http://www.paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster</id>
     <content type="html"><![CDATA[<p>In a <a href="http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">previous post</a>, I talked about how I have tended towards the philosophy of &#39;Immutable Infrastructure&#39;. As part of that philospohy, when a box is created in my environment, it has a lifespan of 14 days. On the 14th day, I get a notification to tell me that the box is due for renewal. When it comes to <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> nodes, there is a process I follow to renew a box. </p>
 
 <p>I have an example 3 nodes cluster of ElasticSearch up and running to test this on:</p>
@@ -95,9 +95,9 @@
   
   <entry>
     <title type="html"><![CDATA[Building an ElasticSearch cluster in AWS with Packer and Terraform]]></title>
-    <link href="http://paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/"/>
+    <link href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/"/>
     <updated>2016-01-02T12:47:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform</id>
+    <id>http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform</id>
     <content type="html"><![CDATA[<p>As discussed in a <a href="http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">previous post</a>, I like to build separate <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">AMIs</a> for each of my systems. This allows me to scale up and recycle nodes easily. I have been doing this with <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> for a while now. I usually build an AMI with <a href="https://packer.io/">Packer</a> and <a href="http://www.ansible.com/">Ansible</a> and I use <a href="https://terraform.io/">Terraform</a> to roll out the infrastructure</p>
 
 <h3>Building ElasticSearch AMIs with Packer</h3>

@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://paulstack.co.uk/sitemap.xml 
+Sitemap: http://www.paulstack.co.uk/sitemap.xml 

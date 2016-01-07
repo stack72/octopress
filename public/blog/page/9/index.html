@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="A few weeks back, Craig Bernston posted a link about how MSBuild files can be debugged! I wasn&#8217;t sure if this was possible so I followed the &hellip;">
+  <meta name="description" content="Over the xmas period I read a book I have wanted to for a while now, Azure in Action. I didn&rsquo;t know anything at all about the cloud. In fact, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://paulstack.co.uk/blog/page/9">
+  <link rel="canonical" href="http://www.paulstack.co.uk/blog/page/9">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
@@ -62,7 +62,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input type="hidden" name="q" value="site:www.paulstack.co.uk" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -79,6 +79,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/22/review-azure-in-action/">Review: Azure in Action</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-22T00:00:00+00:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Over the xmas period I read a book I have wanted to for a while now, <a href="http://www.manning.com/hay/" target="_blank">Azure in Action</a>. I didn&rsquo;t know anything at all about the cloud. In fact, my thoughts were that you could take an existing application and host it in &ldquo;the cloud&rdquo; without any real thought process. This turned out to be incorrect.</p>
+<p>The authors help the reader to see the power of Azure. They also help to describe what Azure actually is and it&rsquo;s structure. The book also describes how items are stored (using BLOBs) and how this compares to the normal means of storage (SAN, DFS etc.)</p>
+<p>The most impressive thin I learned from reading this book, was how the different roles on Azure work. The decisions required for scalability of our application help to drive decisions based on the amount of roles required and the ability to scale out or scale up.</p>
+<p>The book also talks about the API&rsquo;s required for dealing with the storage mechanisms and how you can interact with these APIs both inside and outside of the Azure platform.</p>
+<p><strong><span style="text-decoration: underline;">So what do I learn from this book?</span></strong></p>
+<p>Well, simple, a lot. I learned that I cannot just host my existing service in the cloud &ndash; I need to think more about my application, e.g. trust levels, its state, storage etc. I also need to think about configuration as a web.config cannot be changed on the fly like a normal web application. The use of the service definition files mean the application can potentially become more flexible as configuration can be shared between azure and non-azure environments.</p>
+<p><strong><span style="text-decoration: underline;">Would I recommend this book to a friend?</span></strong></p>
+<p>Without a doubt! I&rsquo;d thoroughly recommend this book. This book is suitable for those that know very little about Azure but really want to learn about it but want to see what Azure actually is and how to start using it. I enjoyed this book so much I&rsquo;m hoping that a new version will be created to show the changes in Azure that were announced at PDC2010.</p>
+<p>Thanks to the authors, Chris Hay and Brian Prince for a well written book, also thanks to Manning books for publishing it!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -502,42 +546,6 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/12/moving-from-cuke4nuke-to-specflow/">Moving From Cuke4Nuke to Specflow</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-12T00:00:00+00:00" pubdate data-updated="true">Jan 12<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>For the past few years I have been <strike>annoying</strike> introducing all of the people I have worked with to automated testing. The tool I showed was <a href="https://github.com/richardlawrence/Cuke4Nuke/wiki" target="_blank">Cuke4nuke</a>. Now this has been a great tool for me. Its a way to run Cucumber style tests written in asp.net code (read more about it at the link above)</p>  <p>I think the time has come for me to finally move away from this. This is no reflection on the product itself, I think <a href="http://www.richardlawrence.info/" target="_blank">Richard Lawrence</a> has done a fantastic job on the product, but the reason I’m moving away from the product is that it is no longer feasible for me to be able to run my tests using a ruby console. The team I currently work with are having trouble with ruby installations etc. so I made the decision to move to <a href="http://specflow.org/" target="_blank">Specflow</a> as it’s a asp.net BDD tool. </p>  <h4>What advantages will specflow give me over cuke4nuke?</h4>  <p>1<sup>st</sup>, and the main advantage, is that the tests written with specflow can be run directly from Visual Studio Unit test sessions. For my test this is very important as we are trying to get the tests run on a regular basis as they do their work.</p>  <p>2nd the developers will no longer need to have a ruby installation. For me, having Ruby isn’t too much of an issue as I’m interested in learning it and looking at it, but for other developers they see this as a bit of a chore to run the tests via ruby console and command line.</p>  <p>3rd is that the developers who run the tests can debug the tests themselves as they are running inside the Visual Studio environment. Again I’m not saying that tests always need debugged but it helps them when it’s needed</p>  <p>I’ll still be keeping an eye on the project as I have very much enjoyed using it. I guess my thanks have to go to Richard Lawrence and Goyko Adzic for blogging about the product and its uses</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -562,6 +570,10 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
       </li>
     
@@ -575,10 +587,6 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
     
       <li class="post">
         <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
       </li>
     
   </ul>

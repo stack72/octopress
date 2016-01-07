@@ -9,8 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Very simple tip i found at DevEvening tonight from Mark Rendle
-To create a new IEnumerable&lt;string&gt; and add items to that IEnumerable&lt;string& &hellip;">
+  <meta name="description" content="Tonight i seen, via Twitter, that it was potentially faster to iterate through a collection with a For loop rather than a For Each loop. I didn&#8217 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ To create a new IEnumerable&lt;string&gt; and add items to that IEnumerable&lt;s
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://paulstack.co.uk/blog/page/12">
+  <link rel="canonical" href="http://www.paulstack.co.uk/blog/page/12">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
@@ -63,7 +62,7 @@ To create a new IEnumerable&lt;string&gt; and add items to that IEnumerable&lt;s
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input type="hidden" name="q" value="site:www.paulstack.co.uk" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -80,6 +79,83 @@ To create a new IEnumerable&lt;string&gt; and add items to that IEnumerable&lt;s
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/06/04/speed-of-for-loop-vs-for-each-loop/">Speed of for Loop vs for Each Loop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-04T00:00:00+01:00" pubdate data-updated="true">Jun 4<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Tonight i seen, <a href="http://twitter.com/blowdart/status/15337766237" target="_blank">via Twitter</a>, that it was potentially faster to iterate through a collection with a For loop rather than a For Each loop. I didn&#8217;t believe this [being my usual sceptical self]. Therefore i thought i&#8217;d write some sample code to either support the theory and prove it right or to quash it.</p>
+<p>&nbsp;</p>
+<pre class="brush:csharp">        static void GetIEnumberableResults()
+        {
+            //Small Method call in order to get an IEnumerable
+            //Then parse this IEnumerable firstly over a For Loop
+            //Then over a ForEach Loop - Each Method Returned a TimeSpan
+            var strings = GetStrings();
+            var forLoopElapsedTimespan = GetForLoopElapsed_ForStrings(strings);
+            var forEachLoopElapsedTimeSpan = GetForEachLoopElapsed_ForString(strings);
+
+            Console.WriteLine("Results For IEnumberable");
+            CreateResults(forLoopElapsedTimespan, forEachLoopElapsedTimeSpan);
+            Console.ReadLine();
+        }
+</pre>
+<p>&nbsp;</p>
+<p>I started with a simple IEnumberable&lt;string&gt; and iterated over this. I expected this to tell me that ForEach was faster than a For loop as this is what i was expecting. The results are below:</p>
+<p><img src="/blog/images/2010/6/Capture-IEnumerable.GIF" alt="" /></p>
+<p>&nbsp;</p>
+<p>I was then told that the size of the collection being iterated over was a char[] of approx 65000.&nbsp;There was a challenge if ever i needed one. I created a char[] of a huge size [6
+<script src="http://www.paulstack.co.uk/blog/editors/tiny_mce3/themes/advanced/langs/en.js" type="text/javascript"></script>
+8000+] ad ran the same iteration over the array.</p>
+<pre class="brush:csharp">        
+        static void GetCharArrayResults()
+        {
+            //Small Method call in order to get char[] of size 68000 +
+            //Then parse this char[] firstly over a For Loop
+            //Then over a ForEach Loop - Each Method Returned a TimeSpan
+            var chars = GetChars();
+            var forLoopElapsed = GetForLoopElapsed_ForCharArray(chars);
+            var forEachLoopElapsed = GetForEachLoopElapsed_ForCharArray(chars);
+
+            Console.WriteLine(string.Format("Results for char[] of size {0}", chars.Length));
+            CreateResults(forLoopElapsed, forEachLoopElapsed);
+            Console.ReadLine();
+        }
+</pre>
+<p>Again i expected the ForEach loop to be faster. The results are below:</p>
+<p><img src="/blog/images/2010/6/Capture-char.GIF" alt="" /></p>
+<p>&nbsp;</p>
+<p>i have absolutely no idea what&#8217;s causing this - so if any of you can let me know that would be fantastic. This has really brought out the proper geek in me :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -709,49 +785,6 @@ early</li>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/02/19/strange-error-in-visual-studio-2010/">Strange Error in Visual Studio 2010</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-02-19T00:00:00+00:00" pubdate data-updated="true">Feb 19<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ok i have converted some of the solutions i use to run via Visual Studio 2010 RC. When trying to debug one today i came across this error</p>
-<p><img style="border: 0px initial initial;" src="/blog/images/2010/2/error.GIF" alt="" /></p>
-<p>it was rather a strange one and i couldnt really work it out. this was a fresh solution upgrade to VS2010 RC. i followed the prompt when loading the solution to create the virtual directory in IIS</p>
-<p>when i checked IIS it had set the application pool incorrectly for me</p>
-<p><img style="border: 0px initial initial;" src="/blog/images/2010/2/IIS.gif" alt="&lt;mce:script type=" /></p>
-<p>simply setting the application pool in the image above to as follows:</p>
-<p><img src="/blog/images/2010/2/apppool.GIF" alt="" /></p>
-<p>solved the problem. Hope this helps :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -776,6 +809,10 @@ early</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
       </li>
     
@@ -789,10 +826,6 @@ early</li>
     
       <li class="post">
         <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
       </li>
     
   </ul>

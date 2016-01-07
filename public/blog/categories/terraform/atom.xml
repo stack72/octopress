@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: terraform | Adventures of a wannabe geek!]]></title>
-  <link href="http://paulstack.co.uk/blog/categories/terraform/atom.xml" rel="self"/>
-  <link href="http://paulstack.co.uk/"/>
-  <updated>2016-01-06T12:57:48+00:00</updated>
-  <id>http://paulstack.co.uk/</id>
+  <link href="http://www.paulstack.co.uk/blog/categories/terraform/atom.xml" rel="self"/>
+  <link href="http://www.paulstack.co.uk/"/>
+  <updated>2016-01-07T16:36:07+00:00</updated>
+  <id>http://www.paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
     
@@ -14,10 +14,279 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Building a Riak Cluster in AWS with Packer and Terraform]]></title>
+    <link href="http://www.paulstack.co.uk/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/"/>
+    <updated>2016-01-06T15:02:00+00:00</updated>
+    <id>http://www.paulstack.co.uk/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform</id>
+    <content type="html"><![CDATA[<p>Following my <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">pattern</a> of building <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">AMIs</a> for applications, I create my <a href="http://basho.com/products/riak-kv/">riak</a> cluster with <a href="https://packer.io/">Packer</a> for my AMI and <a href="https://terraform.io/">Terraform</a> for the infrastructure</p>
+
+<h3>Building Riak AMIs with Packer</h3>
+
+<p>
+<code>json
+{
+  &quot;variables&quot;: {
+    &quot;ami_id&quot;: &quot;&quot;,
+    &quot;private_subnet_id&quot;: &quot;&quot;,
+    &quot;security_group_id&quot;: &quot;&quot;,
+    &quot;packer_build_number&quot;: &quot;&quot;,
+  },
+  &quot;description&quot;: &quot;Riak Image&quot;,
+  &quot;builders&quot;: [
+    {
+      &quot;ami_name&quot;: &quot;riak-{{user `packer_build_number`}}&quot;,
+      &quot;availability_zone&quot;: &quot;eu-west-1a&quot;,
+      &quot;iam_instance_profile&quot;: &quot;app-server&quot;,
+      &quot;instance_type&quot;: &quot;t2.small&quot;,
+      &quot;region&quot;: &quot;eu-west-1&quot;,
+      &quot;run_tags&quot;: {
+        &quot;role&quot;: &quot;packer&quot;
+      },
+      &quot;security_group_ids&quot;: [
+        &quot;{{user `security_group_id`}}&quot;
+      ],
+      &quot;source_ami&quot;: &quot;{{user `ami_id`}}&quot;,
+      &quot;ssh_timeout&quot;: &quot;10m&quot;,
+      &quot;ssh_username&quot;: &quot;ubuntu&quot;,
+      &quot;subnet_id&quot;: &quot;{{user `private_subnet_id`}}&quot;,
+      &quot;tags&quot;: {
+        &quot;Name&quot;: &quot;riak-packer-image&quot;
+      },
+      &quot;type&quot;: &quot;amazon-ebs&quot;
+    }
+  ],
+  &quot;provisioners&quot;: [
+    {
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;inline&quot;: [ &quot;sleep 10&quot; ]
+    },
+    {
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;script&quot;: &quot;install_dependencies.sh&quot;,
+      &quot;execute_command&quot;: &quot;echo &#39;&#39; | {{ .Vars }} sudo -E -S sh &#39;{{ .Path }}&#39;&quot;
+    },
+    {
+      &quot;type&quot;: &quot;ansible-local&quot;,
+      &quot;playbook_file&quot;: &quot;riak.yml&quot;,
+      &quot;extra_arguments&quot;: [
+        &quot;--module-path=./modules&quot;
+      ],
+      &quot;playbook_dir&quot;: &quot;../../&quot;
+    }
+  ]
+}
+</code>
+</p>
+
+<p>The install_dependencies.sh script is as described <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">previously</a></p>
+
+<p>The ansible playbook for Riak looks as follows:</p>
+
+<p>
+```yaml
+- hosts: all
+  sudo: yes</p>
+
+<p>pre<em>tasks:
+    - ec2</em>tags:
+    - ec2_facts:</p>
+
+<p>roles:
+    - base
+    - riak
+```
+</p>
+
+<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install riak.</p>
+
+<p>The riak ansible role looks as follows:</p>
+
+<p>
+```yaml
+- action: apt<em>key url={{ riak</em>key_url }} state=present</p>
+
+<ul>
+<li><p>action: apt<em>repository repo=&#39;{{ riak</em>deb<em>repo }}&#39; state=present update</em>cache=yes</p></li>
+<li><p>apt: name=riak={{ riak<em>version }} state=present update</em>cache=yes</p></li>
+<li><p>name: set ulimit
+copy: src=etc-default-riak dest=/etc/default/riak owner=root group=root mode=0644</p></li>
+<li><p>name: template riak configuration
+template: src=riak.j2 dest=/etc/riak/riak.conf owner=riak mode=0644
+register: restart_riak</p></li>
+<li><p>name: restart riak
+service: name=riak state=started
+```
+</p></li>
+</ul>
+
+<p>The role itself is very simple. The riak cluster settings are all held in the <a href="https://gist.github.com/stack72/e0df60305aff136cb81c">riak.j2</a> template file. Notice that the riak template has the following line in it:</p>
+<div class="highlight"><pre><code class="text">riak_control = on
+</code></pre></div>
+<p>The variables for the riak playbook look as follows:</p>
+<div class="highlight"><pre><code class="text">riak_key_url: &quot;https://packagecloud.io/gpg.key&quot;
+riak_deb_repo: &quot;deb https://packagecloud.io/basho/riak/ubuntu/ trusty main&quot;
+riak_version: 2.1.1-1
+</code></pre></div>
+<h3>Deploying Riak with Terraform</h3>
+
+<p>The infrastructure of the Riak cluster is pretty simple:</p>
+
+<p>
+```
+resource &quot;aws<em>elb&quot; &quot;riak</em>v2<em>elb&quot; {
+  name = &quot;riak-elb-v2&quot;
+  subnets = [&quot;${aws</em>subnet.primary-private.id}&quot;,&quot;${aws<em>subnet.secondary-private.id}&quot;,&quot;${aws</em>subnet.tertiary-private.id}&quot;]
+  security<em>groups = [&quot;${aws</em>security<em>group.riak</em>elb.id}&quot;]
+  cross<em>zone</em>load<em>balancing = true
+  connection</em>draining = true
+  internal = true</p>
+
+<p>listener {
+    instance<em>port      = 8098
+    instance</em>protocol  = &quot;tcp&quot;
+    lb<em>port            = 8098
+    lb</em>protocol        = &quot;tcp&quot;
+  }</p>
+
+<p>health<em>check {
+    healthy</em>threshold   = 2
+    unhealthy_threshold = 2
+    interval            = 10
+    target              = &quot;HTTP:8098/ping&quot;
+    timeout             = 5
+  }
+}</p>
+
+<p>resource &quot;aws<em>security</em>group&quot; &quot;riak&quot; {
+  name = &quot;riak-sg&quot;
+  description = &quot;Riak Security Group&quot;
+  vpc<em>id = &quot;${aws</em>vpc.default.id}&quot;</p>
+
+<p>ingress {
+    from<em>port = 8098
+    to</em>port   = 8098
+    protocol  = &quot;tcp&quot;
+    security<em>groups = [&quot;${aws</em>security<em>group.riak</em>elb.id}&quot;]
+  }</p>
+
+<p>ingress {
+    from<em>port = 8098
+    to</em>port   = 8098
+    protocol  = &quot;tcp&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }</p>
+
+<p>egress {
+    from<em>port = &quot;0&quot;
+    to</em>port = &quot;0&quot;
+    protocol = &quot;-1&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }</p>
+
+<p>tags {
+    Name = &quot;Riak Node&quot;
+  }
+}</p>
+
+<p>resource &quot;aws<em>security</em>group<em>rule&quot; &quot;riak</em>all<em>tcp&quot; {
+    type = &quot;ingress&quot;
+    from</em>port = 0
+    to<em>port = 65535
+    protocol = &quot;tcp&quot;
+    security</em>group<em>id = &quot;${aws</em>security<em>group.riak.id}&quot;
+    source</em>security<em>group</em>id = &quot;${aws<em>security</em>group.riak.id}&quot;
+}</p>
+
+<p>resource &quot;aws<em>security</em>group&quot; &quot;riak<em>elb&quot; {
+  name = &quot;riak-elb-sg&quot;
+  description = &quot;Riak Elastic Load Balancer Security Group&quot;
+  vpc</em>id = &quot;${aws_vpc.default.id}&quot;</p>
+
+<p>ingress {
+    from<em>port = 8098
+    to</em>port   = 8098
+    protocol  = &quot;tcp&quot;
+    security<em>groups = [&quot;${aws</em>security_group.node.id}&quot;]
+  }</p>
+
+<p>ingress {
+    from<em>port = 8098
+    to</em>port   = 8098
+    protocol  = &quot;tcp&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }</p>
+
+<p>egress {
+    from<em>port = &quot;0&quot;
+    to</em>port = &quot;0&quot;
+    protocol = &quot;-1&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }</p>
+
+<p>tags {
+    Name = &quot;Riak Load Balancer&quot;
+  }
+}</p>
+
+<p>resource &quot;aws<em>autoscaling</em>group&quot; &quot;riak<em>v2</em>autoscale<em>group&quot; {
+  name = &quot;riak-v2-autoscale-group&quot;
+  availability</em>zones = [&quot;${aws<em>subnet.primary-private.availability</em>zone}&quot;,&quot;${aws<em>subnet.secondary-private.availability</em>zone}&quot;,&quot;${aws<em>subnet.tertiary-private.availability</em>zone}&quot;]
+  vpc<em>zone</em>identifier = [&quot;${aws<em>subnet.primary-private.id}&quot;,&quot;${aws</em>subnet.secondary-private.id}&quot;,&quot;${aws<em>subnet.tertiary-private.id}&quot;]
+  launch</em>configuration = &quot;${aws<em>launch</em>configuration.riak<em>launch</em>config.id}&quot;
+  min<em>size = 0
+  max</em>size = 100
+  health<em>check</em>type = &quot;EC2&quot;</p>
+
+<p>tag {
+    key = &quot;Name&quot;
+    value = &quot;riak&quot;
+    propagate<em>at</em>launch = true
+  }</p>
+
+<p>tag {
+    key = &quot;role&quot;
+    value = &quot;riak&quot;
+    propagate<em>at</em>launch = true
+  }</p>
+
+<p>tag {
+    key = &quot;elb<em>name&quot;
+    value = &quot;${aws</em>elb.riak<em>v2</em>elb.name}&quot;
+    propagate<em>at</em>launch = true
+  }</p>
+
+<p>tag {
+    key = &quot;elb<em>region&quot;
+    value = &quot;${var.aws</em>region}&quot;
+    propagate<em>at</em>launch = true
+  }
+}</p>
+
+<p>resource &quot;aws<em>launch</em>configuration&quot; &quot;riak<em>launch</em>config&quot; {
+  image<em>id = &quot;${var.riak</em>ami<em>id}&quot;
+  instance</em>type = &quot;${var.riak<em>instance</em>type}&quot;
+  iam<em>instance</em>profile = &quot;app-server&quot;
+  key<em>name = &quot;${aws</em>key<em>pair.terraform.key</em>name}&quot;
+  security<em>groups = [&quot;${aws</em>security<em>group.riak.id}&quot;,&quot;${aws</em>security<em>group.node.id}&quot;]
+  enable</em>monitoring = false</p>
+
+<p>lifecycle {
+    create<em>before</em>destroy = true
+  }</p>
+
+<p>root<em>block</em>device {
+    volume<em>size = &quot;${var.driak</em>volume_size}&quot;
+  }
+}</p>
+<div class="highlight"><pre><code class="text">
+</code></pre></div>]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Deploying Kibana Using Nginx as an SSL Proxy]]></title>
-    <link href="http://paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/"/>
+    <link href="http://www.paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/"/>
     <updated>2016-01-03T01:16:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy</id>
+    <id>http://www.paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy</id>
     <content type="html"><![CDATA[<p>In my last <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">post</a>, I described how I use <a href="https://packer.io/">Packer</a> and <a href="https://terraform.io/">Terraform</a> to deploy an <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> cluster. In order to make the logs stored in ElasticSearch searchable, I use <a href="https://www.elastic.co/products/kibana">Kibana</a>. I follow the previous pattern and deploy Kibana using Packer to build an <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.htm">AMI</a> and then create the infrastructure using Terraform. The Packer template has already taken into account that I want to use <a href="https://www.nginx.com/">nginx</a> as a proxy. </p>
 
 <h3>Building Kibana AMIs with Packer and Ansible</h3>
@@ -334,9 +603,9 @@ resource &quot;aws_autoscaling_group&quot; &quot;kibana_autoscale_group&quot; {
   
   <entry>
     <title type="html"><![CDATA[Building an ElasticSearch cluster in AWS with Packer and Terraform]]></title>
-    <link href="http://paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/"/>
+    <link href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/"/>
     <updated>2016-01-02T12:47:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform</id>
+    <id>http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform</id>
     <content type="html"><![CDATA[<p>As discussed in a <a href="http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">previous post</a>, I like to build separate <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">AMIs</a> for each of my systems. This allows me to scale up and recycle nodes easily. I have been doing this with <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> for a while now. I usually build an AMI with <a href="https://packer.io/">Packer</a> and <a href="http://www.ansible.com/">Ansible</a> and I use <a href="https://terraform.io/">Terraform</a> to roll out the infrastructure</p>
 
 <h3>Building ElasticSearch AMIs with Packer</h3>
@@ -682,9 +951,9 @@ resource &quot;aws_launch_configuration&quot; &quot;elasticsearch_launch_config&
   
   <entry>
     <title type="html"><![CDATA[Autoscaling Group Notifications with Terraform and AWS Lambda]]></title>
-    <link href="http://paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/"/>
+    <link href="http://www.paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/"/>
     <updated>2015-12-30T13:51:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda</id>
+    <id>http://www.paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda</id>
     <content type="html"><![CDATA[<p>I use Autoscaling Groups in AWS for all of my systems. The main benefit for me here was to make sure that when a node died in AWS, the Autoscaling Group policy made sure that the node was replaced. I wanted to get some visibility of when the Autoscaling Group was launching and terminating nodes and decided that posting notifications to <a href="https://slack.com/">Slack</a> would be a good way of getting this. With <a href="https://terraform.io/">Terraform</a> and <a href="http://docs.aws.amazon.com/lambda/latest/dg/welcome.html">AWS Lambda</a>, I was able to make this happen.</p>
 
 <p><strong>This post assumes that you are already setup and running with Terraform</strong></p>

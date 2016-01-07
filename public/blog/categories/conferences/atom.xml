@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Conferences | Adventures of a wannabe geek!]]></title>
-  <link href="http://paulstack.co.uk/blog/categories/conferences/atom.xml" rel="self"/>
-  <link href="http://paulstack.co.uk/"/>
-  <updated>2016-01-06T12:57:48+00:00</updated>
-  <id>http://paulstack.co.uk/</id>
+  <link href="http://www.paulstack.co.uk/blog/categories/conferences/atom.xml" rel="self"/>
+  <link href="http://www.paulstack.co.uk/"/>
+  <updated>2016-01-07T16:36:07+00:00</updated>
+  <id>http://www.paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[DevOps and .Net Conference]]></title>
-    <link href="http://paulstack.co.uk/blog/2015/10/28/devops-and-net-conference/"/>
+    <link href="http://www.paulstack.co.uk/blog/2015/10/28/devops-and-net-conference/"/>
     <updated>2015-10-28T12:29:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2015/10/28/devops-and-net-conference</id>
+    <id>http://www.paulstack.co.uk/blog/2015/10/28/devops-and-net-conference</id>
     <content type="html"><![CDATA[<p>So I just tweeted the following,</p>
 
 <p><img src="/images/DevOpsTweet.png" alt="Image"></p>

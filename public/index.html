@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="In a previous post, I talked about how I have tended towards the philosophy of &#39;Immutable Infrastructure&#39;. As part of that philospohy, when a &hellip;">
+  <meta name="description" content="Following my pattern of building AMIs for applications, I create my riak cluster with Packer for my AMI and Terraform for the infrastructure Building &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://paulstack.co.uk">
+  <link rel="canonical" href="http://www.paulstack.co.uk">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
@@ -62,7 +62,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input type="hidden" name="q" value="site:www.paulstack.co.uk" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -79,6 +79,522 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-01-06T15:02:00+00:00" pubdate data-updated="true">Jan 6<span>th</span>, 2016</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Following my <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">pattern</a> of building <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">AMIs</a> for applications, I create my <a href="http://basho.com/products/riak-kv/">riak</a> cluster with <a href="https://packer.io/">Packer</a> for my AMI and <a href="https://terraform.io/">Terraform</a> for the infrastructure</p>
+
+<h3>Building Riak AMIs with Packer</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nt">&quot;variables&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nt">&quot;ami_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nt">&quot;private_subnet_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nt">&quot;security_group_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nt">&quot;packer_build_number&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Riak Image&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nt">&quot;builders&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;ami_name&quot;</span><span class="p">:</span> <span class="s2">&quot;riak-{{user `packer_build_number`}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;availability_zone&quot;</span><span class="p">:</span> <span class="s2">&quot;eu-west-1a&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;iam_instance_profile&quot;</span><span class="p">:</span> <span class="s2">&quot;app-server&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;instance_type&quot;</span><span class="p">:</span> <span class="s2">&quot;t2.small&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;region&quot;</span><span class="p">:</span> <span class="s2">&quot;eu-west-1&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;run_tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nt">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;packer&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nt">&quot;security_group_ids&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;{{user `security_group_id`}}&quot;</span>
+</span><span class='line'>      <span class="p">],</span>
+</span><span class='line'>      <span class="nt">&quot;source_ami&quot;</span><span class="p">:</span> <span class="s2">&quot;{{user `ami_id`}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;ssh_timeout&quot;</span><span class="p">:</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;ssh_username&quot;</span><span class="p">:</span> <span class="s2">&quot;ubuntu&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;subnet_id&quot;</span><span class="p">:</span> <span class="s2">&quot;{{user `private_subnet_id`}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;riak-packer-image&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;amazon-ebs&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">],</span>
+</span><span class='line'>  <span class="nt">&quot;provisioners&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;inline&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;sleep 10&quot;</span> <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;script&quot;</span><span class="p">:</span> <span class="s2">&quot;install_dependencies.sh&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;execute_command&quot;</span><span class="p">:</span> <span class="s2">&quot;echo &#39;&#39; | {{ .Vars }} sudo -E -S sh &#39;{{ .Path }}&#39;&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ansible-local&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;playbook_file&quot;</span><span class="p">:</span> <span class="s2">&quot;riak.yml&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;extra_arguments&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;--module-path=./modules&quot;</span>
+</span><span class='line'>      <span class="p">],</span>
+</span><span class='line'>      <span class="nt">&quot;playbook_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;../../&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>The install_dependencies.sh script is as described <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">previously</a></p>
+
+<p>The ansible playbook for Riak looks as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">all</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">sudo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">pre_tasks</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ec2_tags</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ec2_facts</span><span class="p-Indicator">:</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">base</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">riak</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install riak.</p>
+
+<p>The riak ansible role looks as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">action</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">apt_key url={{ riak_key_url }} state=present</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">action</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">apt_repository repo=&#39;{{ riak_deb_repo }}&#39; state=present update_cache=yes</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">apt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name=riak={{ riak_version }} state=present update_cache=yes</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">set ulimit</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">copy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">src=etc-default-riak dest=/etc/default/riak owner=root group=root mode=0644</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">template riak configuration</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">src=riak.j2 dest=/etc/riak/riak.conf owner=riak mode=0644</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">restart_riak</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">restart riak</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name=riak state=started</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>The role itself is very simple. The riak cluster settings are all held in the <a href="https://gist.github.com/stack72/e0df60305aff136cb81c">riak.j2</a> template file. Notice that the riak template has the following line in it:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">riak_control = on</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>The variables for the riak playbook look as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">riak_key_url</span><span class="p-Indicator">:</span> <span class="s">&quot;https://packagecloud.io/gpg.key&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">riak_deb_repo</span><span class="p-Indicator">:</span> <span class="s">&quot;deb</span><span class="nv"> </span><span class="s">https://packagecloud.io/basho/riak/ubuntu/</span><span class="nv"> </span><span class="s">trusty</span><span class="nv"> </span><span class="s">main&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">riak_version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2.1.1-1</span>
+</span></code></pre></td></tr></table></div></figure> 
+
+<h3>Deploying Riak with Terraform</h3>
+
+<p>The infrastructure of the Riak cluster is pretty simple:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_elb&quot; &quot;riak_v2_elb&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">name = &quot;riak-elb-v2&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">subnets = [&quot;${aws_subnet.primary-private.id}&quot;,&quot;${aws_subnet.secondary-private.id}&quot;,&quot;${aws_subnet.tertiary-private.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.riak_elb.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">cross_zone_load_balancing = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">connection_draining = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">internal = true</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">listener {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">instance_port      = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">instance_protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">lb_port            = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">lb_protocol        = &quot;tcp&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">health_check {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">healthy_threshold   = 2</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">unhealthy_threshold = 2</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">interval            = 10</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">target              = &quot;HTTP:8098/ping&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">timeout             = 5</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_security_group&quot; &quot;riak&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">name = &quot;riak-sg&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">description = &quot;Riak Security Group&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">vpc_id = &quot;${aws_vpc.default.id}&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">ingress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port   = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.riak_elb.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">ingress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port   = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">cidr_blocks = [&quot;0.0.0.0/0&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">egress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = &quot;0&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port = &quot;0&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol = &quot;-1&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">cidr_blocks = [&quot;0.0.0.0/0&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">tags {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">Name = &quot;Riak Node&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_security_group_rule&quot; &quot;riak_all_tcp&quot; {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">type = &quot;ingress&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 0</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port = 65535</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">security_group_id = &quot;${aws_security_group.riak.id}&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">source_security_group_id = &quot;${aws_security_group.riak.id}&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_security_group&quot; &quot;riak_elb&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">name = &quot;riak-elb-sg&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">description = &quot;Riak Elastic Load Balancer Security Group&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">vpc_id = &quot;${aws_vpc.default.id}&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">ingress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port   = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.node.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">ingress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port   = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">cidr_blocks = [&quot;0.0.0.0/0&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">egress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = &quot;0&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port = &quot;0&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol = &quot;-1&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">cidr_blocks = [&quot;0.0.0.0/0&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">tags {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">Name = &quot;Riak Load Balancer&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_autoscaling_group&quot; &quot;riak_v2_autoscale_group&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">name = &quot;riak-v2-autoscale-group&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">availability_zones = [&quot;${aws_subnet.primary-private.availability_zone}&quot;,&quot;${aws_subnet.secondary-private.availability_zone}&quot;,&quot;${aws_subnet.tertiary-private.availability_zone}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">vpc_zone_identifier = [&quot;${aws_subnet.primary-private.id}&quot;,&quot;${aws_subnet.secondary-private.id}&quot;,&quot;${aws_subnet.tertiary-private.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">launch_configuration = &quot;${aws_launch_configuration.riak_launch_config.id}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">min_size = 0</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">max_size = 100</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">health_check_type = &quot;EC2&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">tag {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">key = &quot;Name&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">value = &quot;riak&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">propagate_at_launch = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">tag {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">key = &quot;role&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">value = &quot;riak&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">propagate_at_launch = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">tag {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">key = &quot;elb_name&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">value = &quot;${aws_elb.riak_v2_elb.name}&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">propagate_at_launch = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">tag {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">key = &quot;elb_region&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">value = &quot;${var.aws_region}&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">propagate_at_launch = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_launch_configuration&quot; &quot;riak_launch_config&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">image_id = &quot;${var.riak_ami_id}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">instance_type = &quot;${var.riak_instance_type}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">iam_instance_profile = &quot;app-server&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">key_name = &quot;${aws_key_pair.terraform.key_name}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.riak.id}&quot;,&quot;${aws_security_group.node.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">enable_monitoring = false</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">lifecycle {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">create_before_destroy = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">root_block_device {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">volume_size = &quot;${var.driak_volume_size}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
+</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2049,64 +2565,6 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/11/can-we-fully-trust-online-training_courses/">Can We Fully Trust Online Training Courses?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-11T21:11:00+00:00" pubdate data-updated="true">Jan 11<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em>NOTICE: This post is not written to pick on any specific person or service. This is only my thoughts from speaking to people in the past few weeks</em></p>
-
-<p>The online training industry seems to be a lucrative thing. I have heard rumours (unconfirmed! ) of authors earning 6 or 7 figure sums from training courses they have made and delivered. While part of me thinks, &quot;I really want a part of that&quot;, the other part of me thinks that I don&#39;t have the level of expertise to do it.</p>
-
-<p>I (used to) blog a lot. I speak at a lot of conferences. I have even been known to ramble on a podcast or a screencast. In my opinion, I suggest others get involved in doing things like this. It creates a culture of sharing and exchanging information. I don&#39;t earn money for these activities. I feel like I can talk about what I am passionate about. I also feel as though I can talk about new things.</p>
-
-<p>I also run training courses on continuous integration and delivery. I am paid for these. Since I am paid for these, I feel that the level of information I put into these courses needs to create value for the attendees. In order to deliver information that is useful, I <strong>really</strong> need to understand my subject matter. By no means do I consider myself an expert in continuous integration or continuous delivery. I do feel as though I have enough experience building these systems that I can pass my learnings off to other users.</p>
-
-<p>The courses that I run are very much face to face. I listen to the attendees to see what they want to achieve and I tailor the content to give them that information. Online training courses do not do this, in my opinion. I have considered trying to record some material but I don&#39;t know if the information would be of use. My pet hate is when people record training material on subjects that they know very little about or have little understanding about.</p>
-
-<p>I have seen places where individual people record lots and lots of courses. Of course, they get paid to do this. To me, this feels wrong. What gives those authors the right to disseminate information on a topic that they don&#39;t have a deep understanding of? The information they give may not be accurate - does the user get their money back if they watch a video on API design, follow it and causes a production outage?</p>
-
-<p>Is the issue with the authors themselves or the training companies?</p>
-
-<p>The same issue happens with books. I reviewed a lot of books in 2013. A lot of the books were excellent. Some of them were not very good at all. Book publishers are spamming potential authors trying to get them to write. This is a source of income for them (albet it low). But it&#39;s extra income all the same.</p>
-
-<p>In my opinion, publishers have a contract with people who use their services. Get the best possible trainers for the subject. Don&#39;t put metrics above the level of service you give to your customers. Good training makes us all better at what we do. It&#39;s important we don&#39;t give developers / operations / managers a false understanding of topics. It can cause issues in a team and it can cause issues in our systems. I&#39;m not looking to name and shame people / companies here but I do expect a good level of service if I pay for something</p>
-
-<p>&lt;/rant&gt;</p>
-
-<p>I just learned that <a href="https://twitter.com/hhariri">Hadi Hariri</a> wrote a post on the <a href="http://hadihariri.com/2012/03/18/the-journey-of-teaching/">Journey of Teaching</a>.</p>
-
-<p>Thanks to <a href="https://twitter.com/thefringeninja">thefringeninja</a> for making sure this wasn&#39;t too ranty :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -2129,6 +2587,10 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
       </li>
     
@@ -2142,10 +2604,6 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
     
       <li class="post">
         <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
       </li>
     
   </ul>

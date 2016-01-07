@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I have seen a lot of job adverts in the past few months. I have even written a few myself for some roles at my current company. As we know job &hellip;">
+  <meta name="description" content="I am very pleased to be able to write this blog post! GiveCamp is an event in the USA that was founded to bring developers together to help out &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://paulstack.co.uk/blog/page/7">
+  <link rel="canonical" href="http://www.paulstack.co.uk/blog/page/7">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
@@ -62,7 +62,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input type="hidden" name="q" value="site:www.paulstack.co.uk" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -79,6 +79,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/27/givecamp-is-coming-to-the-uk%21/">GiveCamp Is Coming to the UK!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-27T00:00:00+01:00" pubdate data-updated="true">May 27<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I am very pleased to be able to write this blog post! <a href="http://givecamp.org" target="_blank">GiveCamp</a> is an event in the USA that was founded to bring developers together to help out charity. It has been running successfully there since 2007.</p>
+<p>Late in 2010, <a href="http://twitter.com/rachelhawley" target="_blank">Rachel Hawley</a> had the idea to try and bring GiveCamp to the UK. Through sheer hard work and determinism it&rsquo;s happening and today we are proud to release our new GiveCamp UK site:</p>
+<p><a title="www.givecamp.org.uk" href="http://stack72.me/mH49Dj"><img style="display: block; margin-left: auto; margin-right: auto; border: 0px initial initial;" title="www.givecamp.org.uk" src="http://paulstack.co.uk/blog/images/image_26.png" border="0" alt="www.givecamp.org.uk" width="261" height="166" /></a></p>
+<p><strong>Why did we choose the October 21 - 23?</strong> Its the date of the National GiveCamp in the US!&nbsp;What will you be doing on the weekend of October 21 &ndash; 23? I know what I will be doing. You should come along! We could all be part of something very special in the UK. Special thanks goes to Gareth Barker at <a href="http://www.uniondigitalmedia.co.uk" target="_blank">Union Digital Media</a> for helping with the design of the site. Already people have signed up to contribute &ndash; thanks to <a href="http://leankitkanban.com" target="_blank">Leankitkanban</a>, <a href="http://saasmadeeasy.com" target="_blank">SaaSMadeEasy</a>, <a href="http://github.com" target="_blank">Github</a>, <a href="http://hasbean.co.uk" target="_blank">HasBean</a> and <a href="http://discountasp.net" target="_blank">DiscountASP.NET</a>. More are needed :)</p>
+<p>If you have any enquiries about GiveCamp UK then you can get in touch with the team on twitter via <a href="http://twitter.com/givecampuk" target="_blank">@GiveCampUK</a> or via <a href="http://twitter.com/search/givecampuk" target="_blank">#GiveCampUK</a> or <a href="mailto:info@givecamp.org.uk" target="_blank">email</a>!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -512,42 +552,6 @@ In order to use this tool you can do it from the command line or you can hook it
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/04/05/iis-rewrite-module-and-mvc3/">IIS Rewrite Module and ASP.NET MVC3</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-05T00:00:00+01:00" pubdate data-updated="true">Apr 5<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This morning I found out that the IIS Rewrite module causes a problem with MVC routing when trying to POST back to the server. I added a rule to the web.config to enforce all lowercase URLs as follows:</p>  <p><a href="http://paulstack.co.uk/blog/images/image_15.png"><img style="background-image: none; border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://paulstack.co.uk/blog/images/image_thumb_15.png" width="612" height="437" /></a></p>  <p>As you can see this is the rule that comes out of the box with the module. There doesn’t seem to be any notes included with this particular rule. This adds the following to the web.config</p>  <p>&lt;system.webServer&gt;    <br />&#160;&#160;&#160; &lt;modules runAllManagedModulesForAllRequests=&quot;true&quot;&gt;&lt;/modules&gt;     <br />&#160;&#160;&#160; &lt;handlers&gt;     <br />&#160;&#160;&#160; &lt;remove name=&quot;UrlRoutingHandler&quot; /&gt;     <br />&#160;&#160;&#160; &lt;/handlers&gt;     <br />&#160;&#160;&#160; &lt;rewrite&gt;     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;rules&gt;     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;rule name=&quot;LowerCaseRule1&quot; stopProcessing=&quot;true&quot;&gt;     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;match url=&quot;[A-Z]&quot; ignoreCase=&quot;false&quot; /&gt;     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;action type=&quot;Redirect&quot; url=&quot;{ToLower:{URL}}&quot; /&gt;     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;/rule&gt;     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;/rules&gt;     <br />&#160;&#160;&#160; &lt;/rewrite&gt;     <br />&lt;/system.webServer&gt;</p>  <p>This works as expected as it changes <a href="http://localhost/SiteName/Account/Register">http://localhost/SiteName/Account/Register</a>&#160; to <a href="http://localhost/sitename/account/register">http://localhost/sitename/account/register</a>. We have decided to keep all URL’s lowercase and enforce the rule so Google cannot see duplicate URLs due to casing. When the user is presented with the register view, a form on that page has a POST action. When that POST action posts to a non-lowercase URL then the Rewrite module weighs in a redirects to the lowercase URL and presents the user with the view again and not with the results of the POST.</p>  <p>I mentioned this on twitter and <a href="http://twitter.com/plip" target="_blank">Phil Winstanley</a>, of Microsoft, kindly offered to enquire about this on the internal distribution lists to see what that brought back. The responses helped me understand what actually happen. they also pointed out that the behaviour, although it isn’t strictly correct, is kind of expected. According the HTTP spec </p>  <p>“If the 301 status code is received in response to a request other than GET or HEAD, the user agent MUST NOT automatically redirect the request    <br />unless it can be confirmed by the user, since this might change the conditions under which the request was issued.“ <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.2">http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.2</a></p>  <p>It was also pointed out to me that as Login and Register are not really sites that are promoted for SEO purposes then we can exclude these routes from the redirect rule. Overall I have seen that I have not got a flawless plan for enforcing lowercase URLs. If I want lowercase URLs then I should really enforce them myself in my code. The one thing I’m slightly confused about is that there are no notes that come with the IIS Rewrite module that tell me these types of things. Fair enough I can get them from HTTP spec, but I really didn’t realise that this would be an issue.</p>  <p>If possible, I’d love people to see that the Rewrite module documentation may be lacking in specific areas. Hopefully this will improve. I’d like to thank Phil and all the guys at Microsoft who helped with responses in this query.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -572,6 +576,10 @@ In order to use this tool you can do it from the command line or you can hook it
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
       </li>
     
@@ -585,10 +593,6 @@ In order to use this tool you can do it from the command line or you can hook it
     
       <li class="post">
         <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
       </li>
     
   </ul>

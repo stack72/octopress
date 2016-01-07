@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: change | Adventures of a wannabe geek!]]></title>
-  <link href="http://paulstack.co.uk/blog/categories/change/atom.xml" rel="self"/>
-  <link href="http://paulstack.co.uk/"/>
-  <updated>2016-01-06T12:57:48+00:00</updated>
-  <id>http://paulstack.co.uk/</id>
+  <link href="http://www.paulstack.co.uk/blog/categories/change/atom.xml" rel="self"/>
+  <link href="http://www.paulstack.co.uk/"/>
+  <updated>2016-01-07T16:36:07+00:00</updated>
+  <id>http://www.paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Changing my focus]]></title>
-    <link href="http://paulstack.co.uk/blog/2014/01/09/changing-my-focus/"/>
+    <link href="http://www.paulstack.co.uk/blog/2014/01/09/changing-my-focus/"/>
     <updated>2014-01-09T10:11:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2014/01/09/changing-my-focus</id>
+    <id>http://www.paulstack.co.uk/blog/2014/01/09/changing-my-focus</id>
     <content type="html"><![CDATA[<p>For those that know me, you know that I am very passionate about infrastructure and DevOps. Infrastructure is something that we, as developers, don&#39;t really give a lot of thought to. DevOps is something that will make our businesses more successful. So, I am changing the job role that I have. </p>
 
 <p>From now, I am no longer focusing on writing application code. Instead I am going to spend my time focusing on the following areas:</p>

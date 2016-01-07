@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: kibana | Adventures of a wannabe geek!]]></title>
-  <link href="http://paulstack.co.uk/blog/categories/kibana/atom.xml" rel="self"/>
-  <link href="http://paulstack.co.uk/"/>
-  <updated>2016-01-06T12:57:48+00:00</updated>
-  <id>http://paulstack.co.uk/</id>
+  <link href="http://www.paulstack.co.uk/blog/categories/kibana/atom.xml" rel="self"/>
+  <link href="http://www.paulstack.co.uk/"/>
+  <updated>2016-01-07T16:36:07+00:00</updated>
+  <id>http://www.paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Deploying Kibana Using Nginx as an SSL Proxy]]></title>
-    <link href="http://paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/"/>
+    <link href="http://www.paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/"/>
     <updated>2016-01-03T01:16:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy</id>
+    <id>http://www.paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy</id>
     <content type="html"><![CDATA[<p>In my last <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">post</a>, I described how I use <a href="https://packer.io/">Packer</a> and <a href="https://terraform.io/">Terraform</a> to deploy an <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> cluster. In order to make the logs stored in ElasticSearch searchable, I use <a href="https://www.elastic.co/products/kibana">Kibana</a>. I follow the previous pattern and deploy Kibana using Packer to build an <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.htm">AMI</a> and then create the infrastructure using Terraform. The Packer template has already taken into account that I want to use <a href="https://www.nginx.com/">nginx</a> as a proxy. </p>
 
 <h3>Building Kibana AMIs with Packer and Ansible</h3>

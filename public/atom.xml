@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Adventures of a wannabe geek!]]></title>
-  <link href="http://paulstack.co.uk/atom.xml" rel="self"/>
-  <link href="http://paulstack.co.uk/"/>
-  <updated>2016-01-06T12:57:48+00:00</updated>
-  <id>http://paulstack.co.uk/</id>
+  <link href="http://www.paulstack.co.uk/atom.xml" rel="self"/>
+  <link href="http://www.paulstack.co.uk/"/>
+  <updated>2016-01-07T16:36:07+00:00</updated>
+  <id>http://www.paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
     
@@ -14,15 +14,504 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Building a Riak Cluster in AWS with Packer and Terraform]]></title>
+    <link href="http://www.paulstack.co.uk/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/"/>
+    <updated>2016-01-06T15:02:00+00:00</updated>
+    <id>http://www.paulstack.co.uk/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform</id>
+    <content type="html"><![CDATA[<p>Following my <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">pattern</a> of building <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">AMIs</a> for applications, I create my <a href="http://basho.com/products/riak-kv/">riak</a> cluster with <a href="https://packer.io/">Packer</a> for my AMI and <a href="https://terraform.io/">Terraform</a> for the infrastructure</p>
+
+<h3>Building Riak AMIs with Packer</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nt">&quot;variables&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nt">&quot;ami_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nt">&quot;private_subnet_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nt">&quot;security_group_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nt">&quot;packer_build_number&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Riak Image&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nt">&quot;builders&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;ami_name&quot;</span><span class="p">:</span> <span class="s2">&quot;riak-{{user `packer_build_number`}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;availability_zone&quot;</span><span class="p">:</span> <span class="s2">&quot;eu-west-1a&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;iam_instance_profile&quot;</span><span class="p">:</span> <span class="s2">&quot;app-server&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;instance_type&quot;</span><span class="p">:</span> <span class="s2">&quot;t2.small&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;region&quot;</span><span class="p">:</span> <span class="s2">&quot;eu-west-1&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;run_tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nt">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;packer&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nt">&quot;security_group_ids&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;{{user `security_group_id`}}&quot;</span>
+</span><span class='line'>      <span class="p">],</span>
+</span><span class='line'>      <span class="nt">&quot;source_ami&quot;</span><span class="p">:</span> <span class="s2">&quot;{{user `ami_id`}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;ssh_timeout&quot;</span><span class="p">:</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;ssh_username&quot;</span><span class="p">:</span> <span class="s2">&quot;ubuntu&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;subnet_id&quot;</span><span class="p">:</span> <span class="s2">&quot;{{user `private_subnet_id`}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;riak-packer-image&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;amazon-ebs&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">],</span>
+</span><span class='line'>  <span class="nt">&quot;provisioners&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;inline&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;sleep 10&quot;</span> <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;script&quot;</span><span class="p">:</span> <span class="s2">&quot;install_dependencies.sh&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;execute_command&quot;</span><span class="p">:</span> <span class="s2">&quot;echo &#39;&#39; | {{ .Vars }} sudo -E -S sh &#39;{{ .Path }}&#39;&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ansible-local&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;playbook_file&quot;</span><span class="p">:</span> <span class="s2">&quot;riak.yml&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;extra_arguments&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;--module-path=./modules&quot;</span>
+</span><span class='line'>      <span class="p">],</span>
+</span><span class='line'>      <span class="nt">&quot;playbook_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;../../&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>The install_dependencies.sh script is as described <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">previously</a></p>
+
+<p>The ansible playbook for Riak looks as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">all</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">sudo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">pre_tasks</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ec2_tags</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ec2_facts</span><span class="p-Indicator">:</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">base</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">riak</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install riak.</p>
+
+<p>The riak ansible role looks as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">action</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">apt_key url={{ riak_key_url }} state=present</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">action</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">apt_repository repo=&#39;{{ riak_deb_repo }}&#39; state=present update_cache=yes</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">apt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name=riak={{ riak_version }} state=present update_cache=yes</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">set ulimit</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">copy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">src=etc-default-riak dest=/etc/default/riak owner=root group=root mode=0644</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">template riak configuration</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">src=riak.j2 dest=/etc/riak/riak.conf owner=riak mode=0644</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">restart_riak</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">restart riak</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name=riak state=started</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>The role itself is very simple. The riak cluster settings are all held in the <a href="https://gist.github.com/stack72/e0df60305aff136cb81c">riak.j2</a> template file. Notice that the riak template has the following line in it:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">riak_control = on</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>The variables for the riak playbook look as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">riak_key_url</span><span class="p-Indicator">:</span> <span class="s">&quot;https://packagecloud.io/gpg.key&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">riak_deb_repo</span><span class="p-Indicator">:</span> <span class="s">&quot;deb</span><span class="nv"> </span><span class="s">https://packagecloud.io/basho/riak/ubuntu/</span><span class="nv"> </span><span class="s">trusty</span><span class="nv"> </span><span class="s">main&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">riak_version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2.1.1-1</span>
+</span></code></pre></td></tr></table></div></figure> 
+
+<h3>Deploying Riak with Terraform</h3>
+
+<p>The infrastructure of the Riak cluster is pretty simple:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_elb&quot; &quot;riak_v2_elb&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">name = &quot;riak-elb-v2&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">subnets = [&quot;${aws_subnet.primary-private.id}&quot;,&quot;${aws_subnet.secondary-private.id}&quot;,&quot;${aws_subnet.tertiary-private.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.riak_elb.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">cross_zone_load_balancing = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">connection_draining = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">internal = true</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">listener {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">instance_port      = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">instance_protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">lb_port            = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">lb_protocol        = &quot;tcp&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">health_check {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">healthy_threshold   = 2</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">unhealthy_threshold = 2</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">interval            = 10</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">target              = &quot;HTTP:8098/ping&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">timeout             = 5</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_security_group&quot; &quot;riak&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">name = &quot;riak-sg&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">description = &quot;Riak Security Group&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">vpc_id = &quot;${aws_vpc.default.id}&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">ingress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port   = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.riak_elb.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">ingress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port   = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">cidr_blocks = [&quot;0.0.0.0/0&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">egress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = &quot;0&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port = &quot;0&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol = &quot;-1&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">cidr_blocks = [&quot;0.0.0.0/0&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">tags {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">Name = &quot;Riak Node&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_security_group_rule&quot; &quot;riak_all_tcp&quot; {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">type = &quot;ingress&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 0</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port = 65535</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">security_group_id = &quot;${aws_security_group.riak.id}&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">source_security_group_id = &quot;${aws_security_group.riak.id}&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_security_group&quot; &quot;riak_elb&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">name = &quot;riak-elb-sg&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">description = &quot;Riak Elastic Load Balancer Security Group&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">vpc_id = &quot;${aws_vpc.default.id}&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">ingress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port   = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.node.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">ingress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port   = 8098</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol  = &quot;tcp&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">cidr_blocks = [&quot;0.0.0.0/0&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">egress {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">from_port = &quot;0&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">to_port = &quot;0&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">protocol = &quot;-1&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">cidr_blocks = [&quot;0.0.0.0/0&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">tags {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">Name = &quot;Riak Load Balancer&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_autoscaling_group&quot; &quot;riak_v2_autoscale_group&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">name = &quot;riak-v2-autoscale-group&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">availability_zones = [&quot;${aws_subnet.primary-private.availability_zone}&quot;,&quot;${aws_subnet.secondary-private.availability_zone}&quot;,&quot;${aws_subnet.tertiary-private.availability_zone}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">vpc_zone_identifier = [&quot;${aws_subnet.primary-private.id}&quot;,&quot;${aws_subnet.secondary-private.id}&quot;,&quot;${aws_subnet.tertiary-private.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">launch_configuration = &quot;${aws_launch_configuration.riak_launch_config.id}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">min_size = 0</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">max_size = 100</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">health_check_type = &quot;EC2&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">tag {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">key = &quot;Name&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">value = &quot;riak&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">propagate_at_launch = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">tag {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">key = &quot;role&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">value = &quot;riak&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">propagate_at_launch = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">tag {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">key = &quot;elb_name&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">value = &quot;${aws_elb.riak_v2_elb.name}&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">propagate_at_launch = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">tag {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">key = &quot;elb_region&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">value = &quot;${var.aws_region}&quot;</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">propagate_at_launch = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">resource &quot;aws_launch_configuration&quot; &quot;riak_launch_config&quot; {</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">image_id = &quot;${var.riak_ami_id}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">instance_type = &quot;${var.riak_instance_type}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">iam_instance_profile = &quot;app-server&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">key_name = &quot;${aws_key_pair.terraform.key_name}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">security_groups = [&quot;${aws_security_group.riak.id}&quot;,&quot;${aws_security_group.node.id}&quot;]</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">enable_monitoring = false</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">lifecycle {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">create_before_destroy = true</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">root_block_device {</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">volume_size = &quot;${var.driak_volume_size}&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">}</span>
+</span><span class='line'><span class="l-Scalar-Plain">}</span>
+</span></code></pre></td></tr></table></div></figure>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Replacing the Nodes in an AWS ElasticSearch Cluster]]></title>
-    <link href="http://paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/"/>
+    <link href="http://www.paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/"/>
     <updated>2016-01-04T17:01:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster</id>
+    <id>http://www.paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster</id>
     <content type="html"><![CDATA[<p>In a <a href="http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">previous post</a>, I talked about how I have tended towards the philosophy of &#39;Immutable Infrastructure&#39;. As part of that philospohy, when a box is created in my environment, it has a lifespan of 14 days. On the 14th day, I get a notification to tell me that the box is due for renewal. When it comes to <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> nodes, there is a process I follow to renew a box. </p>
 
 <p>I have an example 3 nodes cluster of ElasticSearch up and running to test this on:</p>
 
-<p><img src="http://paulstack.co.uk/images/aws_elasticsearch_cluster.png" alt="Image"></p>
+<p><img src="http://www.paulstack.co.uk/images/aws_elasticsearch_cluster.png" alt="Image"></p>
 
 <p>Let&#39;s assume that instance <em>i-</em> was due for renewal. Firstly, I would usually disable shard reallocation. This will stop unnecessary data transfer between nodes and minimise the wastage of I/O.</p>
 
@@ -79,7 +568,7 @@
 
 <p>I can see that it tells me the cluster is yellow and that I have 2 nodes in it. I can proceed with the instance termination.</p>
 
-<p><img src="http://paulstack.co.uk/images/aws_elasticsearch_instance_terminated.png" alt="Image"></p>
+<p><img src="http://www.paulstack.co.uk/images/aws_elasticsearch_instance_terminated.png" alt="Image"></p>
 
 <p>I have an AWS <a href="https://aws.amazon.com/autoscaling/">Autoscale Group</a> configured for ElasticSearch to keep 3 instances running. Therefore, the node that I destroyed will fail the Autoscale Group Healthcheck and a new instance will be spawned to replace it.</p>
 
@@ -145,9 +634,9 @@
   
   <entry>
     <title type="html"><![CDATA[Deploying Kibana Using Nginx as an SSL Proxy]]></title>
-    <link href="http://paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/"/>
+    <link href="http://www.paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/"/>
     <updated>2016-01-03T01:16:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy</id>
+    <id>http://www.paulstack.co.uk/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy</id>
     <content type="html"><![CDATA[<p>In my last <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">post</a>, I described how I use <a href="https://packer.io/">Packer</a> and <a href="https://terraform.io/">Terraform</a> to deploy an <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> cluster. In order to make the logs stored in ElasticSearch searchable, I use <a href="https://www.elastic.co/products/kibana">Kibana</a>. I follow the previous pattern and deploy Kibana using Packer to build an <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.htm">AMI</a> and then create the infrastructure using Terraform. The Packer template has already taken into account that I want to use <a href="https://www.nginx.com/">nginx</a> as a proxy. </p>
 
 <h3>Building Kibana AMIs with Packer and Ansible</h3>
@@ -727,9 +1216,9 @@
   
   <entry>
     <title type="html"><![CDATA[Building an ElasticSearch cluster in AWS with Packer and Terraform]]></title>
-    <link href="http://paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/"/>
+    <link href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/"/>
     <updated>2016-01-02T12:47:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform</id>
+    <id>http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform</id>
     <content type="html"><![CDATA[<p>As discussed in a <a href="http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">previous post</a>, I like to build separate <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">AMIs</a> for each of my systems. This allows me to scale up and recycle nodes easily. I have been doing this with <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> for a while now. I usually build an AMI with <a href="https://packer.io/">Packer</a> and <a href="http://www.ansible.com/">Ansible</a> and I use <a href="https://terraform.io/">Terraform</a> to roll out the infrastructure</p>
 
 <h3>Building ElasticSearch AMIs with Packer</h3>
@@ -1358,9 +1847,9 @@
   
   <entry>
     <title type="html"><![CDATA[Autoscaling Group Notifications with Terraform and AWS Lambda]]></title>
-    <link href="http://paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/"/>
+    <link href="http://www.paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/"/>
     <updated>2015-12-30T13:51:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda</id>
+    <id>http://www.paulstack.co.uk/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda</id>
     <content type="html"><![CDATA[<p>I use Autoscaling Groups in AWS for all of my systems. The main benefit for me here was to make sure that when a node died in AWS, the Autoscaling Group policy made sure that the node was replaced. I wanted to get some visibility of when the Autoscaling Group was launching and terminating nodes and decided that posting notifications to <a href="https://slack.com/">Slack</a> would be a good way of getting this. With <a href="https://terraform.io/">Terraform</a> and <a href="http://docs.aws.amazon.com/lambda/latest/dg/welcome.html">AWS Lambda</a>, I was able to make this happen.</p>
 
 <p><strong>This post assumes that you are already setup and running with Terraform</strong></p>
@@ -1427,15 +1916,15 @@
 
 <p>In the AWS Console, go to Lambda and then chose the Lambda function. </p>
 
-<p><img src="http://paulstack.co.uk/images/lambda_function.png" alt="Image"></p>
+<p><img src="http://www.paulstack.co.uk/images/lambda_function.png" alt="Image"></p>
 
 <p>Go to the <code>Event Sources</code> tab:</p>
 
-<p><img src="http://paulstack.co.uk/images/lambda_function_event_sources.png" alt="Image"></p>
+<p><img src="http://www.paulstack.co.uk/images/lambda_function_event_sources.png" alt="Image"></p>
 
 <p>Click on <code>Add Event Source</code> and then choose <code>SNS</code> from the dropdown and then make sure you chose the correct SNS Topic name:</p>
 
-<p><img src="http://paulstack.co.uk/images/lambda_function_sns_topic.png" alt="Image"></p>
+<p><img src="http://www.paulstack.co.uk/images/lambda_function_sns_topic.png" alt="Image"></p>
 
 <p>We then use another Terraform resource to attach the Autoscale Groups to the Lambda as follows:</p>
 
@@ -1470,7 +1959,7 @@
 
 <p>As we have configured notifications for autoscaling:TEST_NOTIFICATION, when you apply this configuration with Terraform, you will see something similar to the following in Slack:</p>
 
-<p><img src="http://paulstack.co.uk/images/slack_test_notification.png" alt="Image"></p>
+<p><img src="http://www.paulstack.co.uk/images/slack_test_notification.png" alt="Image"></p>
 
 <p>In the current infrastructure I manage, there are 27 Autoscale groups. I don&#39;t really want to add 27 hardcoded group<em>names in the aws</em>autoscaling_notifcation in Terraform. </p>
 
@@ -1556,16 +2045,16 @@
 
 <p>When anything happens within an Autoscaling Group, I now get notifications as follows:</p>
 
-<p><img src="http://paulstack.co.uk/images/termination_notification.png" alt="Image">
-<img src="http://paulstack.co.uk/images/launch_notification.png" alt="Image"></p>
+<p><img src="http://www.paulstack.co.uk/images/termination_notification.png" alt="Image">
+<img src="http://www.paulstack.co.uk/images/launch_notification.png" alt="Image"></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[The Quest for Infrastructure Management 2.0]]></title>
-    <link href="http://paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/"/>
+    <link href="http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/"/>
     <updated>2015-11-09T10:50:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0</id>
+    <id>http://www.paulstack.co.uk/blog/2015/11/09/the-quest-for-infra-management-2-dot-0</id>
     <content type="html"><![CDATA[<p>I&#39;ve long been a configuration management tool fan. I have blogged, spoken at conferences and used <a href="https://puppetlabs.com/">Puppet</a> as well as <a href="https://www.chef.io/">Chef</a> and <a href="http://www.ansible.com/">Ansible</a>. The more I use these tools now, the more I realise I&#39;m actually not making my life any easier</p>
 
 <p>Currently, the infrastructure I manage is 100% AWS Cloud based. This has actually changed how I work:</p>
@@ -1599,12 +2088,12 @@
   
   <entry>
     <title type="html"><![CDATA[DevOps and .Net Conference]]></title>
-    <link href="http://paulstack.co.uk/blog/2015/10/28/devops-and-net-conference/"/>
+    <link href="http://www.paulstack.co.uk/blog/2015/10/28/devops-and-net-conference/"/>
     <updated>2015-10-28T12:29:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2015/10/28/devops-and-net-conference</id>
+    <id>http://www.paulstack.co.uk/blog/2015/10/28/devops-and-net-conference</id>
     <content type="html"><![CDATA[<p>So I just tweeted the following,</p>
 
-<p><img src="http://paulstack.co.uk/images/DevOpsTweet.png" alt="Image"></p>
+<p><img src="http://www.paulstack.co.uk/images/DevOpsTweet.png" alt="Image"></p>
 
 <p>Firstly, I&#39;d like to say that this is <em>not</em> about naming and shaming. Secondly, I am not annoyed with the conference at all about the response. The conference I spoke to advertises itself as “engineering talks only” so I wanted to post a few things about that.</p>
 
@@ -1618,9 +2107,9 @@
   
   <entry>
     <title type="html"><![CDATA[Recommended Ops Books]]></title>
-    <link href="http://paulstack.co.uk/blog/2015/04/09/recommended-ops-books/"/>
+    <link href="http://www.paulstack.co.uk/blog/2015/04/09/recommended-ops-books/"/>
     <updated>2015-04-09T10:50:00+01:00</updated>
-    <id>http://paulstack.co.uk/blog/2015/04/09/recommended-ops-books</id>
+    <id>http://www.paulstack.co.uk/blog/2015/04/09/recommended-ops-books</id>
     <content type="html"><![CDATA[<p>I created a Github repo to store all the book recommendations I have had since moving more into the operations space. The book categories (so far), include:</p>
 
 <ul>
@@ -1640,9 +2129,9 @@
   
   <entry>
     <title type="html"><![CDATA[Looking for a new role]]></title>
-    <link href="http://paulstack.co.uk/blog/2015/03/04/looking-for-a-new-role/"/>
+    <link href="http://www.paulstack.co.uk/blog/2015/03/04/looking-for-a-new-role/"/>
     <updated>2015-03-04T14:20:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2015/03/04/looking-for-a-new-role</id>
+    <id>http://www.paulstack.co.uk/blog/2015/03/04/looking-for-a-new-role</id>
     <content type="html"><![CDATA[<p>EDIT: I am no longer looking for a new role. Thanks to all for the suggestions</p>
 
 <p>TL;DR: I am looking for a new role. I am an infrastructure developer who has a passion for metrics, monitoring and alerting. If you feel that you are interested in me coming to help your engineering team, then get in contact with me</p>
@@ -1681,9 +2170,9 @@
   
   <entry>
     <title type="html"><![CDATA[IT Recruitment is F**ked]]></title>
-    <link href="http://paulstack.co.uk/blog/2014/01/28/it-recruitment-is-f-star-star-ked/"/>
+    <link href="http://www.paulstack.co.uk/blog/2014/01/28/it-recruitment-is-f-star-star-ked/"/>
     <updated>2014-01-28T18:12:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2014/01/28/it-recruitment-is-f-star-star-ked</id>
+    <id>http://www.paulstack.co.uk/blog/2014/01/28/it-recruitment-is-f-star-star-ked</id>
     <content type="html"><![CDATA[<p>We get inundated with job specs in our inbox. Each email is filled with buzzwords in order to try and entice us to take the new role. I have not, nor will not, take a job spec filled with buzzwords. I join a company because of a culture. Having recently read Simon Sinek&#39;s book, <a href="http://www.amazon.com/Start-Why-Leaders-Inspire-Everyone/dp/1591846447">Start With Why</a>, I really started to see how recruitment in IT is ~~f**ked~~ broken. The book talks about manipulations in modern society. This sounds bad and that it&#39;s not something we are used to. It&#39;s something we are very used to. We see it everyday. Supermarkets offering &#39;buy 1 get 1 free&#39; on products. Car companies offering us &#39;£500 cashback&#39; when buying a new car. This is all manipulation to get us to buy things. How many of us have bought a second item at the supermarket as it is buy 1 get 1 half price? </p>
 
 <p>IT recruitment also has a lot of manipulation in it. In the past, I applied for a job by giving my details to a recruiter. I have turned up for that specific interview to find I was interviewing for a job I didn&#39;t know about. A job I had no experience for. My CV had been changed to fit the spec the company had asked for. The recruiter was manipulating the company to get someone in the door. These types of things happen every day. I get emails in my inbox offering me &#39;John Smith&#39; at £250 a day. I am not a recruitment manager and I have never spoken to these companies. They are effectively fishing. Would you be happy knowing you are being used as a carrott for a recruitment company to get into a company?</p>
@@ -1741,9 +2230,9 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
   
   <entry>
     <title type="html"><![CDATA[Can we fully trust online training courses?]]></title>
-    <link href="http://paulstack.co.uk/blog/2014/01/11/can-we-fully-trust-online-training_courses/"/>
+    <link href="http://www.paulstack.co.uk/blog/2014/01/11/can-we-fully-trust-online-training_courses/"/>
     <updated>2014-01-11T21:11:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2014/01/11/can-we-fully-trust-online-training_courses</id>
+    <id>http://www.paulstack.co.uk/blog/2014/01/11/can-we-fully-trust-online-training_courses</id>
     <content type="html"><![CDATA[<p><em>NOTICE: This post is not written to pick on any specific person or service. This is only my thoughts from speaking to people in the past few weeks</em></p>
 
 <p>The online training industry seems to be a lucrative thing. I have heard rumours (unconfirmed! ) of authors earning 6 or 7 figure sums from training courses they have made and delivered. While part of me thinks, &quot;I really want a part of that&quot;, the other part of me thinks that I don&#39;t have the level of expertise to do it.</p>
@@ -1772,9 +2261,9 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
   
   <entry>
     <title type="html"><![CDATA[Changing my focus]]></title>
-    <link href="http://paulstack.co.uk/blog/2014/01/09/changing-my-focus/"/>
+    <link href="http://www.paulstack.co.uk/blog/2014/01/09/changing-my-focus/"/>
     <updated>2014-01-09T10:11:00+00:00</updated>
-    <id>http://paulstack.co.uk/blog/2014/01/09/changing-my-focus</id>
+    <id>http://www.paulstack.co.uk/blog/2014/01/09/changing-my-focus</id>
     <content type="html"><![CDATA[<p>For those that know me, you know that I am very passionate about infrastructure and DevOps. Infrastructure is something that we, as developers, don&#39;t really give a lot of thought to. DevOps is something that will make our businesses more successful. So, I am changing the job role that I have. </p>
 
 <p>From now, I am no longer focusing on writing application code. Instead I am going to spend my time focusing on the following areas:</p>
@@ -1799,9 +2288,9 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
   
   <entry>
     <title type="html"><![CDATA[Why delay the VS2012 release, Microsoft?]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/"/>
+    <link href="http://www.paulstack.co.uk/blog/2012/08/09/why-delay-the-vs2012-release-microsoft/"/>
     <updated>2012-08-09T00:00:00+01:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/08/09/why-delay-the-vs2012-release-microsoft</id>
+    <id>http://www.paulstack.co.uk/blog/2012/08/09/why-delay-the-vs2012-release-microsoft</id>
     <content type="html"><![CDATA[<p>The date is 1st August 2012. Developers have been wondering for weeks when the release of VS2012 and ASP.NET 4.5 will happen. Somasegar, cvp of dev div in Microsoft, has just <a href="http://blogs.msdn.com/b/somasegar/archive/2012/08/01/visual-studio-2012-and-net-4-5-complete.aspx" target="_blank">announced that the final build version of VS2012 is complete</a>.This means the product is ready for release. Dot net developers all over the world are eagerly waiting for the immortal words, &ldquo;it&rsquo;s available to download on MSDN&rdquo;. Unfortunately they haven&rsquo;t come. Instead, the download will not show up for another 14 days. This seems wasteful to me.</p>
 <p>Tell me if I am incorrect, but I believe the delay is that the product has gone to tool vendors to make sure that their tools / plugins will work with the application. This to me seems a very strange thing to do. This product has technically been in the making for 18 months (since the release of VS2010) so giving it to vendors in the final 2 weeks is crazy. What will happen if the vendors report it doesn&rsquo;t work with their tools? Would Microsoft stop a release for this considering it is so baked into the windows 8 release? I don&rsquo;t think there is any possibility of that happening at all. Therefore why the delay? I understand that 3rd party vendors are customers that Microsoft have to satisfy, but technically so are we &ndash; the users of the product.</p>
 <p>My ethos on software delivery is ship early, ship often. I hate when a feature is complete that it has to wait around for 2 weeks before release. Get the product out there, start gathering feedback and get planning to deliver more value to that customer. I understand that VS2012 is not easy to release often. Its a rather large download and there are pricing models around it. But changing the shape of the product to delivery in small chunks that are updatable more often would allow the product to get shaped by its user base. Faster feedback means delivering more customer value. It seems that other departments within Microsoft are now following this model (MVC team, EF team and Nuget team). Delivering like this is becoming more popular (and hopefully will become the standard). Its time to embrace this ethos Microsoft. Its certainly how I would be looking at things in the future if I were the product lead developer.</p>
@@ -1811,9 +2300,9 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
   
   <entry>
     <title type="html"><![CDATA[Survival of the fittest – fluid teams?]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/06/25/survival-of-the-fittest-fluid-teams/"/>
+    <link href="http://www.paulstack.co.uk/blog/2012/06/25/survival-of-the-fittest-fluid-teams/"/>
     <updated>2012-06-25T00:00:00+01:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/06/25/survival-of-the-fittest-fluid-teams</id>
+    <id>http://www.paulstack.co.uk/blog/2012/06/25/survival-of-the-fittest-fluid-teams</id>
     <content type="html"><![CDATA[<p>In traditional, waterfall organisations, a development team follows the organisation hierarchy. The development team can be split into smaller sub teams and each of those teams can have their own leader, but ultimately the hierarchy still exists. Developers usually stay in that sub team for most of their time in the organisation and they know exactly who their line manger is and who is responsible for their reviews and can act accordingly. The organisational structure is rigid and embedded into the process of the team and organisation.</p>
 <p>In more agile teams, the organisational structure is less rigid meaning that developers do not need to stay in a single sub team for their time at the company. They can be organised (or organise themselves in more advanced agile cultures) into teams based on skills. New developers are hired with a view to how they can benefit the wider team and not towards the skills needed for a sub team in a waterfall environment. Even though there are less restrictions on people moving between teams, it is not always guaranteed. It can happen when required, e.g. when a new member of staff is hired and the skillsets need to be spread evenly. This can evolve further.</p>
 <h4>Can agile teams be formed around projects?</h4>
@@ -1834,18 +2323,18 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
   
   <entry>
     <title type="html"><![CDATA[TFS and Continuous Deployment]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/06/19/tfs-and-continuous-deployment/"/>
+    <link href="http://www.paulstack.co.uk/blog/2012/06/19/tfs-and-continuous-deployment/"/>
     <updated>2012-06-19T00:00:00+01:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/06/19/tfs-and-continuous-deployment</id>
+    <id>http://www.paulstack.co.uk/blog/2012/06/19/tfs-and-continuous-deployment</id>
     <content type="html"><![CDATA[<p>I am a huge advocate of continuous integration and continuous delivery. I am always cautious about mentioning continuous deployment in my talks. This <strong>can</strong>, I stress the word can, be dangerous. For me there is a journey in the delivery of software.</p>  <ul>   <li>Companies, traditionally, started slow and go with manual deployments infrequently </li>    <li>Continuous Integration was introduced to the team when the team grew and needed to help test the integration of their code </li>    <li>The need to deploy more frequently may arise and as manual deployments are time consuming and (or) painful, deployments become automated </li>    <li>Continuous delivery was then said to be the better way to develop software (this meaning that code in the master repo is always in a state where it can be released to the end user) </li> </ul>  <p>This journey not only required a development teams skillset to grow to support it, but it also required a culture and attitude change as we move through the lifecycle. Developers need to start taking more care in their work and making sure that technical debt is not accrued too fast and that work is tested thoroughly. For me, when a team reaches this maturity point, they have reached the pinnacle of software delivery. The time required to release a new feature (cycle time) is determined by how fast the developer can develop and test the feature rather than worrying about release cycles. A release for this individual can be created and scheduled as appropriate to the needs of the business. The process is almost completely automated.</p>  <p>Lets take the step to continuous deployment. This is where every successful build is released to the end user. For me, things start to get a bit scary here. Continuous deployment is associated with start-ups. Companies that are releasing a new product and need to get it to market fast to get revenue and user feedback. As the codebase is young, it would has accrued less technical debt so the cycle time would potentially be faster than companies with legacy code. I believe that continuous deployment needs to be surrounded by rigorous automated testing (unit, integration, acceptance, system, performance etc..) and also supported by an immune system that helps to notify everyone if key performance or conversion metrics etc. drop below certain thresholds. This would help the confidence in the code being released to be as high as possible. In this type of environment, developers should work with the operations staff to make sure that deployments happen and follow up if there are issues with the release. I cannot stress enough that continuous deployment should not be taken lightly. It *will* come back and bit you on the ass if you are not well prepared.</p>  <p>Imagine my surprise when I read on twitter during the (azure announcement name hashtag) that the new version of TFS will support continuously deploying applications to the new azure portal [THIS NEEDS CHECKED FOR ACCURACY]. Firstly, I was surprised that this feature was added to TFS over something more useful, e.g. DVCS style version control. The lack of the good version control is a major downfall in TFS for me. Secondly, I think that this new feature will inspire a new breed of false bravery. I understand that it is very good to be brave. Nothing is braver than finishing development fast and pushing straight to production. There needs to be a process around these deployments – are they dark deployments, canary releases, have A/B testing etc.? Have you got the performance test analysis incase your feature causes an issue in production that costs the company money. Have you got monitoring around the system to spot potential issues early. There are many things I have set up around my continuous deployment sites.I don’t believe that all software developers give enough thought to what they are doing and will fix it later. Continuous deployment may not be good for these types of developer. A small issue unnoticed, e.g. a missing ‘checkout’ button on the site, can cause the company a lot of money. </p>  <p>I am by no way trying to say my setup is better than other developer setups, I am merely pointing out that a good support network around a deployment is needed. Maybe azure has this good support network but a developer should definitely know how to use it if they are to take advantage of this feature. If you are working on a personal project that doesn’t affect too much then continuously deploy until your heart is content. If wanting to take the giant leap to this in a company with legacy code then think twice. don’t f**k with your users. They potentially pay your salary. I think TFS should focus on making the tool easier to use for developers rather than worry about continuous deployment just yet</p>  <p>&lt;/TFSRant&gt;</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[What is your interpretation of burnout?]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/06/07/what-is-your-interpretation-of-burnout/"/>
+    <link href="http://www.paulstack.co.uk/blog/2012/06/07/what-is-your-interpretation-of-burnout/"/>
     <updated>2012-06-07T00:00:00+01:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/06/07/what-is-your-interpretation-of-burnout</id>
+    <id>http://www.paulstack.co.uk/blog/2012/06/07/what-is-your-interpretation-of-burnout</id>
     <content type="html"><![CDATA[<p>I always had the idea that the term &lsquo;burnout&rsquo; had a pretty standard meaning in software development. I&rsquo;m sure each developer have their own way of phrasing it but in essence, I was always of the idea that it meant &lsquo;over working leading to exhaustion and lack of motivation&rsquo;.</p>
 <p>I wanted to see what the exact thoughts of my peers was so asked on twitter &ldquo;what does burnout meant to you?&rdquo;. I got a list of varied responses:</p>
 <p><a href="http://www.twitter.com/tomasmcguinness" target="_blank">@tomasmcguinness</a>: <em>Burnout in terms of software development? For me, it means losing the ability to concentrate and focus,combined with mental fatigue</em></p>
@@ -1861,9 +2350,9 @@ Do you have strong experience in X and Y technologies? Are you interested in joi
   
   <entry>
     <title type="html"><![CDATA[TeamCity - OutOfMemoryError]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/05/21/teamcity-outofmemoryerror/"/>
+    <link href="http://www.paulstack.co.uk/blog/2012/05/21/teamcity-outofmemoryerror/"/>
     <updated>2012-05-21T00:00:00+01:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/05/21/teamcity-outofmemoryerror</id>
+    <id>http://www.paulstack.co.uk/blog/2012/05/21/teamcity-outofmemoryerror</id>
     <content type="html"><![CDATA[<p>Whilst upgrading our TeamCity server from 6.5 to 7.x, I encountered an error:</p>
 <p><em>Unexpected error occurred inside Alarm task: java.lang.OutOfMemoryError: GC overhead limit exceeded</em></p>
 <p>After a bit of looking around and sifting through some very weird articles I was able to find some good information on this. Basically, the JVM starts by default with 512mb of memory and it was struggling to process our 300+ build configurations with this. In order to fix it I had to do the following:</p>
@@ -1887,9 +2376,9 @@ This will open the following dialog:</ul>
   
   <entry>
     <title type="html"><![CDATA[Introducing TeamCityMetro for WP7]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/05/17/introducing-teamcity-metro/"/>
+    <link href="http://www.paulstack.co.uk/blog/2012/05/17/introducing-teamcity-metro/"/>
     <updated>2012-05-17T00:00:00+01:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/05/17/introducing-teamcity-metro</id>
+    <id>http://www.paulstack.co.uk/blog/2012/05/17/introducing-teamcity-metro</id>
     <content type="html"><![CDATA[<p>After my foray into the work of the <a href="http://www.jetbrains.com/teamcity/" target="_blank">TeamCity</a> API, <a href="http://twitter.com/gep13" target="_blank">Gary Park</a> and I have written a WP7 app. We are pleased to announce that this app is now available in the <a href="http://stack72.me/teamcitymetrowp" target="_blank">AppStore</a> and is FREE to all. For version 1, the application will only give you the opportunity to see your projects, builds types, last 10 builds of each build type and then link to the build on your teamcity server. This is only an initial release and will be followed up with the ability to trigger builds.</p>
 <p>The application looks as follows:</p>
 <p align="center"><a href="http://paulstack.co.uk/blog/images/Screenshot1_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot1" src="http://paulstack.co.uk/blog/images/Screenshot1_thumb_1.png" alt="Screenshot1" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot2_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot2" src="http://paulstack.co.uk/blog/images/Screenshot2_thumb_1.png" alt="Screenshot2" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot3_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot3" src="http://paulstack.co.uk/blog/images/Screenshot3_thumb_1.png" alt="Screenshot3" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot4_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot4" src="http://paulstack.co.uk/blog/images/Screenshot4_thumb_1.png" alt="Screenshot4" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot5_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot5" src="http://paulstack.co.uk/blog/images/Screenshot5_thumb_1.png" alt="Screenshot5" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot6_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot6" src="http://paulstack.co.uk/blog/images/Screenshot6_thumb_1.png" alt="Screenshot6" width="148" height="244" border="0" /></a>&nbsp; <a href="http://paulstack.co.uk/blog/images/Screenshot7_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot7" src="http://paulstack.co.uk/blog/images/Screenshot7_thumb_1.png" alt="Screenshot7" width="148" height="244" border="0" /></a></p>
@@ -1899,9 +2388,9 @@ This will open the following dialog:</ul>
   
   <entry>
     <title type="html"><![CDATA[Enum String Value with JQuery Mobile]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/05/03/enum-string-value-for-use-with-jquery-mobile/"/>
+    <link href="http://www.paulstack.co.uk/blog/2012/05/03/enum-string-value-for-use-with-jquery-mobile/"/>
     <updated>2012-05-03T00:00:00+01:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/05/03/enum-string-value-for-use-with-jquery-mobile</id>
+    <id>http://www.paulstack.co.uk/blog/2012/05/03/enum-string-value-for-use-with-jquery-mobile</id>
     <content type="html"><![CDATA[<p>A while back I had to use <a href="http://jquerymobile.com/" target="_blank">JQuery mobile</a> for a project. The project needed to have 2 themes on an application and the configuration would need to tell the application what theme to load. With JQuery Mobile, the theme string could only be a single letter. I like keeping to decent and meaningful naming conventions, so I created a configuration setting as follows:</p>
 <p>&lt;add key=&#8221;Theme&#8221; value=&#8221;Plain&#8221; /&gt;</p>
 <p>I could see easily that the theme for this build of the application is the Plain theme. How could I relate that back to a JQuery theme? Plain would not be acceptable with JQuery Mobile. Therefore I had to do something different. I was able to use an attribute on the Theme Enum:</p>
@@ -1916,47 +2405,14 @@ This will open the following dialog:</ul>
   
   <entry>
     <title type="html"><![CDATA[You think I'm doing it wrong, so help me do it right]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/05/01/you-think-im-doing-it-wrong-so-help-me-do-it-right/"/>
+    <link href="http://www.paulstack.co.uk/blog/2012/05/01/you-think-im-doing-it-wrong-so-help-me-do-it-right/"/>
     <updated>2012-05-01T00:00:00+01:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/05/01/you-think-im-doing-it-wrong-so-help-me-do-it-right</id>
+    <id>http://www.paulstack.co.uk/blog/2012/05/01/you-think-im-doing-it-wrong-so-help-me-do-it-right</id>
     <content type="html"><![CDATA[<p>I am fed up with reading more and more posts, mostly on twitter, telling me I&rsquo;m wrong if I&rsquo;m doing it this way or wrong if I&rsquo;m not using this tool. Who gives you the right to tell me I am not correct? You do not know my problem space, domain or the criteria I need to work towards.</p>
 <p>I have to say that this post is not in retaliation to anyone telling me I am doing something wrong. It is based towards all the posts titled &lsquo;You&rsquo;re doing it wrong&hellip;.&rsquo;</p>
 <p>In my opinion, we are continually learning in this industry. Something you may be good at now, may not be the hot topic in 6 months time. I am not sure there is a single person who knows <strong>*everything*</strong>. You may have your niche of expertise and you may be able to help but be constructive. If you really think I am doing it wrong, then give me reasons why so and point out the flaws in my way. It isn&rsquo;t black and white. This is not a math problem &ndash; there may be more than 1 way to do something.</p>
 <p>I do a lot of speaking to groups about continuous integration &amp; delivery. There is no way I would tell someone they are wrong. Instead, all I can do is to put the reasons out there for my way of doing something. If the person takes this on-board then that&#8217;s fantastic. If they don&#8217;t, I won&#8217;t get offended. Maybe we should focus on helping the devs who are supposedly doing it wrong rather than pointing that almighty finger at them. Who knows, you may even learn something yourself.</p>
 <p>&lt;/rant&gt;</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Spoofing the Host Entry in a HTTPWebRequest]]></title>
-    <link href="http://paulstack.co.uk/blog/2012/04/30/spoofing-the-host-entry-in-a-httpwebrequest/"/>
-    <updated>2012-04-30T00:00:00+01:00</updated>
-    <id>http://paulstack.co.uk/blog/2012/04/30/spoofing-the-host-entry-in-a-httpwebrequest</id>
-    <content type="html"><![CDATA[<p>I had this idea to create a dashboard that would ping different version of a site in order to get the build number. The details are as follows:</p>
-<p><a href="http://www.mysite.com">www.mysite.com</a></p>
-<p>runs on a local site at 192.x.x.x, a QA environment at 10.x.x.x, a staging environment at 66.x.x.x, and a live environment at 88.x.x.x (these IPs are made up). In order to hit each site, I would usually manually change the host file and then make the web request. This was not a great solution as I hate dealing with host file entries. On experimenting with HTTPWebRequest, I noticed that you can use reflection in order to change the Headers of the Request. The normal code to create a HTTPWebRequest would look as follows:</p>
-<script type="text/javascript" src="https://gist.github.com/17bf91700d77d25c2435.js"></script>
-<p>I was able to spoof the host by changing the host using reflection:</p>
-<script type="text/javascript" src="https://gist.github.com/5eb2fcb26600cd81416c.js"></script>
-<p>This allowed me to make multiple requests to different versions of the same site. Using a simple collection of my site objects to build a dashboard that had the following outline:</p>
-<table style="width: 574px;" border="1" cellspacing="0" cellpadding="2">
-<tbody>
-<tr>
-<td valign="top" width="116">&nbsp;</td>
-<td valign="top" width="118">Local</td>
-<td valign="top" width="110">QA</td>
-<td valign="top" width="113">Stage</td>
-<td valign="top" width="115">Live</td>
-</tr>
-<tr>
-<td valign="top" width="115">Build Number</td>
-<td valign="top" width="118">web_12_4_qa</td>
-<td valign="top" width="111">web_12_4_qa</td>
-<td valign="top" width="114">web_12_5_stg</td>
-<td valign="top" width="116">web_12_4_prod</td>
-</tr>
-</tbody>
-</table>
 ]]></content>
   </entry>
   

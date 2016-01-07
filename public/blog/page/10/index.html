@@ -9,8 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I started reading the SOA Patterns book by Manning and was very pleased with it so I thought i&rsquo;d blog my thoughts on it.
-">
+  <meta name="description" content="For the past few years I have been annoying introducing all of the people I have worked with to automated testing. The tool I showed was Cuke4nuke. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://paulstack.co.uk/blog/page/10">
+  <link rel="canonical" href="http://www.paulstack.co.uk/blog/page/10">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
@@ -63,7 +62,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input type="hidden" name="q" value="site:www.paulstack.co.uk" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -80,6 +79,42 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/12/moving-from-cuke4nuke-to-specflow/">Moving From Cuke4Nuke to Specflow</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-12T00:00:00+00:00" pubdate data-updated="true">Jan 12<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For the past few years I have been <strike>annoying</strike> introducing all of the people I have worked with to automated testing. The tool I showed was <a href="https://github.com/richardlawrence/Cuke4Nuke/wiki" target="_blank">Cuke4nuke</a>. Now this has been a great tool for me. Its a way to run Cucumber style tests written in asp.net code (read more about it at the link above)</p>  <p>I think the time has come for me to finally move away from this. This is no reflection on the product itself, I think <a href="http://www.richardlawrence.info/" target="_blank">Richard Lawrence</a> has done a fantastic job on the product, but the reason I’m moving away from the product is that it is no longer feasible for me to be able to run my tests using a ruby console. The team I currently work with are having trouble with ruby installations etc. so I made the decision to move to <a href="http://specflow.org/" target="_blank">Specflow</a> as it’s a asp.net BDD tool. </p>  <h4>What advantages will specflow give me over cuke4nuke?</h4>  <p>1<sup>st</sup>, and the main advantage, is that the tests written with specflow can be run directly from Visual Studio Unit test sessions. For my test this is very important as we are trying to get the tests run on a regular basis as they do their work.</p>  <p>2nd the developers will no longer need to have a ruby installation. For me, having Ruby isn’t too much of an issue as I’m interested in learning it and looking at it, but for other developers they see this as a bit of a chore to run the tests via ruby console and command line.</p>  <p>3rd is that the developers who run the tests can debug the tests themselves as they are running inside the Visual Studio environment. Again I’m not saying that tests always need debugged but it helps them when it’s needed</p>  <p>I’ll still be keeping an eye on the project as I have very much enjoyed using it. I guess my thanks have to go to Richard Lawrence and Goyko Adzic for blogging about the product and its uses</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -433,42 +468,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/15/tool-of-the-week-e28093-console-e28093-151010/">Tool of the Week – Console – 15/10/10</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-15T00:00:00+01:00" pubdate data-updated="true">Oct 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This week my tool of the week is Console. This is an application that allows the hosting of different shell types all under 1 application.</p>  <p>I can have different tabs open in the application and each tab can relate to a different shell type as follows:</p>  <p><a href="http://paulstack.co.uk/blog/images/tabs.png"><img style="border-right-width: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" title="tabs" border="0" alt="tabs" src="http://paulstack.co.uk/blog/images/tabs_thumb.png" width="244" height="71" /></a> </p>  <p>This is very useful for me as I use Ruby command prompt a lot and use pinned icons to my Win 7 taskbar.</p>  <p>Its simple to add new shell types. Edit &gt; Settings </p>  <p><a href="http://paulstack.co.uk/blog/images/settings.png"><img style="border-right-width: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" title="settings" border="0" alt="settings" src="http://paulstack.co.uk/blog/images/settings_thumb.png" width="244" height="162" /></a> </p>  <p>then add a new tab and complete the details. The last part of the application that I really like is the improved copy and paste functionality. There is a right click context menu that has the following options:</p>  <p><a href="http://paulstack.co.uk/blog/images/rightclick.png"><img style="border-right-width: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" title="rightclick" border="0" alt="rightclick" src="http://paulstack.co.uk/blog/images/rightclick_thumb.png" width="244" height="182" /></a> </p>  <p>In my opinion its a fantastic product and its OSS. Check it out from <a href="http://sourceforge.net/projects/console/" target="_blank">sourceforge</a>. This is a definite 5/5 and has made my development environment a lot more company.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -493,6 +492,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
       </li>
     
@@ -506,10 +509,6 @@
     
       <li class="post">
         <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
       </li>
     
   </ul>

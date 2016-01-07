@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I had a real pain point with the IIS Rewrite tool today. I wanted to take an out of the box canonical rewrite rule and then modify it slightly to fit &hellip;">
+  <meta name="description" content="I was recently referred to EasyHTTP by it&rsquo;s creator, Hadi Hariri. Hadi was looking at some code I had sent him regarding my work with the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://paulstack.co.uk/blog/page/6">
+  <link rel="canonical" href="http://www.paulstack.co.uk/blog/page/6">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
@@ -62,7 +62,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:paulstack.co.uk" />
+    <input type="hidden" name="q" value="site:www.paulstack.co.uk" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -79,6 +79,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/15/easy-http-not-just-a-catchy-name/">Easy HTTP–not Just a Catchy Name</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-15T00:00:00+01:00" pubdate data-updated="true">Jul 15<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I was recently referred to <a href="http://nuget.org/List/Packages/EasyHttp" target="_blank">EasyHTTP</a> by it&rsquo;s creator, <a href="http://twitter.com/hhariri" target="_blank">Hadi Hariri</a>. Hadi was looking at some code I had sent him regarding my work with the <a href="http://jetbrains.com/teamcity" target="_blank">TeamCity</a> REST API and thought that things could be a little easier and less verbose.</p>
+<script src="https://gist.github.com/13bd7e958c74e45280f7.js"></script>
+<p>In summary my application creates a new HttpWebRequest passing in the request type as a magic string. It opens a stream to read the JSON response and that JSON is then de-serialised to an entity. It was very messy. In order to call this class from my application I would have had to do the follow:</p>
+<script src="https://gist.github.com/dde8df43b79f7200c517.js"></script>
+<p>There is absolutely no mention of whether the request was a GET never mind a PUT or a DELETE. This is where EasyHTTP came in for me.</p>
+<script src="https://gist.github.com/bfef5d881c07f748eca5.js"></script>
+<p>I was able to make a generic method for a GET request. This method takes a url and a type and with the help of <a href="http://jsonfx.net/" target="_blank">JsonFx</a>, de-serialises the response back to the requested type. THis was a great way to take the hassle out of my old code where I was creating a Url, calling a request and then de-serialising it. The code in the calling class now looks as follows:</p>
+<script src="https://gist.github.com/9ef7d6c027f865b7a8cc.js"></script>
+<p>I was originally using the <a href="http://james.newtonking.com/pages/json-net.aspx" target="_blank">Newtonsoft JSON library</a> for my de-serialising my JSON back to types and to do that I had to decorate the properties with code similar to the following:</p>
+<p>[JsonProperty(PropertyName = &#8220;id&#8221;)]<br /> public string Id {get; set;}</p>
+<p>This would effectively map a piece of JSON to a property that was not named <strong>exactly</strong> the same. EasyHTTP took care of this for me as well. To quote Hadi, EasyHTTP handles mapping as follows:</p>
+<p><em>&ldquo;For mapping properties, it handles camelcase, lowercase and a bunch of other conventions. You can also specify explicitly&rdquo;</em></p>
+<p>Using EasyHTTP, I was able to cut at least 2 lines of code per method in the client code. I was also able to delete an attribute that was present on <strong>all properties in the entities</strong> in a little bit of work.</p>
+<p>The added distinction of creating the notion of GETs, PUTs and DELETE calls from each other mean that my class can be extended much easier. Hadi has written a post on EasyHTTP on <a href="http://hadihariri.com/2011/01/16/easyhttp/" target="_blank">his blog</a>. I would strongly suggest reading this and discovering if you can use this application in place of old HttpWebRequest calls. Its cleaner and helps to make code a little bit more DRY. My thanks to Hadi (and any contributors there may be) for making my work in this area a little easier!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -489,46 +538,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/27/givecamp-is-coming-to-the-uk%21/">GiveCamp Is Coming to the UK!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-27T00:00:00+01:00" pubdate data-updated="true">May 27<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I am very pleased to be able to write this blog post! <a href="http://givecamp.org" target="_blank">GiveCamp</a> is an event in the USA that was founded to bring developers together to help out charity. It has been running successfully there since 2007.</p>
-<p>Late in 2010, <a href="http://twitter.com/rachelhawley" target="_blank">Rachel Hawley</a> had the idea to try and bring GiveCamp to the UK. Through sheer hard work and determinism it&rsquo;s happening and today we are proud to release our new GiveCamp UK site:</p>
-<p><a title="www.givecamp.org.uk" href="http://stack72.me/mH49Dj"><img style="display: block; margin-left: auto; margin-right: auto; border: 0px initial initial;" title="www.givecamp.org.uk" src="http://paulstack.co.uk/blog/images/image_26.png" border="0" alt="www.givecamp.org.uk" width="261" height="166" /></a></p>
-<p><strong>Why did we choose the October 21 - 23?</strong> Its the date of the National GiveCamp in the US!&nbsp;What will you be doing on the weekend of October 21 &ndash; 23? I know what I will be doing. You should come along! We could all be part of something very special in the UK. Special thanks goes to Gareth Barker at <a href="http://www.uniondigitalmedia.co.uk" target="_blank">Union Digital Media</a> for helping with the design of the site. Already people have signed up to contribute &ndash; thanks to <a href="http://leankitkanban.com" target="_blank">Leankitkanban</a>, <a href="http://saasmadeeasy.com" target="_blank">SaaSMadeEasy</a>, <a href="http://github.com" target="_blank">Github</a>, <a href="http://hasbean.co.uk" target="_blank">HasBean</a> and <a href="http://discountasp.net" target="_blank">DiscountASP.NET</a>. More are needed :)</p>
-<p>If you have any enquiries about GiveCamp UK then you can get in touch with the team on twitter via <a href="http://twitter.com/givecampuk" target="_blank">@GiveCampUK</a> or via <a href="http://twitter.com/search/givecampuk" target="_blank">#GiveCampUK</a> or <a href="mailto:info@givecamp.org.uk" target="_blank">email</a>!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -553,6 +562,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
       </li>
     
@@ -566,10 +579,6 @@
     
       <li class="post">
         <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/11/09/the-quest-for-infra-management-2-dot-0/">The Quest for Infrastructure Management 2.0</a>
       </li>
     
   </ul>

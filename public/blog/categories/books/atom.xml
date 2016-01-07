@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: books | Adventures of a wannabe geek!]]></title>
-  <link href="http://paulstack.co.uk/blog/categories/books/atom.xml" rel="self"/>
-  <link href="http://paulstack.co.uk/"/>
-  <updated>2016-01-06T12:57:48+00:00</updated>
-  <id>http://paulstack.co.uk/</id>
+  <link href="http://www.paulstack.co.uk/blog/categories/books/atom.xml" rel="self"/>
+  <link href="http://www.paulstack.co.uk/"/>
+  <updated>2016-01-07T16:36:07+00:00</updated>
+  <id>http://www.paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Recommended Ops Books]]></title>
-    <link href="http://paulstack.co.uk/blog/2015/04/09/recommended-ops-books/"/>
+    <link href="http://www.paulstack.co.uk/blog/2015/04/09/recommended-ops-books/"/>
     <updated>2015-04-09T10:50:00+01:00</updated>
-    <id>http://paulstack.co.uk/blog/2015/04/09/recommended-ops-books</id>
+    <id>http://www.paulstack.co.uk/blog/2015/04/09/recommended-ops-books</id>
     <content type="html"><![CDATA[<p>I created a Github repo to store all the book recommendations I have had since moving more into the operations space. The book categories (so far), include:</p>
 
 <ul>
