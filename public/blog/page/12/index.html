@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Tonight i seen, via Twitter, that it was potentially faster to iterate through a collection with a For loop rather than a For Each loop. I didn&#8217 &hellip;">
+  <meta name="description" content="On Saturday 5th June, DDD South West was held at UWE Bristol. There are not many opportunities for a DDD event so it is always very busy. There were &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/06/07/my-ddd-south-west-review/">My DDD South West Review</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-07T00:00:00+01:00" pubdate data-updated="true">Jun 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>On Saturday 5th June, <a href="http://www.dddsouthwest.com/" target="_blank">DDD South West</a> was held at UWE Bristol. There are not many opportunities for a DDD event so it is always very busy. There were 6 tracks and 5 sessions in each track. A wide and diverse range of talks were given by dedicated speakers.</p>
+<p>&nbsp;</p>
+<p>I started the day going to a session on the Task Parallel Library by <a href="http://blogs.imeta.co.uk/sstrong/Default.aspx" target="_blank">Steve Strong</a>. I had been looking into the TPL recently and thought this may be a good idea to go to to help me learn about it. There was an amazing amount of content that Steve tried to cover. I learned an awful lot and since then have implemented come concurrency in some of my applications. I recommend anyone to see Steve talk on this as he really does know his stuff.</p>
+<p>&nbsp;</p>
+<p>I decided to attend the Alternative track for my next session. This track was a balloon debate on ORM vs SQL vs Entity Framework 4 vs NoSQL. Basically the speakers had to argue their corner in order not to be voted off the &ldquo;balloon&rdquo; by the attendees. First up, <a href="http://geekswithblogs.net/iupdateable/Default.aspx" target="_blank">Eric Nelson</a> from Microsoft to speak on Entity Framework 4. <a href="http://geekswithblogs.net/twickers/Default.aspx" target="_blank">Liam Westley</a> on traditional SQL. <a href="http://blog.stevensanderson.com/" target="_blank">Steve Sanderson</a> gave a well researched piece on NoSQL then finally <a href="http://garyshortblog.wordpress.com/" target="_blank">Gary Short</a> gave a very good overview of the use of ORM &ndash; it actually enlightened me to how wide a range of things that ORM&rsquo;s can be used for</p>
+<p>&nbsp;</p>
+<p>It then came to a session i was looking forward to, Crap Code and the Disasters it Causes by <a href="http://weblogs.asp.net/plip/" target="_blank">Phil Winstanley</a>. I am very passionate about this subject so i was hoping that it would help me to improve the way i work. I wasn&rsquo;t disappointed &ndash; Phil pointed out some truly awful code and sorted the code samples into the types of developers who made the errors. The one thing i took away from this session &ndash; I didn&rsquo;t know you could put a GOTO inside a SWITCH statement [WTF???]</p>
+<p>&nbsp;</p>
+<p>Grok talks were given over lunchtime &ndash; the ones of interest to me Cyclomatic Complexity and DotLess Css &ndash; i think ill make some future blog posts about these. Sorry to Silverlight 4 and BlogEngine.net but next time maybe :)</p>
+<p>&nbsp;</p>
+<p>Code Contracts with Barry Carr was the next session. This was a truly heavy session to get my head around. I understood the concept of it &ndash; to make sure that the code does what it says it does and that the client will do what they says they will. But i couldn&rsquo;t understand why you would do this as in massively overinflated the code base. I&#8217;m sure there are ways to do this and i will definitely be looking into this in the future as its a real extension of testing inputs and outputs [as well as lots of other stuff]</p>
+<p>&nbsp;</p>
+<p>Last session of the day was CQRS with <a href="http://neildoesdotnet.blogspot.com/" target="_blank">Neil Robbins</a>. Bad start to the session of Neil as his laptop gave way and he had to borrow one to give the presentation. He gave an excellent talk on CQRS. It really made me see that the work im doing currently is very basic in comparison to this type of architecture. I didn&rsquo;t understand this thoroughly but i think another talk or 2 on this [hopefully <a href="http://skillsmatter.com" target="_blank">skillsmatter</a> will come through for me on this :)] and i reckon i&rsquo;d be very much taken by this</p>
+<p>&nbsp;</p>
+<p>Overall a great day. I met a lot of people and there are others i really wished i had a chance to see or meet. Next time though. I shall definitely be at the next DDD event &ndash; talks are currently for Ireland on 25th Sept :) &ndash; and id recommend this to anyone.</p>
+<p>&nbsp;</p>
+<p>Fingers crossed i get a chance to make some further posts on this :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -703,88 +755,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/02/23/temp-table-vs-table-variable/">Temp Table vs Table Variable</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-02-23T00:00:00+00:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Over the past month or so i have seen the difference between table variables and temporary tables. I thought id write a little post about it incase anyone finds it useful:</p>
-<h3>Temp Tables:</h3>
-<ul>
-<li>temp table is created and populated in the system database tempdb - this means it actually exists for an amount of time</li>
-<li>it has session specific idenitifiers to differentiate between other temp tables</li>
-<li>the table [and data] is only visible to the current scope</li>
-<li>table gets cleared up automatically when the procedure goes out of scope</li>
-<li>Data needs cleared manually &nbsp;when finished</li>
-</ul>
-<pre class="brush:sql">CREATE TABLE #temptablename
-(
-    Id INT,
-    Name VARCHAR(50)
-)
-
---PROCEDURE GOES HERE
-
-DROP TABLE #temptablename
-</pre>
-<p>The use of DROP TABLE here means that resources are freed up as soon as possible rather than letting the system clean up after the session expires. Some of the problems with temp tables is that the title is limited to 116 characters because of the session specific identifiers and if you wrap the temp table in a transaction and dont commit the transaction then you could cause unnecessary locks in tempdb.</p>
-<h3>Table Variables:</h3>
-<ul>
-<li>A table variable is performed in memory and t
-<script src="http://www.paulstack.co.uk/blog/editors/tiny_mce3/themes/advanced/langs/en.js" type="text/javascript"></script>
-herefore is slightly faster in performance that temp tables.</li>
-<li>There will be less locking as well.</li>
-<li>There are concerns that I/O is still performed to tempdb but this is largely unconfirmed.</li>
-<li>Table variables are auto cleared when the procedure goes out of scope so no structure or data needs cleared. This can be a bad thing as you cant release it
-<script src="http://www.paulstack.co.uk/blog/editors/tiny_mce3/themes/advanced/langs/en.js" type="text/javascript"></script>
-early</li>
-<li>tempdb transaction log doesn&#8217;t get clogged up by table variables</li>
-<li>table variables can lead to fewer stored procedure recompilations</li>
-</ul>
-<pre class="brush:sql">DECLARE @tblVariable TABLE
-(
-    Id INT,
-    Name VARCHAR(50)
-)
-
---PROCEDURE GOES HERE
-
-</pre>
-<h3>Which is the best to use?</h3>
-<p>As table variables sound great why don&#8217;t we always use them? well they are only available in SQL 2000 + with compatability level of 80 or higher. you cannot truncate a table variable. you cannot alter a table variable after declaration. you cannot add an index to a table variable but you can create a PRIMARY KEY constraint and as many UNIQUE CONSTRAINTS as needed. you cannot drop a table variable like you can with a temp table.</p>
-<p>The big drawback from table variables is that inserting into them will not take advantage of parallelism.</p>
-<p>Therefore i have decided that, with any conflicting technologies, both are good to use in their own right. The decision will come down to performance, and amount of data. As the data gets bigger #temp tables become more effective due to no indexing.</p>
-<p>Try them both and see what your preference is - as for me I&#8217;m happy on my wall :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -809,6 +779,10 @@ early</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/">Replacing a Node in a Riak Cluster</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
       </li>
     
@@ -822,10 +796,6 @@ early</li>
     
       <li class="post">
         <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
       </li>
     
   </ul>

@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Replacing a node in a Riak Cluster - Adventures of a wannabe geek!</title>
+  <meta name="author" content="Paul Stack (@stack72)">
+
+  
+  <meta name="description" content="The instances that run in my infrastructure get a lifespan of 14 days. This allows me to continually test that I can replace my environment at any &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.paulstack.co.uk/blog/2016/01/15/replacing-a-node-in-a-riak-cluster">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adventures of a wannabe geek!" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-13083957-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adventures of a wannabe geek!</a></h1>
+  
+    <h2>Ranting within</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.paulstack.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/contact">Contact Details</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Replacing a Node in a Riak Cluster</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-01-15T11:03:00+00:00" pubdate data-updated="true">Jan 15<span>th</span>, 2016</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The instances that run in my infrastructure get a lifespan of 14 days. This allows me to continually test that I can replace my environment at any point. People always ask me if I follow the same principal for data nodes. I posted <a href="http://www.paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">previously</a> about replacing nodes is an <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> cluster, this post will detail how I replace  nodes in a <a href="http://basho.com/products/riak-kv/">Riak</a> cluster </p>
+
+<p><strong><em>NOTE</em></strong>: This post assumes that you have the <a href="http://docs.basho.com/riak/latest/ops/advanced/riak-control/*">Riak Control console</a> enabled for Riak. You can find out how to enable that in the <a href="http://www.paulstack.co.uk/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">post</a> I wrote on configuring Riak.</p>
+
+<p>When going to the Riak Control, you can find the following screens:</p>
+
+<p><em>Cluster Health</em></p>
+
+<p><img src="/images/riak-control-cluster-health.png" alt="Image"></p>
+
+<p><em>Ring Status</em></p>
+
+<p><img src="/images/riak-control-ring-status.png" alt="Image"></p>
+
+<p><em>Cluster Management</em> </p>
+
+<p><img src="/images/riak-control-cluster-mgmt.png" alt="Image"></p>
+
+<p><em>Node Management</em></p>
+
+<p><img src="/images/riak-control-node-mgmt.png" alt="Image"></p>
+
+<h3>Removing a node from the Cluster</h3>
+
+<p>In order to remove a node from the cluster, go to the cluster managemenet screen. Find the node you want to replace in the list and click on the <code>Actions</code> toggle. It will reveal actions as follows:</p>
+
+<p><img src="/images/riak-control-cluster-node-options.png" alt="Image"></p>
+
+<p>As the node is currently running, I tend to chose the <code>Allow this node to leave normally</code> option (if the node had died or was unresponsive, I would usually chose the <code>force this node to leave</code>). Clicking on the <code>Stage</code> button, details a plan of what is going to happen:</p>
+
+<p><img src="/images/riak-control-remove-node.png" alt="Image"></p>
+
+<p>If the proposed changes look good, <code>Commit</code> the plan. Watch the partitions drain from the node to be replaced:</p>
+
+<p><img src="/images/riak-control-node-draining.png" alt="Image"></p>
+
+<p>When the all the partitions have drained, we now have a 2 node cluster where the partitons are split 50:50:</p>
+
+<p><img src="/images/riak-control-smaller-cluster.png" alt="Image"></p>
+
+<p>We can now destroy the node and let the <a href="https://aws.amazon.com/autoscaling/">autoscaling group</a> launch another to replace it</p>
+
+<h3>Adding a new node to the Cluster</h3>
+
+<p>Assuming a new node has already been launched and is ready to go into the cluster. Go to the cluster management page in the portal and enter new node details. It should follow the format <code>riak@&lt;ipaddress&gt;</code></p>
+
+<p><img src="/images/riak-control-add-new-node.png" alt="Image"></p>
+
+<p>The list of actions that are pending on the cluster:</p>
+
+<p><img src="/images/riak-control-stage-new-node.png" alt="Image"></p>
+
+<p><code>Commit</code> the changes, watch the partions rebalance across the cluster:</p>
+
+<p><img src="/images/riak-control-cluster-rebalance.png" alt="Image"></p>
+
+<p>The cluster will return to being 3 nodes, with equal partition split and will then show as green again</p>
+
+<p><img src="/images/riak-control-green-cluster.png" alt="Image"></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul Stack (@stack72)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-01-15T11:03:00+00:00" pubdate data-updated="true">Jan 15<span>th</span>, 2016</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/aws/'>aws</a>, <a class='category' href='/blog/categories/infrastructure/'>infrastructure</a>, <a class='category' href='/blog/categories/riak/'>riak</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.paulstack.co.uk/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/" data-via="" data-counturl="http://www.paulstack.co.uk/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/" title="Previous Post: Building a Riak Cluster in AWS with Packer and Terraform">&laquo; Building a Riak Cluster in AWS with Packer and Terraform</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+<h1>Follow me on Twitter</h1>
+<a href="https://twitter.com/stack72" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @stack72</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/">Replacing a Node in a Riak Cluster</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">Replacing the Nodes in an AWS ElasticSearch Cluster</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/">Deploying Kibana Using Nginx as an SSL Proxy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - Paul Stack (@stack72) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

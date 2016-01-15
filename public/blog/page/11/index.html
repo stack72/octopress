@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="This week my tool of the week is Console. This is an application that allows the hosting of different shell types all under 1 application. I can have &hellip;">
+  <meta name="description" content="To continue in my evangelism of Simple.Data, I have decided to write a series of posts about how to use the product. The first part is how to get &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/10/18/getting-started-with-simpledata/">Getting Started With Simple.Data</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-18T00:00:00+01:00" pubdate data-updated="true">Oct 18<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>To continue in my evangelism of Simple.Data, I have decided to write a series of posts about how to use the product. The first part is how to get started with Simple.Data. This post will simple describe how we actually incorporate Simple.Data in an application.</p>
+<ul>
+<li>Download the source from Github - <a href="http://github.com/markrendle/Simple.Data">http://github.com/markrendle/Simple.Data</a> </li>
+<li>Open the .sln file and build it </li>
+<li>When the project is built then the required libraries are in the following location: &lt;solutiondirectory&gt;\Simple.Data\bin\&lt;configuration&gt;\ </li>
+<li>The required files are Simple.Data.dll, Simple.Data.pdb </li>
+<li>Add the files above to your lib or assemblies directory </li>
+<li>Reference Simple.Data.dll from your application </li>
+<li>Add the following to your web.config </li>
+</ul>
+<p>&lt;?xml version=&#8221;1.0&#8221; encoding=&#8221;utf-8&#8221; ?&gt;    <br />&lt;configuration&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;configSections&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;/configSections&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;connectionStrings&gt;     <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;add name=&#8221;Simple.Data.Properties.Settings.ConnectionString&#8221;     <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; connectionString=&#8221;server&rdquo;;initial catalog=&rdquo;databasename&rdquo;;integrated security=true&#8221; /&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;/connectionStrings&gt;     <br />&lt;/configuration&gt;</p>
+<p>&nbsp;</p>
+<p>That&#8217;s it! We are now ready to actually start querying your database.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -689,58 +737,6 @@ w3svc.Invoke(command, null);
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/06/07/my-ddd-south-west-review/">My DDD South West Review</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-06-07T00:00:00+01:00" pubdate data-updated="true">Jun 7<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>On Saturday 5th June, <a href="http://www.dddsouthwest.com/" target="_blank">DDD South West</a> was held at UWE Bristol. There are not many opportunities for a DDD event so it is always very busy. There were 6 tracks and 5 sessions in each track. A wide and diverse range of talks were given by dedicated speakers.</p>
-<p>&nbsp;</p>
-<p>I started the day going to a session on the Task Parallel Library by <a href="http://blogs.imeta.co.uk/sstrong/Default.aspx" target="_blank">Steve Strong</a>. I had been looking into the TPL recently and thought this may be a good idea to go to to help me learn about it. There was an amazing amount of content that Steve tried to cover. I learned an awful lot and since then have implemented come concurrency in some of my applications. I recommend anyone to see Steve talk on this as he really does know his stuff.</p>
-<p>&nbsp;</p>
-<p>I decided to attend the Alternative track for my next session. This track was a balloon debate on ORM vs SQL vs Entity Framework 4 vs NoSQL. Basically the speakers had to argue their corner in order not to be voted off the &ldquo;balloon&rdquo; by the attendees. First up, <a href="http://geekswithblogs.net/iupdateable/Default.aspx" target="_blank">Eric Nelson</a> from Microsoft to speak on Entity Framework 4. <a href="http://geekswithblogs.net/twickers/Default.aspx" target="_blank">Liam Westley</a> on traditional SQL. <a href="http://blog.stevensanderson.com/" target="_blank">Steve Sanderson</a> gave a well researched piece on NoSQL then finally <a href="http://garyshortblog.wordpress.com/" target="_blank">Gary Short</a> gave a very good overview of the use of ORM &ndash; it actually enlightened me to how wide a range of things that ORM&rsquo;s can be used for</p>
-<p>&nbsp;</p>
-<p>It then came to a session i was looking forward to, Crap Code and the Disasters it Causes by <a href="http://weblogs.asp.net/plip/" target="_blank">Phil Winstanley</a>. I am very passionate about this subject so i was hoping that it would help me to improve the way i work. I wasn&rsquo;t disappointed &ndash; Phil pointed out some truly awful code and sorted the code samples into the types of developers who made the errors. The one thing i took away from this session &ndash; I didn&rsquo;t know you could put a GOTO inside a SWITCH statement [WTF???]</p>
-<p>&nbsp;</p>
-<p>Grok talks were given over lunchtime &ndash; the ones of interest to me Cyclomatic Complexity and DotLess Css &ndash; i think ill make some future blog posts about these. Sorry to Silverlight 4 and BlogEngine.net but next time maybe :)</p>
-<p>&nbsp;</p>
-<p>Code Contracts with Barry Carr was the next session. This was a truly heavy session to get my head around. I understood the concept of it &ndash; to make sure that the code does what it says it does and that the client will do what they says they will. But i couldn&rsquo;t understand why you would do this as in massively overinflated the code base. I&#8217;m sure there are ways to do this and i will definitely be looking into this in the future as its a real extension of testing inputs and outputs [as well as lots of other stuff]</p>
-<p>&nbsp;</p>
-<p>Last session of the day was CQRS with <a href="http://neildoesdotnet.blogspot.com/" target="_blank">Neil Robbins</a>. Bad start to the session of Neil as his laptop gave way and he had to borrow one to give the presentation. He gave an excellent talk on CQRS. It really made me see that the work im doing currently is very basic in comparison to this type of architecture. I didn&rsquo;t understand this thoroughly but i think another talk or 2 on this [hopefully <a href="http://skillsmatter.com" target="_blank">skillsmatter</a> will come through for me on this :)] and i reckon i&rsquo;d be very much taken by this</p>
-<p>&nbsp;</p>
-<p>Overall a great day. I met a lot of people and there are others i really wished i had a chance to see or meet. Next time though. I shall definitely be at the next DDD event &ndash; talks are currently for Ireland on 25th Sept :) &ndash; and id recommend this to anyone.</p>
-<p>&nbsp;</p>
-<p>Fingers crossed i get a chance to make some further posts on this :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -765,6 +761,10 @@ w3svc.Invoke(command, null);
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/">Replacing a Node in a Riak Cluster</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
       </li>
     
@@ -778,10 +778,6 @@ w3svc.Invoke(command, null);
     
       <li class="post">
         <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
       </li>
     
   </ul>

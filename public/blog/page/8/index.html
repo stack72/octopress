@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="This morning I found out that the IIS Rewrite module causes a problem with MVC routing when trying to POST back to the server. I added a rule to the &hellip;">
+  <meta name="description" content="Before the dawn of VS2010 SP1, when I wanted to deploy dependency dlls, I had to go to the properties of the .dll and set CopyLocal to true This was &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/05/using-add-deployable-dependencies-in-vs2010-sp1/">Using Add Deployable Dependencies in VS2010 SP1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-05T00:00:00+01:00" pubdate data-updated="true">Apr 5<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Before the dawn of VS2010 SP1, when I wanted to deploy dependency dlls, I had to go to the properties of the .dll and set CopyLocal to true</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_16.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_16.png" border="0" alt="image" width="602" height="251" /></a></p>
+<p>This was critical for me when MVC3 first came out as MVC3 was not installed on our production server and we needed to deploy the MVC3 and Razor dlls to our servers in order for the application to run.</p>
+<p>The nice people at Microsoft added a feature in VS2010 SP1 that allowed you to specify a specific set of deployable dependencies. When you right click on the web project you can now see a menu option as follows:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_17.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_17.png" border="0" alt="image" width="215" height="329" /></a></p>
+<p>When you choose this option you get an option to choose the dependencies you want:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_18.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_18.png" border="0" alt="image" width="321" height="155" /></a></p>
+<p>If I choose ASP.NET MVC and select ok I will now have a new folder added to my solution that has the following contents:</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_19.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_19.png" border="0" alt="image" width="290" height="197" /></a></p>
+<p>This folder is now taken care of using the new Microsoft.WebApplication.targets and Microsoft.Web.Publishing.targets file that comes with MSBuild and was upgraded after VS2010 SP1 install. MSBuild will take care of this folder and its contents and move those contents to the /bin of the application. This will work as part of a CI build or as part of using a publish with MSDeploy.</p>
+<p>This has made my life easier as I used to have to find what files were needed as part of the deploy and keep a copy of them in a /lib folder and then use an MSBuild copy task to copy them as part of my CI build</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -479,58 +525,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/02/28/running-powershell-scripts-from-teamcity/">Running Powershell Scripts From TeamCity</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-28T00:00:00+00:00" pubdate data-updated="true">Feb 28<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Over the past month I have volunteered to help out in the creation of some <a href="http://nuget.org" target="_blank">nuget</a> packages. The packages I said I&rsquo;d help with are NUnit and Simple.Data. I volunteered as I have a dedi box and wanted to try and script it from my TeamCity installation.</p>
-<p>In order to get the projects working I have created a custom MSBuild script that does things in the following order:</p>
-<ul>
-<li>Build </li>
-<li>Zip </li>
-<li>Package </li>
-<li>Nuget Creation </li>
-</ul>
-<ul>
-This was all thanks to help from <a href="http://www.jeremyskinner.co.uk" target="_blank">Jeremy Skinner</a>. Jeremy has managed to do all the steps above&nbsp; as part of his build but chooses to run the push to nuget.org from a powershell script. manually so he can make sure it never happens unexpectedly. I am very much a fan of automation. Therefore I wanted to find a way to automate this push to nuget as part of a specific build configuration. Out of the box, TeamCity has no powershell build runner. In order to try to execute the powershell script, I was wrapping the call in a .cmd file. But this was not working fantastically and was hanging and throwing errors for me. 
-</ul>
-<ul>
-I managed to find a <a href="http://teamcity.jetbrains.net/viewType.html?buildTypeId=bt268&amp;tab=buildTypeStatusDiv" target="_blank">Powershell TeamCity plugin</a> (login as a guest to see it). This allowed a build step to be added to TeamCity config that execute Powershell scripts directly and therefore helps to automate the process. 
-</ul>
-<p>When this script is installed I see the following in my TeamCity build runner menu</p>
-<p><a href="http://paulstack.co.uk/blog/images/image_10.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_10.png" border="0" alt="image" width="330" height="198" /></a></p>
-<p>A simple call to the correct .ps1 file means the publish to nuget! Hope this helps</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -555,6 +549,10 @@ I managed to find a <a href="http://teamcity.jetbrains.net/viewType.html?buildTy
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/">Replacing a Node in a Riak Cluster</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
       </li>
     
@@ -568,10 +566,6 @@ I managed to find a <a href="http://teamcity.jetbrains.net/viewType.html?buildTy
     
       <li class="post">
         <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
       </li>
     
   </ul>

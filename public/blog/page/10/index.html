@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="For the past few years I have been annoying introducing all of the people I have worked with to automated testing. The tool I showed was Cuke4nuke. &hellip;">
+  <meta name="description" content="I am working on a new application at work that&rsquo;s an MVC3 app that talks to a WCF Service. I use a number of 3rd party libraries: Ninject &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,63 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/15/the-nightmare-when-i-upgraded-my-mvc2-solution-to-mvc3/">The Nightmare When I Upgraded My MVC2 Solution to MVC3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-15T00:00:00+00:00" pubdate data-updated="true">Jan 15<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I am working on a new application at work that&rsquo;s an MVC3 app that talks to a WCF Service. I use a number of 3rd party libraries:</p>
+<ul>
+<li>Ninject </li>
+<li>Ninject WCF </li>
+<li>Ninject MVC </li>
+<li>Ninject Logging Extensions </li>
+<li>Fluent Validation </li>
+<li>MVCContrib </li>
+<li>Automapper </li>
+</ul>
+<p>So when i had to upgrade to MVC3 RTM I had to see what happened to these 3rd party systems &ndash; FYI I had a bit of a nightmare! It happened in the following order:</p>
+<p><strong>MVCContrib</strong> &ndash; I was a bit ahead of the game here and checked out latest branch and build from source &ndash; SORTED!</p>
+<p><strong>Fluent Validation</strong> &ndash; Luckily <a href="http://twitter.com/jeremyskinner" target="_blank">Jeremy Skinner</a> tweeted that Fluent Validation for MVC3 was available &ndash; SORTED!</p>
+<p><strong>Ninject</strong> &ndash; I had to download this from github, update the solution to run as .Net 4.0 and add the new MVC3 System.Web.MVC dll to it and build from source &ndash; SORTED!</p>
+<p>Now things started getting a bit weird!</p>
+<p><strong>Ninject MVC</strong> &ndash; this required the solution to be downloaded from github, upgraded to .net 4, the MVC3 System.Web.MVC dll and the previously compiled ninject dll</p>
+<p><strong>Ninject WCF</strong> - this required the solution to be downloaded from github, upgraded to .net 4 and the previously compiled ninject dll</p>
+<p><strong>Ninject Logging</strong> - this required the solution to be downloaded from github, upgraded to .net 4 and the previously compiled ninject dll</p>
+<p>This was a horrendous task! I&rsquo;m not sure I&#8217;d want to upgrade something so complex again but its all for a good cause as I can now use the Razor view engine :)</p>
+<p>&nbsp;</p>
+<p>EDIT: Those awesome codebetter guys have created these upgrades of Ninject on their build server so you don&#8217;t have to -&nbsp;<a href="http://teamcity.codebetter.com/login.html">http://teamcity.codebetter.com/</a></p>
+<p>Word of warning: DON&rsquo;T TRY THIS AT HOME!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -420,54 +477,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/18/getting-started-with-simpledata/">Getting Started With Simple.Data</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-18T00:00:00+01:00" pubdate data-updated="true">Oct 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>To continue in my evangelism of Simple.Data, I have decided to write a series of posts about how to use the product. The first part is how to get started with Simple.Data. This post will simple describe how we actually incorporate Simple.Data in an application.</p>
-<ul>
-<li>Download the source from Github - <a href="http://github.com/markrendle/Simple.Data">http://github.com/markrendle/Simple.Data</a> </li>
-<li>Open the .sln file and build it </li>
-<li>When the project is built then the required libraries are in the following location: &lt;solutiondirectory&gt;\Simple.Data\bin\&lt;configuration&gt;\ </li>
-<li>The required files are Simple.Data.dll, Simple.Data.pdb </li>
-<li>Add the files above to your lib or assemblies directory </li>
-<li>Reference Simple.Data.dll from your application </li>
-<li>Add the following to your web.config </li>
-</ul>
-<p>&lt;?xml version=&#8221;1.0&#8221; encoding=&#8221;utf-8&#8221; ?&gt;    <br />&lt;configuration&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;configSections&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;/configSections&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;connectionStrings&gt;     <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;add name=&#8221;Simple.Data.Properties.Settings.ConnectionString&#8221;     <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; connectionString=&#8221;server&rdquo;;initial catalog=&rdquo;databasename&rdquo;;integrated security=true&#8221; /&gt;     <br />&nbsp;&nbsp;&nbsp; &lt;/connectionStrings&gt;     <br />&lt;/configuration&gt;</p>
-<p>&nbsp;</p>
-<p>That&#8217;s it! We are now ready to actually start querying your database.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -492,6 +501,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/">Replacing a Node in a Riak Cluster</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
       </li>
     
@@ -505,10 +518,6 @@
     
       <li class="post">
         <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
       </li>
     
   </ul>

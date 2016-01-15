@@ -635,12 +635,16 @@
         <lastmod>2016-01-07T14:53:21+00:00</lastmod>
     </url>
     <url>
+        <loc>http://www.paulstack.co.uk/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/</loc>
+        <lastmod>2016-01-15T12:05:22+00:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.paulstack.co.uk/about-me/</loc>
         <lastmod>2015-12-31T11:30:18+00:00</lastmod>
     </url>
     <url>
         <loc>http://www.paulstack.co.uk/blog/archives/</loc>
-        <lastmod>2016-01-07T14:53:21+00:00</lastmod>
+        <lastmod>2016-01-15T12:05:22+00:00</lastmod>
     </url>
     <url>
         <loc>http://www.paulstack.co.uk/contact/</loc>
@@ -648,7 +652,7 @@
     </url>
     <url>
         <loc>http://www.paulstack.co.uk/</loc>
-        <lastmod>2016-01-07T14:53:21+00:00</lastmod>
+        <lastmod>2016-01-15T12:05:22+00:00</lastmod>
     </url>
     <url>
         <loc>http://www.paulstack.co.uk/robots.txt</loc>

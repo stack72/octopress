@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="I have been reading more and more posts and comments about how some developers are worried about coming along to GiveCampUK (has anyone told you &hellip;">
+  <meta name="description" content="After the BUILD conference (September 13 &ndash; 16), there was a lot of buzz about the next version of TFS. From the conference we heard that vNext &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/20/tfs-vnext-falls-short-of-the-mark/">TFS vNext – Falls Short of the Mark</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-20T00:00:00+01:00" pubdate data-updated="true">Sep 20<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After the <a href="http://www.buildwindows.com/">BUILD conference</a> (September 13 &ndash; 16), there was a lot of buzz about the next version of TFS. From the conference we heard that vNext was going to be a revelation. Since reading about it, and trialling it for myself (with Hosted TFS), I feel that the TFS team have fallen short of the mark, for me, on 1 of the major features they offer (there are more but I will stick with this one):</p>
+<blockquote>
+<p><span style="font-size: medium;"><strong>Version Control</strong></span></p>
+</blockquote>
+<p>The current frustrations with TFS seem to be around painful version control problems. They include the workspace creating read-only copies of files locally that still need to be &lsquo;checked out&rsquo; before they can be edited. If you delete a file from the file system then TFS doesn&rsquo;t (currently) see that the file has been deleted. It has also been reported that &lsquo;Get-Latest&rsquo; doesn&rsquo;t realise that some files have changed when they actually had. Offline mode didn&rsquo;t work well apparently when it came to a re-sync. The list could go on.</p>
+<p>I thought that feedback would have been taken on-board that the version control side of TFS was not fantastic. A lot of people have started to look for alternative ways to use a 3rd party VCS tool with TFS. I honestly thought that Microsoft would allow 3rd party tool integration into TFS. This hasn&rsquo;t happened.</p>
+<p>Improvements to TFS version control side of things were made. These included the idea of &lsquo;Local workspaces&rsquo;. This is a copy of the files locally that are not read-only. Changes to the files outside of the TFS environment will be picked up by TFS. Another change was to offline mode. When the system came back on-line then everything automatically re-synced.</p>
+<p>My initial thoughts when I had heard about &lsquo;Local Workspaces&rsquo; was that Microsoft had finally hit that DVCS style system. I tweeted about this and was soon told, by a <a href="http://twitter.com/#!/tfsbuck">TFS development manager</a>, that this was very much not the case. You still have to communicate with the server in order to do a &lsquo;get&rsquo;, &lsquo;commit&rsquo; etc. This becomes interesting when you work with hosted TFS.</p>
+<p>What happens if I am working whilst commuting and do not have network access? You can <em>still</em> work as you can edit files locally and TFS sees the changes, as the improvements suggest. But the idea of everything automatically syncing when back on-line worries me. Its <strong>never</strong> that easy &ndash; look at merging with VCS systems &ndash; it can be a real pain. You cannot stage local commits with TFS local workspaces. Its sounds good &ndash; a local workspace &ndash; when in reality it is only a SVN style of VCS. This can be good &ndash; but not for when working in an offline mode.</p>
+<p>What I think Microsoft should have done it to move straight towards the local workspace being a DVCS style system. This would be the most useful approach for those who would be using hosted TFS in an offline format &ndash; a lot of developers <strong>do actually</strong> travel and work whilst doing so. I could then work locally and when I have a network connection push my local changes back to the TFS server.</p>
+<p>Developer needs in a VCS have changed. The rise of DVCS style systems have made this happen. Therefore implementing a CVCS style of system feels as though TFS is going back to 2000, when SVN was first introduced. It doesn&rsquo;t feel like it is moving in a tangible way to that of developer needs. TFS takes care of a lot of the ALM cycle &ndash; it has a CI style tool,&nbsp; version control, bug tracking etc. but as long as I have Git, TeamCity and YouTrack then it is not something I feel I could move towards. It feels very old fashioned in comparison to these tools.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -530,64 +576,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/07/18/development-key-skills-or-lack-of-them/">Development Key Skills (or Lack of Them!)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-18T00:00:00+01:00" pubdate data-updated="true">Jul 18<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This post is highly subjective and denotes the skills that I think a developer should have in his/her tool belt by default. I&rsquo;d love to see this post grow by people adding their own ideas to it from their own experiences.</p>
-<h4>1. Good VCS Skills</h4>
-<p>I have added this as number 1 because I feel that at an interview we are not usually asked to demonstrate our knowledge of a version control system (VCS). In my opinion, we <strong>should</strong> have an understanding of why we use the system and basic practices around this system. Recently, I have discovered a developer who doesn&rsquo;t use source control properly. The developer checks into VCS maybe once every 10 days or so. This developer was puzzled as to why I would challenge him on this.</p>
-<p>As developers we should be checking our code into source control at least once as day. Not the use of the broad term &lsquo;source control&rsquo; here as this article is not going to talk about good VCS practices as it is a very hot topic and justice cannot be done to that topic in just a few lines. We need to make sure that we are able to revert our local changes as quickly as we can on a main repo so a good VCS habit is needed for that.</p>
-<h4>2. Ability to write &lsquo;expressive&rsquo; code</h4>
-<p>I&rsquo;m quite fortunate to have read the book <a href="http://www.amazon.co.uk/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882" target="_blank">Clean Code</a> by <a href="http://twitter.com/unclebobmartin" target="_blank">Robert C. Martin</a> early on in my development career. This book changed the way I worked and made me slightly opinionated. Every piece of code I write now is reflected upon as to how it can be refactored, named better, more succinct or reused elsewhere.</p>
-<p>Unfortunately, there are a lot of developers who don&rsquo;t care about the code they write. They will copy and paste classes and methods, perhaps only changing 1 line (if any). This makes maintainability very tough as there are multiple instances of code to change. Developer can sometimes not use expressive names in their code. Others write very long methods that are difficult to follow. The list goes on of &lsquo;code smells&rsquo;.</p>
-<p>I take a great deal of pride in what I do and it frustrates me beyond all belief when I look at code and know the developer hasn&rsquo;t put a lot of effort or thought into. The lack of a key skills can very fast turn a nice codebase into a monolithic, legacy application.</p>
-<h4>3. The ability to care</h4>
-<p>As software professionals, generally, we get paid well for what we do. To me, coding is a hobby and I think I am very privileged to be able to be paid for a hobby. In return for my salary, the least my employer deserves is my full care and attention to my work. IT should be as good as it can be. We wouldn&rsquo;t accept second best on a football pitch so why would we accept second best in the office?</p>
-<blockquote>
-<p><em>Do not onto others what you would wish not them do onto you.</em></p>
-<h4>4. The ability to use basic tools</h4>
-<p>On our CV, we list what tools we are proficient in using. As a developer who writes in C# it may include Visual Studio. As we have listed this on our CV, we should really be able to use it. When it comes to an interview saying you have not used a tool that is listed on your CV would look very bad.</p>
-<p>Falsities (I won&rsquo;t call it lying) can cause concerns amongst the team. These concerns can harm the trust levels in the team and we cannot afford to let issues like this harm the balance of the team.</p>
-<h4>5. A willingness to grow and learn</h4>
-<p>In development, there are many ways to get a job done. There is no ultimate right and wrong answer but there are tried and tested methods that can help. As a developer, we should be able to accept that others may have a better way of doing something. If this is the case we need to be mature enough to accept that this is the case. When writing code this could take the form of a code review. If the reviewer points out an are that can change, then the reviewer and the developer can help to come up with something together. There may even the the transfer of new knowledge as well.</p>
-<p>Too many developers feel their solution is the best possible way to do something or refuse to change the code if something better is pointed out to them. The ability to do the best job possible means we need to be constantly learning as developers. I do not know of a single developer who can be confident they know <strong>everything</strong> (queue jokes).</p>
-<p>In order to do our best we must continually look at better ways of doing things. This could require reading blog posts, going to conferences or reading books etc. Not only will it benefit us, but it may also benefit our team as well.</p>
-<h4>6. Ability to communicate</h4>
-<p>Have you ever seen a sports team that don&rsquo;t communicate? They are effectively a bunch of individuals and they could crumble. Why should we communicate as a development team? Creating the best solution, in order to learn from each other and to communicate issues )or successes) are a few of the reasons. This to me is a prerequisite skill for development. When I interview developers, part of the exercise is to pair program with them. This tests how effective they are at communicating with me. This is just as important as how good their code is.</p>
-<p>If i was able to work with more developers with the skills (attitude) as these then I don&rsquo;t think I could be in a better environment. I have one final question though &ndash; does such a perfect environment exist?</p>
-</blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -612,6 +600,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/">Replacing a Node in a Riak Cluster</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
       </li>
     
@@ -625,10 +617,6 @@
     
       <li class="post">
         <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
       </li>
     
   </ul>

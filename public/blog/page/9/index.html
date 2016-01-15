@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="Over the xmas period I read a book I have wanted to for a while now, Azure in Action. I didn&rsquo;t know anything at all about the cloud. In fact, &hellip;">
+  <meta name="description" content="Over the past month I have volunteered to help out in the creation of some nuget packages. The packages I said I&rsquo;d help with are NUnit and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/28/running-powershell-scripts-from-teamcity/">Running Powershell Scripts From TeamCity</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-28T00:00:00+00:00" pubdate data-updated="true">Feb 28<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Over the past month I have volunteered to help out in the creation of some <a href="http://nuget.org" target="_blank">nuget</a> packages. The packages I said I&rsquo;d help with are NUnit and Simple.Data. I volunteered as I have a dedi box and wanted to try and script it from my TeamCity installation.</p>
+<p>In order to get the projects working I have created a custom MSBuild script that does things in the following order:</p>
+<ul>
+<li>Build </li>
+<li>Zip </li>
+<li>Package </li>
+<li>Nuget Creation </li>
+</ul>
+<ul>
+This was all thanks to help from <a href="http://www.jeremyskinner.co.uk" target="_blank">Jeremy Skinner</a>. Jeremy has managed to do all the steps above&nbsp; as part of his build but chooses to run the push to nuget.org from a powershell script. manually so he can make sure it never happens unexpectedly. I am very much a fan of automation. Therefore I wanted to find a way to automate this push to nuget as part of a specific build configuration. Out of the box, TeamCity has no powershell build runner. In order to try to execute the powershell script, I was wrapping the call in a .cmd file. But this was not working fantastically and was hanging and throwing errors for me. 
+</ul>
+<ul>
+I managed to find a <a href="http://teamcity.jetbrains.net/viewType.html?buildTypeId=bt268&amp;tab=buildTypeStatusDiv" target="_blank">Powershell TeamCity plugin</a> (login as a guest to see it). This allowed a build step to be added to TeamCity config that execute Powershell scripts directly and therefore helps to automate the process. 
+</ul>
+<p>When this script is installed I see the following in my TeamCity build runner menu</p>
+<p><a href="http://paulstack.co.uk/blog/images/image_10.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_10.png" border="0" alt="image" width="330" height="198" /></a></p>
+<p>A simple call to the correct .ps1 file means the publish to nuget! Hope this helps</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -489,63 +541,6 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/15/the-nightmare-when-i-upgraded-my-mvc2-solution-to-mvc3/">The Nightmare When I Upgraded My MVC2 Solution to MVC3</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-15T00:00:00+00:00" pubdate data-updated="true">Jan 15<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I am working on a new application at work that&rsquo;s an MVC3 app that talks to a WCF Service. I use a number of 3rd party libraries:</p>
-<ul>
-<li>Ninject </li>
-<li>Ninject WCF </li>
-<li>Ninject MVC </li>
-<li>Ninject Logging Extensions </li>
-<li>Fluent Validation </li>
-<li>MVCContrib </li>
-<li>Automapper </li>
-</ul>
-<p>So when i had to upgrade to MVC3 RTM I had to see what happened to these 3rd party systems &ndash; FYI I had a bit of a nightmare! It happened in the following order:</p>
-<p><strong>MVCContrib</strong> &ndash; I was a bit ahead of the game here and checked out latest branch and build from source &ndash; SORTED!</p>
-<p><strong>Fluent Validation</strong> &ndash; Luckily <a href="http://twitter.com/jeremyskinner" target="_blank">Jeremy Skinner</a> tweeted that Fluent Validation for MVC3 was available &ndash; SORTED!</p>
-<p><strong>Ninject</strong> &ndash; I had to download this from github, update the solution to run as .Net 4.0 and add the new MVC3 System.Web.MVC dll to it and build from source &ndash; SORTED!</p>
-<p>Now things started getting a bit weird!</p>
-<p><strong>Ninject MVC</strong> &ndash; this required the solution to be downloaded from github, upgraded to .net 4, the MVC3 System.Web.MVC dll and the previously compiled ninject dll</p>
-<p><strong>Ninject WCF</strong> - this required the solution to be downloaded from github, upgraded to .net 4 and the previously compiled ninject dll</p>
-<p><strong>Ninject Logging</strong> - this required the solution to be downloaded from github, upgraded to .net 4 and the previously compiled ninject dll</p>
-<p>This was a horrendous task! I&rsquo;m not sure I&#8217;d want to upgrade something so complex again but its all for a good cause as I can now use the Razor view engine :)</p>
-<p>&nbsp;</p>
-<p>EDIT: Those awesome codebetter guys have created these upgrades of Ninject on their build server so you don&#8217;t have to -&nbsp;<a href="http://teamcity.codebetter.com/login.html">http://teamcity.codebetter.com/</a></p>
-<p>Word of warning: DON&rsquo;T TRY THIS AT HOME!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -570,6 +565,10 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/">Replacing a Node in a Riak Cluster</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">Building a Riak Cluster in AWS With Packer and Terraform</a>
       </li>
     
@@ -583,10 +582,6 @@ for data services. If it continues, call Customer Care."</pre><pre>&nbsp;</pre>
     
       <li class="post">
         <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/12/30/autoscaling-group-notifications-with-terraform-and-aws-lambda/">Autoscaling Group Notifications With Terraform and AWS Lambda</a>
       </li>
     
   </ul>
