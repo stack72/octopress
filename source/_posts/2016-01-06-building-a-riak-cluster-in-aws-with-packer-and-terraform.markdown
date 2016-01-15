@@ -84,7 +84,7 @@ The ansible playbook for Riak looks as follows:
 ```
 {% endraw %}
 
-The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install riak.
+The base playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install riak.
 
 The riak ansible role looks as follows:
 

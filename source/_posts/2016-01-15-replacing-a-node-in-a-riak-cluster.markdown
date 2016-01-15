@@ -7,7 +7,7 @@ categories: [aws,infrastructure,riak]
 ---
 The instances that run in my infrastructure get a lifespan of 14 days. This allows me to continually test that I can replace my environment at any point. People always ask me if I follow the same principal for data nodes. I posted [previously](http://www.paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/) about replacing nodes is an [ElasticSearch](https://www.elastic.co/products/elasticsearch) cluster, this post will detail how I replace  nodes in a [Riak](http://basho.com/products/riak-kv/) cluster 
 
-**_NOTE_**: This post assumes that you have the [Riak Control console](http://docs.basho.com/riak/latest/ops/advanced/riak-control/*) enabled for Riak. You can find out how to enable that in the [post](http://www.paulstack.co.uk/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/) I wrote on configuring Riak.
+**_NOTE_**: This post assumes that you have the [Riak Control console](http://docs.basho.com/riak/latest/ops/advanced/riak-control/) enabled for Riak. You can find out how to enable that in the [post](http://www.paulstack.co.uk/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/) I wrote on configuring Riak.
 
 When going to the Riak Control, you can find the following screens:
 

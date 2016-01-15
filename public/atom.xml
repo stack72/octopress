@@ -4,7 +4,7 @@
   <title><![CDATA[Adventures of a wannabe geek!]]></title>
   <link href="http://www.paulstack.co.uk/atom.xml" rel="self"/>
   <link href="http://www.paulstack.co.uk/"/>
-  <updated>2016-01-15T12:05:33+00:00</updated>
+  <updated>2016-01-19T10:48:42+00:00</updated>
   <id>http://www.paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -14,13 +14,455 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Building an Autodiscovering Apache Zookeeper Cluster in AWS using Packer, Ansible and Terraform]]></title>
+    <link href="http://www.paulstack.co.uk/blog/2016/01/15/building-an-autodiscovering-apache-zookeeper-cluster-in-aws-using-packer-ansible-and-terraform/"/>
+    <updated>2016-01-15T15:55:00+00:00</updated>
+    <id>http://www.paulstack.co.uk/blog/2016/01/15/building-an-autodiscovering-apache-zookeeper-cluster-in-aws-using-packer-ansible-and-terraform</id>
+    <content type="html"><![CDATA[<p>Following my <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">pattern</a> of building <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">AMIs</a> for applications, I create my <a href="https://zookeeper.apache.org/">Apache Zookeeper</a> cluster with <a href="https://packer.io/">Packer</a> for my AMI and <a href="https://terraform.io/">Terraform</a> for the infrastructure. This Zookeeper cluster is auto-discovering of the other nodes that are determined to be in the cluster</p>
+
+<h3>Building Zookeeper AMIs with Packer</h3>
+
+<p>The packer template looks as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nt">&quot;variables&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nt">&quot;ami_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nt">&quot;private_subnet_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nt">&quot;security_group_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nt">&quot;packer_build_number&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Zookeeper Image&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nt">&quot;builders&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;ami_name&quot;</span><span class="p">:</span> <span class="s2">&quot;zookeeper-{{user `packer_build_number`}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;availability_zone&quot;</span><span class="p">:</span> <span class="s2">&quot;eu-west-1a&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;iam_instance_profile&quot;</span><span class="p">:</span> <span class="s2">&quot;app-server&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;instance_type&quot;</span><span class="p">:</span> <span class="s2">&quot;t2.small&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;region&quot;</span><span class="p">:</span> <span class="s2">&quot;eu-west-1&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;run_tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nt">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;packer&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nt">&quot;security_group_ids&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;{{user `security_group_id`}}&quot;</span>
+</span><span class='line'>      <span class="p">],</span>
+</span><span class='line'>      <span class="nt">&quot;source_ami&quot;</span><span class="p">:</span> <span class="s2">&quot;{{user `ami_id`}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;ssh_timeout&quot;</span><span class="p">:</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;ssh_username&quot;</span><span class="p">:</span> <span class="s2">&quot;ubuntu&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;subnet_id&quot;</span><span class="p">:</span> <span class="s2">&quot;{{user `private_subnet_id`}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;zookeeper-packer-image&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;amazon-ebs&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">],</span>
+</span><span class='line'>  <span class="nt">&quot;provisioners&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;inline&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;sleep 10&quot;</span> <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;script&quot;</span><span class="p">:</span> <span class="s2">&quot;install_dependencies.sh&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;execute_command&quot;</span><span class="p">:</span> <span class="s2">&quot;echo &#39;&#39; | {{ .Vars }} sudo -E -S sh &#39;{{ .Path }}&#39;&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ansible-local&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;playbook_file&quot;</span><span class="p">:</span> <span class="s2">&quot;zookeeper.yml&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;extra_arguments&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;--module-path=./modules&quot;</span>
+</span><span class='line'>      <span class="p">],</span>
+</span><span class='line'>      <span class="nt">&quot;playbook_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;../../&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>   
+
+<p>The install_dependencies.sh script is as described <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">previously</a></p>
+
+<p>The ansible playbook for Zookeeper looks as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">all</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">sudo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">pre_tasks</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ec2_tags</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ec2_facts</span><span class="p-Indicator">:</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">base</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">zookeeper</span>
+</span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">exhibitor</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>The base playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install zookeeper. As a last step, I install <a href="https://github.com/Netflix/exhibitor">exhibitor</a>. Exhibitor is a co-process for monitoring, backup/recovery, cleanup and visualization of zookeeper.</p>
+
+<p>The zookeeper ansible role looks as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Download ZooKeeper</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">get_url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">url=http://www.mirrorservice.org/sites/ftp.apache.org/zookeeper/current/zookeeper-{{ zookeeper_version }}.tar.gz dest=/tmp/zookeeper-{{ zookeeper_version }}.tar.gz mode=0440</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Unpack Zookeeper</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">command</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">tar xzf /tmp/zookeeper-{{ zookeeper_version }}.tar.gz -C /opt/ creates=/opt/zookeeper-{{ zookeeper_version }}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Link to Zookeeper Directory</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">src=/opt/zookeeper-{{ zookeeper_version }}</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">dest=/opt/zookeeper</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">state=link</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">force=yes</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create zookeeper group</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name=zookeeper system=true state=present</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create zookeeper user</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name=zookeeper groups=zookeeper system=true home=/opt/zookeeper</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create Zookeeper Config Dir</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">path={{zookeeper_conf_dir}} owner=zookeeper group=zookeeper recurse=yes state=directory mode=0644</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create Zookeeper Transations Dir</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">path=/opt/zookeeper/transactions owner=zookeeper group=zookeeper recurse=yes state=directory mode=0644</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create Zookeeper Log Dir</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">path={{zookeeper_log_dir}} owner=zookeeper group=zookeeper recurse=yes state=directory mode=0644</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create Zookeeper DataStore Dir</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">path={{zookeeper_datastore_dir}} owner=zookeeper group=zookeeper recurse=yes state=directory mode=0644</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Setup log4j</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dest=&quot;{{zookeeper_conf_dir}}/log4j.properties&quot; owner=root group=root mode=644 src=log4j.properties.j2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>The role itself is very simple. The zookeeper cluster is managed by exhibitor so there are very few settings passed to zookeeper at this point. One thing to note though, this requires an installation of the <a href="http://docs.oracle.com/javase/7/docs/webnotes/install/">Java JDK</a> to work.</p>
+
+<p>The exhibitor playbook looks as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Install Maven</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">apt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">pkg=maven state=latest update_cache=yes</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create Exhibitor Install Dir</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">path={{ exhibitor_install_dir }} state=directory mode=0644</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create Exhibitor Build Dir</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">path={{ exhibitor_install_dir }}/{{ exhibitor_version }} state=directory mode=0644</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create Exhibitor POM</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">src=pom.xml.j2</span>
+</span><span class='line'>            <span class="l-Scalar-Plain">dest={{ exhibitor_install_dir }}/{{ exhibitor_version }}/pom.xml</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Build Exhibitor jar</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">command</span><span class="p-Indicator">:</span> <span class="s">&#39;/usr/bin/mvn</span><span class="nv"> </span><span class="s">clean</span><span class="nv"> </span><span class="s">package</span><span class="nv"> </span><span class="s">-f</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">exhibitor_install_dir</span><span class="nv"> </span><span class="s">}}/{{</span><span class="nv"> </span><span class="s">exhibitor_version</span><span class="nv"> </span><span class="s">}}/pom.xml</span><span class="nv"> </span><span class="s">creates={{</span><span class="nv"> </span><span class="s">exhibitor_install_dir</span><span class="nv"> </span><span class="s">}}/{{</span><span class="nv"> </span><span class="s">exhibitor_version</span><span class="nv"> </span><span class="s">}}/target/exhibitor-{{</span><span class="nv"> </span><span class="s">exhibitor_version</span><span class="nv"> </span><span class="s">}}.jar&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Copy Exhibitor jar</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">command</span><span class="p-Indicator">:</span> <span class="s">&#39;cp</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">exhibitor_install_dir</span><span class="nv"> </span><span class="s">}}/{{</span><span class="nv"> </span><span class="s">exhibitor_version</span><span class="nv"> </span><span class="s">}}/target/exhibitor-{{</span><span class="nv"> </span><span class="s">exhibitor_version</span><span class="nv"> </span><span class="s">}}.jar</span><span class="nv"> </span><span class="s">{{exhibitor_install_dir}}/exhibitor-standalone-{{</span><span class="nv"> </span><span class="s">exhibitor_version</span><span class="nv"> </span><span class="s">}}.jar</span><span class="nv"> </span><span class="s">creates={{exhibitor_install_dir}}/exhibitor-standalone-{{</span><span class="nv"> </span><span class="s">exhibitor_version</span><span class="nv"> </span><span class="s">}}.jar&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Exhibitor Properties Config</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">src=exhibitor.properties.j2</span>
+</span><span class='line'>            <span class="l-Scalar-Plain">dest={{ exhibitor_install_dir }}/exhibitor.properties</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">exhibitor upstart config</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">src=upstart.j2 dest=/etc/init/exhibitor.conf mode=644 owner=root</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name=exhibitor state=started</span>
+</span></code></pre></td></tr></table></div></figure>   
+
+<p>This role has a lot more configuration to set as it essentially manages zookeeper. The <a href="https://gist.github.com/stack72/e5ccf1bb2bc5da484712">template files</a> for configuration are all available to download.</p>
+
+<p>The variables for the entire playbook look as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">zookeeper_hosts</span><span class="p-Indicator">:</span> <span class="s">&quot;:2181&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">zookeeper_version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3.4.6</span>
+</span><span class='line'><span class="l-Scalar-Plain">zookeeper_conf_dir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/zookeeper/conf</span>
+</span><span class='line'><span class="l-Scalar-Plain">zookeeper_log_dir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/log/zookeeper</span>
+</span><span class='line'><span class="l-Scalar-Plain">zookeeper_datastore_dir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/lib/zookeeper</span>
+</span><span class='line'><span class="l-Scalar-Plain">zk_s3_bucket_name</span><span class="p-Indicator">:</span> <span class="s">&quot;mys3bucket&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">monasca_log_level</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">WARN</span>
+</span><span class='line'><span class="l-Scalar-Plain">exhibitor_version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1.5.5</span>
+</span><span class='line'><span class="l-Scalar-Plain">exhibitor_install_dir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/opt/exhibitor</span>
+</span></code></pre></td></tr></table></div></figure> 
+
+<p>The main thing to note here is that the exhibitor process starts with the following configuration:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">exec </span>java -jar <span class="o">{{</span> exhibitor_install_dir <span class="o">}}</span>/exhibitor-standalone-<span class="o">{{</span>exhibitor_version<span class="o">}}</span>.jar --port 8181 --defaultconfig /opt/exhibitor/exhibitor.properties --configtype s3 --s3config <span class="o">{{</span> zk_s3_bucket_name <span class="o">}}</span>:<span class="o">{{</span> ansible_ec2_placement_region <span class="o">}}</span> --s3backup <span class="nb">true</span> --hostname <span class="o">{{</span> ec2_private_ip_address <span class="o">}}</span> &gt; /var/log/exhibitor.log 2&gt;&amp;1
+</span></code></pre></td></tr></table></div></figure> 
+
+<p>This means that the node will check itself into a configuration file in S3 and that all other zookeepers will read the same configuration file and can form the cluster required. You can read more about Exhibitor shared configuration on their <a href="https://github.com/Netflix/exhibitor/wiki/Shared-Configuration">github wiki</a>.</p>
+
+<p>When I launch the instances now, the zookeeper cluster will be formed</p>
+
+<h3>Deploying Zookeeper Infrastructure with Terraform</h3>
+
+<p>The infrastructure of the Zookeeper cluster is pretty simple:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>resource <span class="s2">&quot;aws_security_group&quot;</span> <span class="s2">&quot;zookeeper&quot;</span> <span class="o">{</span>
+</span><span class='line'>  <span class="nv">name</span> <span class="o">=</span> <span class="s2">&quot;digit-zookeeper-sg&quot;</span>
+</span><span class='line'>  <span class="nv">description</span> <span class="o">=</span> <span class="s2">&quot;Zookeeper Security Group&quot;</span>
+</span><span class='line'>  <span class="nv">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.default.id}&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  ingress <span class="o">{</span>
+</span><span class='line'>    <span class="nv">from_port</span> <span class="o">=</span> 0
+</span><span class='line'>    <span class="nv">to_port</span>   <span class="o">=</span> 0
+</span><span class='line'>    <span class="nv">protocol</span>  <span class="o">=</span> <span class="s2">&quot;-1&quot;</span>
+</span><span class='line'>    <span class="nv">cidr_blocks</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="o">]</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  egress <span class="o">{</span>
+</span><span class='line'>    <span class="nv">from_port</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+</span><span class='line'>    <span class="nv">to_port</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+</span><span class='line'>    <span class="nv">protocol</span> <span class="o">=</span> <span class="s2">&quot;-1&quot;</span>
+</span><span class='line'>    <span class="nv">cidr_blocks</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="o">]</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  tags <span class="o">{</span>
+</span><span class='line'>    <span class="nv">Name</span> <span class="o">=</span> <span class="s2">&quot;ZooKeeper Node&quot;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>resource <span class="s2">&quot;aws_launch_configuration&quot;</span> <span class="s2">&quot;zookeeper_launch_config&quot;</span> <span class="o">{</span>
+</span><span class='line'>  <span class="nv">image_id</span> <span class="o">=</span> <span class="s2">&quot;${var.zookeeper_ami_id}&quot;</span>
+</span><span class='line'>  <span class="nv">instance_type</span> <span class="o">=</span> <span class="s2">&quot;${var.zookeeper_instance_type}&quot;</span>
+</span><span class='line'>  <span class="nv">iam_instance_profile</span> <span class="o">=</span> <span class="s2">&quot;zookeeper-server&quot;</span>
+</span><span class='line'>  <span class="nv">key_name</span> <span class="o">=</span> <span class="s2">&quot;${aws_key_pair.terraform.key_name}&quot;</span>
+</span><span class='line'>  <span class="nv">security_groups</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;${aws_security_group.zookeeper.id}&quot;</span>,<span class="s2">&quot;${aws_security_group.node.id}&quot;</span><span class="o">]</span>
+</span><span class='line'>  <span class="nv">enable_monitoring</span> <span class="o">=</span> <span class="nb">false</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">  </span>lifecycle <span class="o">{</span>
+</span><span class='line'>    <span class="nv">create_before_destroy</span> <span class="o">=</span> <span class="nb">true</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  root_block_device <span class="o">{</span>
+</span><span class='line'>    <span class="nv">volume_size</span> <span class="o">=</span> <span class="s2">&quot;${var.digit_zookeeper_volume_size}&quot;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>resource <span class="s2">&quot;aws_autoscaling_group&quot;</span> <span class="s2">&quot;zookeeper_autoscale_group&quot;</span> <span class="o">{</span>
+</span><span class='line'>  <span class="nv">name</span> <span class="o">=</span> <span class="s2">&quot;zookeeper-autoscale-group&quot;</span>
+</span><span class='line'>  <span class="nv">availability_zones</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;${aws_subnet.primary-private.availability_zone}&quot;</span>,<span class="s2">&quot;${aws_subnet.secondary-private.availability_zone}&quot;</span>,<span class="s2">&quot;${aws_subnet.tertiary-private.availability_zone}&quot;</span><span class="o">]</span>
+</span><span class='line'>  <span class="nv">vpc_zone_identifier</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;${aws_subnet.primary-private.id}&quot;</span>,<span class="s2">&quot;${aws_subnet.secondary-private.id}&quot;</span>,<span class="s2">&quot;${aws_subnet.tertiary-private.id}&quot;</span><span class="o">]</span>  <span class="nv">launch_configuration</span> <span class="o">=</span> <span class="s2">&quot;${aws_launch_configuration.zookeeper_launch_config.id}&quot;</span>
+</span><span class='line'>  <span class="nv">min_size</span> <span class="o">=</span> 0
+</span><span class='line'>  <span class="nv">max_size</span> <span class="o">=</span> 100
+</span><span class='line'>  <span class="nv">desired</span> <span class="o">=</span> 3
+</span><span class='line'>
+</span><span class='line'>  tag <span class="o">{</span>
+</span><span class='line'>    <span class="nv">key</span> <span class="o">=</span> <span class="s2">&quot;Name&quot;</span>
+</span><span class='line'>    <span class="nv">value</span> <span class="o">=</span> <span class="s2">&quot;zookeeper&quot;</span>
+</span><span class='line'>    <span class="nv">propagate_at_launch</span> <span class="o">=</span> <span class="nb">true</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  tag <span class="o">{</span>
+</span><span class='line'>    <span class="nv">key</span> <span class="o">=</span> <span class="s2">&quot;role&quot;</span>
+</span><span class='line'>    <span class="nv">value</span> <span class="o">=</span> <span class="s2">&quot;zookeeper&quot;</span>
+</span><span class='line'>    <span class="nv">propagate_at_launch</span> <span class="o">=</span> <span class="nb">true</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>When Terraform is applied here, a 3 node cluster of zookeeper will be created. You can go to <a href="http://mynodeip:8181/exhibitor/v1/ui/index.html">exhibitor</a> and see the configuration e.g.</p>
+
+<p><img src="http://www.paulstack.co.uk/images/exhibitor-zookeeper-cluster.png" alt="Image">
+<img src="http://www.paulstack.co.uk/images/exhibitor-zookeeper-cluster-config.png" alt="Image"></p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Replacing a node in a Riak Cluster]]></title>
     <link href="http://www.paulstack.co.uk/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/"/>
     <updated>2016-01-15T11:03:00+00:00</updated>
     <id>http://www.paulstack.co.uk/blog/2016/01/15/replacing-a-node-in-a-riak-cluster</id>
     <content type="html"><![CDATA[<p>The instances that run in my infrastructure get a lifespan of 14 days. This allows me to continually test that I can replace my environment at any point. People always ask me if I follow the same principal for data nodes. I posted <a href="http://www.paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">previously</a> about replacing nodes is an <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> cluster, this post will detail how I replace  nodes in a <a href="http://basho.com/products/riak-kv/">Riak</a> cluster </p>
 
-<p><strong><em>NOTE</em></strong>: This post assumes that you have the <a href="http://docs.basho.com/riak/latest/ops/advanced/riak-control/*">Riak Control console</a> enabled for Riak. You can find out how to enable that in the <a href="http://www.paulstack.co.uk/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">post</a> I wrote on configuring Riak.</p>
+<p><strong><em>NOTE</em></strong>: This post assumes that you have the <a href="http://docs.basho.com/riak/latest/ops/advanced/riak-control/">Riak Control console</a> enabled for Riak. You can find out how to enable that in the <a href="http://www.paulstack.co.uk/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">post</a> I wrote on configuring Riak.</p>
 
 <p>When going to the Riak Control, you can find the following screens:</p>
 
@@ -219,7 +661,7 @@
 </span><span class='line'>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">riak</span>
 </span></code></pre></td></tr></table></div></figure>
 
-<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install riak.</p>
+<p>The base playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install riak.</p>
 
 <p>The riak ansible role looks as follows:</p>
 
@@ -2450,23 +2892,6 @@ This will open the following dialog:</ul>
 <p>The application looks as follows:</p>
 <p align="center"><a href="http://paulstack.co.uk/blog/images/Screenshot1_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot1" src="http://paulstack.co.uk/blog/images/Screenshot1_thumb_1.png" alt="Screenshot1" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot2_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot2" src="http://paulstack.co.uk/blog/images/Screenshot2_thumb_1.png" alt="Screenshot2" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot3_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot3" src="http://paulstack.co.uk/blog/images/Screenshot3_thumb_1.png" alt="Screenshot3" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot4_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot4" src="http://paulstack.co.uk/blog/images/Screenshot4_thumb_1.png" alt="Screenshot4" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot5_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot5" src="http://paulstack.co.uk/blog/images/Screenshot5_thumb_1.png" alt="Screenshot5" width="148" height="244" border="0" /></a>&nbsp;<a href="http://paulstack.co.uk/blog/images/Screenshot6_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot6" src="http://paulstack.co.uk/blog/images/Screenshot6_thumb_1.png" alt="Screenshot6" width="148" height="244" border="0" /></a>&nbsp; <a href="http://paulstack.co.uk/blog/images/Screenshot7_1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="Screenshot7" src="http://paulstack.co.uk/blog/images/Screenshot7_thumb_1.png" alt="Screenshot7" width="148" height="244" border="0" /></a></p>
 <p>If you want to request a feature or leave us some feedback then please get in touch with us. An application website will soon appear. All feedback gratefully received. Huge thanks to all our beta testers. Without them this application would never have made it past beta.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Enum String Value with JQuery Mobile]]></title>
-    <link href="http://www.paulstack.co.uk/blog/2012/05/03/enum-string-value-for-use-with-jquery-mobile/"/>
-    <updated>2012-05-03T00:00:00+01:00</updated>
-    <id>http://www.paulstack.co.uk/blog/2012/05/03/enum-string-value-for-use-with-jquery-mobile</id>
-    <content type="html"><![CDATA[<p>A while back I had to use <a href="http://jquerymobile.com/" target="_blank">JQuery mobile</a> for a project. The project needed to have 2 themes on an application and the configuration would need to tell the application what theme to load. With JQuery Mobile, the theme string could only be a single letter. I like keeping to decent and meaningful naming conventions, so I created a configuration setting as follows:</p>
-<p>&lt;add key=&#8221;Theme&#8221; value=&#8221;Plain&#8221; /&gt;</p>
-<p>I could see easily that the theme for this build of the application is the Plain theme. How could I relate that back to a JQuery theme? Plain would not be acceptable with JQuery Mobile. Therefore I had to do something different. I was able to use an attribute on the Theme Enum:</p>
-<script type="text/javascript" src="https://gist.github.com/87a15d10b39c4ab6f26a.js"></script>
-<p>I then overrode the WebViewPage to include logic to get the Theme as follows:</p>
-<script type="text/javascript" src="https://gist.github.com/cdd00afc29b4b4599ebb.js"></script>
-<p>As you can see, I have an extension method in place to get the string value of the enum. This then taps back into my String attribute as follows:</p>
-<script type="text/javascript" src="https://gist.github.com/94a594f634ee0aa1e3ae.js"></script>
-<p>This then allowed me to turn a simple readable string from a web.config, into something that JQuery Mobile could understand and parse as normal</p>
 ]]></content>
   </entry>
   

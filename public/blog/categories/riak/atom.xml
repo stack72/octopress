@@ -4,7 +4,7 @@
   <title><![CDATA[Category: riak | Adventures of a wannabe geek!]]></title>
   <link href="http://www.paulstack.co.uk/blog/categories/riak/atom.xml" rel="self"/>
   <link href="http://www.paulstack.co.uk/"/>
-  <updated>2016-01-15T12:05:33+00:00</updated>
+  <updated>2016-01-19T10:48:42+00:00</updated>
   <id>http://www.paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -20,7 +20,7 @@
     <id>http://www.paulstack.co.uk/blog/2016/01/15/replacing-a-node-in-a-riak-cluster</id>
     <content type="html"><![CDATA[<p>The instances that run in my infrastructure get a lifespan of 14 days. This allows me to continually test that I can replace my environment at any point. People always ask me if I follow the same principal for data nodes. I posted <a href="http://www.paulstack.co.uk/blog/2016/01/04/replacing-the-nodes-in-an-aws-elasticsearch-cluster/">previously</a> about replacing nodes is an <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> cluster, this post will detail how I replace  nodes in a <a href="http://basho.com/products/riak-kv/">Riak</a> cluster </p>
 
-<p><strong><em>NOTE</em></strong>: This post assumes that you have the <a href="http://docs.basho.com/riak/latest/ops/advanced/riak-control/*">Riak Control console</a> enabled for Riak. You can find out how to enable that in the <a href="http://www.paulstack.co.uk/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">post</a> I wrote on configuring Riak.</p>
+<p><strong><em>NOTE</em></strong>: This post assumes that you have the <a href="http://docs.basho.com/riak/latest/ops/advanced/riak-control/">Riak Control console</a> enabled for Riak. You can find out how to enable that in the <a href="http://www.paulstack.co.uk/blog/2016/01/06/building-a-riak-cluster-in-aws-with-packer-and-terraform/">post</a> I wrote on configuring Riak.</p>
 
 <p>When going to the Riak Control, you can find the following screens:</p>
 
@@ -164,7 +164,7 @@
 ```
 </p>
 
-<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install riak.</p>
+<p>The base playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install riak.</p>
 
 <p>The riak ansible role looks as follows:</p>
 

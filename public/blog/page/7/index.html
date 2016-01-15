@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="We have been meaning to write a post like this for a long time but have never really had the audacity to do so. We thought the time is right to do it &hellip;">
+  <meta name="description" content="Today, 06 June 2011, was the second Guathon London run the the DDD guys. On today&#8217;s session listing was ASP.NET MVC 3, Knockout.Js, C#5 and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,42 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/06/review-of-ddd-guathon-2/">Review of DDD Guathon 2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-06T00:00:00+01:00" pubdate data-updated="true">Jun 6<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today, 06 June 2011, was the second Guathon London run the the <a href="http://developerdeveloperdeveloper.com" target="_blank">DDD</a> guys. On today&#8217;s session listing was ASP.NET MVC 3, Knockout.Js, C#5 and asynchronous Web applications and cloud computing with Windows Azure.</p>  <p>First on the bill was <a href="http://twitter.com/scottgu" target="_blank">Scott Guthrie</a> to do a 2 hour round robin talk on building an app using ASP.NET MVC 3, EF Code First, NuGet, and IIS. This was a whirlwind talk as usual as there was so much to cover. It wasn’t anything new to me as I use these technologies on a day-to-day basis at work. I also used them to create <a href="http://www.givecamp.org.uk" target="_blank">GiveCamp UK</a>.</p>  <p><a href="http://twitter.com/stevensanderson" target="_blank">Steve Sanderson</a> then talked about <a href="http://knockoutjs.com" target="_blank">knockout.js</a>, his personal web UI framework. Knockout is a JavaScript library that helps you to create rich, responsive display and editor user interfaces with a clean underlying data model. This library uses an MVVM approach in order to bind data to a UI. The way of writing the code is very nice but I must admit I was not convinced of its usefulness to me in this short introduction to it. this was due to a number of reasons:</p>  <ul>   <li>non degradation of the JavaScript</li>    <li>I have questions about its accessibility</li>    <li>i have questions about how you would actually write maintainable tests for this framework</li> </ul>  <p>This is not to say I hate the framework. This just means that initially I must say that my barriers went up as it made me feel outside my comfort zone. I will have a look into it a bit more before I make my mind up on whether I’d use it or not. Right now I’m unconvinced.</p>  <p>After the lunch break, Steve Sanderson was back on stage to take about the use of the new C#5 features (async and await) in order to create asynchronous web applications in ASP.NET vNext. This mean that Steve showed off some of the new MVC4 features and used a NuGet package, called <a href="http://stack72.me/ku1am5 " target="_blank">SignalR</a>. The talk demonstrated how the syntax in MVC4 will be a lot cleaner and readable that MVC3 where we use the Async and Completed methods in order to carry out async tasks. It seems to me that async Task&lt;ActionResult&gt; will be of great use to me in the future.</p>  <p>Steve then talked about taking the real time web beyond ajax. The talk spoke about polling, long polling and web sockets. This was my first sight of web sockets and they look very useful although it was pointed out that it was not ready for production applications yet due to non finalised specification. Steve took the long polling example and showed how we can use async in a chat room and voting application. The demos looked simple and easy to read and the MVC4 code looked good</p>  <p>The last talk of the day was back to the ‘Gu’ himself. This time he was talking on cloud computing. Scott was quick to point out that this was his first time talking about Azure since he took his new job and that even though he had taken that job, he was still very much a part of the ASP.NET team.</p>  <p>This talk was split into numerous parts. The first few pointing out what Azure is, what it’s infrastructure is made up of and how to take a simple application, make it ‘cloud ready’ and then deploy to the Azure platform. The next part focused on fault tolerance and latency and this was useful to see. My experience of developers new to ‘the cloud’ is that they take a web app, deploy to the cloud and this it’s automatically scalable. This is of course not strictly true.</p>  <p>Scott then talked about using servicebus as a message queuing service to help create a more load levelled application. The scalability of applications created in this way, means that instances of an app can be increased at peak times through code, Azure management API or via service configuration file changes.&#160; The talk was then refocused on how the cloud has made data storage cheaper and more efficient as the cost has dropped considerably over the years. Storing terabytes of data is now not an issue. It was pointed out that Azure replicated data storage in 3 locations for availability and consistency.</p>  <p>Mentions of Sql Azure and Table storage were made and Scott explained the benefits they bring like auto backups, auto sharding etc. The final demo was federated security using <a href="http://msdn.microsoft.com/en-us/security/aa570351" target="_blank">WIF</a>. This allows the use of partner API’s (facebook Id, Google Id, Live id and active directory) in order for users to sign into your website. This was a new thing for me and I am annoyed I didn’t know of it before as it would have made the creation of GiveCamp UK easier.</p>  <p>Overall, I enjoyed the event. Thanks to <a href="http://twitter.com/plip" target="_blank">Phil Winstanley</a>, <a href="http://twitter.com/davesussman" target="_blank">Dave Sussman</a> and the DDD team for organising the event at short notice. Also thanks to Scott and Steve for coming along to speak. It is great to listen to presenters who really do know what they are talking about. It makes me jealous of all the folks heading to <a href="http://www.ndc2011.no/" target="_blank">NDC2011</a> to hear more of these kind of talks.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -501,56 +537,6 @@ In order to use this tool you can do it from the command line or you can hook it
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/04/07/using-sql-compare-from-the-command-line/">Using Sql Compare From the Command Line</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-07T00:00:00+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>In March, I wrote a post about how to <a href="http://paulstack.co.uk/blog/post/Extracting-a-Sql-Server-Schema-from-Sql-Server-CE-File.aspx" target="_blank">generate sql schema scripts from a SQL CE4 database file</a> from the command line. After working out how to do this I wanted to be able to take the generate sql server schema (in .sql file) and compare it against an existing schema. The resulting differences would then generate a sql change script.</p>
-<p>I tried <a href="http://www.red-gate.com/products/sql-development/sql-compare/" target="_blank">Sql Compare</a>, a Redgate tool, and this seemed to prove effective for what I was able to do. After doing a bit of research I was able to find out that Sql Compare isn&rsquo;t able to compare individual .sql files. BUT you could give it a directory path and compare ALL the .sql files in a directory.</p>
-<p>Previously I generated a schema.sql file and placed this file in the following folder: c:\temp\schema</p>
-<p>I had an old sql schema file that from previously investigatations with .sdf file. I took one of those files and put it in c:\temp\oldschema</p>
-<p>I was then able to run the command as follows from the command prompt:</p>
-<p>cd &#8220;C:\Program Files\SQL Compare 8&#8221;</p>
-<p>sqlcompare.exe    <br />&nbsp;&nbsp;&nbsp; /scr1:&#8221;C:\temp\new&#8221;     <br />&nbsp;&nbsp;&nbsp; /scr2:&#8221;C:\temp\oldschema&#8221;     <br />&nbsp;&nbsp;&nbsp; /o:Default     <br />&nbsp;&nbsp;&nbsp; /ScriptFile:&#8221;C:\temp\SqlChangeScript.sql&#8221;</p>
-<p>This script effectively says to compare the old schema files (scr2) against the new schema files (scr1) . O:/default specifies that the default options for comparison and synchronisation will be used. The resulting sql change script will be saved as SqlChangeScript.sql. I could have changed the last option from /ScriptFile to /sync which would have run the synchronisation in place and not produced the change file. I wanted the change file for version control and release history.</p>
-<p>When running this through the command line I was able to see the following:</p>
-<p><a href="http://paulstack.co.uk/blog/images/image_20.png"><img style="display: block; float: none; margin-left: auto; margin-right: auto; border: 0px;" title="image" src="http://paulstack.co.uk/blog/images/image_thumb_20.png" border="0" alt="image" width="398" height="245" /></a></p>
-<p>This worked perfectly and generated a change script that has everything rolled in a transaction to make sure no errors will run. The nice touch here is that there are messages printed when an action is started.</p>
-<p>I didnt want to keep 2 schema files on my build server for comparison so I then started to look at how to compare the new schema file against the database itself. Low and behold this is also available with Sql Compare and works as follows:</p>
-<p>sqlcompare.exe    <br />&nbsp;&nbsp;&nbsp; /scr1:&#8221;C:\temp\new&#8221;     <br />&nbsp;&nbsp;&nbsp; /Server2:&#8221;&lt;server name or ip&gt;&#8221; /db2:&#8221;&lt;database name&gt;&#8221;     <br />&nbsp;&nbsp;&nbsp; /o:Default     <br />&nbsp;&nbsp;&nbsp; /ScriptFile:&#8221;C:\temp\SchemaSyncScript.sql&#8221;</p>
-<p>The only difference here is to change the /scr2 to actually be a database instead of another sql server file.Again this worked as expected and created a nice sql change script that I could then use for database deployment.</p>
-<p>If you have any aspirations of automated database deployment then I think that you should try the trial of Sql Compare. It has been very useful for me. I&rsquo;m just very glad my company already had a company of it I could use for the build server. As this process can be run from command line it can also be run from MSBuild and as part of a TeamCity build. To be continued&hellip;&hellip;&hellip;&hellip;&hellip;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -575,6 +561,10 @@ In order to use this tool you can do it from the command line or you can hook it
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/15/building-an-autodiscovering-apache-zookeeper-cluster-in-aws-using-packer-ansible-and-terraform/">Building an Autodiscovering Apache Zookeeper Cluster in AWS Using Packer, Ansible and Terraform</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/">Replacing a Node in a Riak Cluster</a>
       </li>
     
@@ -588,10 +578,6 @@ In order to use this tool you can do it from the command line or you can hook it
     
       <li class="post">
         <a href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/">Deploying Kibana Using Nginx as an SSL Proxy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
       </li>
     
   </ul>

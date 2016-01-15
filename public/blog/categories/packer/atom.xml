@@ -4,7 +4,7 @@
   <title><![CDATA[Category: packer | Adventures of a wannabe geek!]]></title>
   <link href="http://www.paulstack.co.uk/blog/categories/packer/atom.xml" rel="self"/>
   <link href="http://www.paulstack.co.uk/"/>
-  <updated>2016-01-15T12:05:33+00:00</updated>
+  <updated>2016-01-19T10:48:42+00:00</updated>
   <id>http://www.paulstack.co.uk/</id>
   <author>
     <name><![CDATA[Paul Stack (@stack72)]]></name>
@@ -12,6 +12,260 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Building an Autodiscovering Apache Zookeeper Cluster in AWS using Packer, Ansible and Terraform]]></title>
+    <link href="http://www.paulstack.co.uk/blog/2016/01/15/building-an-autodiscovering-apache-zookeeper-cluster-in-aws-using-packer-ansible-and-terraform/"/>
+    <updated>2016-01-15T15:55:00+00:00</updated>
+    <id>http://www.paulstack.co.uk/blog/2016/01/15/building-an-autodiscovering-apache-zookeeper-cluster-in-aws-using-packer-ansible-and-terraform</id>
+    <content type="html"><![CDATA[<p>Following my <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">pattern</a> of building <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">AMIs</a> for applications, I create my <a href="https://zookeeper.apache.org/">Apache Zookeeper</a> cluster with <a href="https://packer.io/">Packer</a> for my AMI and <a href="https://terraform.io/">Terraform</a> for the infrastructure. This Zookeeper cluster is auto-discovering of the other nodes that are determined to be in the cluster</p>
+
+<h3>Building Zookeeper AMIs with Packer</h3>
+
+<p>The packer template looks as follows:</p>
+
+<p><br>
+<code>json
+{
+  &quot;variables&quot;: {
+    &quot;ami_id&quot;: &quot;&quot;,
+    &quot;private_subnet_id&quot;: &quot;&quot;,
+    &quot;security_group_id&quot;: &quot;&quot;,
+    &quot;packer_build_number&quot;: &quot;&quot;,
+  },
+  &quot;description&quot;: &quot;Zookeeper Image&quot;,
+  &quot;builders&quot;: [
+    {
+      &quot;ami_name&quot;: &quot;zookeeper-{{user `packer_build_number`}}&quot;,
+      &quot;availability_zone&quot;: &quot;eu-west-1a&quot;,
+      &quot;iam_instance_profile&quot;: &quot;app-server&quot;,
+      &quot;instance_type&quot;: &quot;t2.small&quot;,
+      &quot;region&quot;: &quot;eu-west-1&quot;,
+      &quot;run_tags&quot;: {
+        &quot;role&quot;: &quot;packer&quot;
+      },
+      &quot;security_group_ids&quot;: [
+        &quot;{{user `security_group_id`}}&quot;
+      ],
+      &quot;source_ami&quot;: &quot;{{user `ami_id`}}&quot;,
+      &quot;ssh_timeout&quot;: &quot;10m&quot;,
+      &quot;ssh_username&quot;: &quot;ubuntu&quot;,
+      &quot;subnet_id&quot;: &quot;{{user `private_subnet_id`}}&quot;,
+      &quot;tags&quot;: {
+        &quot;Name&quot;: &quot;zookeeper-packer-image&quot;
+      },
+      &quot;type&quot;: &quot;amazon-ebs&quot;
+    }
+  ],
+  &quot;provisioners&quot;: [
+    {
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;inline&quot;: [ &quot;sleep 10&quot; ]
+    },
+    {
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;script&quot;: &quot;install_dependencies.sh&quot;,
+      &quot;execute_command&quot;: &quot;echo &#39;&#39; | {{ .Vars }} sudo -E -S sh &#39;{{ .Path }}&#39;&quot;
+    },
+    {
+      &quot;type&quot;: &quot;ansible-local&quot;,
+      &quot;playbook_file&quot;: &quot;zookeeper.yml&quot;,
+      &quot;extra_arguments&quot;: [
+        &quot;--module-path=./modules&quot;
+      ],
+      &quot;playbook_dir&quot;: &quot;../../&quot;
+    }
+  ]
+}
+</code><br>
+</p>
+
+<p>The install_dependencies.sh script is as described <a href="http://www.paulstack.co.uk/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">previously</a></p>
+
+<p>The ansible playbook for Zookeeper looks as follows:</p>
+
+<p>
+```yaml
+- hosts: all
+  sudo: yes</p>
+
+<p>pre<em>tasks:
+    - ec2</em>tags:
+    - ec2_facts:</p>
+
+<p>roles:
+    - base
+    - zookeeper
+    - exhibitor
+```
+</p>
+
+<p>The base playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install zookeeper. As a last step, I install <a href="https://github.com/Netflix/exhibitor">exhibitor</a>. Exhibitor is a co-process for monitoring, backup/recovery, cleanup and visualization of zookeeper.</p>
+
+<p>The zookeeper ansible role looks as follows:</p>
+
+<p><br>
+```yaml<br>
+- name: Download ZooKeeper
+  get<em>url: url=http://www.mirrorservice.org/sites/ftp.apache.org/zookeeper/current/zookeeper-{{ zookeeper</em>version }}.tar.gz dest=/tmp/zookeeper-{{ zookeeper_version }}.tar.gz mode=0440</p>
+
+<ul>
+<li><p>name: Unpack Zookeeper
+command: tar xzf /tmp/zookeeper-{{ zookeeper<em>version }}.tar.gz -C /opt/ creates=/opt/zookeeper-{{ zookeeper</em>version }}</p></li>
+<li><p>name: Link to Zookeeper Directory
+file: src=/opt/zookeeper-{{ zookeeper_version }}
+    dest=/opt/zookeeper
+    state=link
+    force=yes</p></li>
+<li><p>name: Create zookeeper group
+group: name=zookeeper system=true state=present</p></li>
+<li><p>name: Create zookeeper user
+user: name=zookeeper groups=zookeeper system=true home=/opt/zookeeper</p></li>
+<li><p>name: Create Zookeeper Config Dir
+file: path={{zookeeper<em>conf</em>dir}} owner=zookeeper group=zookeeper recurse=yes state=directory mode=0644</p></li>
+<li><p>name: Create Zookeeper Transations Dir
+file: path=/opt/zookeeper/transactions owner=zookeeper group=zookeeper recurse=yes state=directory mode=0644</p></li>
+<li><p>name: Create Zookeeper Log Dir
+file: path={{zookeeper<em>log</em>dir}} owner=zookeeper group=zookeeper recurse=yes state=directory mode=0644</p></li>
+<li><p>name: Create Zookeeper DataStore Dir
+file: path={{zookeeper<em>datastore</em>dir}} owner=zookeeper group=zookeeper recurse=yes state=directory mode=0644</p></li>
+<li><p>name: Setup log4j
+template: dest=&quot;{{zookeeper<em>conf</em>dir}}/log4j.properties&quot; owner=root group=root mode=644 src=log4j.properties.j2
+```
+</p></li>
+</ul>
+
+<p>The role itself is very simple. The zookeeper cluster is managed by exhibitor so there are very few settings passed to zookeeper at this point. One thing to note though, this requires an installation of the <a href="http://docs.oracle.com/javase/7/docs/webnotes/install/">Java JDK</a> to work.</p>
+
+<p>The exhibitor playbook looks as follows:</p>
+
+<p><br>
+```yaml<br>
+- name: Install Maven
+  apt: pkg=maven state=latest update_cache=yes</p>
+
+<ul>
+<li><p>name: Create Exhibitor Install Dir
+file: path={{ exhibitor<em>install</em>dir }} state=directory mode=0644</p></li>
+<li><p>name: Create Exhibitor Build Dir
+file: path={{ exhibitor<em>install</em>dir }}/{{ exhibitor_version }} state=directory mode=0644</p></li>
+<li><p>name: Create Exhibitor POM
+template: src=pom.xml.j2
+        dest={{ exhibitor<em>install</em>dir }}/{{ exhibitor_version }}/pom.xml</p></li>
+<li><p>name: Build Exhibitor jar
+command: &#39;/usr/bin/mvn clean package -f {{ exhibitor<em>install</em>dir }}/{{ exhibitor<em>version }}/pom.xml creates={{ exhibitor</em>install<em>dir }}/{{ exhibitor</em>version }}/target/exhibitor-{{ exhibitor_version }}.jar&#39;</p></li>
+<li><p>name: Copy Exhibitor jar
+command: &#39;cp {{ exhibitor<em>install</em>dir }}/{{ exhibitor<em>version }}/target/exhibitor-{{ exhibitor</em>version }}.jar {{exhibitor<em>install</em>dir}}/exhibitor-standalone-{{ exhibitor<em>version }}.jar creates={{exhibitor</em>install<em>dir}}/exhibitor-standalone-{{ exhibitor</em>version }}.jar&#39;</p></li>
+<li><p>name: Exhibitor Properties Config
+template: src=exhibitor.properties.j2
+        dest={{ exhibitor<em>install</em>dir }}/exhibitor.properties</p></li>
+<li><p>name: exhibitor upstart config
+template: src=upstart.j2 dest=/etc/init/exhibitor.conf mode=644 owner=root</p></li>
+<li><p>service: name=exhibitor state=started
+```<br>
+</p></li>
+</ul>
+
+<p>This role has a lot more configuration to set as it essentially manages zookeeper. The <a href="https://gist.github.com/stack72/e5ccf1bb2bc5da484712">template files</a> for configuration are all available to download.</p>
+
+<p>The variables for the entire playbook look as follows:</p>
+<div class="highlight"><pre><code class="text">zookeeper_hosts: &quot;:2181&quot;
+zookeeper_version: 3.4.6
+zookeeper_conf_dir: /etc/zookeeper/conf
+zookeeper_log_dir: /var/log/zookeeper
+zookeeper_datastore_dir: /var/lib/zookeeper
+zk_s3_bucket_name: &quot;mys3bucket&quot;
+monasca_log_level: WARN
+exhibitor_version: 1.5.5
+exhibitor_install_dir: /opt/exhibitor
+</code></pre></div>
+<p>The main thing to note here is that the exhibitor process starts with the following configuration:</p>
+
+<p>
+<code>bash
+exec java -jar {{ exhibitor_install_dir }}/exhibitor-standalone-{{exhibitor_version}}.jar --port 8181 --defaultconfig /opt/exhibitor/exhibitor.properties --configtype s3 --s3config {{ zk_s3_bucket_name }}:{{ ansible_ec2_placement_region }} --s3backup true --hostname {{ ec2_private_ip_address }} &gt; /var/log/exhibitor.log 2&gt;&amp;1
+</code> 
+</p>
+
+<p>This means that the node will check itself into a configuration file in S3 and that all other zookeepers will read the same configuration file and can form the cluster required. You can read more about Exhibitor shared configuration on their <a href="https://github.com/Netflix/exhibitor/wiki/Shared-Configuration">github wiki</a>.</p>
+
+<p>When I launch the instances now, the zookeeper cluster will be formed</p>
+
+<h3>Deploying Zookeeper Infrastructure with Terraform</h3>
+
+<p>The infrastructure of the Zookeeper cluster is pretty simple:</p>
+
+<p>
+```
+resource &quot;aws<em>security</em>group&quot; &quot;zookeeper&quot; {
+  name = &quot;digit-zookeeper-sg&quot;
+  description = &quot;Zookeeper Security Group&quot;
+  vpc<em>id = &quot;${aws</em>vpc.default.id}&quot;</p>
+
+<p>ingress {
+    from<em>port = 0
+    to</em>port   = 0
+    protocol  = &quot;-1&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }</p>
+
+<p>egress {
+    from<em>port = &quot;0&quot;
+    to</em>port = &quot;0&quot;
+    protocol = &quot;-1&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }</p>
+
+<p>tags {
+    Name = &quot;ZooKeeper Node&quot;
+  }
+}</p>
+
+<p>resource &quot;aws<em>launch</em>configuration&quot; &quot;zookeeper<em>launch</em>config&quot; {
+  image<em>id = &quot;${var.zookeeper</em>ami<em>id}&quot;
+  instance</em>type = &quot;${var.zookeeper<em>instance</em>type}&quot;
+  iam<em>instance</em>profile = &quot;zookeeper-server&quot;
+  key<em>name = &quot;${aws</em>key<em>pair.terraform.key</em>name}&quot;
+  security<em>groups = [&quot;${aws</em>security<em>group.zookeeper.id}&quot;,&quot;${aws</em>security<em>group.node.id}&quot;]
+  enable</em>monitoring = false</p>
+
+<p>lifecycle {
+    create<em>before</em>destroy = true
+  }</p>
+
+<p>root<em>block</em>device {
+    volume<em>size = &quot;${var.digit</em>zookeeper<em>volume</em>size}&quot;
+  }
+}</p>
+
+<p>resource &quot;aws<em>autoscaling</em>group&quot; &quot;zookeeper<em>autoscale</em>group&quot; {
+  name = &quot;zookeeper-autoscale-group&quot;
+  availability<em>zones = [&quot;${aws</em>subnet.primary-private.availability<em>zone}&quot;,&quot;${aws</em>subnet.secondary-private.availability<em>zone}&quot;,&quot;${aws</em>subnet.tertiary-private.availability<em>zone}&quot;]
+  vpc</em>zone<em>identifier = [&quot;${aws</em>subnet.primary-private.id}&quot;,&quot;${aws<em>subnet.secondary-private.id}&quot;,&quot;${aws</em>subnet.tertiary-private.id}&quot;]  launch<em>configuration = &quot;${aws</em>launch<em>configuration.zookeeper</em>launch<em>config.id}&quot;
+  min</em>size = 0
+  max_size = 100
+  desired = 3</p>
+
+<p>tag {
+    key = &quot;Name&quot;
+    value = &quot;zookeeper&quot;
+    propagate<em>at</em>launch = true
+  }</p>
+
+<p>tag {
+    key = &quot;role&quot;
+    value = &quot;zookeeper&quot;
+    propagate<em>at</em>launch = true
+  }
+}</p>
+<div class="highlight"><pre><code class="text">
+
+When Terraform is applied here, a 3 node cluster of zookeeper will be created. You can go to [exhibitor](http://mynodeip:8181/exhibitor/v1/ui/index.html) and see the configuration e.g.
+
+![Image](/images/exhibitor-zookeeper-cluster.png)
+![Image](/images/exhibitor-zookeeper-cluster-config.png)
+</code></pre></div>]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Building a Riak Cluster in AWS with Packer and Terraform]]></title>
@@ -97,7 +351,7 @@
 ```
 </p>
 
-<p>The playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install riak.</p>
+<p>The base playbook installs a base role for all the base pieces of my system (e.g. Logstash, Sensu-client, prometheus node_exporter) and then proceeds to install riak.</p>
 
 <p>The riak ansible role looks as follows:</p>
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Paul Stack (@stack72)">
 
   
-  <meta name="description" content="2011 was an excellent year for me. Unfortunately I didn&rsquo;t see the point in setting myself clear personal goals for it.&nbsp; But here is my &hellip;">
+  <meta name="description" content="I look to Nuget as the package manager for Windows development in the same way that RubyGems is to Ruby development. This may be immature of me but &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/12/29/features-nuget-would-benefit-from/">Features Nuget Would Benefit From</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-29T00:00:00+00:00" pubdate data-updated="true">Dec 29<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I look to <a href="http://nuget.org/">Nuget</a> as the package manager for Windows development in the same way that <a href="http://rubygems.org/">RubyGems</a> is to Ruby development. This may be immature of me but it works for my scenarios. In comparing the different systems, I feel that Nuget is lacking a few key features that sometimes I look for.</p>
+<h4>1. Install a specific version of a package</h4>
+<p>Currently from the Nuget console in Visual Studio a command like the following is run:</p>
+<p><strong>Install-package TeamCitySharp</strong></p>
+<p>This would install the <em>latest</em> package available. This is sometimes not always the best solution. If the package owner releases a package that has a bug in it then we cannot use the package at all. I would like the be able to install a version of the package that I know works:</p>
+<p><strong>Install-package TeamCitySharp &ndash;version:0.2</strong></p>
+<p>This would mean I can then update at a time when I am happy with the new package or when a fix has been added.</p>
+<h4>2. Download package direct from the Nuget gallery</h4>
+<p>I may want to download&nbsp; package without the need to open the Nuget console. A simple download link would be a welcome addition to be able to help this.</p>
+<h4>3. Global installation of a package</h4>
+<p>Currently, you would select the project from the list in the console and then call the install command. I would like to be able able install a package to a number of packages. For example, I have 20 unit test assemblies. I wouldn&#8217;t want to have to type the command to install NUnit 20 times. I would like to be able to do something like:</p>
+<p>Install-package NUnit&nbsp; -include *.UnitTest.dll &ndash;exclude *.config</p>
+<p>This would utilise the full power of the PowerShell console. This is purely a timesaver and would help when working in a multi project environment.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -495,49 +543,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/28/is-sql-the-barrier-to-continuous-deployment/">Is SQL the Barrier to Continuous Deployment?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-09-28T00:00:00+01:00" pubdate data-updated="true">Sep 28<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When it comes to the step between continuous delivery and continuous deployment (automated release of <strong>every</strong> good build), then the barrier I hear most often is <em>automated deployments work fine until we have database changes.</em></p>
-<p>Can we be confident in saying that database deployments are the only barrier to continuous deployment? Probably not the only barrier, but there are a large part of the puzzle. There will be other factors, e.g. audit regulations regarding sign off of releases etc., but I don&rsquo;t think I would be frowned upon by agreeing with this statement.</p>
-<p>I know there are many great tools out there will will help us overcome sql changes. Redgate&rsquo;s <a href="http://www.red-gate.com/products/sql-development/sql-compare/" target="_blank">Sql Compare</a> can take 2 schemas and compare them to create a change script and a rollback script. This can be controlled by a CI tool. Others do a similar job, but Sql Compare is one I use regularly. Sql Server management studio can also be manipulated very easily via msbuild. So I can assure you it is <strong>very easy</strong> to automate sql deployments. But it scares a lot of people as they are worried they will kill their database. This is not a fear that is uncalled for if I am truthful.</p>
-<p>Since there is the fear of damaging the database, some companies who are already doing continuous deployment will actively &lsquo;skip&rsquo; a deployment when sql changes are involved. This involves using VCS hooks. A typical hook would be the presence of a commit message, e.g. #Skip Deployment. This would then let source control / CI server know to handle the commit without the need for a deployment.</p>
-<p>Back in late 2010, I was introduced to the concept of NoSQL databases. This is essentially any type of store that doe not use a relational model. I have been looking at NoSQL more and more and have recently pondered &lsquo;how easy would NoSQL based systems be to include in a continuous deployment system&rsquo;?</p>
-<p>I <span style="text-decoration: underline;">thought</span> the answer was that NoSQL <strong>was</strong> indeed the missing piece of the continuous deployment puzzle. If companies were only ever deploying code then that&rsquo;s easy right? Things are never that easy though. I looked further and then thought that if data was held in a store (of any kind) in a specific structure then how could we retrieve that data if the structure changed with the next system deployment.</p>
-<p>I asked <a href="http://twitter.com/robashton" target="_blank">Rob Ashton</a>, a well know presenter of <a href="http://ravendb.net/" target="_blank">Raven DB</a>, this question. Rob said that it wouldn&rsquo;t work unless you ran some sort of data migration against the data structures or versioned them in some way. So, in essence it was a no! I&rsquo;m not disagreeing with Rob by any means but I still think NoSQL systems have got scope built in to allow us to handle automated deployments a little easier. As part of our development task, we could write the migration scripts for the data. We would have to do this anyway if we worked in a sql world. I&rsquo;m a coder, not a sql developer. Therefore I would be a lot happier writing code migrations rather than sql migrations. This means I would also be a lot happier about deployments where only code changes were involved.</p>
-<p>I have not had time to try this approach as I am not skilled by any means in using NoSQL. So in essence, this is a theory but I am confident it has some wheels. What do you think?&hellip;&hellip;&hellip;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -562,6 +567,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/15/building-an-autodiscovering-apache-zookeeper-cluster-in-aws-using-packer-ansible-and-terraform/">Building an Autodiscovering Apache Zookeeper Cluster in AWS Using Packer, Ansible and Terraform</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/15/replacing-a-node-in-a-riak-cluster/">Replacing a Node in a Riak Cluster</a>
       </li>
     
@@ -575,10 +584,6 @@
     
       <li class="post">
         <a href="/blog/2016/01/03/deploying-kibana-using-nginx-as-an-ssl-proxy/">Deploying Kibana Using Nginx as an SSL Proxy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/02/building-an-elasticsearch-cluster-in-aws-with-packer-and-terraform/">Building an ElasticSearch Cluster in AWS With Packer and Terraform</a>
       </li>
     
   </ul>
