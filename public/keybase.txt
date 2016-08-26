@@ -1,0 +1,69 @@
+==================================================================
+https://keybase.io/stack72
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://paulstack.co.uk
+  * I am stack72 (https://keybase.io/stack72) on keybase.
+  * I have a public key with fingerprint 8517 5217 5859 7E0B 426C  E880 C4F0 D82D B144 762A
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0101e4d8a4ee62bd7e71e49ed3bc394b806cc321fe407142ca8ca96df6e0ac6e630e0a",
+            "fingerprint": "8517521758597e0b426ce880c4f0d82db144762a",
+            "host": "keybase.io",
+            "key_id": "c4f0d82db144762a",
+            "kid": "0101e4d8a4ee62bd7e71e49ed3bc394b806cc321fe407142ca8ca96df6e0ac6e630e0a",
+            "uid": "000310e854dc48d29dc2cd231d3a6619",
+            "username": "stack72"
+        },
+        "service": {
+            "hostname": "paulstack.co.uk",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1472217021,
+    "expire_in": 157680000,
+    "prev": "906471d9c9f8859d17fd7da37c1856e2bab1d4c36cb0ee613202e10c9c10ec4d",
+    "seqno": 14,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.56
+Comment: https://keybase.io/crypto
+
+yMIoAnicrVJbSFRBGF4tKxeMSk0sETxSlNkyM+fsnHPWRLSb1kNFiRXCds7MrJ5W
+96y7Zy1RHwryJYTCHgqhNCq6E9EFL4WahSQShVoPee9eEEraS7c5Vm899jDM/P98
+3/f//zfTHTfH4Yx62RT+lF2Ix6N6O09FHEUdOfeqBd2kVYKnWvCz2Y2VURa2vH6D
+Ch4BQACZRBVNYgwjncpM5rHKqKgTUZV0BWBCRAR9TAIylBDRFKKpmPowAxrBDIuA
+H4RMwWcESlgoGDICFpdV3FB2I74UtyozoEsIE6YogEg+QBVEdShJMkY2sdQM2wze
+nK6FmcsweY4H3tn2/oH/z31HfssBIELAFLdEiaRQpFKCCEUipKKGMVRtYJiFAlo5
+4+iwpRG/jITaTIEnKw3CbF/tQf4AglqkbBbkIqYr4ufsYMi0TGKW8ctSywp6bK5V
+FbTBB5ju/SPj1Y0A5UZyQiULhQ0zIHggRxLLsHWhJCNuKkAwU2AHg0aIeQ0b4Zax
+wicAdhlWySVVgCUZUpWoPoW/AIWyj8pUE2UCFTdmSNd0SCUiYqID7h8UEUAMAqIS
+bgKRqGAPVhEw7ZK8T63EHtooCWhWJMSE2q6O4rmOKKdjXky0/cMczthFf//dwm3z
+vy+trbjor6uThZrbCa/K13pefki5eLPrRvQm17rB0I6Ehv6igc/R+oL4sS0/3xZA
+x9TKSV/y3UYn+3B6TWGs1f5kqq13f8PP6vhLba+TMpqzM1r2bnzQJPSljHenJ1an
+7oG7J44PPi6aSMxvPzFwuPH59PDqketLT7/I+bhhWe67nvHcUidqEce2n11+JTlv
+R+qdmYJuFN+5a9+7qRUwqRnrt5Qlo98emsHLuLul/sj69hz8dTh5pa+lPnP0XPzW
+Y8tf/Hg/kDr/fuubq4vTTw4e6pyYOdOaVhzzLG8aT36ZWXW0aXPC3U1DTyf6e7Iu
+XMtKg+d3umv6xoby4zpaH42Muw78+AUu4EZ/
+=pV5O
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/stack72
+
+==================================================================
+
