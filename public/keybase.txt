@@ -4,7 +4,7 @@ https://keybase.io/stack72
 
 I hereby claim:
 
-  * I am an admin of http://paulstack.co.uk
+  * I am an admin of http://www.paulstack.co.uk
   * I am stack72 (https://keybase.io/stack72) on keybase.
   * I have a public key with fingerprint 8517 5217 5859 7E0B 426C  E880 C4F0 D82D B144 762A
 
@@ -22,16 +22,16 @@ To do so, I am signing this object:
             "username": "stack72"
         },
         "service": {
-            "hostname": "paulstack.co.uk",
+            "hostname": "www.paulstack.co.uk",
             "protocol": "http:"
         },
         "type": "web_service_binding",
         "version": 1
     },
-    "ctime": 1472217021,
+    "ctime": 1472217160,
     "expire_in": 157680000,
-    "prev": "906471d9c9f8859d17fd7da37c1856e2bab1d4c36cb0ee613202e10c9c10ec4d",
-    "seqno": 14,
+    "prev": "54eeaba3488897edc9148ab7fb1de5880a49fe6b8322fbe5e8b1a0077ef039d3",
+    "seqno": 15,
     "tag": "signature"
 }
 
@@ -41,23 +41,23 @@ which yields the signature:
 Version: Keybase OpenPGP v2.0.56
 Comment: https://keybase.io/crypto
 
-yMIoAnicrVJbSFRBGF4tKxeMSk0sETxSlNkyM+fsnHPWRLSb1kNFiRXCds7MrJ5W
-96y7Zy1RHwryJYTCHgqhNCq6E9EFL4WahSQShVoPee9eEEraS7c5Vm899jDM/P98
-3/f//zfTHTfH4Yx62RT+lF2Ix6N6O09FHEUdOfeqBd2kVYKnWvCz2Y2VURa2vH6D
-Ch4BQACZRBVNYgwjncpM5rHKqKgTUZV0BWBCRAR9TAIylBDRFKKpmPowAxrBDIuA
-H4RMwWcESlgoGDICFpdV3FB2I74UtyozoEsIE6YogEg+QBVEdShJMkY2sdQM2wze
-nK6FmcsweY4H3tn2/oH/z31HfssBIELAFLdEiaRQpFKCCEUipKKGMVRtYJiFAlo5
-4+iwpRG/jITaTIEnKw3CbF/tQf4AglqkbBbkIqYr4ufsYMi0TGKW8ctSywp6bK5V
-FbTBB5ju/SPj1Y0A5UZyQiULhQ0zIHggRxLLsHWhJCNuKkAwU2AHg0aIeQ0b4Zax
-wicAdhlWySVVgCUZUpWoPoW/AIWyj8pUE2UCFTdmSNd0SCUiYqID7h8UEUAMAqIS
-bgKRqGAPVhEw7ZK8T63EHtooCWhWJMSE2q6O4rmOKKdjXky0/cMczthFf//dwm3z
-vy+trbjor6uThZrbCa/K13pefki5eLPrRvQm17rB0I6Ehv6igc/R+oL4sS0/3xZA
-x9TKSV/y3UYn+3B6TWGs1f5kqq13f8PP6vhLba+TMpqzM1r2bnzQJPSljHenJ1an
-7oG7J44PPi6aSMxvPzFwuPH59PDqketLT7/I+bhhWe67nvHcUidqEce2n11+JTlv
-R+qdmYJuFN+5a9+7qRUwqRnrt5Qlo98emsHLuLul/sj69hz8dTh5pa+lPnP0XPzW
-Y8tf/Hg/kDr/fuubq4vTTw4e6pyYOdOaVhzzLG8aT36ZWXW0aXPC3U1DTyf6e7Iu
-XMtKg+d3umv6xoby4zpaH42Muw78+AUu4EZ/
-=pV5O
+yMIpAnicrVJdSBRRFN7N1FwxKtOHemqMsrDt3pnZmTtLlkVGJCQo0p+1zdx71wbX
+mW12dlVsIVmKhIigHjSojP5QCytQyqhMMh9kodRCKwiNJEIQIoPoh+5s9dZjD5d7
+z+H7vnu+c86TnDSXx/2mPTJTXCVNuYcfn4+6dvWXbG/iNJM0cv4mrpamLhoiNGIH
+anXC+TkAAaQiQapIqcRrRKYyixVKBA0LiqghIGEs8DBIRSBDkccqwqoikaBEgYol
+KgmAPbgiLqgbNdQKW7phM1nkg7KPZwf5FJkCTeQlTBECWAwCgniiQVGUJd4hHjIj
+DoMVp6kR6tVNlmNBIFXeP/D/ue7obzkABAgo8okEi4jwCsE8JrwAiaBKElQcYIRa
+hlpHGTpiq7hW5rl4EceSMR1Tp6+OkT+A+vp6b1iNhlJALza90VqmELZM28RmiAEO
+2XbY7/DtxnCKQLXAH6mAphuENZMRYtSK6KbB+SFDYlt3tKEo86yxUAJFHG0I6xYN
+6A7CJ0uIuQDONzTGJH2sM6qmCiJCiM2AYAWKSNXkoAYJ9bFZqKISpJKGBJ4PatRH
+kQZVAGSZBoGgEIFzzB02TEeb1anWOMb1GkO1oxbl4gP91fNdbo8rI32es2UuT9ai
+v7v39P4CV0f26Qf7StDRtduS6Z6dl+aezy0vnzj3Ui/19nUPGvnk2IGy45fHh573
+h5PNQ9bSDFfJ2Mqe3Xk71rizWzf/VO6CgZvFnXbyttmxt7vlWZb0afr67B3rwter
+ub0jSxNlHz7H4w++N6zq2e5/e6Dw4Ab48Urp/kRnaKwrc7C5NDm5/BZ38lN5WyWe
+bsOJhWknzjZ2t45MfY3l6r2DlTdyE48utu15IWTP3mstPrP+iFn3sCmkbczKeV21
+JPEOz3kSu2B3TzMcPxVeNznbfnH6wrK+fM/qtIYK4+e8FVsnKr61jFbwcDTzx/SW
+ZBeesK5V7yl4/WpmGHzJ2xQqeF+4uOsXx/hEoQ==
+=H7Hc
 -----END PGP MESSAGE-----
 
 And finally, I am proving ownership of this host by posting or
